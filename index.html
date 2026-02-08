@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ИИ-платформа управления инвестициями МПИТ</title>
     <style>
+        /* Стили остаются без изменений */
         * {
             margin: 0;
             padding: 0;
@@ -1040,9 +1041,34 @@
     </div>
 
     <script>
-        // База данных компаний
+        // База данных компаний с Мобайл Парк ИТ
         const companyDatabase = {
             "7701234567": {
+                name: "Мобайл Парк ИТ",
+                details: "Мобильные решения, парковочные системы, 320 сотрудников",
+                investmentAmount: "250000000",
+                investmentPeriod: "30",
+                historicalRoi: "24.5",
+                riskTolerance: "15",
+                rdBudget: "22",
+                projectCount: "14",
+                currentRdSuccess: "48",
+                currentPaybackPeriod: "14.5",
+                customerCount: "185",
+                currentChurn: "11.3",
+                avgLtv: "950000",
+                keyCustomersShare: "52",
+                infraCapex: "32000000",
+                unplannedDowntime: "6.8",
+                maintenanceCost: "15000000",
+                historicalData: {
+                    portfolioRoi: "22.8",
+                    ineffectiveInvestments: "22",
+                    customerRetention: "88.7",
+                    rdEfficiency: "45"
+                }
+            },
+            "7712345678": {
                 name: "ТехноПрогресс Инновации",
                 details: "ИТ-услуги, разработка ПО, 250 сотрудников",
                 investmentAmount: "150000000",
@@ -1067,7 +1093,7 @@
                     rdEfficiency: "32"
                 }
             },
-            "7712345678": {
+            "7723456789": {
                 name: "Роботех Системы",
                 details: "Робототехника, автоматизация, 180 сотрудников",
                 investmentAmount: "80000000",
@@ -1090,31 +1116,6 @@
                     ineffectiveInvestments: "35",
                     customerRetention: "90.2",
                     rdEfficiency: "27"
-                }
-            },
-            "7723456789": {
-                name: "АйтиРешения Групп",
-                details: "Корпоративные ИТ-решения, 400 сотрудников",
-                investmentAmount: "300000000",
-                investmentPeriod: "36",
-                historicalRoi: "15.8",
-                riskTolerance: "8",
-                rdBudget: "12",
-                projectCount: "15",
-                currentRdSuccess: "42",
-                currentPaybackPeriod: "16",
-                customerCount: "210",
-                currentChurn: "18.5",
-                avgLtv: "680000",
-                keyCustomersShare: "38",
-                infraCapex: "45000000",
-                unplannedDowntime: "12.5",
-                maintenanceCost: "22000000",
-                historicalData: {
-                    portfolioRoi: "14.2",
-                    ineffectiveInvestments: "45",
-                    customerRetention: "81.5",
-                    rdEfficiency: "38"
                 }
             }
         };
@@ -1149,7 +1150,7 @@
 
         // Сделать поля редактируемыми
         function makeAllFieldsEditable() {
-            const inputs = document.querySelectorAll('#input-section input, #input-section select');
+            const inputs = document.querySelectorAll('.input-section input, .input-section select');
             inputs.forEach(input => {
                 if (input.id && input.id !== 'companyINN') {
                     input.classList.add('editable');
@@ -1176,7 +1177,7 @@
 
         // Сохранить оригинальные значения
         function saveOriginalValues() {
-            const inputs = document.querySelectorAll('#input-section input');
+            const inputs = document.querySelectorAll('.input-section input');
             inputs.forEach(input => {
                 if (input.id) {
                     originalValues[input.id] = input.value;
@@ -1248,7 +1249,7 @@
             const rdBudget = parseFloat(document.getElementById('rdBudget').value) || 15;
             const projectCount = parseInt(document.getElementById('projectCount').value) || 10;
             const currentRdSuccess = parseFloat(document.getElementById('currentRdSuccess').value) || 30;
-            const currentPaybackPeriod = parseInt(document.getElementById('currentPaybackPeriod').value) || 18;
+            const currentPaybackPeriod = parseFloat(document.getElementById('currentPaybackPeriod').value) || 18;
             const customerCount = parseInt(document.getElementById('customerCount').value.replace(/\s/g, '')) || 100;
             const currentChurn = parseFloat(document.getElementById('currentChurn').value) || 15;
             const avgLtv = parseFloat(document.getElementById('avgLtv').value.replace(/\s/g, '').replace('₽', '')) || 500000;
@@ -1267,15 +1268,16 @@
                 rdEfficiency: "35"
             };
             
-            // Рассчитываем улучшения от ИИ
+            // Рассчитываем улучшения от ИИ (месяца сокращаем до десятых)
             const aiImprovements = {
                 roi: Math.min(30, historicalRoi + 3.5 + (riskTolerance / 10)),
-                churnReduction: Math.max(3, currentChurn * 0.45),
+                churnReduction: parseFloat(Math.max(3, currentChurn * 0.45).toFixed(1)),
                 rdEfficiency: Math.min(75, currentRdSuccess + 25 + (rdBudget / 5)),
-                paybackImprovement: Math.max(6, currentPaybackPeriod * 0.65),
+                // ВАЖНО: месяцы округляем до десятых
+                paybackImprovement: parseFloat(Math.max(6, currentPaybackPeriod * 0.65).toFixed(1)),
                 segmentHigh: Math.round(customerCount * 0.15),
                 ltvGrowth: Math.round(avgLtv * 1.32),
-                downtimeReduction: Math.max(1, unplannedDowntime * 0.4),
+                downtimeReduction: parseFloat(Math.max(1, unplannedDowntime * 0.4).toFixed(1)),
                 capexSavings: Math.round(infraCapex * 0.18),
                 portfolioRoiWithAI: Math.min(28, parseFloat(historicalData.portfolioRoi) + 4.2),
                 ineffectiveInvestmentsAI: Math.max(8, parseFloat(historicalData.ineffectiveInvestments) * 0.55)
@@ -1302,14 +1304,15 @@
                 aiImprovements
             };
             
-            // Обновляем метрики
+            // Обновляем метрики (месяца показываем с десятыми)
             document.getElementById('roiValue').textContent = aiImprovements.roi.toFixed(1) + '%';
             document.getElementById('roiSubtitle').textContent = `Целевой: 22% | Без ИИ: ${historicalRoi.toFixed(1)}%`;
             
-            document.getElementById('churnValue').textContent = aiImprovements.churnReduction.toFixed(1) + '%';
+            document.getElementById('churnValue').textContent = aiImprovements.churnReduction + '%';
             document.getElementById('churnSubtitle').textContent = `Целевой: <6% | Без ИИ: ${currentChurn.toFixed(1)}%`;
             
             document.getElementById('rdValue').textContent = aiImprovements.rdEfficiency.toFixed(0) + '%';
+            // МЕСЯЦА показываем с десятыми
             document.getElementById('rdSubtitle').textContent = `Проекты окупаются за ${aiImprovements.paybackImprovement} мес.`;
             
             // Обновляем аналитические модели
@@ -1321,7 +1324,8 @@
             const rdRedistribution = `${Math.round(rdBudget * 0.6)}% → высокоэффективные, ${Math.round(rdBudget * 0.3)}% → средние, ${Math.round(rdBudget * 0.1)}% → низкие`;
             document.getElementById('rdRedistribution').textContent = rdRedistribution;
             document.getElementById('fastProjects').textContent = Math.round(projectCount * 0.45) + ' из ' + projectCount;
-            document.getElementById('timeOptimization').textContent = '-' + (currentPaybackPeriod - aiImprovements.paybackImprovement) + ' мес.';
+            // МЕСЯЦА сокращаем до десятых
+            document.getElementById('timeOptimization').textContent = '-' + (currentPaybackPeriod - aiImprovements.paybackImprovement).toFixed(1) + ' мес.';
             document.getElementById('revenueGrowth').textContent = formatNumber(Math.round(investmentAmount * (aiImprovements.roi/100) * 0.3)) + ' ₽';
             
             document.getElementById('downtimeReduction').textContent = '-' + (unplannedDowntime - aiImprovements.downtimeReduction).toFixed(1) + '%';
@@ -1355,7 +1359,7 @@
             document.getElementById('exportExcelBtn').disabled = false;
             
             // Добавляем рекомендации
-            generateRecommendations(aiImprovements, investmentAmount, currentChurn, unplannedDowntime);
+            generateRecommendations(aiImprovements, investmentAmount, currentChurn, unplannedDowntime, currentPaybackPeriod);
             
             showNotification('Анализ завершен. Получены рекомендации по внедрению ИИ', 'success');
         }
@@ -1373,8 +1377,11 @@
         }
 
         // Генерация рекомендаций
-        function generateRecommendations(aiImprovements, investmentAmount, currentChurn, unplannedDowntime) {
+        function generateRecommendations(aiImprovements, investmentAmount, currentChurn, unplannedDowntime, currentPaybackPeriod) {
             const recommendationsSection = document.getElementById('recommendationsSection');
+            
+            // Рассчитываем процент улучшения окупаемости
+            const paybackImprovementPercent = Math.round((1 - aiImprovements.paybackImprovement/currentPaybackPeriod) * 100);
             
             const recommendationsHTML = `
                 <h2 class="section-title">Рекомендации по внедрению ИИ</h2>
@@ -1395,7 +1402,7 @@
                         <div class="rec-impact">Средний эффект</div>
                     </div>
                     <div class="rec-details">
-                        Q-learning алгоритм перераспределит R&D бюджет, увеличив долю окупаемых проектов до ${aiImprovements.rdEfficiency.toFixed(0)}% и сократив сроки окупаемости на ${Math.round((1 - aiImprovements.paybackImprovement/currentChurn)*100)}%.
+                        Q-learning алгоритм перераспределит R&D бюджет, увеличив долю окупаемых проектов до ${aiImprovements.rdEfficiency.toFixed(0)}% и сократив сроки окупаемости на ${paybackImprovementPercent}%.
                         <span class="risk-indicator medium-risk">Средний риск</span>
                     </div>
                 </div>
@@ -1518,30 +1525,30 @@
 
         // Скачать шаблон CSV
         function downloadTemplateCSV() {
-            const template = `companyName,Тестовая компания
-companyDetails,Описание компании
-investmentAmount,100000000
-investmentPeriod,24
-historicalRoi,18.5
-riskTolerance,12
-rdBudget,15
-projectCount,8
-currentRdSuccess,35
-currentPaybackPeriod,18
-customerCount,120
-currentChurn,14.2
-avgLtv,850000
-keyCustomersShare,42
-infraCapex,25000000
-unplannedDowntime,8.3
-maintenanceCost,12000000`;
+            const template = `companyName,Мобайл Парк ИТ
+companyDetails,Мобильные решения, парковочные системы
+investmentAmount,250000000
+investmentPeriod,30
+historicalRoi,24.5
+riskTolerance,15
+rdBudget,22
+projectCount,14
+currentRdSuccess,48
+currentPaybackPeriod,14.5
+customerCount,185
+currentChurn,11.3
+avgLtv,950000
+keyCustomersShare,52
+infraCapex,32000000
+unplannedDowntime,6.8
+maintenanceCost,15000000`;
             
             const blob = new Blob([template], { type: 'text/csv;charset=utf-8;' });
             const link = document.createElement('a');
             const url = URL.createObjectURL(blob);
             
             link.setAttribute('href', url);
-            link.setAttribute('download', 'шаблон_данных_компании.csv');
+            link.setAttribute('download', 'шаблон_мобайл_парк_ит.csv');
             link.style.visibility = 'hidden';
             
             document.body.appendChild(link);
@@ -1559,9 +1566,6 @@ maintenanceCost,12000000`;
             }
             
             showNotification('PDF отчет будет сгенерирован. В реальной системе здесь был бы вызов API для генерации PDF.', 'success');
-            
-            // В реальной системе здесь был бы вызов API для генерации PDF
-            // Например: window.open('/api/generate-pdf', '_blank');
         }
 
         // Экспорт Excel
@@ -1572,15 +1576,12 @@ maintenanceCost,12000000`;
             }
             
             showNotification('Excel файл будет сгенерирован. В реальной системе здесь был бы вызов API для генерации Excel.', 'success');
-            
-            // В реальной системе здесь был бы вызов API для генерации Excel
-            // Например: window.open('/api/generate-excel', '_blank');
         }
 
         // Инициализация
         document.addEventListener('DOMContentLoaded', function() {
-            // Пример для быстрого тестирования
-            document.getElementById('companyINN').value = '7701234567';
+            // Автозаполнение для тестирования
+            document.getElementById('companyINN').value = '7701234567'; // Мобайл Парк ИТ
         });
     </script>
 </body>
