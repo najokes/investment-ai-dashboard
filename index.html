@@ -183,15 +183,15 @@
             border-color: #ddd;
         }
         
-        input:focus, select:focus {
+        input.editable:focus, select.editable:focus {
             outline: none;
             border-color: #283593;
+            box-shadow: 0 0 0 2px rgba(40, 53, 147, 0.1);
         }
         
         input[type="number"] {
             text-align: right;
             padding-right: 25px;
-            position: relative;
         }
         
         .input-container {
@@ -207,6 +207,10 @@
             color: #666;
             pointer-events: none;
             font-size: 0.9rem;
+        }
+        
+        .suffix.editable {
+            color: #333;
         }
         
         .calculate-btn {
@@ -233,6 +237,7 @@
             cursor: not-allowed;
             transform: none;
             box-shadow: none;
+            opacity: 0.6;
         }
         
         .recalculate-btn {
@@ -556,6 +561,10 @@
             color: #666;
             margin-top: 5px;
             font-style: italic;
+        }
+        
+        .empty-field {
+            color: #999 !important;
         }
     </style>
 </head>
@@ -896,7 +905,7 @@
     <script>
         // База данных компаний
         const companies = {
-            '7701234567': {
+            '5047154189': {
                 name: 'ООО "Мобайл Парк ИТ"',
                 type: 'Технологическая компания B2B',
                 description: 'Разработка IT-решений и облачных сервисов (PaaS)',
@@ -971,17 +980,46 @@
         let isCalculated = false;
         let currentCompany = null;
         
+        // Сбросить все поля до пустых значений
+        function resetFormFields() {
+            const inputs = document.querySelectorAll('.input-section input:not(#companyINN)');
+            inputs.forEach(input => {
+                input.value = '';
+                input.setAttribute('readonly', true);
+                input.classList.remove('editable');
+                input.classList.add('empty-field');
+            });
+            
+            // Сбросить суффиксы
+            const suffixes = document.querySelectorAll('.suffix');
+            suffixes.forEach(suffix => {
+                suffix.classList.remove('editable');
+            });
+            
+            // Деактивировать кнопки
+            document.getElementById('calculateBtn').disabled = true;
+            document.querySelectorAll('.export-btn').forEach(btn => {
+                btn.disabled = true;
+            });
+        }
+        
         // Включить все поля формы
         function enableFormFields() {
             const inputs = document.querySelectorAll('.input-section input:not(#companyINN)');
             inputs.forEach(input => {
                 input.removeAttribute('readonly');
                 input.classList.add('editable');
+                input.classList.remove('empty-field');
+            });
+            
+            // Активировать суффиксы
+            const suffixes = document.querySelectorAll('.suffix');
+            suffixes.forEach(suffix => {
+                suffix.classList.add('editable');
             });
             
             document.getElementById('calculateBtn').disabled = false;
             document.getElementById('calculateBtn').textContent = 'Рассчитать показатели';
-            document.getElementById('calculateBtn').style.opacity = '1';
             
             // Активируем кнопки экспорта
             document.querySelectorAll('.export-btn').forEach(btn => {
@@ -995,7 +1033,7 @@
             
             let value = input.value.replace(/\s/g, '').replace(/,/g, '');
             
-            if (!isNaN(value) && value !== '') {
+            if (!isNaN(value) && value !== '' && value !== '—') {
                 let num = parseInt(value);
                 input.setAttribute('data-original', num);
                 
@@ -1009,12 +1047,16 @@
             let original = input.getAttribute('data-original');
             if (original) {
                 input.value = original;
+            } else if (input.value === '—' || input.value === '') {
+                input.value = '';
             }
         }
         
         // Получение числового значения из форматированного поля
         function getNumericValue(inputId) {
             const input = document.getElementById(inputId);
+            if (!input.value || input.value === '—') return 0;
+            
             let value = input.value.replace(/\s/g, '').replace(/,/g, '');
             return parseInt(value) || 0;
         }
@@ -1062,6 +1104,9 @@
                 document.querySelector('.company-logo').textContent = '!';
                 document.querySelector('.company-logo').style.backgroundColor = '#c62828';
                 currentCompany = null;
+                
+                // Сбрасываем поля формы
+                resetFormFields();
             }
         }
         
@@ -1116,10 +1161,14 @@
                 return;
             }
             
-            // Проверяем, что поля заполнены
+            // Проверяем, что обязательные поля заполнены
             const investmentAmount = getNumericValue('investmentAmount');
-            if (investmentAmount === 0) {
-                showNotification('Проверьте корректность введенных данных', 'error');
+            const investmentPeriod = parseInt(document.getElementById('investmentPeriod').value) || 0;
+            const riskTolerance = parseFloat(document.getElementById('riskTolerance').value) || 0;
+            const rdBudget = parseInt(document.getElementById('rdBudget').value) || 0;
+            
+            if (investmentAmount === 0 || investmentPeriod === 0 || riskTolerance === 0 || rdBudget === 0) {
+                showNotification('Заполните все обязательные поля (отмечены *)', 'error');
                 return;
             }
             
@@ -1451,6 +1500,9 @@
         
         // Инициализация при загрузке
         document.addEventListener('DOMContentLoaded', function() {
+            // Сбрасываем поля при загрузке
+            resetFormFields();
+            
             // Разрешаем ввод ИНН по Enter
             document.getElementById('companyINN').addEventListener('keypress', function(e) {
                 if (e.key === 'Enter') {
