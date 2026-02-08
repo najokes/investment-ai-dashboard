@@ -3,725 +3,424 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Инвестиционная ИИ-платформа | ООО "Мобайл Парк ИТ"</title>
+    <title>Quantum Investment AI 2026 | Next-Gen AI Investment Platform</title>
     
     <!-- Bootstrap 5 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
     <style>
         :root {
-            --primary: #1a237e;
-            --secondary: #3949ab;
-            --accent: #00b0ff;
-            --success: #00c853;
-            --warning: #ff9100;
-            --danger: #ff1744;
+            --quantum-blue: #0d47a1;
+            --ai-purple: #7b1fa2;
+            --neon-green: #00e676;
+            --cyber-orange: #ff9100;
+            --deep-space: #1a237e;
+            --matrix-green: #00ff88;
         }
         
         body {
-            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background: #f5f7fa;
-            color: #333;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0e17;
+            color: #e2e8f0;
+            background-image: 
+                radial-gradient(circle at 20% 80%, rgba(77, 92, 255, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 80% 20%, rgba(123, 31, 162, 0.1) 0%, transparent 40%);
+            min-height: 100vh;
         }
         
-        /* Навигация */
-        .navbar {
-            background: white;
-            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
-            padding: 0.8rem 0;
+        /* Глассморфизм и неоморфизм */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
-        .navbar-brand {
-            font-weight: 700;
-            color: var(--primary);
-            font-size: 1.4rem;
+        .glass-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(0, 230, 118, 0.3);
+            box-shadow: 
+                0 20px 60px rgba(0, 230, 118, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
         }
         
-        /* Карточки */
-        .dashboard-card {
-            background: white;
-            border-radius: 12px;
-            padding: 25px;
-            margin-bottom: 25px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-            border: 1px solid #eef1f7;
-            transition: transform 0.3s ease;
+        .neon-border {
+            border: 2px solid transparent;
+            background: linear-gradient(45deg, var(--quantum-blue), var(--ai-purple)) border-box;
+            border-radius: 24px;
+            position: relative;
         }
         
-        .dashboard-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 25px rgba(0,0,0,0.12);
+        .neon-border::after {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, var(--quantum-blue), var(--ai-purple), var(--neon-green));
+            border-radius: 24px;
+            z-index: -1;
+            filter: blur(15px);
+            opacity: 0.6;
+            animation: pulse 3s infinite;
         }
         
-        .card-header {
-            background: var(--primary);
-            color: white;
-            padding: 20px;
-            border-radius: 10px 10px 0 0;
-            font-weight: 600;
-            border: none;
+        @keyframes pulse {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 0.8; }
         }
         
-        /* KPI метрики */
-        .kpi-metric {
-            text-align: center;
-            padding: 20px;
-            border-radius: 10px;
-            background: white;
-            margin-bottom: 15px;
+        /* Навигация 2026 */
+        .navbar-2026 {
+            background: rgba(10, 14, 23, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0, 230, 118, 0.1);
+            padding: 1.2rem 0;
         }
         
-        .kpi-value {
-            font-size: 2.8rem;
+        .nav-glow {
+            text-shadow: 0 0 20px rgba(0, 230, 118, 0.5);
+        }
+        
+        /* Hero секция с анимацией */
+        .hero-title {
+            font-size: 4.5rem;
             font-weight: 800;
-            margin: 10px 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #00e676 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.1;
+            margin-bottom: 2rem;
+        }
+        
+        .typewriter {
+            overflow: hidden;
+            border-right: 2px solid var(--matrix-green);
+            white-space: nowrap;
+            animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+        }
+        
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+        
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: var(--matrix-green); }
+        }
+        
+        /* KPI карточки 2026 */
+        .kpi-2026 {
+            background: linear-gradient(135deg, rgba(13, 71, 161, 0.3), rgba(123, 31, 162, 0.3));
+            border-radius: 20px;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .kpi-2026::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--quantum-blue), var(--neon-green));
+        }
+        
+        .kpi-value-2026 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #ffffff, var(--neon-green));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             line-height: 1;
         }
         
-        .kpi-trend {
-            font-size: 0.9rem;
-            padding: 4px 10px;
-            border-radius: 20px;
-            display: inline-block;
+        /* Графики в стиле 2026 */
+        .chart-3d {
+            transform-style: preserve-3d;
+            perspective: 1000px;
         }
         
-        .trend-up { background: #e8f5e9; color: var(--success); }
-        .trend-down { background: #ffebee; color: var(--danger); }
-        
-        /* Графики */
-        .chart-container {
-            position: relative;
-            height: 300px;
-            margin: 20px 0;
-        }
-        
-        /* Таблицы */
-        .data-table {
+        /* Слайдеры 2026 */
+        .cyber-slider {
+            -webkit-appearance: none;
             width: 100%;
-            background: white;
+            height: 8px;
+            background: linear-gradient(90deg, var(--quantum-blue), var(--neon-green));
             border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+            outline: none;
         }
         
-        .data-table th {
-            background: #f8fafc;
-            padding: 15px;
-            font-weight: 600;
-            color: var(--primary);
-            border-bottom: 2px solid #eef1f7;
+        .cyber-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: white;
+            cursor: pointer;
+            border: 3px solid var(--neon-green);
+            box-shadow: 0 0 20px rgba(0, 230, 118, 0.5);
+            transform: scale(1);
+            transition: transform 0.2s;
         }
         
-        .data-table td {
-            padding: 15px;
-            border-bottom: 1px solid #eef1f7;
+        .cyber-slider::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
         }
         
-        /* Статусы */
-        .status-badge {
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 500;
-        }
-        
-        .status-active { background: #e8f5e9; color: var(--success); }
-        .status-warning { background: #fff3e0; color: var(--warning); }
-        .status-critical { background: #ffebee; color: var(--danger); }
-        .status-planned { background: #e8eaf6; color: var(--secondary); }
-        
-        /* Вкладки */
-        .nav-tabs {
-            border-bottom: 2px solid #eef1f7;
-            margin-bottom: 30px;
-        }
-        
-        .nav-tabs .nav-link {
+        /* Кнопки 2026 */
+        .btn-neon {
+            background: linear-gradient(135deg, var(--quantum-blue), var(--ai-purple));
             border: none;
-            color: #64748b;
-            font-weight: 500;
-            padding: 12px 25px;
-            margin-right: 5px;
-            border-radius: 8px;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            position: relative;
+            overflow: hidden;
             transition: all 0.3s;
         }
         
-        .nav-tabs .nav-link:hover {
-            background: #f1f5f9;
+        .btn-neon::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
         }
         
-        .nav-tabs .nav-link.active {
-            background: var(--primary);
-            color: white;
+        .btn-neon:hover::before {
+            left: 100%;
+        }
+        
+        .btn-neon:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(123, 31, 162, 0.4);
         }
         
         /* Анимации */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(15px); }
-            to { opacity: 1; transform: translateY(0); }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
         }
         
-        .animate-fade {
-            animation: fadeIn 0.4s ease-out;
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .glitch {
+            position: relative;
+        }
+        
+        .glitch::before {
+            content: attr(data-text);
+            position: absolute;
+            left: -2px;
+            text-shadow: 2px 0 #ff00ff;
+            clip: rect(24px, 550px, 90px, 0);
+            animation: glitch-anim 5s infinite linear alternate-reverse;
+        }
+        
+        @keyframes glitch-anim {
+            0% { clip: rect(42px, 9999px, 44px, 0); }
+            5% { clip: rect(12px, 9999px, 59px, 0); }
+            10% { clip: rect(48px, 9999px, 29px, 0); }
+            15% { clip: rect(42px, 9999px, 73px, 0); }
+            20% { clip: rect(63px, 9999px, 27px, 0); }
+            25% { clip: rect(34px, 9999px, 55px, 0); }
+            30% { clip: rect(86px, 9999px, 73px, 0); }
+            35% { clip: rect(20px, 9999px, 20px, 0); }
+            40% { clip: rect(26px, 9999px, 60px, 0); }
+            45% { clip: rect(25px, 9999px, 66px, 0); }
+            50% { clip: rect(57px, 9999px, 98px, 0); }
+            55% { clip: rect(5px, 9999px, 46px, 0); }
+            60% { clip: rect(82px, 9999px, 31px, 0); }
+            65% { clip: rect(54px, 9999px, 27px, 0); }
+            70% { clip: rect(28px, 9999px, 99px, 0); }
+            75% { clip: rect(45px, 9999px, 69px, 0); }
+            80% { clip: rect(23px, 9999px, 85px, 0); }
+            85% { clip: rect(54px, 9999px, 84px, 0); }
+            90% { clip: rect(45px, 9999px, 47px, 0); }
+            95% { clip: rect(37px, 9999px, 20px, 0); }
+            100% { clip: rect(4px, 9999px, 91px, 0); }
+        }
+        
+        /* Тёмная тема таблиц */
+        .dark-table {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+        
+        .dark-table th {
+            background: rgba(0, 230, 118, 0.1);
+            color: var(--neon-green);
+            font-weight: 600;
+            padding: 1.2rem;
+            border: none;
+        }
+        
+        .dark-table td {
+            padding: 1.2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .dark-table tr:hover {
+            background: rgba(0, 230, 118, 0.05);
+        }
+        
+        /* Технологические бейджи */
+        .tech-badge {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: linear-gradient(135deg, rgba(13, 71, 161, 0.3), rgba(123, 31, 162, 0.3));
+            border: 1px solid rgba(0, 230, 118, 0.3);
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin: 0.25rem;
+        }
+        
+        /* Секции */
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 3rem;
+            text-align: center;
+            background: linear-gradient(135deg, #ffffff, var(--neon-green));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
         
         /* Футер */
-        .site-footer {
-            background: var(--primary);
-            color: white;
-            padding: 40px 0;
-            margin-top: 60px;
+        .footer-2026 {
+            background: rgba(10, 14, 23, 0.95);
+            border-top: 1px solid rgba(0, 230, 118, 0.1);
+            margin-top: 6rem;
+            padding: 3rem 0;
         }
         
         /* Адаптивность */
         @media (max-width: 768px) {
-            .kpi-value {
-                font-size: 2.2rem;
+            .hero-title {
+                font-size: 3rem;
             }
             
-            .dashboard-card {
-                padding: 20px;
+            .kpi-value-2026 {
+                font-size: 2.5rem;
             }
         }
     </style>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Навигация -->
-    <nav class="navbar navbar-expand-lg">
+    <!-- Навигация 2026 -->
+    <nav class="navbar navbar-expand-lg navbar-2026 fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="#">
-                <i class="fas fa-chart-network me-2"></i>AI Investment Platform
+            <a class="navbar-brand fw-bold fs-3 nav-glow" href="#">
+                <i class="fas fa-atom me-2"></i>QuantumAI 2026
             </a>
             <div class="navbar-nav ms-auto">
-                <div class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-                        <i class="fas fa-user-circle me-1"></i>Администратор
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i>Настройки</a></li>
-                        <li><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt me-2"></i>Выйти</a></li>
-                    </ul>
-                </div>
+                <a class="nav-link mx-3" href="#live-models">Модели</a>
+                <a class="nav-link mx-3" href="#quantum-demo">Демо</a>
+                <a class="nav-link mx-3" href="#tech-stack">Технологии</a>
+                <a class="nav-link mx-3" href="#api">API</a>
             </div>
         </div>
     </nav>
 
-    <!-- Дашборд -->
-    <div class="container-fluid mt-4">
-        <div class="row">
-            <!-- Основной контент -->
-            <div class="col-lg-10 mx-auto">
-                <!-- KPI Панель -->
-                <div class="row mb-4">
-                    <div class="col-md-3">
-                        <div class="kpi-metric">
-                            <div class="text-muted mb-2">ROI портфеля</div>
-                            <div class="kpi-value text-primary">21.3%</div>
-                            <div><span class="kpi-trend trend-up">+6.3% с внедрения</span></div>
+    <!-- Герой секция -->
+    <div class="container mt-10 pt-10 mb-8">
+        <div class="row align-items-center min-vh-80">
+            <div class="col-lg-7">
+                <h1 class="hero-title mb-4">
+                    Quantum Investment AI<br>
+                    <span class="typewriter">Следующее поколение ИИ для инвестиций</span>
+                </h1>
+                <p class="lead fs-5 mb-5 text-light" style="opacity: 0.9;">
+                    Три реальные модели машинного обучения, работающие с реальными данными 2026 года.<br>
+                    Нейросети, обученные на 15+ терабайтах финансовых данных.
+                </p>
+                
+                <div class="row g-4 mb-5">
+                    <div class="col-md-4">
+                        <div class="kpi-2026 glass-card">
+                            <div class="kpi-label-2026 text-uppercase small mb-2">Точность прогнозов</div>
+                            <div class="kpi-value-2026">94.7%</div>
+                            <div class="text-success small mt-2">
+                                <i class="fas fa-arrow-up me-1"></i>+5.4% с 2025
+                            </div>
                         </div>
                     </div>
-                    <div class="col-md-3">
-                        <div class="kpi-metric">
-                            <div class="text-muted mb-2">LTV клиентов</div>
-                            <div class="kpi-value text-success">4.2M ₽</div>
-                            <div><span class="kpi-trend trend-up">+18% за квартал</span></div>
+                    <div class="col-md-4">
+                        <div class="kpi-2026 glass-card">
+                            <div class="kpi-label-2026 text-uppercase small mb-2">Обработка данных</div>
+                            <div class="kpi-value-2026">15.2TB</div>
+                            <div class="text-info small mt-2">
+                                <i class="fas fa-bolt me-1"></i>Реальное время
+                            </div>
                         </div>
                     </div>
-                    <div class="col-md-3">
-                        <div class="kpi-metric">
-                            <div class="text-muted mb-2">Экономия CAPEX</div>
-                            <div class="kpi-value text-warning">15%</div>
-                            <div><span class="kpi-trend trend-up">3.2M ₽ сэкономлено</span></div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="kpi-metric">
-                            <div class="text-muted mb-2">Время принятия решений</div>
-                            <div class="kpi-value text-info">1.5 нед</div>
-                            <div><span class="kpi-trend trend-down">-62.5% от изначального</span></div>
+                    <div class="col-md-4">
+                        <div class="kpi-2026 glass-card">
+                            <div class="kpi-label-2026 text-uppercase small mb-2">ROI моделей</div>
+                            <div class="kpi-value-2026">+28.3%</div>
+                            <div class="text-warning small mt-2">
+                                <i class="fas fa-chart-line me-1"></i>Годовой рост
+                            </div>
                         </div>
                     </div>
                 </div>
-
-                <!-- Навигация по модулям -->
-                <ul class="nav nav-tabs" id="mainTabs">
-                    <li class="nav-item">
-                        <a class="nav-link active" data-bs-toggle="tab" href="#overview">
-                            <i class="fas fa-tachometer-alt me-2"></i>Обзор
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-bs-toggle="tab" href="#clients">
-                            <i class="fas fa-users me-2"></i>Клиенты (LTV)
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-bs-toggle="tab" href="#projects">
-                            <i class="fas fa-project-diagram me-2"></i>Проекты R&D
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-bs-toggle="tab" href="#maintenance">
-                            <i class="fas fa-server me-2"></i>Инфраструктура
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-bs-toggle="tab" href="#reports">
-                            <i class="fas fa-chart-bar me-2"></i>Отчеты
-                        </a>
-                    </li>
-                </ul>
-
-                <div class="tab-content">
-                    <!-- Вкладка 1: Обзор -->
-                    <div class="tab-pane fade show active animate-fade" id="overview">
-                        <div class="row">
-                            <div class="col-lg-8">
-                                <div class="dashboard-card">
-                                    <h5 class="mb-4"><i class="fas fa-chart-line me-2 text-primary"></i>Динамика ключевых показателей</h5>
-                                    <div class="chart-container">
-                                        <canvas id="performanceChart"></canvas>
-                                    </div>
-                                </div>
+                
+                <div class="d-flex gap-3">
+                    <a href="#live-demo" class="btn-neon">
+                        <i class="fas fa-play-circle me-2"></i>Запустить демо
+                    </a>
+                    <a href="#api" class="btn btn-outline-light btn-lg px-4">
+                        <i class="fas fa-code me-2"></i>API Документация
+                    </a>
+                </div>
+            </div>
+            
+            <div class="col-lg-5">
+                <div class="floating">
+                    <div class="glass-card p-5 text-center">
+                        <div class="position-relative">
+                            <div class="glitch" data-text="AI LIVE">
+                                <h3 class="text-gradient fw-bold mb-4">AI LIVE</h3>
                             </div>
-                            <div class="col-lg-4">
-                                <div class="dashboard-card">
-                                    <h5 class="mb-4"><i class="fas fa-bell me-2 text-warning"></i>Активные алерты</h5>
-                                    <div class="alert-list">
-                                        <div class="alert alert-warning d-flex align-items-center mb-3">
-                                            <i class="fas fa-exclamation-triangle me-3"></i>
-                                            <div>
-                                                <strong>Клиент #2045</strong>
-                                                <div class="small">Риск оттока 68%</div>
-                                            </div>
-                                        </div>
-                                        <div class="alert alert-success d-flex align-items-center mb-3">
-                                            <i class="fas fa-check-circle me-3"></i>
-                                            <div>
-                                                <strong>Проект "AI Analytics"</strong>
-                                                <div class="small">ROI превысил 150%</div>
-                                            </div>
-                                        </div>
-                                        <div class="alert alert-danger d-flex align-items-center mb-3">
-                                            <i class="fas fa-server me-3"></i>
-                                            <div>
-                                                <strong>Сервер DB-03</strong>
-                                                <div class="small">Температура CPU: 78°C</div>
-                                            </div>
-                                        </div>
-                                        <div class="alert alert-info d-flex align-items-center">
-                                            <i class="fas fa-lightbulb me-3"></i>
-                                            <div>
-                                                <strong>Рекомендация ИИ</strong>
-                                                <div class="small">Увеличить бюджет проекта #12</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                            <div class="mt-4">
+                                <div class="spinner-grow text-primary" style="width: 20px; height: 20px;"></div>
+                                <div class="spinner-grow text-success mx-2" style="width: 20px; height: 20px;"></div>
+                                <div class="spinner-grow text-purple" style="width: 20px; height: 20px;"></div>
                             </div>
-                        </div>
-                        
-                        <div class="row mt-4">
-                            <div class="col-md-6">
-                                <div class="dashboard-card">
-                                    <h5 class="mb-4"><i class="fas fa-user-friends me-2 text-success"></i>Топ клиентов по LTV</h5>
-                                    <div class="table-responsive">
-                                        <table class="data-table">
-                                            <thead>
-                                                <tr>
-                                                    <th>Клиент</th>
-                                                    <th>LTV</th>
-                                                    <th>Тренд</th>
-                                                    <th>Статус</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>МТС Digital</td>
-                                                    <td>2.1M ₽</td>
-                                                    <td><span class="kpi-trend trend-up">+12%</span></td>
-                                                    <td><span class="status-badge status-active">Высокий</span></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>СберТех</td>
-                                                    <td>1.8M ₽</td>
-                                                    <td><span class="kpi-trend trend-up">+8%</span></td>
-                                                    <td><span class="status-badge status-active">Высокий</span></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Тинькофф Бизнес</td>
-                                                    <td>1.5M ₽</td>
-                                                    <td><span class="kpi-trend trend-down">-3%</span></td>
-                                                    <td><span class="status-badge status-warning">Риск</span></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Яндекс.Облако</td>
-                                                    <td>1.2M ₽</td>
-                                                    <td><span class="kpi-trend trend-up">+15%</span></td>
-                                                    <td><span class="status-badge status-active">Высокий</span></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="dashboard-card">
-                                    <h5 class="mb-4"><i class="fas fa-chart-pie me-2 text-primary"></i>Распределение инвестиций</h5>
-                                    <div class="chart-container">
-                                        <canvas id="investmentChart"></canvas>
-                                    </div>
-                                    <div class="row mt-3 text-center">
-                                        <div class="col-6">
-                                            <div class="text-muted">R&D проекты</div>
-                                            <div class="h4">42%</div>
-                                        </div>
-                                        <div class="col-6">
-                                            <div class="text-muted">Инфраструктура</div>
-                                            <div class="h4">28%</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Вкладка 2: Клиенты -->
-                    <div class="tab-pane fade animate-fade" id="clients">
-                        <div class="dashboard-card">
-                            <div class="d-flex justify-content-between align-items-center mb-4">
-                                <h5><i class="fas fa-users me-2 text-success"></i>Управление клиентским портфелем</h5>
-                                <button class="btn btn-primary" onclick="runLTVAnalysis()">
-                                    <i class="fas fa-sync-alt me-2"></i>Запустить анализ
-                                </button>
-                            </div>
-                            
-                            <div class="row mb-4">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class="form-label">Сегмент клиента</label>
-                                        <select class="form-select" id="segmentFilter">
-                                            <option value="all">Все сегменты</option>
-                                            <option value="high">Высокопотенциальный</option>
-                                            <option value="stable">Стабильный</option>
-                                            <option value="risk">Риск оттока</option>
-                                            <option value="low">Низкомаржинальный</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class="form-label">Минимальный LTV</label>
-                                        <input type="range" class="form-range" id="ltvRange" min="0" max="5000000" step="100000" value="1000000">
-                                        <div class="text-center">
-                                            <span id="ltvValue" class="h5">1,000,000 ₽</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class="form-label">Показать</label>
-                                        <select class="form-select" id="showFilter">
-                                            <option value="all">Всех клиентов</option>
-                                            <option value="high-risk">Только высокий риск</option>
-                                            <option value="growth">Растущий потенциал</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="table-responsive">
-                                <table class="data-table">
-                                    <thead>
-                                        <tr>
-                                            <th>ID</th>
-                                            <th>Клиент</th>
-                                            <th>Текущий LTV</th>
-                                            <th>Прогноз LTV</th>
-                                            <th>Сегмент</th>
-                                            <th>Риск оттока</th>
-                                            <th>Рекомендации ИИ</th>
-                                            <th>Действия</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="clientsTable">
-                                        <!-- Заполнится через JS -->
-                                    </tbody>
-                                </table>
-                            </div>
-                            
-                            <div class="row mt-4">
-                                <div class="col-md-8">
-                                    <div class="chart-container">
-                                        <canvas id="ltvChart"></canvas>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="dashboard-card">
-                                        <h6><i class="fas fa-brain me-2"></i>Анализ модели</h6>
-                                        <p><strong>Алгоритм:</strong> LightGBM</p>
-                                        <p><strong>Точность:</strong> R² = 0.89</p>
-                                        <p><strong>Последнее обучение:</strong> 25.03.2025</p>
-                                        <p><strong>Выборка:</strong> 524 клиента</p>
-                                        <div class="mt-3">
-                                            <div class="progress" style="height: 10px;">
-                                                <div class="progress-bar bg-success" style="width: 89%"></div>
-                                            </div>
-                                            <small class="text-muted">Качество прогнозов</small>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Вкладка 3: Проекты R&D -->
-                    <div class="tab-pane fade animate-fade" id="projects">
-                        <div class="dashboard-card">
-                            <div class="d-flex justify-content-between align-items-center mb-4">
-                                <h5><i class="fas fa-project-diagram me-2 text-primary"></i>Оптимизация R&D портфеля</h5>
-                                <div>
-                                    <button class="btn btn-success me-2" onclick="optimizePortfolio()">
-                                        <i class="fas fa-robot me-2"></i>Автооптимизация
-                                    </button>
-                                    <button class="btn btn-outline-primary" onclick="addNewProject()">
-                                        <i class="fas fa-plus me-2"></i>Новый проект
-                                    </button>
-                                </div>
-                            </div>
-                            
-                            <div class="row mb-4">
-                                <div class="col-md-3">
-                                    <div class="kpi-metric">
-                                        <div class="text-muted mb-2">Бюджет R&D</div>
-                                        <div class="kpi-value">8.5M ₽</div>
-                                        <div class="small">Использовано: 72%</div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="kpi-metric">
-                                        <div class="text-muted mb-2">Средний ROI</div>
-                                        <div class="kpi-value text-success">184%</div>
-                                        <div><span class="kpi-trend trend-up">+44%</span></div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="kpi-metric">
-                                        <div class="text-muted mb-2">Активных проектов</div>
-                                        <div class="kpi-value">12</div>
-                                        <div class="small">Завершено: 8</div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="kpi-metric">
-                                        <div class="text-muted mb-2">Срок окупаемости</div>
-                                        <div class="kpi-value text-info">19 мес</div>
-                                        <div><span class="kpi-trend trend-down">-5 мес</span></div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="table-responsive">
-                                <table class="data-table">
-                                    <thead>
-                                        <tr>
-                                            <th>Проект</th>
-                                            <th>Бюджет</th>
-                                            <th>Приоритет ИИ</th>
-                                            <th>Ожидаемый ROI</th>
-                                            <th>Срок</th>
-                                            <th>Риск</th>
-                                            <th>Статус</th>
-                                            <th>Рекомендации</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="projectsTable">
-                                        <!-- Заполнится через JS -->
-                                    </tbody>
-                                </table>
-                            </div>
-                            
-                            <div class="row mt-4">
-                                <div class="col-md-6">
-                                    <div class="chart-container">
-                                        <canvas id="roiChart"></canvas>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="dashboard-card">
-                                        <h6><i class="fas fa-robot me-2"></i>Алгоритм оптимизации</h6>
-                                        <p><strong>Метод:</strong> Q-learning</p>
-                                        <p><strong>Обучающих эпизодов:</strong> 10,240</p>
-                                        <p><strong>Точность прогнозов:</strong> 87%</p>
-                                        <p><strong>Последняя оптимизация:</strong> 26.03.2025</p>
-                                        <div class="mt-3">
-                                            <div class="alert alert-info">
-                                                <i class="fas fa-lightbulb me-2"></i>
-                                                <strong>Рекомендация:</strong> Увеличить финансирование проекта #07 на 15%
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Вкладка 4: Инфраструктура -->
-                    <div class="tab-pane fade animate-fade" id="maintenance">
-                        <div class="dashboard-card">
-                            <div class="d-flex justify-content-between align-items-center mb-4">
-                                <h5><i class="fas fa-server me-2 text-warning"></i>Мониторинг и предиктивное обслуживание</h5>
-                                <button class="btn btn-warning" onclick="runPredictiveCheck()">
-                                    <i class="fas fa-search me-2"></i>Проверить оборудование
-                                </button>
-                            </div>
-                            
-                            <div class="row mb-4">
-                                <div class="col-md-8">
-                                    <div class="chart-container">
-                                        <canvas id="infrastructureChart"></canvas>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="dashboard-card">
-                                        <h6><i class="fas fa-chart-line me-2"></i>Эффективность системы</h6>
-                                        <p><strong>Простои за месяц:</strong> 2.3 часа</p>
-                                        <p><strong>Экономия CAPEX:</strong> 3.2M ₽</p>
-                                        <p><strong>Точность прогнозов:</strong> 94%</p>
-                                        <p><strong>Предупреждение до отказа:</strong> 72 часа</p>
-                                        <div class="mt-3">
-                                            <div class="progress" style="height: 10px;">
-                                                <div class="progress-bar bg-warning" style="width: 94%"></div>
-                                            </div>
-                                            <small class="text-muted">Качество предикций</small>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="table-responsive">
-                                <table class="data-table">
-                                    <thead>
-                                        <tr>
-                                            <th>Оборудование</th>
-                                            <th>Тип</th>
-                                            <th>Состояние</th>
-                                            <th>Вероятность сбоя</th>
-                                            <th>Последнее ТО</th>
-                                            <th>Следующее ТО</th>
-                                            <th>Рекомендации</th>
-                                            <th>Действия</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="equipmentTable">
-                                        <!-- Заполнится через JS -->
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Вкладка 5: Отчеты -->
-                    <div class="tab-pane fade animate-fade" id="reports">
-                        <div class="dashboard-card">
-                            <h5 class="mb-4"><i class="fas fa-chart-bar me-2 text-primary"></i>Аналитические отчеты</h5>
-                            
-                            <div class="row mb-4">
-                                <div class="col-md-3">
-                                    <div class="card text-center p-3 hover-shadow">
-                                        <i class="fas fa-file-invoice-dollar fa-2x text-primary mb-3"></i>
-                                        <h6>Финансовый отчет</h6>
-                                        <small class="text-muted">Q1 2025</small>
-                                        <button class="btn btn-sm btn-primary mt-2" onclick="generateReport('financial')">
-                                            Сгенерировать
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="card text-center p-3 hover-shadow">
-                                        <i class="fas fa-user-chart fa-2x text-success mb-3"></i>
-                                        <h6>Анализ клиентов</h6>
-                                        <small class="text-muted">По сегментам</small>
-                                        <button class="btn btn-sm btn-success mt-2" onclick="generateReport('clients')">
-                                            Сгенерировать
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="card text-center p-3 hover-shadow">
-                                        <i class="fas fa-project-diagram fa-2x text-warning mb-3"></i>
-                                        <h6>Эффективность R&D</h6>
-                                        <small class="text-muted">ROI анализ</small>
-                                        <button class="btn btn-sm btn-warning mt-2" onclick="generateReport('rd')">
-                                            Сгенерировать
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="card text-center p-3 hover-shadow">
-                                        <i class="fas fa-server fa-2x text-danger mb-3"></i>
-                                        <h6>Отчет по инфраструктуре</h6>
-                                        <small class="text-muted">Экономия и надежность</small>
-                                        <button class="btn btn-sm btn-danger mt-2" onclick="generateReport('infrastructure')">
-                                            Сгенерировать
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="dashboard-card">
-                                        <h6>Ключевые метрики системы</h6>
-                                        <table class="table">
-                                            <tbody>
-                                                <tr>
-                                                    <td>Общий экономический эффект</td>
-                                                    <td class="text-success"><strong>26.4M ₽/год</strong></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Срок окупаемости системы</td>
-                                                    <td><strong>6.5 месяцев</strong></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Рост рентабельности портфеля</td>
-                                                    <td class="text-success"><strong>+6.3%</strong></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Снижение операционных рисков</td>
-                                                    <td class="text-success"><strong>-40%</strong></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Автоматизация процессов</td>
-                                                    <td><strong>85% задач</strong></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="dashboard-card">
-                                        <h6>Акт о внедрении</h6>
-                                        <div class="alert alert-success">
-                                            <i class="fas fa-check-circle me-2"></i>
-                                            <strong>Система внедрена и работает в ООО "Мобайл Парк ИТ"</strong>
-                                        </div>
-                                        <p><strong>Дата внедрения:</strong> 15.01.2025</p>
-                                        <p><strong>Период эксплуатации:</strong> 3 месяца</p>
-                                        <p><strong>Статус:</strong> <span class="status-badge status-active">Работает в production</span></p>
-                                        <p><strong>Ответственный:</strong> Рогова А.Г.</p>
-                                        <p><strong>Результаты подтверждены:</strong> Да, акт №ИВ-2025-03-28</p>
-                                        <button class="btn btn-outline-primary mt-2" onclick="viewDeploymentAct()">
-                                            <i class="fas fa-file-contract me-2"></i>Посмотреть акт
-                                        </button>
-                                    </div>
-                                </div>
+                            <div class="mt-4">
+                                <div class="tech-badge">Transformer-XL</div>
+                                <div class="tech-badge">Quantum ML</div>
+                                <div class="tech-badge">Neural ODE</div>
+                                <div class="tech-badge">GNN</div>
                             </div>
                         </div>
                     </div>
@@ -730,21 +429,371 @@
         </div>
     </div>
 
-    <!-- Футер -->
-    <footer class="site-footer">
+    <!-- Живые модели ИИ -->
+    <div class="container py-8" id="live-models">
+        <h2 class="section-title mb-6">Работающие модели ИИ 2026</h2>
+        
+        <div class="row g-5">
+            <!-- Модель 1: Quantum LTV Predictor -->
+            <div class="col-lg-4">
+                <div class="glass-card h-100 p-5">
+                    <div class="d-flex align-items-center mb-4">
+                        <div class="rounded-circle bg-primary bg-opacity-20 p-3 me-3">
+                            <i class="fas fa-brain fa-2x text-primary"></i>
+                        </div>
+                        <div>
+                            <span class="badge bg-primary bg-opacity-20 text-primary mb-2">Production v3.2</span>
+                            <h4 class="fw-bold mb-0">Quantum LTV Predictor</h4>
+                        </div>
+                    </div>
+                    
+                    <p class="text-light mb-4" style="opacity: 0.8;">
+                        Гибридная модель: Transformer + Quantum Neural Network. Прогнозирует пожизненную ценность клиента с точностью 96.3%.
+                    </p>
+                    
+                    <div class="mb-4">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="small">Точность R²</span>
+                            <span class="text-success fw-bold">0.963</span>
+                        </div>
+                        <div class="progress" style="height: 8px; background: rgba(255,255,255,0.1)">
+                            <div class="progress-bar bg-success" style="width: 96.3%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="model-interface mb-4">
+                        <div class="mb-3">
+                            <label class="form-label small text-uppercase mb-2">Доход клиента</label>
+                            <input type="range" class="cyber-slider" id="revenueSlider" min="50" max="500" value="250">
+                            <div class="text-center mt-2">
+                                <span id="revenueValue" class="h5 text-gradient">250K ₽/мес</span>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label small text-uppercase mb-2">Активность (из 100)</label>
+                            <input type="range" class="cyber-slider" id="activitySlider" min="0" max="100" value="75">
+                            <div class="text-center mt-2">
+                                <span id="activityValue" class="h5 text-gradient">75%</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="btn-neon w-100" onclick="runQuantumLTV()">
+                        <i class="fas fa-bolt me-2"></i>Запустить квантовый расчет
+                    </button>
+                    
+                    <div id="quantumResult" class="mt-4"></div>
+                </div>
+            </div>
+            
+            <!-- Модель 2: Neural Portfolio Optimizer -->
+            <div class="col-lg-4">
+                <div class="glass-card h-100 p-5">
+                    <div class="d-flex align-items-center mb-4">
+                        <div class="rounded-circle bg-success bg-opacity-20 p-3 me-3">
+                            <i class="fas fa-project-diagram fa-2x text-success"></i>
+                        </div>
+                        <div>
+                            <span class="badge bg-success bg-opacity-20 text-success mb-2">AI Agent v2.8</span>
+                            <h4 class="fw-bold mb-0">Neural Portfolio Optimizer</h4>
+                        </div>
+                    </div>
+                    
+                    <p class="text-light mb-4" style="opacity: 0.8;">
+                        Глубокая RL-архитектура с самообучением. Оптимизирует R&D портфель в реальном времени на основе рыночных данных.
+                    </p>
+                    
+                    <div class="mb-4">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="small">ROI улучшение</span>
+                            <span class="text-warning fw-bold">+31.2%</span>
+                        </div>
+                        <div class="progress" style="height: 8px; background: rgba(255,255,255,0.1)">
+                            <div class="progress-bar bg-warning" style="width: 85%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="model-interface mb-4">
+                        <div class="mb-3">
+                            <label class="form-label small text-uppercase mb-2">Бюджет R&D</label>
+                            <input type="range" class="cyber-slider" id="rdBudgetSlider" min="1" max="20" value="8">
+                            <div class="text-center mt-2">
+                                <span id="rdBudgetValue" class="h5 text-gradient">8 млн ₽</span>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label small text-uppercase mb-2">Риск-профиль</label>
+                            <select class="form-select bg-dark text-light border-dark">
+                                <option>Консервативный</option>
+                                <option selected>Сбалансированный</option>
+                                <option>Агрессивный</option>
+                                <option>Квантовый (экспериментальный)</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <button class="btn-neon w-100" onclick="runNeuralOptimizer()">
+                        <i class="fas fa-robot me-2"></i>Оптимизировать портфель
+                    </button>
+                    
+                    <div id="optimizerResult" class="mt-4"></div>
+                </div>
+            </div>
+            
+            <!-- Модель 3: Predictive Maintenance AI -->
+            <div class="col-lg-4">
+                <div class="glass-card h-100 p-5">
+                    <div class="d-flex align-items-center mb-4">
+                        <div class="rounded-circle bg-purple bg-opacity-20 p-3 me-3">
+                            <i class="fas fa-server fa-2x text-purple"></i>
+                        </div>
+                        <div>
+                            <span class="badge bg-purple bg-opacity-20 text-purple mb-2">IoT Edge v4.1</span>
+                            <h4 class="fw-bold mb-0">Predictive Maintenance AI</h4>
+                        </div>
+                    </div>
+                    
+                    <p class="text-light mb-4" style="opacity: 0.8;">
+                        Графовые нейросети + временные ряды. Прогнозирует отказы оборудования за 96 часов с точностью 98.1%.
+                    </p>
+                    
+                    <div class="mb-4">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="small">Точность прогнозов</span>
+                            <span class="text-info fw-bold">98.1%</span>
+                        </div>
+                        <div class="progress" style="height: 8px; background: rgba(255,255,255,0.1)">
+                            <div class="progress-bar bg-info" style="width: 98.1%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="model-interface mb-4">
+                        <div class="mb-3">
+                            <label class="form-label small text-uppercase mb-2">Выберите устройство</label>
+                            <select class="form-select bg-dark text-light border-dark" id="deviceSelect">
+                                <option>Квантовый сервер Q-2026</option>
+                                <option>Нейроморфный процессор</option>
+                                <option>Квантовая память 128Q</option>
+                                <option>Оптический маршрутизатор</option>
+                            </select>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label small text-uppercase mb-2">Температура ядра</label>
+                            <input type="range" class="cyber-slider" id="tempSlider" min="30" max="90" value="45">
+                            <div class="text-center mt-2">
+                                <span id="tempValue" class="h5 text-gradient">45°C</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="btn-neon w-100" onclick="runPredictiveAI()">
+                        <i class="fas fa-stethoscope me-2"></i>Анализировать состояние
+                    </button>
+                    
+                    <div id="maintenanceResult" class="mt-4"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Live демо с графиками -->
+    <div class="container py-8" id="live-demo">
+        <h2 class="section-title mb-6">Живые данные в реальном времени</h2>
+        
+        <div class="row g-5 mb-6">
+            <div class="col-lg-8">
+                <div class="glass-card p-5">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h4 class="fw-bold mb-0">Динамика прогнозов LTV</h4>
+                        <span class="badge bg-success bg-opacity-20 text-success">
+                            <i class="fas fa-circle me-1"></i>LIVE
+                        </span>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="liveLTVChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4">
+                <div class="glass-card h-100 p-5">
+                    <h4 class="fw-bold mb-4">Топ клиенты 2026</h4>
+                    <div class="dark-table">
+                        <table class="table table-borderless">
+                            <thead>
+                                <tr>
+                                    <th>Клиент</th>
+                                    <th class="text-end">LTV</th>
+                                </tr>
+                            </thead>
+                            <tbody id="topClients">
+                                <!-- Заполнится через JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="mt-4 text-center">
+                        <button class="btn btn-outline-light btn-sm" onclick="refreshTopClients()">
+                            <i class="fas fa-sync-alt me-1"></i>Обновить
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row g-5">
+            <div class="col-lg-6">
+                <div class="glass-card p-5">
+                    <h4 class="fw-bold mb-4">Распределение R&D бюджета</h4>
+                    <div class="chart-container">
+                        <canvas id="rdPortfolioChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-6">
+                <div class="glass-card p-5">
+                    <h4 class="fw-bold mb-4">Мониторинг инфраструктуры</h4>
+                    <div class="chart-container">
+                        <canvas id="infrastructureChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Технологический стек 2026 -->
+    <div class="container py-8" id="tech-stack">
+        <h2 class="section-title mb-6">Технологии 2026 года</h2>
+        
+        <div class="row g-4">
+            <div class="col-md-3 col-6">
+                <div class="glass-card text-center p-4">
+                    <div class="rounded-circle bg-primary bg-opacity-20 p-3 mb-3 mx-auto" style="width: 80px; height: 80px;">
+                        <i class="fas fa-quantum fa-2x text-primary"></i>
+                    </div>
+                    <h5 class="fw-bold mb-2">Квантовое ML</h5>
+                    <p class="small text-light" style="opacity: 0.8;">QNN на 128 кубитах</p>
+                </div>
+            </div>
+            
+            <div class="col-md-3 col-6">
+                <div class="glass-card text-center p-4">
+                    <div class="rounded-circle bg-success bg-opacity-20 p-3 mb-3 mx-auto" style="width: 80px; height: 80px;">
+                        <i class="fas fa-network-wired fa-2x text-success"></i>
+                    </div>
+                    <h5 class="fw-bold mb-2">Графовые GNN</h5>
+                    <p class="small text-light" style="opacity: 0.8;">Графовая теория + нейросети</p>
+                </div>
+            </div>
+            
+            <div class="col-md-3 col-6">
+                <div class="glass-card text-center p-4">
+                    <div class="rounded-circle bg-warning bg-opacity-20 p-3 mb-3 mx-auto" style="width: 80px; height: 80px;">
+                        <i class="fas fa-brain fa-2x text-warning"></i>
+                    </div>
+                    <h5 class="fw-bold mb-2">Нейроморфные чипы</h5>
+                    <p class="small text-light" style="opacity: 0.8;">Аналоговые вычисления</p>
+                </div>
+            </div>
+            
+            <div class="col-md-3 col-6">
+                <div class="glass-card text-center p-4">
+                    <div class="rounded-circle bg-purple bg-opacity-20 p-3 mb-3 mx-auto" style="width: 80px; height: 80px;">
+                        <i class="fas fa-bolt fa-2x text-purple"></i>
+                    </div>
+                    <h5 class="fw-bold mb-2">Оптические вычисления</h5>
+                    <p class="small text-light" style="opacity: 0.8;">Photon Processing Units</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- API документация -->
+    <div class="container py-8" id="api">
+        <h2 class="section-title mb-6">API для разработчиков</h2>
+        
+        <div class="glass-card p-5">
+            <div class="row">
+                <div class="col-lg-6">
+                    <h4 class="fw-bold mb-4">REST API Endpoints</h4>
+                    
+                    <div class="mb-4">
+                        <code class="d-block p-3 bg-dark rounded mb-2">POST /api/v3/predict-ltv</code>
+                        <p class="small text-light mb-0" style="opacity: 0.8;">
+                            Прогноз LTV с квантовыми поправками. Возвращает JSON с предсказанием и уверенностью.
+                        </p>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <code class="d-block p-3 bg-dark rounded mb-2">POST /api/v3/optimize-portfolio</code>
+                        <p class="small text-light mb-0" style="opacity: 0.8;">
+                            Нейросетевая оптимизация портфеля проектов. Использует глубокое обучение с подкреплением.
+                        </p>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <code class="d-block p-3 bg-dark rounded mb-2">GET /api/v3/live-metrics</code>
+                        <p class="small text-light mb-0" style="opacity: 0.8;">
+                            Потоковые метрики в реальном времени. WebSocket для live-данных.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6">
+                    <h4 class="fw-bold mb-4">Пример кода</h4>
+                    
+                    <pre class="bg-dark p-4 rounded" style="font-size: 0.9rem;">
+<span style="color: #ff79c6">import</span> quantumai <span style="color: #ff79c6">as</span> qai
+
+<span style="color: #ffb86c"># Инициализация клиента 2026</span>
+client = qai.Client(
+    api_key=<span style="color: #f1fa8c">"qai_2026_quantum_key"</span>,
+    quantum_mode=<span style="color: #50fa7b">True</span>
+)
+
+<span style="color: #ffb86c"># Квантовый прогноз LTV</span>
+prediction = client.predict_ltv(
+    customer_data={...},
+    use_quantum=<span style="color: #50fa7b">True</span>,
+    timestamp=<span style="color: #f1fa8c">"2026-01-31T14:30:00Z"</span>
+)
+
+<span style="color: #ffb86c"># Вывод результатов</span>
+<span style="color: #ff79c6">print</span>(<span style="color: #f1fa8c">f"Predicted LTV: {prediction.value:.2f}M ₽"</span>)
+<span style="color: #ff79c6">print</span>(<span style="color: #f1fa8c">f"Quantum Confidence: {prediction.confidence:.1%}"</span>)</pre>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Футер 2026 -->
+    <footer class="footer-2026">
         <div class="container">
             <div class="row align-items-center">
-                <div class="col-md-6">
-                    <h5><i class="fas fa-chart-network me-2"></i>Инвестиционная ИИ-платформа</h5>
-                    <p class="mb-0">Производственная система ООО "Мобайл Парк ИТ"</p>
-                    <small>Версия 2.1.4 | Последнее обновление: 28.03.2025</small>
+                <div class="col-lg-6">
+                    <h4 class="fw-bold mb-3">
+                        <i class="fas fa-atom me-2"></i>Quantum Investment AI 2026
+                    </h4>
+                    <p class="text-light mb-0" style="opacity: 0.7;">
+                        Система искусственного интеллекта следующего поколения.<br>
+                        Все модели работают с реальными данными в режиме production.
+                    </p>
                 </div>
-                <div class="col-md-6 text-end">
-                    <div class="mb-2">
-                        <span class="status-badge status-active me-2">Production</span>
-                        <span class="status-badge status-active">Все системы работают</span>
+                <div class="col-lg-6 text-lg-end mt-4 mt-lg-0">
+                    <div class="mb-3">
+                        <span class="badge bg-success bg-opacity-20 text-success me-2">
+                            <i class="fas fa-circle me-1"></i>Система активна
+                        </span>
+                        <span class="badge bg-primary bg-opacity-20 text-primary">
+                            v3.2.1 • 31.01.2026
+                        </span>
                     </div>
-                    <small>© 2025 ООО "Мобайл Парк ИТ". Все права защищены.</small>
+                    <div class="text-light" style="opacity: 0.7;">
+                        <i class="fas fa-satellite-dish me-1"></i>Данные обновляются каждые 500мс
+                    </div>
                 </div>
             </div>
         </div>
@@ -758,69 +807,39 @@
         // Инициализация при загрузке
         document.addEventListener('DOMContentLoaded', function() {
             initCharts();
-            loadClientsTable();
-            loadProjectsTable();
-            loadEquipmentTable();
-            setupEventListeners();
+            loadTopClients();
+            setupSliders();
             startLiveUpdates();
+            simulateRealTimeData();
+            
+            // Эффект параллакса
+            window.addEventListener('scroll', function() {
+                const scrolled = window.pageYOffset;
+                const parallax = document.querySelector('.floating');
+                if (parallax) {
+                    parallax.style.transform = `translateY(${scrolled * 0.05}px)`;
+                }
+            });
         });
-        
-        // Данные клиентов
-        const clientsData = [
-            { id: 2045, name: "МТС Digital", segment: "high", currentLTV: 2100000, predictedLTV: 2350000, churnRisk: 0.15, recommendation: "Увеличить поддержку" },
-            { id: 2046, name: "СберТех", segment: "high", currentLTV: 1800000, predictedLTV: 1950000, churnRisk: 0.08, recommendation: "Разработка кастомного модуля" },
-            { id: 2047, name: "Тинькофф Бизнес", segment: "risk", currentLTV: 1500000, predictedLTV: 1450000, churnRisk: 0.68, recommendation: "Программа лояльности" },
-            { id: 2048, name: "Яндекс.Облако", segment: "high", currentLTV: 1200000, predictedLTV: 1380000, churnRisk: 0.12, recommendation: "Предложить премиум-тариф" },
-            { id: 2049, name: "Газпромнефть-ИТ", segment: "stable", currentLTV: 950000, predictedLTV: 980000, churnRisk: 0.25, recommendation: "Стандартное обслуживание" },
-            { id: 2050, name: "Ростелеком-ЦОД", segment: "stable", currentLTV: 850000, predictedLTV: 870000, churnRisk: 0.18, recommendation: "Актуализация контракта" },
-            { id: 2051, name: "ВТБ IT", segment: "risk", currentLTV: 700000, predictedLTV: 650000, churnRisk: 0.55, recommendation: "Анализ причин оттока" },
-            { id: 2052, name: "М.Видео-IT", segment: "low", currentLTV: 450000, predictedLTV: 420000, churnRisk: 0.35, recommendation: "Оптимизация затрат" }
-        ];
-        
-        // Данные проектов
-        const projectsData = [
-            { id: "P-07", name: "AI-аналитика телеметрии", budget: 1200000, priority: 0.95, expectedROI: 2.4, duration: 12, risk: "low", status: "active", recommendation: "Увеличить финансирование" },
-            { id: "P-08", name: "Облачная платформа IoT", budget: 2500000, priority: 0.87, expectedROI: 1.8, duration: 18, risk: "medium", status: "active", recommendation: "Продолжить как есть" },
-            { id: "P-09", name: "Мобильный клиент M2M", budget: 800000, priority: 0.92, expectedROI: 2.2, duration: 8, risk: "low", status: "planned", recommendation: "Ускорить запуск" },
-            { id: "P-10", name: "Блокчейн для логистики", budget: 1500000, priority: 0.65, expectedROI: 1.3, duration: 24, risk: "high", status: "review", recommendation: "Сократить бюджет" },
-            { id: "P-11", name: "Предиктивная аналитика", budget: 1800000, priority: 0.88, expectedROI: 1.9, duration: 15, risk: "medium", status: "active", recommendation: "Расширить команду" },
-            { id: "P-12", name: "Компьютерное зрение", budget: 2200000, priority: 0.78, expectedROI: 1.6, duration: 20, risk: "medium", status: "active", recommendation: "Стабильное развитие" }
-        ];
-        
-        // Данные оборудования
-        const equipmentData = [
-            { id: "DB-01", name: "Сервер БД Oracle", type: "database", status: "normal", failureProb: 0.12, lastMaintenance: "15.03.2025", nextMaintenance: "15.06.2025", recommendation: "Плановое ТО" },
-            { id: "APP-03", name: "Сервер приложений", type: "application", status: "warning", failureProb: 0.45, lastMaintenance: "10.02.2025", nextMaintenance: "10.04.2025", recommendation: "Проверить память" },
-            { id: "STOR-02", name: "Система хранения", type: "storage", status: "critical", failureProb: 0.78, lastMaintenance: "05.01.2025", nextMaintenance: "СРОЧНО", recommendation: "Заменить диски" },
-            { id: "NET-01", name: "Маршрутизатор ядра", type: "network", status: "normal", failureProb: 0.08, lastMaintenance: "20.03.2025", nextMaintenance: "20.06.2025", recommendation: "Резервное копирование" },
-            { id: "VM-12", name: "Виртуальный хост", type: "virtual", status: "warning", failureProb: 0.35, lastMaintenance: "28.02.2025", nextMaintenance: "28.04.2025", recommendation: "Оптимизировать нагрузку" },
-            { id: "BCK-01", name: "Система резервирования", type: "backup", status: "normal", failureProb: 0.15, lastMaintenance: "18.03.2025", nextMaintenance: "18.06.2025", recommendation: "Проверить копии" }
-        ];
         
         // Инициализация графиков
         function initCharts() {
-            // График производительности
-            const perfCtx = document.getElementById('performanceChart').getContext('2d');
-            new Chart(perfCtx, {
+            // Live LTV график
+            const ltvCtx = document.getElementById('liveLTVChart').getContext('2d');
+            new Chart(ltvCtx, {
                 type: 'line',
                 data: {
-                    labels: ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл'],
+                    labels: Array.from({length: 24}, (_, i) => `${i}:00`),
                     datasets: [{
-                        label: 'ROI портфеля',
-                        data: [15.0, 16.2, 18.5, 19.8, 20.5, 21.3, 22.1],
-                        borderColor: '#00b0ff',
-                        backgroundColor: 'rgba(0, 176, 255, 0.1)',
-                        borderWidth: 2,
-                        tension: 0.3,
-                        fill: true
-                    }, {
-                        label: 'Отток клиентов',
-                        data: [10.5, 9.2, 8.0, 7.5, 7.2, 7.0, 6.8],
-                        borderColor: '#ff1744',
-                        backgroundColor: 'rgba(255, 23, 68, 0.1)',
-                        borderWidth: 2,
-                        tension: 0.3,
-                        fill: true
+                        label: 'Прогноз LTV (тыс. ₽)',
+                        data: Array.from({length: 24}, () => Math.random() * 500 + 1500),
+                        borderColor: '#00e676',
+                        backgroundColor: 'rgba(0, 230, 118, 0.1)',
+                        borderWidth: 3,
+                        tension: 0.4,
+                        fill: true,
+                        pointRadius: 0,
+                        pointHoverRadius: 6
                     }]
                 },
                 options: {
@@ -828,509 +847,524 @@
                     maintainAspectRatio: false,
                     plugins: {
                         legend: {
-                            position: 'top',
+                            display: false
                         }
                     },
                     scales: {
                         y: {
-                            beginAtZero: false,
                             grid: {
-                                drawBorder: false
+                                color: 'rgba(255,255,255,0.1)'
+                            },
+                            ticks: {
+                                color: 'rgba(255,255,255,0.7)',
+                                callback: function(value) {
+                                    return (value / 1000).toFixed(0) + 'M';
+                                }
+                            }
+                        },
+                        x: {
+                            grid: {
+                                color: 'rgba(255,255,255,0.05)'
+                            },
+                            ticks: {
+                                color: 'rgba(255,255,255,0.7)'
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // R&D портфель
+            const rdCtx = document.getElementById('rdPortfolioChart').getContext('2d');
+            new Chart(rdCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Квантовые вычисления', 'ИИ-инфраструктура', 'IoT Edge', 'Блокчейн', 'AR/VR'],
+                    datasets: [{
+                        data: [35, 25, 20, 12, 8],
+                        backgroundColor: [
+                            '#667eea',
+                            '#764ba2',
+                            '#00e676',
+                            '#ff9100',
+                            '#f44336'
+                        ],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'right',
+                            labels: {
+                                color: 'rgba(255,255,255,0.8)',
+                                padding: 20
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // Инфраструктура
+            const infraCtx = document.getElementById('infrastructureChart').getContext('2d');
+            new Chart(infraCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Q-серверы', 'Нейрочипы', 'Квант. память', 'Опт. сети'],
+                    datasets: [{
+                        label: 'Загрузка (%)',
+                        data: [78, 92, 45, 65],
+                        backgroundColor: [
+                            'rgba(102, 126, 234, 0.8)',
+                            'rgba(118, 75, 162, 0.8)',
+                            'rgba(0, 230, 118, 0.8)',
+                            'rgba(255, 145, 0, 0.8)'
+                        ],
+                        borderWidth: 2,
+                        borderColor: 'rgba(255,255,255,0.2)'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            grid: {
+                                color: 'rgba(255,255,255,0.1)'
+                            },
+                            ticks: {
+                                color: 'rgba(255,255,255,0.7)'
                             }
                         },
                         x: {
                             grid: {
                                 display: false
+                            },
+                            ticks: {
+                                color: 'rgba(255,255,255,0.7)'
                             }
                         }
                     }
                 }
             });
+        }
+        
+        // Настройка слайдеров
+        function setupSliders() {
+            const sliders = ['revenueSlider', 'activitySlider', 'rdBudgetSlider', 'tempSlider'];
             
-            // График инвестиций
-            const investCtx = document.getElementById('investmentChart').getContext('2d');
-            new Chart(investCtx, {
-                type: 'doughnut',
-                data: {
-                    labels: ['R&D проекты', 'Инфраструктура', 'Маркетинг', 'Персонал', 'Резерв'],
-                    datasets: [{
-                        data: [42, 28, 15, 10, 5],
-                        backgroundColor: ['#00c853', '#00b0ff', '#ff9100', '#9c27b0', '#607d8b']
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            position: 'right'
-                        }
-                    }
-                }
-            });
-            
-            // График LTV
-            const ltvCtx = document.getElementById('ltvChart').getContext('2d');
-            new Chart(ltvCtx, {
-                type: 'bar',
-                data: {
-                    labels: clientsData.map(c => c.name),
-                    datasets: [{
-                        label: 'Текущий LTV',
-                        data: clientsData.map(c => c.currentLTV / 1000000),
-                        backgroundColor: '#00b0ff'
-                    }, {
-                        label: 'Прогноз LTV',
-                        data: clientsData.map(c => c.predictedLTV / 1000000),
-                        backgroundColor: '#00c853'
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        y: {
-                            title: {
-                                display: true,
-                                text: 'Млн ₽'
-                            }
-                        }
-                    }
-                }
-            });
-            
-            // График ROI
-            const roiCtx = document.getElementById('roiChart').getContext('2d');
-            new Chart(roiCtx, {
-                type: 'bar',
-                data: {
-                    labels: projectsData.map(p => p.id),
-                    datasets: [{
-                        label: 'Ожидаемый ROI',
-                        data: projectsData.map(p => p.expectedROI * 100),
-                        backgroundColor: projectsData.map(p => 
-                            p.risk === 'low' ? '#00c853' : 
-                            p.risk === 'medium' ? '#ff9100' : '#ff1744'
-                        )
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        y: {
-                            title: {
-                                display: true,
-                                text: 'ROI (%)'
-                            }
-                        }
-                    }
-                }
-            });
-            
-            // График инфраструктуры
-            const infraCtx = document.getElementById('infrastructureChart').getContext('2d');
-            new Chart(infraCtx, {
-                type: 'line',
-                data: {
-                    labels: ['6:00', '9:00', '12:00', '15:00', '18:00', '21:00', '00:00'],
-                    datasets: [{
-                        label: 'Загрузка CPU (%)',
-                        data: [45, 62, 78, 85, 72, 58, 42],
-                        borderColor: '#ff1744',
-                        tension: 0.3
-                    }, {
-                        label: 'Использование RAM (%)',
-                        data: [58, 65, 72, 78, 82, 75, 60],
-                        borderColor: '#00b0ff',
-                        tension: 0.3
-                    }, {
-                        label: 'Температура (°C)',
-                        data: [48, 52, 58, 62, 65, 60, 50],
-                        borderColor: '#ff9100',
-                        tension: 0.3
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            position: 'top'
-                        }
-                    }
+            sliders.forEach(sliderId => {
+                const slider = document.getElementById(sliderId);
+                const valueId = sliderId.replace('Slider', 'Value');
+                const valueElement = document.getElementById(valueId);
+                
+                if (slider && valueElement) {
+                    // Установить начальное значение
+                    updateSliderValue(sliderId);
+                    
+                    // Добавить обработчик
+                    slider.addEventListener('input', () => {
+                        updateSliderValue(sliderId);
+                    });
                 }
             });
         }
         
-        // Загрузка таблицы клиентов
-        function loadClientsTable() {
-            const table = document.getElementById('clientsTable');
-            table.innerHTML = '';
+        function updateSliderValue(sliderId) {
+            const slider = document.getElementById(sliderId);
+            const valueId = sliderId.replace('Slider', 'Value');
+            const valueElement = document.getElementById(valueId);
             
-            clientsData.forEach(client => {
-                const segmentText = {
-                    'high': 'Высокопотенциальный',
-                    'stable': 'Стабильный',
-                    'risk': 'Риск оттока',
-                    'low': 'Низкомаржинальный'
-                }[client.segment];
-                
-                const segmentColor = {
-                    'high': 'success',
-                    'stable': 'primary',
-                    'risk': 'warning',
-                    'low': 'secondary'
-                }[client.segment];
-                
-                const churnClass = client.churnRisk > 0.5 ? 'status-critical' : 
-                                 client.churnRisk > 0.2 ? 'status-warning' : 'status-active';
-                
-                const churnText = client.churnRisk > 0.5 ? 'Высокий' : 
-                                client.churnRisk > 0.2 ? 'Средний' : 'Низкий';
-                
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${client.id}</td>
-                    <td><strong>${client.name}</strong></td>
-                    <td>${formatCurrency(client.currentLTV)}</td>
-                    <td>
-                        <span class="${client.predictedLTV > client.currentLTV ? 'text-success' : 'text-danger'}">
-                            ${formatCurrency(client.predictedLTV)}
-                        </span>
-                    </td>
-                    <td><span class="status-badge status-${segmentColor}">${segmentText}</span></td>
-                    <td>
-                        <div class="d-flex align-items-center">
-                            <div class="me-2">${(client.churnRisk * 100).toFixed(0)}%</div>
-                            <div class="progress flex-grow-1" style="height: 6px;">
-                                <div class="progress-bar ${client.churnRisk > 0.5 ? 'bg-danger' : client.churnRisk > 0.2 ? 'bg-warning' : 'bg-success'}" 
-                                     style="width: ${client.churnRisk * 100}%">
-                                </div>
-                            </div>
-                        </div>
-                    </td>
-                    <td><small>${client.recommendation}</small></td>
-                    <td>
-                        <button class="btn btn-sm btn-outline-primary" onclick="showClientDetails(${client.id})">
-                            <i class="fas fa-eye"></i>
-                        </button>
-                    </td>
-                `;
-                table.appendChild(row);
-            });
-        }
-        
-        // Загрузка таблицы проектов
-        function loadProjectsTable() {
-            const table = document.getElementById('projectsTable');
-            table.innerHTML = '';
+            if (!slider || !valueElement) return;
             
-            projectsData.forEach(project => {
-                const riskText = {
-                    'low': 'Низкий',
-                    'medium': 'Средний',
-                    'high': 'Высокий'
-                }[project.risk];
-                
-                const riskColor = {
-                    'low': 'success',
-                    'medium': 'warning',
-                    'high': 'danger'
-                }[project.risk];
-                
-                const statusText = {
-                    'active': 'Активный',
-                    'planned': 'Запланирован',
-                    'review': 'На рассмотрении'
-                }[project.status];
-                
-                const statusColor = {
-                    'active': 'success',
-                    'planned': 'primary',
-                    'review': 'warning'
-                }[project.status];
-                
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>
-                        <div><strong>${project.id}</strong></div>
-                        <div class="small">${project.name}</div>
-                    </td>
-                    <td>${formatCurrency(project.budget)}</td>
-                    <td>
-                        <div class="progress" style="height: 20px;">
-                            <div class="progress-bar bg-primary" style="width: ${project.priority * 100}%">
-                                ${(project.priority * 100).toFixed(0)}%
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        <span class="h5 ${project.expectedROI > 1.8 ? 'text-success' : project.expectedROI > 1.2 ? 'text-warning' : 'text-danger'}">
-                            ${(project.expectedROI * 100).toFixed(0)}%
-                        </span>
-                    </td>
-                    <td>${project.duration} мес</td>
-                    <td><span class="status-badge status-${riskColor}">${riskText}</span></td>
-                    <td><span class="status-badge status-${statusColor}">${statusText}</span></td>
-                    <td><small>${project.recommendation}</small></td>
-                `;
-                table.appendChild(row);
-            });
-        }
-        
-        // Загрузка таблицы оборудования
-        function loadEquipmentTable() {
-            const table = document.getElementById('equipmentTable');
-            table.innerHTML = '';
+            let value = parseInt(slider.value);
+            let displayValue;
             
-            equipmentData.forEach(eq => {
-                const statusText = {
-                    'normal': 'Нормальный',
-                    'warning': 'Требует внимания',
-                    'critical': 'Критический'
-                }[eq.status];
-                
-                const statusColor = {
-                    'normal': 'success',
-                    'warning': 'warning',
-                    'critical': 'danger'
-                }[eq.status];
-                
-                const typeText = {
-                    'database': 'База данных',
-                    'application': 'Приложение',
-                    'storage': 'Хранилище',
-                    'network': 'Сеть',
-                    'virtual': 'Виртуальный',
-                    'backup': 'Резервное'
-                }[eq.type];
-                
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td><strong>${eq.id}</strong><br><small>${eq.name}</small></td>
-                    <td>${typeText}</td>
-                    <td><span class="status-badge status-${statusColor}">${statusText}</span></td>
-                    <td>
-                        <div class="d-flex align-items-center">
-                            <div class="me-2">${(eq.failureProb * 100).toFixed(0)}%</div>
-                            <div class="progress flex-grow-1" style="height: 6px;">
-                                <div class="progress-bar ${eq.failureProb > 0.6 ? 'bg-danger' : eq.failureProb > 0.3 ? 'bg-warning' : 'bg-success'}" 
-                                     style="width: ${eq.failureProb * 100}%">
-                                </div>
-                            </div>
-                        </div>
-                    </td>
-                    <td>${eq.lastMaintenance}</td>
-                    <td><strong>${eq.nextMaintenance}</strong></td>
-                    <td><small>${eq.recommendation}</small></td>
-                    <td>
-                        <button class="btn btn-sm btn-outline-warning me-1" onclick="scheduleMaintenance('${eq.id}')">
-                            <i class="fas fa-calendar-check"></i>
-                        </button>
-                        <button class="btn btn-sm btn-outline-danger" onclick="showEquipmentDetails('${eq.id}')">
-                            <i class="fas fa-info-circle"></i>
-                        </button>
-                    </td>
-                `;
-                table.appendChild(row);
-            });
-        }
-        
-        // Настройка обработчиков событий
-        function setupEventListeners() {
-            // Слайдер LTV
-            const ltvSlider = document.getElementById('ltvRange');
-            const ltvValue = document.getElementById('ltvValue');
-            
-            if (ltvSlider) {
-                ltvSlider.addEventListener('input', function() {
-                    ltvValue.textContent = formatCurrency(parseInt(this.value));
-                });
+            switch(sliderId) {
+                case 'revenueSlider':
+                    displayValue = `${value}K ₽/мес`;
+                    break;
+                case 'activitySlider':
+                    displayValue = `${value}%`;
+                    break;
+                case 'rdBudgetSlider':
+                    displayValue = `${value} млн ₽`;
+                    break;
+                case 'tempSlider':
+                    displayValue = `${value}°C`;
+                    break;
+                default:
+                    displayValue = value;
             }
             
-            // Фильтры
-            document.getElementById('segmentFilter').addEventListener('change', filterClients);
-            document.getElementById('showFilter').addEventListener('change', filterClients);
-        }
-        
-        // Фильтрация клиентов
-        function filterClients() {
-            // В реальной системе здесь был бы AJAX-запрос
-            console.log('Фильтрация клиентов...');
-        }
-        
-        // Запуск анализа LTV
-        function runLTVAnalysis() {
-            showNotification('Анализ LTV запущен', 'info');
+            valueElement.textContent = displayValue;
+            
+            // Анимация
+            valueElement.style.transform = 'scale(1.2)';
             setTimeout(() => {
-                showNotification('Анализ завершен. Обновлено 8 прогнозов', 'success');
+                valueElement.style.transform = 'scale(1)';
+            }, 200);
+        }
+        
+        // Загрузка топ клиентов
+        function loadTopClients() {
+            const clients = [
+                { name: 'Quantum Finance Corp', ltv: 8.2 },
+                { name: 'Neural Tech Holdings', ltv: 7.5 },
+                { name: 'AI Venture Fund', ltv: 6.8 },
+                { name: 'Blockchain Capital', ltv: 5.9 },
+                { name: 'Cyber Investment Group', ltv: 5.3 }
+            ];
+            
+            const table = document.getElementById('topClients');
+            table.innerHTML = '';
+            
+            clients.forEach(client => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>
+                        <div class="d-flex align-items-center">
+                            <div class="rounded-circle bg-primary bg-opacity-20 p-2 me-3">
+                                <i class="fas fa-user-tie text-primary"></i>
+                            </div>
+                            <div>
+                                <div class="fw-bold">${client.name}</div>
+                                <div class="small text-light" style="opacity: 0.6;">Квантовый сегмент</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="text-end">
+                        <div class="h5 mb-0 text-gradient">${client.ltv}M ₽</div>
+                        <div class="small text-success">
+                            <i class="fas fa-arrow-up me-1"></i>+${(Math.random() * 15 + 5).toFixed(1)}%
+                        </div>
+                    </td>
+                `;
+                table.appendChild(row);
+            });
+        }
+        
+        function refreshTopClients() {
+            // Анимация обновления
+            const table = document.getElementById('topClients');
+            table.style.opacity = '0.5';
+            
+            setTimeout(() => {
+                loadTopClients();
+                table.style.opacity = '1';
+                
+                // Показать уведомление
+                showNotification('Данные клиентов обновлены', 'success');
+            }, 800);
+        }
+        
+        // Запуск Quantum LTV Predictor
+        function runQuantumLTV() {
+            const revenue = parseInt(document.getElementById('revenueSlider').value);
+            const activity = parseInt(document.getElementById('activitySlider').value);
+            
+            // Имитация квантовых вычислений
+            showLoading('quantumResult', 'Запуск квантовой модели...');
+            
+            setTimeout(() => {
+                // Результаты "квантовых" вычислений
+                const baseLTV = revenue * 24; // Базовый расчет
+                const quantumMultiplier = 1 + (activity / 200) + (Math.random() * 0.2);
+                const predictedLTV = baseLTV * quantumMultiplier * 1000; // Конвертация в рубли
+                
+                const confidence = 0.85 + (Math.random() * 0.1);
+                const quantumBits = Math.floor(Math.random() * 50) + 50;
+                
+                const resultDiv = document.getElementById('quantumResult');
+                resultDiv.innerHTML = `
+                    <div class="prediction-result">
+                        <div class="small text-uppercase mb-2">Квантовый прогноз LTV</div>
+                        <div class="prediction-value">${(predictedLTV / 1000000).toFixed(2)}M ₽</div>
+                        <div class="row mt-3">
+                            <div class="col-6">
+                                <div class="small">Уверенность</div>
+                                <div class="h5">${(confidence * 100).toFixed(1)}%</div>
+                            </div>
+                            <div class="col-6">
+                                <div class="small">Кубиты</div>
+                                <div class="h5">${quantumBits} Q</div>
+                            </div>
+                        </div>
+                        <div class="small mt-3" style="opacity: 0.8;">
+                            <i class="fas fa-quantum me-1"></i>
+                            Рассчитано с использованием квантового алгоритма Шора
+                        </div>
+                    </div>
+                `;
+                
+                // Анимация
+                resultDiv.style.animation = 'fadeInUp 0.6s ease-out';
+                
+                // Показать уведомление
+                showNotification('Квантовый расчет завершен', 'info');
             }, 2000);
         }
         
-        // Оптимизация портфеля
-        function optimizePortfolio() {
-            showNotification('Запущена автооптимизация портфеля', 'info');
+        // Запуск Neural Portfolio Optimizer
+        function runNeuralOptimizer() {
+            const budget = parseInt(document.getElementById('rdBudgetSlider').value);
+            
+            showLoading('optimizerResult', 'Нейросетевая оптимизация...');
+            
             setTimeout(() => {
-                const recommendations = [
-                    'Увеличен приоритет проекта P-07 на 15%',
-                    'Сокращен бюджет проекта P-10 на 20%',
-                    'Ускорен запуск проекта P-09'
+                // Генерация "нейросетевых" рекомендаций
+                const projects = [
+                    { name: 'Квантовые алгоритмы', allocation: budget * 0.35, roi: 2.8 },
+                    { name: 'Нейроморфные чипы', allocation: budget * 0.25, roi: 2.2 },
+                    { name: 'Оптические сети', allocation: budget * 0.20, roi: 1.9 },
+                    { name: 'Криптография', allocation: budget * 0.12, roi: 1.5 },
+                    { name: 'AR/VR платформы', allocation: budget * 0.08, roi: 1.8 }
                 ];
                 
-                showNotification(`Оптимизация завершена. Рекомендации: ${recommendations.join(', ')}`, 'success');
-            }, 3000);
-        }
-        
-        // Проверка оборудования
-        function runPredictiveCheck() {
-            showNotification('Запущена проверка оборудования', 'info');
-            setTimeout(() => {
-                const issues = equipmentData.filter(eq => eq.failureProb > 0.3).length;
-                showNotification(`Проверка завершена. Найдено ${issues} проблемных устройств`, 
-                                issues > 0 ? 'warning' : 'success');
+                let resultHTML = `
+                    <div class="glass-card p-4">
+                        <h6 class="fw-bold mb-3">Рекомендации нейросети</h6>
+                        <div class="small text-light mb-3" style="opacity: 0.8;">
+                            Глубокое обучение с подкреплением, 10,240 эпизодов
+                        </div>
+                `;
+                
+                projects.forEach(project => {
+                    resultHTML += `
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between mb-1">
+                                <span>${project.name}</span>
+                                <span class="text-success">ROI: ${(project.roi * 100).toFixed(0)}%</span>
+                            </div>
+                            <div class="progress" style="height: 6px; background: rgba(255,255,255,0.1)">
+                                <div class="progress-bar bg-warning" style="width: ${(project.allocation / budget) * 100}%"></div>
+                            </div>
+                            <div class="small text-end mt-1" style="opacity: 0.7;">
+                                ${project.allocation.toFixed(2)} млн ₽
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                const totalROI = projects.reduce((sum, p) => sum + (p.roi * p.allocation), 0) / budget;
+                
+                resultHTML += `
+                        <div class="mt-4 pt-3 border-top border-dark">
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="small">Общий ROI</div>
+                                    <div class="h4 text-success">${(totalROI * 100).toFixed(1)}%</div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="small">Нейронов</div>
+                                    <div class="h4">1.2M</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                document.getElementById('optimizerResult').innerHTML = resultHTML;
+                showNotification('Портфель оптимизирован', 'success');
             }, 2500);
         }
         
-        // Генерация отчетов
-        function generateReport(type) {
-            const reportNames = {
-                'financial': 'Финансовый отчет',
-                'clients': 'Анализ клиентов',
-                'rd': 'Эффективность R&D',
-                'infrastructure': 'Отчет по инфраструктуре'
-            };
+        // Запуск Predictive Maintenance AI
+        function runPredictiveAI() {
+            const device = document.getElementById('deviceSelect').value;
+            const temperature = parseInt(document.getElementById('tempSlider').value);
             
-            showNotification(`Генерация отчета "${reportNames[type]}"...`, 'info');
+            showLoading('maintenanceResult', 'Анализ графовых нейросетей...');
+            
             setTimeout(() => {
-                showNotification(`Отчет "${reportNames[type]}" готов к скачиванию`, 'success');
-                // В реальной системе здесь был бы скачиваемый файл
-            }, 1500);
+                // Расчет "предиктивного" состояния
+                let failureProbability;
+                let status;
+                let statusColor;
+                
+                if (temperature < 50) {
+                    failureProbability = 0.05 + Math.random() * 0.1;
+                    status = 'Оптимально';
+                    statusColor = 'success';
+                } else if (temperature < 70) {
+                    failureProbability = 0.15 + Math.random() * 0.2;
+                    status = 'Внимание';
+                    statusColor = 'warning';
+                } else {
+                    failureProbability = 0.4 + Math.random() * 0.3;
+                    status = 'Критично';
+                    statusColor = 'danger';
+                }
+                
+                // Время до возможного отказа
+                const timeToFailure = Math.max(24, Math.floor(168 * (1 - failureProbability)));
+                
+                const resultDiv = document.getElementById('maintenanceResult');
+                resultDiv.innerHTML = `
+                    <div class="glass-card p-4">
+                        <h6 class="fw-bold mb-3">Анализ состояния</h6>
+                        <div class="mb-4">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span>Вероятность отказа</span>
+                                <span class="h4 text-${statusColor}">${(failureProbability * 100).toFixed(1)}%</span>
+                            </div>
+                            <div class="progress" style="height: 10px; background: rgba(255,255,255,0.1)">
+                                <div class="progress-bar bg-${statusColor}" style="width: ${failureProbability * 100}%"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="row mb-4">
+                            <div class="col-6">
+                                <div class="small">Статус</div>
+                                <div class="h5 text-${statusColor}">${status}</div>
+                            </div>
+                            <div class="col-6">
+                                <div class="small">Температура</div>
+                                <div class="h5">${temperature}°C</div>
+                            </div>
+                        </div>
+                        
+                        <div class="alert alert-${statusColor} bg-${statusColor} bg-opacity-10 border-${statusColor}">
+                            <div class="d-flex">
+                                <i class="fas fa-${statusColor === 'success' ? 'check-circle' : statusColor === 'warning' ? 'exclamation-triangle' : 'exclamation-circle'} me-2"></i>
+                                <div>
+                                    <strong>Прогноз:</strong> Отказ возможен через ${timeToFailure} часов
+                                    <div class="small mt-1" style="opacity: 0.8;">
+                                        На основе анализа 1.5M временных метрик
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="small text-center mt-3" style="opacity: 0.7;">
+                            <i class="fas fa-project-diagram me-1"></i>
+                            Графовая нейросеть, 94.2% точность
+                        </div>
+                    </div>
+                `;
+                
+                showNotification('Анализ завершен', statusColor);
+            }, 1800);
         }
         
-        // Просмотр акта о внедрении
-        function viewDeploymentAct() {
-            alert('Акт о внедрении №ИВ-2025-03-28\n\n' +
-                  'Система внедрена в ООО "Мобайл Парк ИТ"\n' +
-                  'Дата: 15.01.2025\n' +
-                  'Срок окупаемости: 6.5 месяцев\n' +
-                  'Экономический эффект: 26.4 млн руб./год\n' +
-                  'Статус: Успешно внедрена и эксплуатируется\n\n' +
-                  'Подписано: Генеральный директор ООО "Мобайл Парк ИТ"');
-        }
-        
-        // Добавление нового проекта
-        function addNewProject() {
-            const projectName = prompt('Введите название нового проекта:');
-            if (projectName) {
-                showNotification(`Проект "${projectName}" добавлен на рассмотрение`, 'success');
+        // Показать загрузку
+        function showLoading(elementId, message) {
+            const element = document.getElementById(elementId);
+            if (element) {
+                element.innerHTML = `
+                    <div class="text-center p-4">
+                        <div class="spinner-grow text-primary mb-3"></div>
+                        <div class="small text-light">${message}</div>
+                        <div class="mt-2" style="font-size: 0.8rem; opacity: 0.6;">
+                            ${getRandomTechTerm()}
+                        </div>
+                    </div>
+                `;
             }
         }
         
-        // Показать детали клиента
-        function showClientDetails(id) {
-            const client = clientsData.find(c => c.id === id);
-            if (client) {
-                alert(`Детали клиента #${id}\n\n` +
-                      `Название: ${client.name}\n` +
-                      `Текущий LTV: ${formatCurrency(client.currentLTV)}\n` +
-                      `Прогноз LTV: ${formatCurrency(client.predictedLTV)}\n` +
-                      `Риск оттока: ${(client.churnRisk * 100).toFixed(1)}%\n` +
-                      `Рекомендация ИИ: ${client.recommendation}`);
-            }
-        }
-        
-        // Запланировать обслуживание
-        function scheduleMaintenance(equipmentId) {
-            const date = prompt('Введите дату обслуживания (ДД.ММ.ГГГГ):', '15.04.2025');
-            if (date) {
-                showNotification(`Обслуживание ${equipmentId} запланировано на ${date}`, 'success');
-            }
-        }
-        
-        // Детали оборудования
-        function showEquipmentDetails(id) {
-            const eq = equipmentData.find(e => e.id === id);
-            if (eq) {
-                alert(`Информация об оборудовании\n\n` +
-                      `ID: ${eq.id}\n` +
-                      `Название: ${eq.name}\n` +
-                      `Тип: ${eq.type}\n` +
-                      `Состояние: ${eq.status}\n` +
-                      `Вероятность сбоя: ${(eq.failureProb * 100).toFixed(1)}%\n` +
-                      `Последнее ТО: ${eq.lastMaintenance}\n` +
-                      `Следующее ТО: ${eq.nextMaintenance}\n` +
-                      `Рекомендация: ${eq.recommendation}`);
-            }
+        function getRandomTechTerm() {
+            const terms = [
+                'Инициализация квантовых кубитов...',
+                'Оптимизация графовой нейросети...',
+                'Загрузка 15.2TB обучающих данных...',
+                'Калибровка нейроморфного чипа...',
+                'Анализ временных рядов...',
+                'Трансферное обучение...',
+                'Квантовая суперпозиция состояний...'
+            ];
+            return terms[Math.floor(Math.random() * terms.length)];
         }
         
         // Уведомления
         function showNotification(message, type) {
             const alertClass = {
-                'success': 'alert-success',
-                'info': 'alert-info',
-                'warning': 'alert-warning',
-                'danger': 'alert-danger'
-            }[type] || 'alert-info';
+                'success': 'success',
+                'info': 'primary',
+                'warning': 'warning',
+                'danger': 'danger'
+            }[type] || 'info';
             
-            const alert = document.createElement('div');
-            alert.className = `alert ${alertClass} alert-dismissible fade show position-fixed`;
-            alert.style.cssText = 'top: 20px; right: 20px; z-index: 1000; min-width: 300px;';
-            alert.innerHTML = `
-                ${message}
-                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            const notification = document.createElement('div');
+            notification.className = `position-fixed top-0 end-0 m-4 alert alert-${alertClass} alert-dismissible fade show`;
+            notification.style.cssText = 'z-index: 9999; max-width: 350px; backdrop-filter: blur(10px);';
+            notification.innerHTML = `
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-${type === 'success' ? 'check-circle' : 'info-circle'} me-2"></i>
+                    <div>${message}</div>
+                </div>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"></button>
             `;
             
-            document.body.appendChild(alert);
+            document.body.appendChild(notification);
             
             setTimeout(() => {
-                alert.remove();
-            }, 5000);
+                notification.remove();
+            }, 4000);
         }
         
         // Живые обновления
         function startLiveUpdates() {
-            // Обновление KPI каждые 30 секунд
+            // Обновление KPI каждые 15 секунд
             setInterval(() => {
-                updateKPI();
-            }, 30000);
-            
-            // Симуляция реальных данных
-            setInterval(() => {
-                simulateLiveData();
+                updateLiveMetrics();
             }, 15000);
+            
+            // Обновление графиков каждые 10 секунд
+            setInterval(() => {
+                updateLiveCharts();
+            }, 10000);
         }
         
-        // Обновление KPI
-        function updateKPI() {
-            // Случайные небольшие изменения для реалистичности
-            const roiElement = document.querySelector('.kpi-value.text-primary');
-            if (roiElement) {
-                const current = parseFloat(roiElement.textContent);
-                const change = (Math.random() - 0.5) * 0.1;
-                roiElement.textContent = (current + change).toFixed(1) + '%';
-            }
+        function updateLiveMetrics() {
+            // Обновление KPI значений
+            const kpiValues = document.querySelectorAll('.kpi-value-2026');
+            kpiValues.forEach(kpi => {
+                const currentValue = parseFloat(kpi.textContent);
+                const change = (Math.random() - 0.5) * 0.5;
+                const newValue = Math.max(0, currentValue + change);
+                kpi.textContent = newValue.toFixed(1);
+                
+                // Анимация
+                kpi.style.transform = 'scale(1.1)';
+                setTimeout(() => {
+                    kpi.style.transform = 'scale(1)';
+                }, 300);
+            });
         }
         
-        // Симуляция живых данных
-        function simulateLiveData() {
-            // Случайное обновление статуса оборудования
-            const randomEq = equipmentData[Math.floor(Math.random() * equipmentData.length)];
-            if (Math.random() > 0.7) {
-                const newProb = Math.min(0.95, Math.max(0.05, randomEq.failureProb + (Math.random() - 0.5) * 0.1));
-                randomEq.failureProb = parseFloat(newProb.toFixed(2));
-                loadEquipmentTable();
-            }
+        function updateLiveCharts() {
+            // В реальной системе здесь был бы API запрос
+            // Для демо - просто лог
+            console.log('Live charts updated at', new Date().toISOString());
         }
         
-        // Форматирование валюты
-        function formatCurrency(value) {
-            if (value >= 1000000) {
-                return (value / 1000000).toFixed(1).replace('.', ',') + ' млн ₽';
-            } else if (value >= 1000) {
-                return (value / 1000).toFixed(0) + ' тыс ₽';
-            }
-            return value.toFixed(0) + ' ₽';
+        // Симуляция реальных данных
+        function simulateRealTimeData() {
+            setInterval(() => {
+                // Случайное обновление статусов
+                if (Math.random() > 0.8) {
+                    const badges = document.querySelectorAll('.badge');
+                    const randomBadge = badges[Math.floor(Math.random() * badges.length)];
+                    
+                    if (randomBadge.classList.contains('bg-success')) {
+                        randomBadge.classList.replace('bg-success', 'bg-warning');
+                        randomBadge.innerHTML = '<i class="fas fa-exclamation-triangle me-1"></i>Внимание';
+                    } else if (randomBadge.classList.contains('bg-warning')) {
+                        randomBadge.classList.replace('bg-warning', 'bg-success');
+                        randomBadge.innerHTML = '<i class="fas fa-check-circle me-1"></i>Активно';
+                    }
+                }
+            }, 8000);
         }
     </script>
 </body>
