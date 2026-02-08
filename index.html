@@ -747,17 +747,17 @@
                         <div class="metric-card">
                             <div class="metric-title">Прогноз ROI с ИИ</div>
                             <div class="metric-value" id="roiValue">—</div>
-                            <div class="metric-subtitle">Целевой: 22% | Без ИИ: —</div>
+                            <div class="metric-subtitle" id="roiSubtitle">Целевой: 22% | Без ИИ: —</div>
                         </div>
                         <div class="metric-card">
                             <div class="metric-title">Прогноз оттока клиентов</div>
                             <div class="metric-value" id="churnValue">—</div>
-                            <div class="metric-subtitle">Целевой: <6% | Без ИИ: —</div>
+                            <div class="metric-subtitle" id="churnSubtitle">Целевой: <6% | Без ИИ: —</div>
                         </div>
                         <div class="metric-card">
                             <div class="metric-title">Эффективность R&D с ИИ</div>
                             <div class="metric-value" id="rdValue">—</div>
-                            <div class="metric-subtitle">Проекты окупаются за — мес.</div>
+                            <div class="metric-subtitle" id="rdSubtitle">Проекты окупаются за — мес.</div>
                         </div>
                     </div>
                     
@@ -849,7 +849,7 @@
                                     <span class="kpi-change neutral" id="roiChange">—</span>
                                 </div>
                                 <div class="kpi-value" id="portfolioRoi">—</div>
-                                <div style="font-size: 0.85rem; color: #666; margin-top: 5px;">До внедрения: —</div>
+                                <div style="font-size: 0.85rem; color: #666; margin-top: 5px;" id="portfolioBefore">До внедрения: —</div>
                             </div>
                             <div class="kpi-item">
                                 <div class="kpi-header">
@@ -857,7 +857,7 @@
                                     <span class="kpi-change neutral" id="ineffectiveChange">—</span>
                                 </div>
                                 <div class="kpi-value" id="ineffectiveInvestments">—</div>
-                                <div style="font-size: 0.85rem; color: #666; margin-top: 5px;">До внедрения: —</div>
+                                <div style="font-size: 0.85rem; color: #666; margin-top: 5px;" id="ineffectiveBefore">До внедрения: —</div>
                             </div>
                             <div class="kpi-item">
                                 <div class="kpi-header">
@@ -865,7 +865,7 @@
                                     <span class="kpi-change neutral" id="paybackChange">—</span>
                                 </div>
                                 <div class="kpi-value" id="paybackPeriod">—</div>
-                                <div style="font-size: 0.85rem; color: #666; margin-top: 5px;">До внедрения: —</div>
+                                <div style="font-size: 0.85rem; color: #666; margin-top: 5px;" id="paybackBefore">До внедрения: —</div>
                             </div>
                             <div class="kpi-item">
                                 <div class="kpi-header">
@@ -873,7 +873,7 @@
                                     <span class="kpi-change neutral" id="decisionTimeChange">—</span>
                                 </div>
                                 <div class="kpi-value" id="decisionTime">—</div>
-                                <div style="font-size: 0.85rem; color: #666; margin-top: 5px;">До внедрения: —</div>
+                                <div style="font-size: 0.85rem; color: #666; margin-top: 5px;" id="decisionBefore">До внедрения: —</div>
                             </div>
                         </div>
                     </div>
@@ -979,6 +979,7 @@
         // Переменная для отслеживания состояния
         let isCalculated = false;
         let currentCompany = null;
+        let previousValues = {};
         
         // Сбросить все поля до пустых значений
         function resetFormFields() {
@@ -1061,6 +1062,15 @@
             return parseInt(value) || 0;
         }
         
+        // Получение значения с плавающей точкой
+        function getFloatValue(inputId) {
+            const input = document.getElementById(inputId);
+            if (!input.value || input.value === '—') return 0;
+            
+            let value = input.value.replace(/\s/g, '').replace(/,/g, '');
+            return parseFloat(value) || 0;
+        }
+        
         // Выбор компании по ИНН
         function selectCompany() {
             const inn = document.getElementById('companyINN').value.trim();
@@ -1079,6 +1089,9 @@
                 document.getElementById('companyDetails').textContent = currentCompany.type + ' | ' + currentCompany.description;
                 document.querySelector('.company-logo').textContent = currentCompany.logoText;
                 document.querySelector('.company-logo').style.backgroundColor = '#283593';
+                
+                // Сохраняем предыдущие значения для сравнения
+                saveCurrentValues();
                 
                 // Заполняем данные компании
                 fillCompanyData(currentCompany);
@@ -1108,6 +1121,27 @@
                 // Сбрасываем поля формы
                 resetFormFields();
             }
+        }
+        
+        // Сохранить текущие значения для сравнения
+        function saveCurrentValues() {
+            previousValues = {
+                investmentAmount: getNumericValue('investmentAmount'),
+                investmentPeriod: getFloatValue('investmentPeriod'),
+                historicalRoi: getFloatValue('historicalRoi'),
+                riskTolerance: getFloatValue('riskTolerance'),
+                rdBudget: getFloatValue('rdBudget'),
+                projectCount: getFloatValue('projectCount'),
+                currentRdSuccess: getFloatValue('currentRdSuccess'),
+                currentPaybackPeriod: getFloatValue('currentPaybackPeriod'),
+                customerCount: getNumericValue('customerCount'),
+                currentChurn: getFloatValue('currentChurn'),
+                avgLtv: getNumericValue('avgLtv'),
+                keyCustomersShare: getFloatValue('keyCustomersShare'),
+                infraCapex: getNumericValue('infraCapex'),
+                unplannedDowntime: getFloatValue('unplannedDowntime'),
+                maintenanceCost: getNumericValue('maintenanceCost')
+            };
         }
         
         // Заполнение данных компании
@@ -1141,6 +1175,9 @@
             document.getElementById('maintenanceCost').value = data.maintenanceCost.toLocaleString('ru-RU');
             document.getElementById('maintenanceCost').setAttribute('data-original', data.maintenanceCost);
             
+            // Сохраняем новые значения
+            saveCurrentValues();
+            
             // Добавляем обработчики для форматирования
             const numberInputs = document.querySelectorAll('input[type="text"]');
             numberInputs.forEach(input => {
@@ -1163,9 +1200,9 @@
             
             // Проверяем, что обязательные поля заполнены
             const investmentAmount = getNumericValue('investmentAmount');
-            const investmentPeriod = parseInt(document.getElementById('investmentPeriod').value) || 0;
-            const riskTolerance = parseFloat(document.getElementById('riskTolerance').value) || 0;
-            const rdBudget = parseInt(document.getElementById('rdBudget').value) || 0;
+            const investmentPeriod = getFloatValue('investmentPeriod');
+            const riskTolerance = getFloatValue('riskTolerance');
+            const rdBudget = getFloatValue('rdBudget');
             
             if (investmentAmount === 0 || investmentPeriod === 0 || riskTolerance === 0 || rdBudget === 0) {
                 showNotification('Заполните все обязательные поля (отмечены *)', 'error');
@@ -1196,6 +1233,9 @@
                 return;
             }
             
+            // Сохраняем текущие значения
+            saveCurrentValues();
+            
             // Выполняем расчет
             performCalculation();
             
@@ -1204,26 +1244,24 @@
         
         // Основная функция расчета
         function performCalculation() {
-            // === РАСЧЕТЫ ПО МОДЕЛИ ИЗ ВКР ===
-            
-            // Получение текущих значений из формы
+            // Получение ТЕКУЩИХ значений из формы
             const investmentAmount = getNumericValue('investmentAmount');
-            const investmentPeriod = parseInt(document.getElementById('investmentPeriod').value) || 24;
-            const historicalRoi = parseFloat(document.getElementById('historicalRoi').value) || 15;
-            const riskTolerance = parseFloat(document.getElementById('riskTolerance').value) || 10;
-            const rdBudget = parseInt(document.getElementById('rdBudget').value) || 25;
-            const projectCount = parseInt(document.getElementById('projectCount').value) || 45;
-            const currentRdSuccess = parseInt(document.getElementById('currentRdSuccess').value) || 40;
-            const currentPaybackPeriod = parseInt(document.getElementById('currentPaybackPeriod').value) || 24;
+            const investmentPeriod = getFloatValue('investmentPeriod');
+            const historicalRoi = getFloatValue('historicalRoi');
+            const riskTolerance = getFloatValue('riskTolerance');
+            const rdBudget = getFloatValue('rdBudget');
+            const projectCount = getFloatValue('projectCount');
+            const currentRdSuccess = getFloatValue('currentRdSuccess');
+            const currentPaybackPeriod = getFloatValue('currentPaybackPeriod');
             const customerCount = getNumericValue('customerCount');
-            const currentChurn = parseFloat(document.getElementById('currentChurn').value) || 10;
+            const currentChurn = getFloatValue('currentChurn');
             const avgLtv = getNumericValue('avgLtv');
-            const keyCustomersShare = parseInt(document.getElementById('keyCustomersShare').value) || 32;
+            const keyCustomersShare = getFloatValue('keyCustomersShare');
             const infraCapex = getNumericValue('infraCapex');
-            const unplannedDowntime = parseFloat(document.getElementById('unplannedDowntime').value) || 5;
+            const unplannedDowntime = getFloatValue('unplannedDowntime');
             const maintenanceCost = getNumericValue('maintenanceCost');
             
-            // Расчет показателей на основе входных данных
+            // Расчет показателей на основе ВВЕДЕННЫХ данных
             const results = calculateIndicators({
                 investmentAmount,
                 investmentPeriod,
@@ -1244,10 +1282,21 @@
             
             // Обновление UI с результатами
             updateResultsUI(results, {
+                investmentAmount,
+                investmentPeriod,
                 historicalRoi,
-                currentChurn,
+                riskTolerance,
+                rdBudget,
+                projectCount,
                 currentRdSuccess,
-                currentPaybackPeriod
+                currentPaybackPeriod,
+                customerCount,
+                currentChurn,
+                avgLtv,
+                keyCustomersShare,
+                infraCapex,
+                unplannedDowntime,
+                maintenanceCost
             });
             
             // Генерация рекомендаций
@@ -1256,96 +1305,141 @@
         
         // Расчет индикаторов на основе входных данных
         function calculateIndicators(inputs) {
-            // Базовые коэффициенты из ВКР
-            const baseResults = {
-                roiWithAI: 21,          // Было 15%, стало 21%
-                churnWithAI: 7,         // Было 10%, стало 7%
-                rdEfficiency: 65,       // Было 40%, стало 65%
-                paybackPeriod: 19,      // Было 24 мес., стало 19 мес.
-                segmentHigh: 32,
-                ltvGrowth: 8,
-                retentionInvestment: 25,
-                ltvEffect: 15,
-                rdRedistribution: 20,
-                fastProjects: 65,
-                timeOptimization: 5,
-                revenueGrowth: 15,
-                downtimeReduction: 40,
-                capexSavings: 15,
-                maintenanceSavings: 18,
-                predictiveRoi: 245,
-                ineffectiveInvestments: 17,
-                decisionTime: 10,
-                maturityScore: 4.2,
-                maturityLevel: 'Высокий уровень'
-            };
+            // Базовые коэффициенты из ВКР с динамической адаптацией
             
-            // Корректировка результатов на основе входных параметров
-            const adjustedResults = {...baseResults};
+            // Динамический расчет ROI на основе введенных данных
+            let baseRoi = inputs.historicalRoi || 15;
+            let roiWithAI = baseRoi * 1.4; // Базовое улучшение 40%
             
-            // Корректировка ROI на основе объема инвестиций и риска
+            // Корректировка ROI на основе объема инвестиций
             if (inputs.investmentAmount > 200000000) {
-                adjustedResults.roiWithAI += 2; // Большие инвестиции - выше ROI
+                roiWithAI *= 1.1; // +10% для больших инвестиций
             } else if (inputs.investmentAmount < 50000000) {
-                adjustedResults.roiWithAI -= 1; // Малые инвестиции - ниже ROI
+                roiWithAI *= 0.95; // -5% для малых инвестиций
             }
             
             // Корректировка на основе риск-аппетита
             if (inputs.riskTolerance > 15) {
-                adjustedResults.roiWithAI += 1.5; // Высокий риск - потенциально выше доходность
+                roiWithAI *= 1.07; // +7% для высокого риска
             } else if (inputs.riskTolerance < 5) {
-                adjustedResults.roiWithAI -= 1; // Низкий риск - ниже доходность
+                roiWithAI *= 0.93; // -7% для низкого риска
             }
             
-            // Корректировка оттока клиентов
-            if (inputs.currentChurn > 15) {
-                adjustedResults.churnWithAI = Math.max(5, inputs.currentChurn * 0.6); // Высокий текущий отток
-            } else if (inputs.currentChurn < 5) {
-                adjustedResults.churnWithAI = Math.max(3, inputs.currentChurn * 0.8); // Низкий текущий отток
+            // Динамический расчет оттока клиентов
+            let baseChurn = inputs.currentChurn || 10;
+            let churnWithAI = baseChurn * 0.7; // Снижение на 30%
+            
+            // Корректировка оттока на основе LTV
+            if (inputs.avgLtv > 2000000) {
+                churnWithAI *= 0.9; // Дополнительное снижение для высокого LTV
             }
             
-            // Корректировка эффективности R&D
+            // Динамический расчет эффективности R&D
+            let baseRdEfficiency = inputs.currentRdSuccess || 40;
+            let rdEfficiency = baseRdEfficiency * 1.625; // Улучшение на 62.5%
+            
+            // Корректировка на основе бюджета R&D
             if (inputs.rdBudget > 30) {
-                adjustedResults.rdEfficiency += 5; // Большой бюджет R&D
-                adjustedResults.fastProjects += 5;
+                rdEfficiency *= 1.08; // +8% для большого бюджета
             } else if (inputs.rdBudget < 15) {
-                adjustedResults.rdEfficiency -= 5; // Малый бюджет R&D
-                adjustedResults.fastProjects -= 5;
+                rdEfficiency *= 0.92; // -8% для малого бюджета
             }
             
-            // Корректировка доли высокопотенциальных клиентов
-            adjustedResults.segmentHigh = Math.min(50, Math.max(20, inputs.keyCustomersShare));
+            // Динамический расчет срока окупаемости
+            let basePayback = inputs.currentPaybackPeriod || 24;
+            let paybackPeriod = basePayback * 0.792; // Ускорение на 20.8%
             
-            // Корректировка экономии на основе затрат на инфраструктуру
-            if (inputs.infraCapex > 20000000) {
-                adjustedResults.capexSavings += 3; // Большие затраты - больше потенциал экономии
-                adjustedResults.maintenanceSavings += 2;
-            }
+            // Динамический расчет для LightGBM модели
+            let segmentHigh = Math.min(50, Math.max(20, inputs.keyCustomersShare || 32));
+            let ltvGrowth = Math.min(15, Math.max(5, 8 * (inputs.avgLtv / 1500000))); // Зависит от LTV
+            let retentionInvestment = Math.min(40, Math.max(15, 25 * (inputs.currentChurn / 10))); // Зависит от оттока
+            let ltvEffect = Math.min(25, Math.max(10, 15 * (inputs.avgLtv / 1500000))); // Зависит от LTV
             
-            // Ограничение значений в разумных пределах
-            adjustedResults.roiWithAI = Math.min(35, Math.max(10, adjustedResults.roiWithAI));
-            adjustedResults.churnWithAI = Math.min(20, Math.max(2, adjustedResults.churnWithAI));
-            adjustedResults.rdEfficiency = Math.min(85, Math.max(30, adjustedResults.rdEfficiency));
-            adjustedResults.fastProjects = Math.min(80, Math.max(40, adjustedResults.fastProjects));
-            adjustedResults.predictiveRoi = Math.min(400, Math.max(150, adjustedResults.predictiveRoi));
+            // Динамический расчет для Q-learning модели
+            let rdRedistribution = Math.min(30, Math.max(10, 20 * (inputs.rdBudget / 25))); // Зависит от бюджета
+            let fastProjects = Math.min(80, Math.max(40, 65 * (inputs.projectCount / 45))); // Зависит от кол-ва проектов
+            let timeOptimization = Math.min(8, Math.max(2, 5 * (inputs.currentPaybackPeriod / 24))); // Зависит от срока окупаемости
+            let revenueGrowth = Math.min(25, Math.max(10, 15 * (inputs.currentRdSuccess / 40))); // Зависит от эффективности
             
-            return adjustedResults;
+            // Динамический расчет для предиктивного обслуживания
+            let downtimeReduction = Math.min(60, Math.max(20, 40 * (inputs.unplannedDowntime / 5))); // Зависит от простоев
+            let capexSavings = Math.min(25, Math.max(5, 15 * (inputs.infraCapex / 15000000))); // Зависит от CAPEX
+            let maintenanceSavings = Math.min(25, Math.max(10, 18 * (inputs.maintenanceCost / 4500000))); // Зависит от затрат на поддержку
+            let predictiveRoi = Math.min(350, Math.max(150, 245 * (inputs.infraCapex / 15000000))); // Зависит от CAPEX
+            
+            // Расчет индекса ИИ-зрелости на основе всех параметров
+            let maturityScore = calculateMaturityScore(inputs);
+            let maturityLevel = getMaturityLevel(maturityScore);
+            
+            return {
+                roiWithAI: Math.min(35, Math.max(10, roiWithAI)),
+                churnWithAI: Math.min(20, Math.max(2, churnWithAI)),
+                rdEfficiency: Math.min(85, Math.max(30, rdEfficiency)),
+                paybackPeriod: Math.min(36, Math.max(12, paybackPeriod)),
+                segmentHigh: Math.round(segmentHigh),
+                ltvGrowth: Math.round(ltvGrowth),
+                retentionInvestment: Math.round(retentionInvestment),
+                ltvEffect: Math.round(ltvEffect),
+                rdRedistribution: Math.round(rdRedistribution),
+                fastProjects: Math.round(fastProjects),
+                timeOptimization: Math.round(timeOptimization),
+                revenueGrowth: Math.round(revenueGrowth),
+                downtimeReduction: Math.round(downtimeReduction),
+                capexSavings: Math.round(capexSavings),
+                maintenanceSavings: Math.round(maintenanceSavings),
+                predictiveRoi: Math.round(predictiveRoi),
+                ineffectiveInvestments: Math.max(5, Math.min(30, 25 - (inputs.historicalRoi / 2))), // Зависит от ROI
+                decisionTime: Math.max(5, Math.min(20, 28 - (inputs.investmentAmount / 10000000))), // Зависит от объема инвестиций
+                maturityScore: maturityScore,
+                maturityLevel: maturityLevel
+            };
+        }
+        
+        // Расчет индекса ИИ-зрелости
+        function calculateMaturityScore(inputs) {
+            let score = 3.0; // Базовый уровень
+            
+            // Корректировка на основе объема инвестиций
+            if (inputs.investmentAmount > 100000000) score += 0.5;
+            else if (inputs.investmentAmount < 30000000) score -= 0.3;
+            
+            // Корректировка на основе ROI
+            if (inputs.historicalRoi > 20) score += 0.4;
+            else if (inputs.historicalRoi < 10) score -= 0.2;
+            
+            // Корректировка на основе бюджета R&D
+            if (inputs.rdBudget > 25) score += 0.3;
+            else if (inputs.rdBudget < 15) score -= 0.2;
+            
+            // Корректировка на основе оттока клиентов
+            if (inputs.currentChurn < 8) score += 0.2;
+            else if (inputs.currentChurn > 15) score -= 0.3;
+            
+            // Ограничение значения
+            return Math.min(5.0, Math.max(1.0, score)).toFixed(1);
+        }
+        
+        // Определение уровня зрелости
+        function getMaturityLevel(score) {
+            if (score >= 4.5) return 'Очень высокий уровень';
+            if (score >= 4.0) return 'Высокий уровень';
+            if (score >= 3.5) return 'Выше среднего';
+            if (score >= 3.0) return 'Средний уровень';
+            if (score >= 2.5) return 'Ниже среднего';
+            return 'Начальный уровень';
         }
         
         // Обновление интерфейса с результатами
-        function updateResultsUI(results, baseValues) {
-            // Расчет изменений
-            const roiChange = results.roiWithAI - baseValues.historicalRoi;
-            const churnChange = baseValues.currentChurn - results.churnWithAI;
-            const rdSuccessChange = results.rdEfficiency - baseValues.currentRdSuccess;
-            const paybackChange = baseValues.currentPaybackPeriod - results.paybackPeriod;
-            const ineffectiveChange = (25 - results.ineffectiveInvestments); // Было 25% по умолчанию
-            const decisionTimeChange = 28 - results.decisionTime; // Было 28 дней по умолчанию
-            
+        function updateResultsUI(results, currentValues) {
             // Обновление метрик
             document.getElementById('roiValue').textContent = results.roiWithAI.toFixed(1) + '%';
             document.getElementById('churnValue').textContent = results.churnWithAI.toFixed(1) + '%';
             document.getElementById('rdValue').textContent = results.rdEfficiency.toFixed(0) + '%';
+            
+            // Обновление подзаголовков
+            document.getElementById('roiSubtitle').innerHTML = `Целевой: 22% | Без ИИ: ${currentValues.historicalRoi.toFixed(1)}%`;
+            document.getElementById('churnSubtitle').innerHTML = `Целевой: <6% | Без ИИ: ${currentValues.currentChurn.toFixed(1)}%`;
+            document.getElementById('rdSubtitle').innerHTML = `Проекты окупаются за ${results.paybackPeriod.toFixed(0)} мес.`;
             
             // Обновление деталей алгоритмов
             document.getElementById('segmentHigh').textContent = results.segmentHigh + '%';
@@ -1363,31 +1457,32 @@
             document.getElementById('maintenanceSavings').textContent = results.maintenanceSavings + '%';
             document.getElementById('predictiveRoi').textContent = results.predictiveRoi + '%';
             
+            // Расчет изменений для KPI
+            const roiChange = results.roiWithAI - currentValues.historicalRoi;
+            const ineffectiveChange = (25 - results.ineffectiveInvestments);
+            const paybackChange = currentValues.currentPaybackPeriod - results.paybackPeriod;
+            const decisionTimeChange = 28 - results.decisionTime;
+            
             // Обновление KPI
             document.getElementById('portfolioRoi').textContent = results.roiWithAI.toFixed(1) + '%';
             updateKPIChange('roiChange', roiChange, '%', true);
+            document.getElementById('portfolioBefore').innerHTML = `До внедрения: ${currentValues.historicalRoi.toFixed(1)}%`;
+            
             document.getElementById('ineffectiveInvestments').textContent = results.ineffectiveInvestments + '%';
             updateKPIChange('ineffectiveChange', ineffectiveChange, '%', false);
-            document.getElementById('paybackPeriod').textContent = results.paybackPeriod + ' мес.';
+            document.getElementById('ineffectiveBefore').innerHTML = `До внедрения: 25%`;
+            
+            document.getElementById('paybackPeriod').textContent = results.paybackPeriod.toFixed(0) + ' мес.';
             updateKPIChange('paybackChange', paybackChange, 'мес.', true);
+            document.getElementById('paybackBefore').innerHTML = `До внедрения: ${currentValues.currentPaybackPeriod} мес.`;
+            
             document.getElementById('decisionTime').textContent = results.decisionTime + ' дней';
             updateKPIChange('decisionTimeChange', decisionTimeChange, 'дней', true);
+            document.getElementById('decisionBefore').innerHTML = `До внедрения: 28 дней`;
             
             // Обновление ИИ-зрелости
-            document.getElementById('aiMaturityScore').textContent = results.maturityScore.toFixed(1);
+            document.getElementById('aiMaturityScore').textContent = results.maturityScore;
             document.getElementById('maturityLevel').textContent = results.maturityLevel;
-            
-            // Обновление подзаголовков
-            document.querySelectorAll('.metric-subtitle')[0].innerHTML = `Целевой: 22% | Без ИИ: ${baseValues.historicalRoi.toFixed(1)}%`;
-            document.querySelectorAll('.metric-subtitle')[1].innerHTML = `Целевой: <6% | Без ИИ: ${baseValues.currentChurn.toFixed(1)}%`;
-            document.querySelectorAll('.metric-subtitle')[2].innerHTML = `Проекты окупаются за ${results.paybackPeriod} мес.`;
-            
-            // Обновление KPI подзаголовков
-            const kpiSubtitles = document.querySelectorAll('.kpi-item div');
-            kpiSubtitles[0].innerHTML = `До внедрения: ${baseValues.historicalRoi.toFixed(1)}%`;
-            kpiSubtitles[1].innerHTML = `До внедрения: 25%`;
-            kpiSubtitles[2].innerHTML = `До внедрения: ${baseValues.currentPaybackPeriod} мес.`;
-            kpiSubtitles[3].innerHTML = `До внедрения: 28 дней`;
         }
         
         // Обновление KPI изменений
