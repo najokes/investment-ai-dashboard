@@ -1,4 +1,4 @@
-# Интегрированная трёхконтурная модель автоматизации управления инвестициями (ООО «Мобайл Парк ИТ»)
+# Интегрированная трёхконтурная модель автоматизации управления инвестициями
 
 ```html
 <!DOCTYPE html>
@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Интегрированная трёхконтурная модель автоматизации управления инвестициями</title>
+    <title>Инвестиционная аналитика МПИТ</title>
     <style>
         * {
             margin: 0;
@@ -14,171 +14,360 @@
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
+        
         body {
-            background-color: #f8f9fa;
+            background-color: #f5f7fa;
             color: #333;
             line-height: 1.6;
         }
+        
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             padding: 20px;
         }
+        
         header {
             background: linear-gradient(135deg, #1a237e 0%, #283593 100%);
             color: white;
-            padding: 40px 0;
-            text-align: center;
-            border-radius: 0 0 20px 20px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            padding: 25px 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
         h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
+            font-size: 1.8rem;
+            font-weight: 600;
         }
-        .subtitle {
-            font-size: 1.1rem;
-            opacity: 0.9;
-            max-width: 800px;
-            margin: 0 auto 20px;
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
         }
+        
+        .logo img {
+            height: 40px;
+        }
+        
         .last-update {
-            background-color: rgba(255, 255, 255, 0.1);
-            display: inline-block;
+            background-color: rgba(255, 255, 255, 0.15);
             padding: 8px 16px;
             border-radius: 20px;
             font-size: 0.9rem;
-            margin-top: 10px;
         }
-        .model-overview {
+        
+        .dashboard {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 30px;
-            margin: 40px 0;
+            grid-template-columns: 280px 1fr;
+            gap: 25px;
+            margin-top: 30px;
         }
-        .model-card {
+        
+        .sidebar {
             background: white;
             border-radius: 12px;
             padding: 25px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            height: fit-content;
         }
-        .model-card:hover {
-            transform: translateY(-5px);
+        
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
         }
-        .model-card h3 {
+        
+        .section-title {
             color: #1a237e;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             padding-bottom: 10px;
             border-bottom: 2px solid #e8eaf6;
+            font-weight: 600;
         }
-        .contour-card {
+        
+        .input-group {
+            margin-bottom: 25px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #444;
+        }
+        
+        select, input[type="range"] {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        
+        select:focus, input[type="range"]:focus {
+            outline: none;
+            border-color: #283593;
+        }
+        
+        .range-value {
+            text-align: center;
+            font-weight: 600;
+            color: #283593;
+            margin-top: 8px;
+            font-size: 1.1rem;
+        }
+        
+        .calculate-btn {
+            background: linear-gradient(135deg, #283593 0%, #3949ab 100%);
+            color: white;
+            border: none;
+            padding: 14px;
+            width: 100%;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-top: 10px;
+        }
+        
+        .calculate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(40, 53, 147, 0.2);
+        }
+        
+        .reset-btn {
+            background: #f5f5f5;
+            color: #666;
+            border: 2px solid #e0e0e0;
+            padding: 12px;
+            width: 100%;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        
+        .reset-btn:hover {
+            background: #eee;
+        }
+        
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+        
+        .metric-card {
             background: white;
             border-radius: 12px;
             padding: 25px;
-            margin: 30px 0;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            border-left: 5px solid #283593;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            position: relative;
         }
+        
+        .metric-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .metric-title {
+            font-weight: 600;
+            color: #1a237e;
+            font-size: 1.1rem;
+        }
+        
+        .metric-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #283593;
+            margin: 10px 0;
+        }
+        
+        .metric-change {
+            font-size: 0.9rem;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-weight: 500;
+        }
+        
+        .positive {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+        }
+        
+        .negative {
+            background-color: #ffebee;
+            color: #c62828;
+        }
+        
+        .metric-details {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
         .algorithm-section {
             background: white;
             border-radius: 12px;
             padding: 25px;
-            margin: 30px 0;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
         }
+        
         .algorithm-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 20px;
             margin-top: 20px;
         }
+        
         .algorithm-card {
-            background: #f5f7ff;
+            background: #f8f9ff;
             border-radius: 10px;
             padding: 20px;
             border: 1px solid #e8eaf6;
         }
+        
         .algorithm-card h4 {
             color: #283593;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
         }
-        .tech-stack {
-            background: white;
-            border-radius: 12px;
-            padding: 25px;
-            margin: 30px 0;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        
+        .algorithm-results {
+            margin-top: 15px;
         }
-        .tech-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin-top: 20px;
-        }
-        .tech-item {
-            background: #e8eaf6;
-            padding: 15px;
-            border-radius: 8px;
-            text-align: center;
-            font-weight: 500;
-        }
-        .architecture-diagram {
-            background: white;
-            border-radius: 12px;
-            padding: 25px;
-            margin: 30px 0;
-            text-align: center;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-        }
-        .architecture-img {
-            max-width: 100%;
-            border-radius: 8px;
-            margin: 20px 0;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-        }
-        .implementation-steps {
-            background: white;
-            border-radius: 12px;
-            padding: 25px;
-            margin: 30px 0;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-        }
-        .step {
+        
+        .result-item {
             display: flex;
-            align-items: flex-start;
-            margin: 20px 0;
-            padding: 15px;
-            background: #f5f7ff;
-            border-radius: 8px;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px dashed #e0e0e0;
         }
-        .step-number {
-            background: #283593;
-            color: white;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
+        
+        .result-item:last-child {
+            border-bottom: none;
+        }
+        
+        .chart-container {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            margin-top: 10px;
+        }
+        
+        .chart-placeholder {
+            height: 300px;
+            background: linear-gradient(135deg, #f5f7ff 0%, #e8eaf6 100%);
+            border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-right: 15px;
-            flex-shrink: 0;
+            color: #666;
+            font-weight: 500;
         }
+        
+        .recommendations {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            margin-top: 10px;
+        }
+        
+        .recommendation-item {
+            padding: 15px;
+            background: #f8f9ff;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border-left: 4px solid #283593;
+        }
+        
+        .recommendation-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .rec-title {
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #1a237e;
+        }
+        
+        .rec-details {
+            font-size: 0.95rem;
+            color: #555;
+        }
+        
+        .risk-indicator {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-top: 8px;
+        }
+        
+        .low-risk {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+        }
+        
+        .medium-risk {
+            background-color: #fff3e0;
+            color: #ef6c00;
+        }
+        
+        .high-risk {
+            background-color: #ffebee;
+            color: #c62828;
+        }
+        
         footer {
             text-align: center;
             padding: 30px 0;
             margin-top: 40px;
-            border-top: 1px solid #e0e0e0;
             color: #666;
+            border-top: 1px solid #e0e0e0;
         }
+        
+        @media (max-width: 1200px) {
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                order: 2;
+            }
+        }
+        
         @media (max-width: 768px) {
             .container {
                 padding: 15px;
             }
-            h1 {
-                font-size: 2rem;
+            
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
             }
-            .model-overview {
+            
+            .metrics-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .algorithm-grid {
                 grid-template-columns: 1fr;
             }
         }
@@ -187,210 +376,345 @@
 <body>
     <header>
         <div class="container">
-            <h1>Интегрированная трёхконтурная модель автоматизации управления инвестициями</h1>
-            <p class="subtitle">Комплексная система на основе технологий искусственного интеллекта для управления большими данными в сфере инвестиций</p>
-            <div class="last-update">Последнее обновление: 31.01.2026</div>
+            <div class="header-content">
+                <div class="logo">
+                    <h1>Инвестиционная аналитика МПИТ</h1>
+                </div>
+                <div class="last-update">Обновлено: 31.01.2026</div>
+            </div>
         </div>
     </header>
 
     <div class="container">
-        <section class="model-overview">
-            <div class="model-card">
-                <h3>Цель модели</h3>
-                <p>Повышение эффективности и оптимизация процессов управления большими данными в сфере инвестиций посредством разработки и внедрения комплексной системы на основе технологий искусственного интеллекта.</p>
-            </div>
-            <div class="model-card">
-                <h3>Область применения</h3>
-                <p>Технологические компании среднего размера с диверсифицированными инвестиционными портфелями, работающими в условиях цифровой экономики (B2B, PaaS, IoT-сектор).</p>
-            </div>
-            <div class="model-card">
-                <h3>Ключевая особенность</h3>
-                <p>Трехуровневая архитектура, обеспечивающая синергию между человеческим и искусственным интеллектом, перераспределяя функции в системе принятия решений.</p>
-            </div>
-        </section>
-
-        <section class="contour-card">
-            <h3>Трёхконтурная архитектура</h3>
-            <p>Модель построена на трёх взаимосвязанных контурах управления, каждый из которых выполняет специфические функции:</p>
-            
-            <div class="algorithm-grid">
-                <div class="algorithm-card">
-                    <h4>Стратегический контур</h4>
-                    <p><strong>Функции:</strong> Формулировка инвестиционных целей, утверждение риск-аппетита, контроль этических аспектов, принятие финальных решений по крупным инвестициям.</p>
-                    <p><strong>Роль ИИ:</strong> Предоставление аналитических отчетов, моделирование долгосрочных сценариев, визуализация стратегических KPI.</p>
+        <div class="dashboard">
+            <div class="sidebar">
+                <h2 class="section-title">Параметры анализа</h2>
+                
+                <div class="input-group">
+                    <label for="investmentAmount">Объём инвестиций (млн руб.)</label>
+                    <input type="range" id="investmentAmount" min="10" max="500" value="150" step="10">
+                    <div class="range-value" id="investmentAmountValue">150 млн руб.</div>
                 </div>
-                <div class="algorithm-card">
-                    <h4>Тактический контур</h4>
-                    <p><strong>Функции:</strong> Формирование инвестиционного портфеля, распределение ресурсов, оценка эффективности проектов, управление рисками.</p>
-                    <p><strong>Роль ИИ:</strong> Оптимизация портфеля, предиктивная аналитика, генерация рекомендаций, сценарный анализ.</p>
+                
+                <div class="input-group">
+                    <label for="riskLevel">Уровень риска</label>
+                    <select id="riskLevel">
+                        <option value="low">Консервативный</option>
+                        <option value="medium" selected>Сбалансированный</option>
+                        <option value="high">Агрессивный</option>
+                    </select>
                 </div>
-                <div class="algorithm-card">
-                    <h4>Операционный контур</h4>
-                    <p><strong>Функции:</strong> Мониторинг рынка, сбор и обработка данных, исполнение решений, техническая поддержка инвестиционных процессов.</p>
-                    <p><strong>Роль ИИ:</strong> Автоматическая обработка больших данных, прогнозирование LTV, предиктивное обслуживание, алгоритмическая аналитика.</p>
+                
+                <div class="input-group">
+                    <label for="timeHorizon">Инвестиционный горизонт</label>
+                    <select id="timeHorizon">
+                        <option value="short">Краткосрочный (до 1 года)</option>
+                        <option value="medium" selected>Среднесрочный (1-3 года)</option>
+                        <option value="long">Долгосрочный (3+ года)</option>
+                    </select>
                 </div>
-            </div>
-        </section>
-
-        <section class="architecture-diagram">
-            <h3>Архитектурная схема модели</h3>
-            <p>Интегрированная модель автоматизации управления инвестициями обеспечивает сквозной data-driven подход</p>
-            <div class="architecture-img" style="background: #e8eaf6; padding: 30px; border-radius: 8px;">
-                <div style="margin-bottom: 20px; padding: 15px; background: #bbdefb; border-radius: 6px;">
-                    <strong>Входные данные:</strong> Структурированные и неструктурированные данные из внутренних и внешних источников
+                
+                <div class="input-group">
+                    <label for="rdBudget">Бюджет на R&D (% от инвестиций)</label>
+                    <input type="range" id="rdBudget" min="5" max="40" value="25" step="1">
+                    <div class="range-value" id="rdBudgetValue">25%</div>
                 </div>
-                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 15px;">
-                    <div style="background: #c8e6c9; padding: 15px; border-radius: 6px;">Модуль сбора и агрегации данных</div>
-                    <div style="background: #fff9c4; padding: 15px; border-radius: 6px;">Модуль анализа и прогнозирования</div>
-                    <div style="background: #f8bbd0; padding: 15px; border-radius: 6px;">Модуль симуляции и принятия решений</div>
+                
+                <div class="input-group">
+                    <label for="clientSegment">Целевой сегмент клиентов</label>
+                    <select id="clientSegment">
+                        <option value="enterprise">Корпоративный</option>
+                        <option value="medium" selected>Средний бизнес</option>
+                        <option value="startup">Стартапы/венчур</option>
+                        <option value="mixed">Смешанный</option>
+                    </select>
                 </div>
-                <div style="margin-bottom: 15px; padding: 15px; background: #d1c4e9; border-radius: 6px;">
-                    <strong>Три контура управления:</strong> Стратегический → Тактический → Операционный
-                </div>
-                <div style="padding: 15px; background: #b3e5fc; border-radius: 6px;">
-                    <strong>Выход:</strong> Оптимизированные инвестиционные решения, KPI-дашборды, автоматизированные отчеты
-                </div>
-            </div>
-        </section>
-
-        <section class="algorithm-section">
-            <h3>Алгоритмическое ядро модели</h3>
-            <p>Специализированные алгоритмы машинного обучения для ключевых инвестиционных процессов:</p>
-            
-            <div class="algorithm-grid">
-                <div class="algorithm-card">
-                    <h4>Прогнозирование LTV клиента</h4>
-                    <p><strong>Алгоритм:</strong> Градиентный бустинг (LightGBM)</p>
-                    <p><strong>Назначение:</strong> Прогноз совокупной прибыли от клиента за время сотрудничества</p>
-                    <p><strong>Входные данные:</strong> Историческая выручка, операционные метрики, поведенческие паттерны</p>
-                </div>
-                <div class="algorithm-card">
-                    <h4>Оптимизация R&D-портфеля</h4>
-                    <p><strong>Алгоритм:</strong> Обучение с подкреплением (Q-learning)</p>
-                    <p><strong>Назначение:</strong> Динамическое распределение бюджета между проектами</p>
-                    <p><strong>Входные данные:</strong> Состояние портфеля, рыночные условия, ресурсные ограничения</p>
-                </div>
-                <div class="algorithm-card">
-                    <h4>Предиктивное обслуживание</h4>
-                    <p><strong>Алгоритм:</strong> Разреженные автокодировщики</p>
-                    <p><strong>Назначение:</strong> Прогнозирование сбоев оборудования и инфраструктуры</p>
-                    <p><strong>Входные данные:</strong> Телеметрия, показания датчиков, логи систем</p>
-                </div>
-            </div>
-        </section>
-
-        <section class="tech-stack">
-            <h3>Технологический стек</h3>
-            <div class="tech-grid">
-                <div class="tech-item">Apache Kafka</div>
-                <div class="tech-item">Apache Spark</div>
-                <div class="tech-item">PostgreSQL</div>
-                <div class="tech-item">Python</div>
-                <div class="tech-item">LightGBM</div>
-                <div class="tech-item">TensorFlow</div>
-                <div class="tech-item">Scikit-learn</div>
-                <div class="tech-item">Apache Airflow</div>
-                <div class="tech-item">Dash/Plotly</div>
-                <div class="tech-item">ClickHouse</div>
-                <div class="tech-item">REST API</div>
-                <div class="tech-item">MLOps</div>
-            </div>
-        </section>
-
-        <section class="implementation-steps">
-            <h3>Процесс внедрения модели</h3>
-            
-            <div class="step">
-                <div class="step-number">1</div>
-                <div>
-                    <h4>Сбор требований и анализ предметной области</h4>
-                    <p>Интервью с ключевыми стейкхолдерами, выявление "болевых точек", формирование технических требований к системе.</p>
+                
+                <button class="calculate-btn" onclick="calculateMetrics()">Рассчитать показатели</button>
+                <button class="reset-btn" onclick="resetParameters()">Сбросить параметры</button>
+                
+                <div class="input-group" style="margin-top: 30px;">
+                    <h2 class="section-title">Текущие метрики</h2>
+                    <div class="metric-details">
+                        <p><strong>Ожидаемый ROI:</strong> <span id="currentRoi">21%</span></p>
+                        <p><strong>Прогноз оттока:</strong> <span id="currentChurn">7%</span></p>
+                        <p><strong>Эффективность R&D:</strong> <span id="currentRdEfficiency">65%</span></p>
+                    </div>
                 </div>
             </div>
             
-            <div class="step">
-                <div class="step-number">2</div>
-                <div>
-                    <h4>Проектирование архитектуры и выбор технологического стека</h4>
-                    <p>Разработка трехконтурной архитектуры, определение интерфейсов взаимодействия, выбор инструментов реализации.</p>
+            <div class="main-content">
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-header">
+                            <div class="metric-title">Рентабельность инвестиций (ROI)</div>
+                            <div class="metric-change positive">+6%</div>
+                        </div>
+                        <div class="metric-value" id="roiValue">21%</div>
+                        <div class="metric-details">
+                            <p>Прогноз рентабельности инвестиционного портфеля на основе текущих параметров. Целевой показатель: 22%.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="metric-card">
+                        <div class="metric-header">
+                            <div class="metric-title">Уровень оттока клиентов</div>
+                            <div class="metric-change negative">-3%</div>
+                        </div>
+                        <div class="metric-value" id="churnValue">7%</div>
+                        <div class="metric-details">
+                            <p>Прогнозируемый годовой отток ключевых клиентов. Целевой показатель: менее 6%.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="metric-card">
+                        <div class="metric-header">
+                            <div class="metric-title">Эффективность R&D</div>
+                            <div class="metric-change positive">+25%</div>
+                        </div>
+                        <div class="metric-value" id="rdEfficiencyValue">65%</div>
+                        <div class="metric-details">
+                            <p>Доля R&D-проектов, выходящих на окупаемость в течение 12 месяцев.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="algorithm-section">
+                    <h2 class="section-title">Результаты алгоритмического анализа</h2>
+                    
+                    <div class="algorithm-grid">
+                        <div class="algorithm-card">
+                            <h4>Прогнозирование LTV клиента (LightGBM)</h4>
+                            <div class="algorithm-results">
+                                <div class="result-item">
+                                    <span>Точность модели (R²):</span>
+                                    <span><strong>0.89</strong></span>
+                                </div>
+                                <div class="result-item">
+                                    <span>Сегмент "Высокопотенциальный":</span>
+                                    <span><strong>32%</strong></span>
+                                </div>
+                                <div class="result-item">
+                                    <span>Сегмент "Требующий удержания":</span>
+                                    <span><strong>18%</strong></span>
+                                </div>
+                                <div class="result-item">
+                                    <span>Прогноз роста LTV:</span>
+                                    <span class="positive"><strong>+8%</strong></span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="algorithm-card">
+                            <h4>Оптимизация R&D-портфеля (Q-learning)</h4>
+                            <div class="algorithm-results">
+                                <div class="result-item">
+                                    <span>Рекомендуемое перераспределение:</span>
+                                    <span><strong>20% бюджета</strong></span>
+                                </div>
+                                <div class="result-item">
+                                    <span>Проекты с быстрой окупаемостью:</span>
+                                    <span><strong>65%</strong></span>
+                                </div>
+                                <div class="result-item">
+                                    <span>Оптимизация сроков окупаемости:</span>
+                                    <span><strong>-5 месяцев</strong></span>
+                                </div>
+                                <div class="result-item">
+                                    <span>Ожидаемый прирост выручки:</span>
+                                    <span class="positive"><strong>+15%</strong></span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="algorithm-card">
+                            <h4>Предиктивное обслуживание (Автокодировщики)</h4>
+                            <div class="algorithm-results">
+                                <div class="result-item">
+                                    <span>Снижение простоев:</span>
+                                    <span><strong>40%</strong></span>
+                                </div>
+                                <div class="result-item">
+                                    <span>Экономия CAPEX:</span>
+                                    <span><strong>15%</strong></span>
+                                </div>
+                                <div class="result-item">
+                                    <span>Точность прогноза сбоев:</span>
+                                    <span><strong>94%</strong></span>
+                                </div>
+                                <div class="result-item">
+                                    <span>Оптимизация затрат на инфраструктуру:</span>
+                                    <span class="positive"><strong>18%</strong></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="chart-container">
+                    <h2 class="section-title">Динамика ключевых показателей</h2>
+                    <div class="chart-placeholder">
+                        График изменения ROI, уровня оттока и эффективности R&D за последние 12 месяцев
+                    </div>
+                </div>
+                
+                <div class="recommendations">
+                    <h2 class="section-title">Рекомендации по инвестиционной стратегии</h2>
+                    
+                    <div class="recommendation-item">
+                        <div class="rec-title">Увеличение инвестиций в сегмент "Высокопотенциальный"</div>
+                        <div class="rec-details">
+                            На основе прогноза LTV рекомендовано увеличить инвестиции в развитие продуктов для клиентов с прогнозируемым LTV выше 1.5 млн руб. Ожидаемый рост ROI в данном сегменте: +8%.
+                        </div>
+                        <div class="risk-indicator low-risk">Низкий риск</div>
+                    </div>
+                    
+                    <div class="recommendation-item">
+                        <div class="rec-title">Перераспределение R&D бюджета</div>
+                        <div class="rec-details">
+                            Алгоритм оптимизации рекомендует перераспределить 20% бюджета из долгосрочных проектов в проекты с быстрой коммерциализацией. Ожидаемое увеличение доли окупающихся проектов: с 40% до 65%.
+                        </div>
+                        <div class="risk-indicator medium-risk">Средний риск</div>
+                    </div>
+                    
+                    <div class="recommendation-item">
+                        <div class="rec-title">Программа удержания для сегмента "Требующий удержания"</div>
+                        <div class="rec-details">
+                            Рекомендовано увеличение инвестиций в удержание на 25% для клиентов с прогнозируемым оттоком в ближайшие 90 дней. Ожидаемое снижение оттока в группе: 15%.
+                        </div>
+                        <div class="risk-indicator low-risk">Низкий риск</div>
+                    </div>
+                    
+                    <div class="recommendation-item">
+                        <div class="rec-title">Внедрение предиктивного обслуживания инфраструктуры</div>
+                        <div class="rec-details">
+                            На основе анализа телеметрии рекомендовано внедрить систему предиктивного обслуживания для снижения незапланированных простоев на 40% и оптимизации CAPEX на 15%.
+                        </div>
+                        <div class="risk-indicator low-risk">Низкий риск</div>
+                    </div>
                 </div>
             </div>
-            
-            <div class="step">
-                <div class="step-number">3</div>
-                <div>
-                    <h4>Создание и валидация прототипа</h4>
-                    <p>Реализация упрощенной версии системы на исторических данных, проверка принципиальной работоспособности.</p>
-                </div>
-            </div>
-            
-            <div class="step">
-                <div class="step-number">4</div>
-                <div>
-                    <h4>Нагрузочное тестирование и доработка</h4>
-                    <p>Тестирование системы под пиковой нагрузкой, оптимизация производительности, устранение узких мест.</p>
-                </div>
-            </div>
-            
-            <div class="step">
-                <div class="step-number">5</div>
-                <div>
-                    <h4>Пилотное внедрение и сбор обратной связи</h4>
-                    <p>Развертывание системы в изолированном контуре, тестирование на реальных данных, корректировка по результатам обратной связи.</p>
-                </div>
-            </div>
-        </section>
-
-        <section class="algorithm-section">
-            <h3>Система KPI и мониторинга</h3>
-            <div class="algorithm-grid">
-                <div class="algorithm-card">
-                    <h4>Финансовые показатели</h4>
-                    <ul style="padding-left: 20px; margin-top: 10px;">
-                        <li>Рентабельность инвестиционного портфеля (ROI)</li>
-                        <li>Доля неэффективных инвестиций</li>
-                        <li>Срок окупаемости R&D проектов</li>
-                    </ul>
-                </div>
-                <div class="algorithm-card">
-                    <h4>Клиентские показатели</h4>
-                    <ul style="padding-left: 20px; margin-top: 10px;">
-                        <li>Уровень оттока ключевых клиентов</li>
-                        <li>Доля выручки от AI-driven продуктов</li>
-                        <li>Прогнозируемый LTV по сегментам</li>
-                    </ul>
-                </div>
-                <div class="algorithm-card">
-                    <h4>Процессные показатели</h4>
-                    <ul style="padding-left: 20px; margin-top: 10px;">
-                        <li>Время принятия инвестиционного решения</li>
-                        <li>Количество учитываемых факторов</li>
-                        <li>Снижение незапланированных затрат</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <section class="model-card">
-            <h3>Особенности модели для технологических компаний</h3>
-            <p>Модель адаптирована для специфики технологических компаний среднего размера (типа ООО «Мобайл Парк ИТ») и учитывает:</p>
-            <ul style="padding-left: 20px; margin-top: 15px;">
-                <li>Работу с гибридными данными (телеметрия, финансовые показатели, рыночные данные)</li>
-                <li>Интеграцию с существующей ИТ-инфраструктурой (CRM, ERP, системы мониторинга)</li>
-                <li>Поддержку микросервисной архитектуры для гибкости и масштабируемости</li>
-                <li>Реализацию практик MLOps для промышленной эксплуатации моделей</li>
-                <li>Механизмы обратной связи для непрерывного обучения системы</li>
-            </ul>
-        </section>
+        </div>
     </div>
 
     <footer>
         <div class="container">
-            <p>Интегрированная трёхконтурная модель автоматизации управления инвестициями на основе технологий искусственного интеллекта</p>
-            <p>Разработана на основе исследований и практического опыта внедрения в технологических компаниях</p>
-            <p style="margin-top: 20px; font-size: 0.9rem;">© 2026 | Модель актуальна по состоянию на 31.01.2026</p>
+            <p>Интегрированная трёхконтурная модель автоматизации управления инвестициями</p>
+            <p>ООО "Мобайл Парк ИТ" | 2026 | Для внутреннего использования</p>
         </div>
     </footer>
+
+    <script>
+        // Инициализация значений слайдеров
+        document.getElementById('investmentAmountValue').textContent = document.getElementById('investmentAmount').value + ' млн руб.';
+        document.getElementById('rdBudgetValue').textContent = document.getElementById('rdBudget').value + '%';
+        
+        // Обновление значений слайдеров в реальном времени
+        document.getElementById('investmentAmount').addEventListener('input', function() {
+            document.getElementById('investmentAmountValue').textContent = this.value + ' млн руб.';
+        });
+        
+        document.getElementById('rdBudget').addEventListener('input', function() {
+            document.getElementById('rdBudgetValue').textContent = this.value + '%';
+        });
+        
+        // Функция расчёта метрик на основе параметров
+        function calculateMetrics() {
+            const investmentAmount = parseInt(document.getElementById('investmentAmount').value);
+            const riskLevel = document.getElementById('riskLevel').value;
+            const timeHorizon = document.getElementById('timeHorizon').value;
+            const rdBudget = parseInt(document.getElementById('rdBudget').value);
+            const clientSegment = document.getElementById('clientSegment').value;
+            
+            // Базовые значения в зависимости от параметров
+            let baseRoi = 21;
+            let baseChurn = 7;
+            let baseRdEfficiency = 65;
+            
+            // Корректировка ROI на основе параметров
+            if (riskLevel === 'low') baseRoi -= 3;
+            if (riskLevel === 'high') baseRoi += 4;
+            
+            if (timeHorizon === 'short') baseRoi -= 2;
+            if (timeHorizon === 'long') baseRoi += 3;
+            
+            if (clientSegment === 'enterprise') baseRoi += 2;
+            if (clientSegment === 'startup') baseRoi += 5;
+            
+            // Корректировка оттока на основе параметров
+            if (clientSegment === 'enterprise') baseChurn -= 1;
+            if (clientSegment === 'startup') baseChurn += 3;
+            
+            // Корректировка эффективности R&D на основе бюджета
+            if (rdBudget < 15) baseRdEfficiency -= 10;
+            if (rdBudget > 30) baseRdEfficiency += 5;
+            
+            // Обновление отображаемых значений
+            document.getElementById('roiValue').textContent = baseRoi + '%';
+            document.getElementById('churnValue').textContent = baseChurn + '%';
+            document.getElementById('rdEfficiencyValue').textContent = baseRdEfficiency + '%';
+            
+            // Обновление текущих метрик в сайдбаре
+            document.getElementById('currentRoi').textContent = baseRoi + '%';
+            document.getElementById('currentChurn').textContent = baseChurn + '%';
+            document.getElementById('currentRdEfficiency').textContent = baseRdEfficiency + '%';
+            
+            // Обновление динамики (плюс/минус)
+            updateChangeIndicators();
+            
+            // Показ уведомления
+            showNotification('Показатели успешно пересчитаны на основе новых параметров');
+        }
+        
+        // Функция обновления индикаторов изменений
+        function updateChangeIndicators() {
+            // В реальной системе здесь была бы логика сравнения с предыдущими значениями
+            // Для демонстрации используем статические значения
+            const changes = document.querySelectorAll('.metric-change');
+            
+            changes.forEach(change => {
+                const value = change.textContent;
+                if (value.includes('+')) {
+                    change.className = 'metric-change positive';
+                } else if (value.includes('-')) {
+                    change.className = 'metric-change negative';
+                }
+            });
+        }
+        
+        // Функция сброса параметров к значениям по умолчанию
+        function resetParameters() {
+            document.getElementById('investmentAmount').value = 150;
+            document.getElementById('investmentAmountValue').textContent = '150 млн руб.';
+            document.getElementById('riskLevel').value = 'medium';
+            document.getElementById('timeHorizon').value = 'medium';
+            document.getElementById('rdBudget').value = 25;
+            document.getElementById('rdBudgetValue').textContent = '25%';
+            document.getElementById('clientSegment').value = 'medium';
+            
+            // Сброс метрик к базовым значениям
+            document.getElementById('roiValue').textContent = '21%';
+            document.getElementById('churnValue').textContent = '7%';
+            document.getElementById('rdEfficiencyValue').textContent = '65%';
+            
+            document.getElementById('currentRoi').textContent = '21%';
+            document.getElementById('currentChurn').textContent = '7%';
+            document.getElementById('currentRdEfficiency').textContent = '65%';
+            
+            showNotification('Параметры сброшены к значениям по умолчанию');
+        }
+        
+        // Функция показа уведомления
+        function showNotification(message) {
+            // В реальной системе здесь можно использовать toast-уведомление
+            alert(message);
+        }
+        
+        // Инициализация при загрузке страницы
+        document.addEventListener('DOMContentLoaded', function() {
+            calculateMetrics();
+        });
+    </script>
 </body>
 </html>
 ```
