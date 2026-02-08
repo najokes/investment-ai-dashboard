@@ -669,6 +669,11 @@
             border-radius: 6px;
             border-left: 4px solid #4CAF50;
         }
+        
+        .input-changed {
+            background-color: #fff8e1 !important;
+            border-color: #ffb300 !important;
+        }
     </style>
 </head>
 <body>
@@ -717,14 +722,14 @@
                 </div>
                 
                 <h2 class="section-title">Параметры для анализа</h2>
-                <p class="editable-note">Все поля можно редактировать перед расчетом</p>
+                <p class="editable-note">Все поля можно редактировать перед расчетом. Измененные поля подсвечиваются желтым.</p>
                 
                 <div class="input-group">
                     <h3 style="color: #1a237e; margin-bottom: 15px; font-size: 1.1rem;">Базовые показатели</h3>
                     <div class="input-row">
                         <label>Объём инвестиций (₽)<span class="required-mark">*</span>:</label>
                         <div class="input-container">
-                            <input type="text" id="investmentAmount" placeholder="—" readonly>
+                            <input type="text" id="investmentAmount" placeholder="—" readonly data-original="" onchange="markAsChanged(this)">
                             <span class="suffix">₽</span>
                         </div>
                     </div>
@@ -732,7 +737,7 @@
                     <div class="input-row">
                         <label>Срок инвестиций (мес.)<span class="required-mark">*</span>:</label>
                         <div class="input-container">
-                            <input type="number" id="investmentPeriod" min="3" max="60" placeholder="—" readonly>
+                            <input type="number" id="investmentPeriod" min="3" max="60" placeholder="—" readonly data-original="" onchange="markAsChanged(this)">
                             <span class="suffix">мес.</span>
                         </div>
                     </div>
@@ -740,7 +745,7 @@
                     <div class="input-row">
                         <label>Исторический ROI (%):</label>
                         <div class="input-container">
-                            <input type="number" id="historicalRoi" min="5" max="50" step="0.5" placeholder="—" readonly>
+                            <input type="number" id="historicalRoi" min="5" max="50" step="0.5" placeholder="—" readonly data-original="" onchange="markAsChanged(this)">
                             <span class="suffix">%</span>
                         </div>
                     </div>
@@ -748,7 +753,7 @@
                     <div class="input-row">
                         <label>Допустимый риск<span class="required-mark">*</span>:</label>
                         <div class="input-container">
-                            <input type="number" id="riskTolerance" min="1" max="30" step="0.5" placeholder="—" readonly>
+                            <input type="number" id="riskTolerance" min="1" max="30" step="0.5" placeholder="—" readonly data-original="" onchange="markAsChanged(this)">
                             <span class="suffix">%</span>
                         </div>
                     </div>
@@ -759,7 +764,7 @@
                     <div class="input-row">
                         <label>Бюджет R&D (% от инвест.)<span class="required-mark">*</span>:</label>
                         <div class="input-container">
-                            <input type="number" id="rdBudget" min="5" max="40" step="1" placeholder="—" readonly>
+                            <input type="number" id="rdBudget" min="5" max="40" step="1" placeholder="—" readonly data-original="" onchange="markAsChanged(this)">
                             <span class="suffix">%</span>
                         </div>
                     </div>
@@ -767,7 +772,7 @@
                     <div class="input-row">
                         <label>Кол-во активных R&D проектов:</label>
                         <div class="input-container">
-                            <input type="number" id="projectCount" min="1" max="100" placeholder="—" readonly>
+                            <input type="number" id="projectCount" min="1" max="100" placeholder="—" readonly data-original="" onchange="markAsChanged(this)">
                             <span class="suffix">шт.</span>
                         </div>
                     </div>
@@ -775,7 +780,7 @@
                     <div class="input-row">
                         <label>Текущая доля окупающихся проектов:</label>
                         <div class="input-container">
-                            <input type="number" id="currentRdSuccess" min="10" max="100" placeholder="—" readonly>
+                            <input type="number" id="currentRdSuccess" min="10" max="100" placeholder="—" readonly data-original="" onchange="markAsChanged(this)">
                             <span class="suffix">%</span>
                         </div>
                     </div>
@@ -783,7 +788,7 @@
                     <div class="input-row">
                         <label>Средний срок окупаемости:</label>
                         <div class="input-container">
-                            <input type="number" id="currentPaybackPeriod" min="6" max="60" placeholder="—" readonly>
+                            <input type="number" id="currentPaybackPeriod" min="6" max="60" placeholder="—" readonly data-original="" onchange="markAsChanged(this)">
                             <span class="suffix">мес.</span>
                         </div>
                     </div>
@@ -794,7 +799,7 @@
                     <div class="input-row">
                         <label>Кол-во корпоративных клиентов:</label>
                         <div class="input-container">
-                            <input type="text" id="customerCount" placeholder="—" readonly>
+                            <input type="text" id="customerCount" placeholder="—" readonly data-original="" onchange="markAsChanged(this)">
                             <span class="suffix">компаний</span>
                         </div>
                     </div>
@@ -802,7 +807,7 @@
                     <div class="input-row">
                         <label>Текущий отток клиентов (Churn Rate):</label>
                         <div class="input-container">
-                            <input type="number" id="currentChurn" min="1" max="50" step="0.5" placeholder="—" readonly>
+                            <input type="number" id="currentChurn" min="1" max="50" step="0.5" placeholder="—" readonly data-original="" onchange="markAsChanged(this)">
                             <span class="suffix">%</span>
                         </div>
                     </div>
@@ -810,7 +815,7 @@
                     <div class="input-row">
                         <label>Средний годовой LTV клиента:</label>
                         <div class="input-container">
-                            <input type="text" id="avgLtv" placeholder="—" readonly>
+                            <input type="text" id="avgLtv" placeholder="—" readonly data-original="" onchange="markAsChanged(this)">
                             <span class="suffix">₽</span>
                         </div>
                     </div>
@@ -818,7 +823,7 @@
                     <div class="input-row">
                         <label>Доля ключевых (TOP 20%) клиентов:</label>
                         <div class="input-container">
-                            <input type="number" id="keyCustomersShare" min="20" max="100" placeholder="—" readonly>
+                            <input type="number" id="keyCustomersShare" min="20" max="100" placeholder="—" readonly data-original="" onchange="markAsChanged(this)">
                             <span class="suffix">%</span>
                         </div>
                     </div>
@@ -829,7 +834,7 @@
                     <div class="input-row">
                         <label>Годовой CAPEX на инфраструктуру:</label>
                         <div class="input-container">
-                            <input type="text" id="infraCapex" placeholder="—" readonly>
+                            <input type="text" id="infraCapex" placeholder="—" readonly data-original="" onchange="markAsChanged(this)">
                             <span class="suffix">₽</span>
                         </div>
                     </div>
@@ -837,7 +842,7 @@
                     <div class="input-row">
                         <label>Уровень незапланированных простоев:</label>
                         <div class="input-container">
-                            <input type="number" id="unplannedDowntime" min="0" max="20" step="0.5" placeholder="—" readonly>
+                            <input type="number" id="unplannedDowntime" min="0" max="20" step="0.5" placeholder="—" readonly data-original="" onchange="markAsChanged(this)">
                             <span class="suffix">%</span>
                         </div>
                     </div>
@@ -845,7 +850,7 @@
                     <div class="input-row">
                         <label>Затраты на техническую поддержку:</label>
                         <div class="input-container">
-                            <input type="text" id="maintenanceCost" placeholder="—" readonly>
+                            <input type="text" id="maintenanceCost" placeholder="—" readonly data-original="" onchange="markAsChanged(this)">
                             <span class="suffix">₽</span>
                         </div>
                     </div>
@@ -860,7 +865,13 @@
                 </div>
             </div>
             
-
+            <div class="results-section">
+                <div class="loading" id="loadingIndicator">
+                    <p>Введите ИНН компании для загрузки данных или загрузите CSV-файл</p>
+                    <p>Нажмите "Загрузить данные компании" или "Загрузить CSV файл"</p>
+                    <p>Отредактируйте параметры при необходимости</p>
+                    <p>Нажмите "Рассчитать показатели"</p>
+                </div>
                 
                 <div class="results-container hidden" id="resultsContainer">
                     <div class="metric-cards">
@@ -1103,6 +1114,7 @@
         let previousValues = {};
         let uploadedCompanyData = null;
         let storageUpdated = false;
+        let originalFormValues = {};
         
         // Сбросить все поля до пустых значений
         function resetFormFields() {
@@ -1112,6 +1124,7 @@
                 input.setAttribute('readonly', true);
                 input.classList.remove('editable');
                 input.classList.add('empty-field');
+                input.classList.remove('input-changed');
             });
             
             // Сбросить суффиксы
@@ -1151,6 +1164,18 @@
             });
         }
         
+        // Отметить поле как измененное
+        function markAsChanged(input) {
+            const originalValue = input.getAttribute('data-original');
+            const currentValue = input.value;
+            
+            if (originalValue && currentValue !== originalValue) {
+                input.classList.add('input-changed');
+            } else {
+                input.classList.remove('input-changed');
+            }
+        }
+        
         // Форматирование чисел с разделителями тысяч при вводе
         function formatNumberOnBlur(input) {
             if (!input.value) return;
@@ -1164,6 +1189,8 @@
                 let formatted = num.toLocaleString('ru-RU');
                 input.value = formatted;
             }
+            
+            markAsChanged(input);
         }
         
         // Очистка форматирования при фокусе
@@ -1243,6 +1270,9 @@
                 // Скрываем предпросмотр CSV
                 document.getElementById('csvPreview').classList.add('hidden');
                 
+                // Сохраняем оригинальные значения формы
+                saveOriginalFormValues();
+                
             } else {
                 showNotification('Компания с таким ИНН не найдена в базе', 'error');
                 document.getElementById('companyName').textContent = 'Компания не найдена';
@@ -1255,6 +1285,21 @@
                 // Сбрасываем поля формы
                 resetFormFields();
             }
+        }
+        
+        // Сохранить оригинальные значения формы
+        function saveOriginalFormValues() {
+            const inputs = document.querySelectorAll('.input-section input:not(#companyINN):not(#csvFile)');
+            originalFormValues = {};
+            
+            inputs.forEach(input => {
+                const id = input.id;
+                if (input.type === 'text') {
+                    originalFormValues[id] = getNumericValue(id);
+                } else {
+                    originalFormValues[id] = getFloatValue(id) || 0;
+                }
+            });
         }
         
         // Сохранить текущие значения для сравнения
@@ -1287,30 +1332,50 @@
             document.getElementById('investmentAmount').setAttribute('data-original', data.investmentAmount);
             
             document.getElementById('investmentPeriod').value = data.investmentPeriod;
+            document.getElementById('investmentPeriod').setAttribute('data-original', data.investmentPeriod);
+            
             document.getElementById('historicalRoi').value = data.historicalRoi;
+            document.getElementById('historicalRoi').setAttribute('data-original', data.historicalRoi);
+            
             document.getElementById('riskTolerance').value = data.riskTolerance;
+            document.getElementById('riskTolerance').setAttribute('data-original', data.riskTolerance);
+            
             document.getElementById('rdBudget').value = data.rdBudget;
+            document.getElementById('rdBudget').setAttribute('data-original', data.rdBudget);
+            
             document.getElementById('projectCount').value = data.projectCount;
+            document.getElementById('projectCount').setAttribute('data-original', data.projectCount);
+            
             document.getElementById('currentRdSuccess').value = data.currentRdSuccess;
+            document.getElementById('currentRdSuccess').setAttribute('data-original', data.currentRdSuccess);
+            
             document.getElementById('currentPaybackPeriod').value = data.currentPaybackPeriod;
+            document.getElementById('currentPaybackPeriod').setAttribute('data-original', data.currentPaybackPeriod);
             
             document.getElementById('customerCount').value = data.customerCount.toLocaleString('ru-RU');
             document.getElementById('customerCount').setAttribute('data-original', data.customerCount);
             
             document.getElementById('currentChurn').value = data.currentChurn;
+            document.getElementById('currentChurn').setAttribute('data-original', data.currentChurn);
+            
             document.getElementById('avgLtv').value = data.avgLtv.toLocaleString('ru-RU');
             document.getElementById('avgLtv').setAttribute('data-original', data.avgLtv);
             
             document.getElementById('keyCustomersShare').value = data.keyCustomersShare;
+            document.getElementById('keyCustomersShare').setAttribute('data-original', data.keyCustomersShare);
+            
             document.getElementById('infraCapex').value = data.infraCapex.toLocaleString('ru-RU');
             document.getElementById('infraCapex').setAttribute('data-original', data.infraCapex);
             
             document.getElementById('unplannedDowntime').value = data.unplannedDowntime;
+            document.getElementById('unplannedDowntime').setAttribute('data-original', data.unplannedDowntime);
+            
             document.getElementById('maintenanceCost').value = data.maintenanceCost.toLocaleString('ru-RU');
             document.getElementById('maintenanceCost').setAttribute('data-original', data.maintenanceCost);
             
             // Сохраняем новые значения
             saveCurrentValues();
+            saveOriginalFormValues();
             
             // Добавляем обработчики для форматирования
             const numberInputs = document.querySelectorAll('input[type="text"]:not(#companyINN)');
@@ -1321,6 +1386,26 @@
                 input.addEventListener('focus', function() {
                     clearFormatting(this);
                 });
+                input.addEventListener('input', function() {
+                    markAsChanged(this);
+                });
+            });
+            
+            // Добавляем обработчики для числовых полей
+            const numericInputs = document.querySelectorAll('input[type="number"]');
+            numericInputs.forEach(input => {
+                input.addEventListener('input', function() {
+                    markAsChanged(this);
+                });
+                input.addEventListener('change', function() {
+                    markAsChanged(this);
+                });
+            });
+            
+            // Сбрасываем подсветку изменений
+            const changedInputs = document.querySelectorAll('.input-changed');
+            changedInputs.forEach(input => {
+                input.classList.remove('input-changed');
             });
         }
         
@@ -1581,6 +1666,8 @@
             
             // Выполняем расчет
             performCalculation();
+            
+            showNotification('Показатели успешно рассчитаны', 'success');
         }
         
         // Пересчет результатов
@@ -1593,10 +1680,27 @@
             // Сохраняем текущие значения
             saveCurrentValues();
             
-            // Выполняем расчет
+            // Выполняем расчет с ОБНОВЛЕННЫМИ значениями из формы
             performCalculation();
             
             showNotification('Показатели пересчитаны с новыми параметрами', 'success');
+            
+            // Сбрасываем подсветку изменений
+            const changedInputs = document.querySelectorAll('.input-changed');
+            changedInputs.forEach(input => {
+                input.classList.remove('input-changed');
+                // Обновляем оригинальное значение
+                if (input.type === 'text') {
+                    const value = getNumericValue(input.id);
+                    input.setAttribute('data-original', value);
+                } else {
+                    const value = getFloatValue(input.id) || 0;
+                    input.setAttribute('data-original', value);
+                }
+            });
+            
+            // Обновляем сохраненные оригинальные значения
+            saveOriginalFormValues();
         }
         
         // Основная функция расчета
@@ -1971,6 +2075,7 @@
                 if (e.target.type === 'text' && e.target.id !== 'companyINN' && e.target.classList.contains('editable')) {
                     // Позволяем вводить только цифры и запятые
                     e.target.value = e.target.value.replace(/[^\d,]/g, '');
+                    markAsChanged(e.target);
                 }
             });
             
@@ -1986,7 +2091,12 @@
                         if (this.max && value > parseFloat(this.max)) {
                             this.value = this.max;
                         }
+                        markAsChanged(this);
                     }
+                });
+                
+                input.addEventListener('change', function() {
+                    markAsChanged(this);
                 });
             });
             
