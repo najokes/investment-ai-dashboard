@@ -1,3 +1,5 @@
+# ИИ-платформа управления инвестициями МПИТ
+
 ```html
 <!DOCTYPE html>
 <html lang="ru">
@@ -219,6 +221,25 @@
             box-shadow: 0 8px 20px rgba(40, 53, 147, 0.3);
         }
         
+        .recalculate-btn {
+            background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .recalculate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(76, 175, 80, 0.3);
+        }
+        
         .export-buttons {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -373,6 +394,11 @@
             color: #c62828;
         }
         
+        .neutral {
+            background: #e3f2fd;
+            color: #1565c0;
+        }
+        
         .recommendations {
             margin-top: 30px;
         }
@@ -425,6 +451,11 @@
         .medium-risk {
             background: #fff3e0;
             color: #ef6c00;
+        }
+        
+        .high-risk {
+            background: #ffebee;
+            color: #c62828;
         }
         
         .ai-maturity {
@@ -499,15 +530,23 @@
             to { transform: translateX(100%); opacity: 0; }
         }
         
-        .empty-field {
-            color: #999;
-            font-style: italic;
-        }
-        
         .disabled-field {
             background-color: #f5f5f5;
             color: #999;
             cursor: not-allowed;
+        }
+        
+        .active-field {
+            background-color: white;
+            color: #333;
+            cursor: text;
+        }
+        
+        .editable-note {
+            font-size: 0.85rem;
+            color: #666;
+            margin-top: 5px;
+            font-style: italic;
         }
     </style>
 </head>
@@ -534,6 +573,7 @@
                 </div>
                 
                 <h2 class="section-title">Параметры для анализа</h2>
+                <p class="editable-note">Все поля можно редактировать перед расчетом</p>
                 
                 <div class="input-group">
                     <h3 style="color: #1a237e; margin-bottom: 15px; font-size: 1.1rem;">Базовые показатели</h3>
@@ -667,7 +707,8 @@
                     </div>
                 </div>
                 
-                <button class="calculate-btn" id="calculateBtn" onclick="calculateResults()" disabled>Введите ИНН для расчета</button>
+                <button class="calculate-btn" id="calculateBtn" onclick="calculateResults()" disabled>Рассчитать показатели</button>
+                <button class="recalculate-btn" id="recalculateBtn" onclick="recalculateResults()" style="display: none;">Пересчитать с новыми параметрами</button>
                 
                 <div class="export-buttons">
                     <button class="export-btn" onclick="exportPDF()" disabled>PDF отчёт</button>
@@ -679,7 +720,8 @@
                 <div class="loading" id="loadingIndicator">
                     <p>Введите ИНН компании для загрузки данных</p>
                     <p>Нажмите "Загрузить данные компании"</p>
-                    <p>Затем нажмите "Рассчитать показатели"</p>
+                    <p>Отредактируйте параметры при необходимости</p>
+                    <p>Нажмите "Рассчитать показатели"</p>
                 </div>
                 
                 <div class="results-container hidden" id="resultsContainer">
@@ -786,7 +828,7 @@
                             <div class="kpi-item">
                                 <div class="kpi-header">
                                     <span>Рентабельность инвестиционного портфеля</span>
-                                    <span class="kpi-change" id="roiChange">—</span>
+                                    <span class="kpi-change neutral" id="roiChange">—</span>
                                 </div>
                                 <div class="kpi-value" id="portfolioRoi">—</div>
                                 <div style="font-size: 0.85rem; color: #666; margin-top: 5px;">До внедрения: —</div>
@@ -794,7 +836,7 @@
                             <div class="kpi-item">
                                 <div class="kpi-header">
                                     <span>Доля неэффективных инвестиций</span>
-                                    <span class="kpi-change" id="ineffectiveChange">—</span>
+                                    <span class="kpi-change neutral" id="ineffectiveChange">—</span>
                                 </div>
                                 <div class="kpi-value" id="ineffectiveInvestments">—</div>
                                 <div style="font-size: 0.85rem; color: #666; margin-top: 5px;">До внедрения: —</div>
@@ -802,7 +844,7 @@
                             <div class="kpi-item">
                                 <div class="kpi-header">
                                     <span>Срок окупаемости R&D проектов</span>
-                                    <span class="kpi-change" id="paybackChange">—</span>
+                                    <span class="kpi-change neutral" id="paybackChange">—</span>
                                 </div>
                                 <div class="kpi-value" id="paybackPeriod">—</div>
                                 <div style="font-size: 0.85rem; color: #666; margin-top: 5px;">До внедрения: —</div>
@@ -810,7 +852,7 @@
                             <div class="kpi-item">
                                 <div class="kpi-header">
                                     <span>Время принятия инвестиционных решений</span>
-                                    <span class="kpi-change" id="decisionTimeChange">—</span>
+                                    <span class="kpi-change neutral" id="decisionTimeChange">—</span>
                                 </div>
                                 <div class="kpi-value" id="decisionTime">—</div>
                                 <div style="font-size: 0.85rem; color: #666; margin-top: 5px;">До внедрения: —</div>
@@ -867,8 +909,35 @@
                     unplannedDowntime: 5,
                     maintenanceCost: 4500000
                 }
+            },
+            '1234567890': {
+                name: 'ООО "ТехноИнвест"',
+                type: 'Инвестиционная компания',
+                description: 'Управление венчурными инвестициями',
+                logoText: 'ТИ',
+                data: {
+                    investmentAmount: 80000000,
+                    investmentPeriod: 36,
+                    historicalRoi: 18,
+                    riskTolerance: 15,
+                    rdBudget: 30,
+                    projectCount: 25,
+                    currentRdSuccess: 35,
+                    currentPaybackPeriod: 30,
+                    customerCount: 150,
+                    currentChurn: 8,
+                    avgLtv: 2500000,
+                    keyCustomersShare: 40,
+                    infraCapex: 8000000,
+                    unplannedDowntime: 3,
+                    maintenanceCost: 2400000
+                }
             }
         };
+        
+        // Переменная для отслеживания состояния
+        let isCalculated = false;
+        let currentCompany = null;
         
         // Включить все поля формы
         function enableFormFields() {
@@ -876,18 +945,22 @@
             inputs.forEach(input => {
                 input.disabled = false;
                 input.classList.remove('disabled-field');
-                input.style.backgroundColor = 'white';
-                input.style.color = '#333';
+                input.classList.add('active-field');
                 input.style.cursor = 'text';
             });
             
             document.getElementById('calculateBtn').disabled = false;
             document.getElementById('calculateBtn').textContent = 'Рассчитать показатели';
             document.getElementById('calculateBtn').style.opacity = '1';
+            
+            // Активируем кнопки экспорта
+            document.querySelectorAll('.export-btn').forEach(btn => {
+                btn.disabled = false;
+            });
         }
         
-        // Форматирование чисел с разделителями тысяч
-        function formatNumber(input) {
+        // Форматирование чисел с разделителями тысяч при вводе
+        function formatNumberOnBlur(input) {
             if (!input.value) return;
             
             let value = input.value.replace(/\s/g, '').replace(/,/g, '');
@@ -898,6 +971,14 @@
                 
                 let formatted = num.toLocaleString('ru-RU');
                 input.value = formatted;
+            }
+        }
+        
+        // Очистка форматирования при фокусе
+        function clearFormatting(input) {
+            let original = input.getAttribute('data-original');
+            if (original) {
+                input.value = original;
             }
         }
         
@@ -918,33 +999,36 @@
             }
             
             if (companies[inn]) {
-                const company = companies[inn];
+                currentCompany = companies[inn];
                 
                 // Обновляем информацию о компании
-                document.getElementById('companyName').textContent = company.name;
-                document.getElementById('companyDetails').textContent = company.type + ' | ' + company.description;
-                document.querySelector('.company-logo').textContent = company.logoText;
+                document.getElementById('companyName').textContent = currentCompany.name;
+                document.getElementById('companyDetails').textContent = currentCompany.type + ' | ' + currentCompany.description;
+                document.querySelector('.company-logo').textContent = currentCompany.logoText;
                 document.querySelector('.company-logo').style.backgroundColor = '#283593';
                 
                 // Заполняем данные компании
-                fillCompanyData(company);
+                fillCompanyData(currentCompany);
                 
                 // Включаем поля формы
                 enableFormFields();
                 
-                // Активируем кнопки экспорта
-                document.querySelectorAll('.export-btn').forEach(btn => {
-                    btn.disabled = false;
-                });
+                // Скрываем кнопку пересчета если она была показана
+                document.getElementById('recalculateBtn').style.display = 'none';
+                document.getElementById('calculateBtn').style.display = 'block';
                 
-                showNotification(`Данные компании "${company.name}" успешно загружены`, 'success');
+                // Сбрасываем состояние расчета
+                isCalculated = false;
+                
+                showNotification(`Данные компании "${currentCompany.name}" успешно загружены`, 'success');
                 
             } else {
-                showNotification('Компания с таким ИНН не найдена', 'error');
+                showNotification('Компания с таким ИНН не найдена в базе', 'error');
                 document.getElementById('companyName').textContent = 'Компания не найдена';
                 document.getElementById('companyDetails').textContent = 'Проверьте правильность ИНН';
                 document.querySelector('.company-logo').textContent = '!';
                 document.querySelector('.company-logo').style.backgroundColor = '#c62828';
+                currentCompany = null;
             }
         }
         
@@ -978,12 +1062,23 @@
             document.getElementById('unplannedDowntime').value = data.unplannedDowntime;
             document.getElementById('maintenanceCost').value = data.maintenanceCost.toLocaleString('ru-RU');
             document.getElementById('maintenanceCost').setAttribute('data-original', data.maintenanceCost);
+            
+            // Добавляем обработчики для форматирования
+            const numberInputs = document.querySelectorAll('input[type="text"]');
+            numberInputs.forEach(input => {
+                input.addEventListener('blur', function() {
+                    formatNumberOnBlur(this);
+                });
+                input.addEventListener('focus', function() {
+                    clearFormatting(this);
+                });
+            });
         }
         
-        // Расчет результатов как в ВКР
+        // Расчет результатов
         function calculateResults() {
             // Проверяем, что компания выбрана
-            if (document.getElementById('companyName').textContent === 'Компания не выбрана') {
+            if (!currentCompany) {
                 showNotification('Сначала выберите компанию по ИНН', 'error');
                 return;
             }
@@ -991,7 +1086,7 @@
             // Проверяем, что поля заполнены
             const investmentAmount = getNumericValue('investmentAmount');
             if (investmentAmount === 0) {
-                showNotification('Сначала загрузите данные компании', 'error');
+                showNotification('Проверьте корректность введенных данных', 'error');
                 return;
             }
             
@@ -1001,62 +1096,178 @@
             document.getElementById('recommendationsPlaceholder').classList.add('hidden');
             document.getElementById('recommendationsContent').classList.remove('hidden');
             
-            // === РАСЧЕТЫ ПО МОДЕЛИ ИЗ ВКР (фиксированные результаты для МПИТ) ===
+            // Показать кнопку пересчета
+            document.getElementById('recalculateBtn').style.display = 'block';
+            document.getElementById('calculateBtn').style.display = 'none';
             
-            // Получение базовых значений
+            // Устанавливаем флаг расчета
+            isCalculated = true;
+            
+            // Выполняем расчет
+            performCalculation();
+            
+            showNotification('Анализ выполнен успешно', 'success');
+        }
+        
+        // Пересчет результатов
+        function recalculateResults() {
+            if (!currentCompany) {
+                showNotification('Сначала выберите компанию', 'error');
+                return;
+            }
+            
+            // Выполняем расчет
+            performCalculation();
+            
+            showNotification('Показатели пересчитаны с новыми параметрами', 'success');
+        }
+        
+        // Основная функция расчета
+        function performCalculation() {
+            // === РАСЧЕТЫ ПО МОДЕЛИ ИЗ ВКР ===
+            
+            // Получение текущих значений из формы
+            const investmentAmount = getNumericValue('investmentAmount');
+            const investmentPeriod = parseInt(document.getElementById('investmentPeriod').value) || 24;
             const historicalRoi = parseFloat(document.getElementById('historicalRoi').value) || 15;
-            const currentChurn = parseFloat(document.getElementById('currentChurn').value) || 10;
+            const riskTolerance = parseFloat(document.getElementById('riskTolerance').value) || 10;
+            const rdBudget = parseInt(document.getElementById('rdBudget').value) || 25;
+            const projectCount = parseInt(document.getElementById('projectCount').value) || 45;
             const currentRdSuccess = parseInt(document.getElementById('currentRdSuccess').value) || 40;
             const currentPaybackPeriod = parseInt(document.getElementById('currentPaybackPeriod').value) || 24;
+            const customerCount = getNumericValue('customerCount');
+            const currentChurn = parseFloat(document.getElementById('currentChurn').value) || 10;
+            const avgLtv = getNumericValue('avgLtv');
             const keyCustomersShare = parseInt(document.getElementById('keyCustomersShare').value) || 32;
+            const infraCapex = getNumericValue('infraCapex');
+            const unplannedDowntime = parseFloat(document.getElementById('unplannedDowntime').value) || 5;
+            const maintenanceCost = getNumericValue('maintenanceCost');
             
-            // Результаты из ВКР для МПИТ
-            const results = {
+            // Расчет показателей на основе входных данных
+            const results = calculateIndicators({
+                investmentAmount,
+                investmentPeriod,
+                historicalRoi,
+                riskTolerance,
+                rdBudget,
+                projectCount,
+                currentRdSuccess,
+                currentPaybackPeriod,
+                customerCount,
+                currentChurn,
+                avgLtv,
+                keyCustomersShare,
+                infraCapex,
+                unplannedDowntime,
+                maintenanceCost
+            });
+            
+            // Обновление UI с результатами
+            updateResultsUI(results, {
+                historicalRoi,
+                currentChurn,
+                currentRdSuccess,
+                currentPaybackPeriod
+            });
+            
+            // Генерация рекомендаций
+            generateRecommendations(results, currentCompany.name);
+        }
+        
+        // Расчет индикаторов на основе входных данных
+        function calculateIndicators(inputs) {
+            // Базовые коэффициенты из ВКР
+            const baseResults = {
                 roiWithAI: 21,          // Было 15%, стало 21%
                 churnWithAI: 7,         // Было 10%, стало 7%
                 rdEfficiency: 65,       // Было 40%, стало 65%
                 paybackPeriod: 19,      // Было 24 мес., стало 19 мес.
-                
-                // LTV модель
-                segmentHigh: keyCustomersShare, // Используем значение из формы
-                ltvGrowth: 8,           // Рост LTV
-                retentionInvestment: 25, // Инвестиции в удержание
-                ltvEffect: 15,          // Эффект на доходность
-                
-                // R&D оптимизация
-                rdRedistribution: 20,   // Перераспределение бюджета
-                fastProjects: 65,       // Проекты с быстрой окупаемостью
-                timeOptimization: 5,    // Сокращение сроков
-                revenueGrowth: 15,      // Рост выручки
-                
-                // Предиктивное обслуживание
-                downtimeReduction: 40,  // Снижение простоев
-                capexSavings: 15,       // Экономия CAPEX
-                maintenanceSavings: 18, // Снижение затрат на поддержку
-                predictiveRoi: 245,     // ROI предиктивного обслуживания
-                
-                // KPI
-                ineffectiveInvestments: 17, // Было 25%, стало 17%
-                decisionTime: 10,        // Было 28 дней, стало 10
-                
-                // ИИ-зрелость
+                segmentHigh: 32,
+                ltvGrowth: 8,
+                retentionInvestment: 25,
+                ltvEffect: 15,
+                rdRedistribution: 20,
+                fastProjects: 65,
+                timeOptimization: 5,
+                revenueGrowth: 15,
+                downtimeReduction: 40,
+                capexSavings: 15,
+                maintenanceSavings: 18,
+                predictiveRoi: 245,
+                ineffectiveInvestments: 17,
+                decisionTime: 10,
                 maturityScore: 4.2,
                 maturityLevel: 'Высокий уровень'
             };
             
+            // Корректировка результатов на основе входных параметров
+            const adjustedResults = {...baseResults};
+            
+            // Корректировка ROI на основе объема инвестиций и риска
+            if (inputs.investmentAmount > 200000000) {
+                adjustedResults.roiWithAI += 2; // Большие инвестиции - выше ROI
+            } else if (inputs.investmentAmount < 50000000) {
+                adjustedResults.roiWithAI -= 1; // Малые инвестиции - ниже ROI
+            }
+            
+            // Корректировка на основе риск-аппетита
+            if (inputs.riskTolerance > 15) {
+                adjustedResults.roiWithAI += 1.5; // Высокий риск - потенциально выше доходность
+            } else if (inputs.riskTolerance < 5) {
+                adjustedResults.roiWithAI -= 1; // Низкий риск - ниже доходность
+            }
+            
+            // Корректировка оттока клиентов
+            if (inputs.currentChurn > 15) {
+                adjustedResults.churnWithAI = Math.max(5, inputs.currentChurn * 0.6); // Высокий текущий отток
+            } else if (inputs.currentChurn < 5) {
+                adjustedResults.churnWithAI = Math.max(3, inputs.currentChurn * 0.8); // Низкий текущий отток
+            }
+            
+            // Корректировка эффективности R&D
+            if (inputs.rdBudget > 30) {
+                adjustedResults.rdEfficiency += 5; // Большой бюджет R&D
+                adjustedResults.fastProjects += 5;
+            } else if (inputs.rdBudget < 15) {
+                adjustedResults.rdEfficiency -= 5; // Малый бюджет R&D
+                adjustedResults.fastProjects -= 5;
+            }
+            
+            // Корректировка доли высокопотенциальных клиентов
+            adjustedResults.segmentHigh = Math.min(50, Math.max(20, inputs.keyCustomersShare));
+            
+            // Корректировка экономии на основе затрат на инфраструктуру
+            if (inputs.infraCapex > 20000000) {
+                adjustedResults.capexSavings += 3; // Большие затраты - больше потенциал экономии
+                adjustedResults.maintenanceSavings += 2;
+            }
+            
+            // Ограничение значений в разумных пределах
+            adjustedResults.roiWithAI = Math.min(35, Math.max(10, adjustedResults.roiWithAI));
+            adjustedResults.churnWithAI = Math.min(20, Math.max(2, adjustedResults.churnWithAI));
+            adjustedResults.rdEfficiency = Math.min(85, Math.max(30, adjustedResults.rdEfficiency));
+            adjustedResults.fastProjects = Math.min(80, Math.max(40, adjustedResults.fastProjects));
+            adjustedResults.predictiveRoi = Math.min(400, Math.max(150, adjustedResults.predictiveRoi));
+            
+            return adjustedResults;
+        }
+        
+        // Обновление интерфейса с результатами
+        function updateResultsUI(results, baseValues) {
             // Расчет изменений
-            const roiChange = results.roiWithAI - historicalRoi;
-            const churnChange = currentChurn - results.churnWithAI;
-            const rdSuccessChange = results.rdEfficiency - currentRdSuccess;
-            const paybackChange = currentPaybackPeriod - results.paybackPeriod;
+            const roiChange = results.roiWithAI - baseValues.historicalRoi;
+            const churnChange = baseValues.currentChurn - results.churnWithAI;
+            const rdSuccessChange = results.rdEfficiency - baseValues.currentRdSuccess;
+            const paybackChange = baseValues.currentPaybackPeriod - results.paybackPeriod;
             const ineffectiveChange = (25 - results.ineffectiveInvestments); // Было 25% по умолчанию
             const decisionTimeChange = 28 - results.decisionTime; // Было 28 дней по умолчанию
             
-            // Обновление UI с результатами
-            document.getElementById('roiValue').textContent = results.roiWithAI + '%';
-            document.getElementById('churnValue').textContent = results.churnWithAI + '%';
-            document.getElementById('rdValue').textContent = results.rdEfficiency + '%';
+            // Обновление метрик
+            document.getElementById('roiValue').textContent = results.roiWithAI.toFixed(1) + '%';
+            document.getElementById('churnValue').textContent = results.churnWithAI.toFixed(1) + '%';
+            document.getElementById('rdValue').textContent = results.rdEfficiency.toFixed(0) + '%';
             
+            // Обновление деталей алгоритмов
             document.getElementById('segmentHigh').textContent = results.segmentHigh + '%';
             document.getElementById('ltvGrowth').textContent = '+' + results.ltvGrowth + '%';
             document.getElementById('retentionInvestment').textContent = results.retentionInvestment + '%';
@@ -1073,7 +1284,7 @@
             document.getElementById('predictiveRoi').textContent = results.predictiveRoi + '%';
             
             // Обновление KPI
-            document.getElementById('portfolioRoi').textContent = results.roiWithAI + '%';
+            document.getElementById('portfolioRoi').textContent = results.roiWithAI.toFixed(1) + '%';
             updateKPIChange('roiChange', roiChange, '%', true);
             document.getElementById('ineffectiveInvestments').textContent = results.ineffectiveInvestments + '%';
             updateKPIChange('ineffectiveChange', ineffectiveChange, '%', false);
@@ -1082,38 +1293,34 @@
             document.getElementById('decisionTime').textContent = results.decisionTime + ' дней';
             updateKPIChange('decisionTimeChange', decisionTimeChange, 'дней', true);
             
-            // ИИ-зрелость
-            document.getElementById('aiMaturityScore').textContent = results.maturityScore;
+            // Обновление ИИ-зрелости
+            document.getElementById('aiMaturityScore').textContent = results.maturityScore.toFixed(1);
             document.getElementById('maturityLevel').textContent = results.maturityLevel;
             
             // Обновление подзаголовков
-            document.querySelectorAll('.metric-subtitle')[0].innerHTML = `Целевой: 22% | Без ИИ: ${historicalRoi}%`;
-            document.querySelectorAll('.metric-subtitle')[1].innerHTML = `Целевой: <6% | Без ИИ: ${currentChurn}%`;
+            document.querySelectorAll('.metric-subtitle')[0].innerHTML = `Целевой: 22% | Без ИИ: ${baseValues.historicalRoi.toFixed(1)}%`;
+            document.querySelectorAll('.metric-subtitle')[1].innerHTML = `Целевой: <6% | Без ИИ: ${baseValues.currentChurn.toFixed(1)}%`;
             document.querySelectorAll('.metric-subtitle')[2].innerHTML = `Проекты окупаются за ${results.paybackPeriod} мес.`;
             
             // Обновление KPI подзаголовков
-            document.querySelectorAll('.kpi-item div')[0].innerHTML = `До внедрения: ${historicalRoi}%`;
-            document.querySelectorAll('.kpi-item div')[1].innerHTML = `До внедрения: 25%`;
-            document.querySelectorAll('.kpi-item div')[2].innerHTML = `До внедрения: ${currentPaybackPeriod} мес.`;
-            document.querySelectorAll('.kpi-item div')[3].innerHTML = `До внедрения: 28 дней`;
-            
-            // Генерация рекомендаций
-            generateRecommendations(results, companyName);
-            
-            showNotification('Анализ выполнен по данным из ВКР МПИТ', 'success');
+            const kpiSubtitles = document.querySelectorAll('.kpi-item div');
+            kpiSubtitles[0].innerHTML = `До внедрения: ${baseValues.historicalRoi.toFixed(1)}%`;
+            kpiSubtitles[1].innerHTML = `До внедрения: 25%`;
+            kpiSubtitles[2].innerHTML = `До внедрения: ${baseValues.currentPaybackPeriod} мес.`;
+            kpiSubtitles[3].innerHTML = `До внедрения: 28 дней`;
         }
         
         // Обновление KPI изменений
         function updateKPIChange(elementId, value, unit, isPositiveWhenNegative = false) {
             const element = document.getElementById(elementId);
             
-            if (value === 0) {
+            if (Math.abs(value) < 0.1) {
                 element.textContent = '0 ' + unit;
-                element.className = 'kpi-change';
+                element.className = 'kpi-change neutral';
                 return;
             }
             
-            let formatted = value > 0 ? '+' + value : value.toString();
+            let formatted = value > 0 ? '+' + value.toFixed(1) : value.toFixed(1);
             formatted += ' ' + unit;
             element.textContent = formatted;
             
@@ -1123,12 +1330,17 @@
             } else if ((value < 0 && !isPositiveWhenNegative) || (value > 0 && isPositiveWhenNegative)) {
                 element.className = 'kpi-change negative';
             } else {
-                element.className = 'kpi-change';
+                element.className = 'kpi-change neutral';
             }
         }
         
         // Генерация рекомендаций
         function generateRecommendations(results, companyName) {
+            const riskLevel = results.maturityScore >= 4 ? 'low-risk' : 
+                             results.maturityScore >= 3 ? 'medium-risk' : 'high-risk';
+            const riskText = results.maturityScore >= 4 ? 'Низкий риск' : 
+                            results.maturityScore >= 3 ? 'Средний риск' : 'Высокий риск';
+            
             const recommendationsHTML = `
                 <div class="recommendation-card">
                     <div class="recommendation-header">
@@ -1136,9 +1348,9 @@
                         <div class="rec-impact">+${results.ltvGrowth}% ROI</div>
                     </div>
                     <div class="rec-details">
-                        На основе прогноза LTV рекомендовано увеличить инвестиции в развитие продуктов для клиентов с прогнозируемым LTV > 2 млн ₽ (${results.segmentHigh}% клиентской базы). Ожидаемый рост доходности сегмента: +${results.ltvEffect}%.
+                        На основе прогноза LTV рекомендовано увеличить инвестиции в развитие продуктов для клиентов с прогнозируемым LTV > 2 млн ₽ (${results.segmentHigh}% клиентской базы ${companyName}). Ожидаемый рост доходности сегмента: +${results.ltvEffect}%.
                     </div>
-                    <div class="risk-indicator low-risk">Низкий риск</div>
+                    <div class="risk-indicator ${riskLevel}">${riskText}</div>
                 </div>
                 
                 <div class="recommendation-card">
@@ -1169,8 +1381,12 @@
         
         // Экспорт PDF
         function exportPDF() {
-            if (document.getElementById('companyName').textContent === 'Компания не выбрана') {
+            if (!currentCompany) {
                 showNotification('Сначала выберите компанию', 'error');
+                return;
+            }
+            if (!isCalculated) {
+                showNotification('Сначала выполните расчет показателей', 'error');
                 return;
             }
             showNotification('PDF-отчёт формируется...', 'success');
@@ -1178,8 +1394,12 @@
         
         // Экспорт Excel
         function exportExcel() {
-            if (document.getElementById('companyName').textContent === 'Компания не выбрана') {
+            if (!currentCompany) {
                 showNotification('Сначала выберите компанию', 'error');
+                return;
+            }
+            if (!isCalculated) {
+                showNotification('Сначала выполните расчет показателей', 'error');
                 return;
             }
             showNotification('Excel-файл с данными готов к скачиванию', 'success');
@@ -1204,6 +1424,14 @@
             document.getElementById('companyINN').addEventListener('keypress', function(e) {
                 if (e.key === 'Enter') {
                     selectCompany();
+                }
+            });
+            
+            // Автоматическое форматирование чисел при вводе
+            document.addEventListener('input', function(e) {
+                if (e.target.type === 'text' && e.target.id !== 'companyINN') {
+                    // Позволяем вводить только цифры и запятые
+                    e.target.value = e.target.value.replace(/[^\d,]/g, '');
                 }
             });
         });
