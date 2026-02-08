@@ -146,6 +146,63 @@
             background: #3949ab;
         }
         
+        .csv-upload-section {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f0f2ff;
+            border-radius: 8px;
+            border: 2px dashed #283593;
+        }
+        
+        .csv-upload-title {
+            font-size: 1rem;
+            color: #283593;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+        
+        .csv-input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            background: white;
+        }
+        
+        .csv-upload-btn {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s;
+        }
+        
+        .csv-upload-btn:hover {
+            background: #45a049;
+        }
+        
+        .csv-download-btn {
+            background: #2196F3;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+            transition: background-color 0.3s;
+        }
+        
+        .csv-download-btn:hover {
+            background: #0b7dda;
+        }
+        
         .input-group {
             margin-bottom: 20px;
         }
@@ -566,6 +623,42 @@
         .empty-field {
             color: #999 !important;
         }
+        
+        .csv-data-preview {
+            margin-top: 15px;
+            background: white;
+            border-radius: 8px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        
+        .csv-preview-title {
+            font-size: 0.9rem;
+            color: #283593;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+        
+        .csv-preview-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+        }
+        
+        .csv-preview-table th {
+            background: #f0f2ff;
+            color: #283593;
+            padding: 8px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        
+        .csv-preview-table td {
+            padding: 6px 8px;
+            border: 1px solid #ddd;
+        }
     </style>
 </head>
 <body>
@@ -583,11 +676,30 @@
                         <div class="company-logo">?</div>
                         <div class="company-details">
                             <h3 id="companyName">Компания не выбрана</h3>
-                            <p id="companyDetails">Введите ИНН для загрузки данных</p>
+                            <p id="companyDetails">Введите ИНН для загрузки данных или загрузите CSV-файл</p>
                         </div>
                     </div>
                     <input type="text" class="inn-input" id="companyINN" placeholder="Введите ИНН компании">
                     <button class="select-company-btn" onclick="selectCompany()">Загрузить данные компании</button>
+                    
+                    <div class="csv-upload-section">
+                        <div class="csv-upload-title">Загрузка данных из CSV-файла</div>
+                        <input type="file" class="csv-input" id="csvFile" accept=".csv, .txt">
+                        <button class="csv-upload-btn" onclick="uploadCSV()">Загрузить CSV файл</button>
+                        <button class="csv-download-btn" onclick="downloadTemplateCSV()">Скачать шаблон CSV</button>
+                        <div class="csv-data-preview hidden" id="csvPreview">
+                            <div class="csv-preview-title">Предпросмотр данных из CSV:</div>
+                            <table class="csv-preview-table" id="csvPreviewTable">
+                                <thead>
+                                    <tr>
+                                        <th>Параметр</th>
+                                        <th>Значение</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
                 
                 <h2 class="section-title">Параметры для анализа</h2>
@@ -736,8 +848,8 @@
             
             <div class="results-section">
                 <div class="loading" id="loadingIndicator">
-                    <p>Введите ИНН компании для загрузки данных</p>
-                    <p>Нажмите "Загрузить данные компании"</p>
+                    <p>Введите ИНН компании для загрузки данных или загрузите CSV-файл</p>
+                    <p>Нажмите "Загрузить данные компании" или "Загрузить CSV файл"</p>
                     <p>Отредактируйте параметры при необходимости</p>
                     <p>Нажмите "Рассчитать показатели"</p>
                 </div>
@@ -980,10 +1092,11 @@
         let isCalculated = false;
         let currentCompany = null;
         let previousValues = {};
+        let uploadedCompanyData = null;
         
         // Сбросить все поля до пустых значений
         function resetFormFields() {
-            const inputs = document.querySelectorAll('.input-section input:not(#companyINN)');
+            const inputs = document.querySelectorAll('.input-section input:not(#companyINN):not(#csvFile)');
             inputs.forEach(input => {
                 input.value = '';
                 input.setAttribute('readonly', true);
@@ -1006,7 +1119,7 @@
         
         // Включить все поля формы
         function enableFormFields() {
-            const inputs = document.querySelectorAll('.input-section input:not(#companyINN)');
+            const inputs = document.querySelectorAll('.input-section input:not(#companyINN):not(#csvFile)');
             inputs.forEach(input => {
                 input.removeAttribute('readonly');
                 input.classList.add('editable');
@@ -1083,6 +1196,7 @@
             // Проверка для тестовой компании
             if (inn === 'test' || companies[inn]) {
                 currentCompany = companies[inn] || companies['test'];
+                uploadedCompanyData = null;
                 
                 // Обновляем информацию о компании
                 document.getElementById('companyName').textContent = currentCompany.name;
@@ -1110,6 +1224,9 @@
                 document.getElementById('resultsContainer').classList.add('hidden');
                 document.getElementById('loadingIndicator').classList.remove('hidden');
                 
+                // Скрываем предпросмотр CSV
+                document.getElementById('csvPreview').classList.add('hidden');
+                
             } else {
                 showNotification('Компания с таким ИНН не найдена в базе', 'error');
                 document.getElementById('companyName').textContent = 'Компания не найдена';
@@ -1117,6 +1234,7 @@
                 document.querySelector('.company-logo').textContent = '!';
                 document.querySelector('.company-logo').style.backgroundColor = '#c62828';
                 currentCompany = null;
+                uploadedCompanyData = null;
                 
                 // Сбрасываем поля формы
                 resetFormFields();
@@ -1146,7 +1264,7 @@
         
         // Заполнение данных компании
         function fillCompanyData(company) {
-            const data = company.data;
+            const data = company.data || company;
             
             // Заполняем поля с форматированием
             document.getElementById('investmentAmount').value = data.investmentAmount.toLocaleString('ru-RU');
@@ -1179,7 +1297,7 @@
             saveCurrentValues();
             
             // Добавляем обработчики для форматирования
-            const numberInputs = document.querySelectorAll('input[type="text"]');
+            const numberInputs = document.querySelectorAll('input[type="text"]:not(#companyINN)');
             numberInputs.forEach(input => {
                 input.addEventListener('blur', function() {
                     formatNumberOnBlur(this);
@@ -1190,11 +1308,220 @@
             });
         }
         
+        // Загрузка CSV файла
+        function uploadCSV() {
+            const fileInput = document.getElementById('csvFile');
+            const file = fileInput.files[0];
+            
+            if (!file) {
+                showNotification('Выберите CSV файл для загрузки', 'error');
+                return;
+            }
+            
+            const reader = new FileReader();
+            
+            reader.onload = function(e) {
+                try {
+                    const csvContent = e.target.result;
+                    const csvData = parseCSV(csvContent);
+                    
+                    if (csvData) {
+                        // Обновляем информацию о компании
+                        document.getElementById('companyName').textContent = csvData.name || 'Загруженная из CSV компания';
+                        document.getElementById('companyDetails').textContent = csvData.type || 'Данные из CSV файла';
+                        document.querySelector('.company-logo').textContent = csvData.logoText || 'CSV';
+                        document.querySelector('.company-logo').style.backgroundColor = '#4CAF50';
+                        
+                        // Сохраняем данные
+                        uploadedCompanyData = csvData;
+                        currentCompany = null;
+                        
+                        // Заполняем поля формы
+                        fillCompanyData(csvData);
+                        
+                        // Включаем поля формы
+                        enableFormFields();
+                        
+                        // Скрываем кнопку пересчета если она была показана
+                        document.getElementById('recalculateBtn').style.display = 'none';
+                        document.getElementById('calculateBtn').style.display = 'block';
+                        
+                        // Сбрасываем состояние расчета
+                        isCalculated = false;
+                        
+                        // Скрываем результаты если они были показаны
+                        document.getElementById('resultsContainer').classList.add('hidden');
+                        document.getElementById('loadingIndicator').classList.remove('hidden');
+                        
+                        // Показываем предпросмотр данных
+                        showCSVPreview(csvData);
+                        
+                        showNotification('CSV файл успешно загружен и обработан', 'success');
+                    }
+                } catch (error) {
+                    console.error('Ошибка обработки CSV:', error);
+                    showNotification('Ошибка обработки CSV файла. Проверьте формат.', 'error');
+                }
+            };
+            
+            reader.onerror = function() {
+                showNotification('Ошибка чтения файла', 'error');
+            };
+            
+            reader.readAsText(file, 'UTF-8');
+        }
+        
+        // Парсинг CSV файла
+        function parseCSV(csvContent) {
+            const lines = csvContent.split('\n');
+            const data = {};
+            
+            // Определяем разделитель (запятая или точка с запятой)
+            const delimiter = csvContent.includes(';') ? ';' : ',';
+            
+            lines.forEach(line => {
+                line = line.trim();
+                if (line && !line.startsWith('#')) {
+                    const parts = line.split(delimiter);
+                    if (parts.length >= 2) {
+                        const key = parts[0].trim().replace(/"/g, '');
+                        let value = parts[1].trim().replace(/"/g, '');
+                        
+                        // Преобразование числовых значений
+                        if (!isNaN(value) && value !== '') {
+                            if (value.includes('.')) {
+                                value = parseFloat(value);
+                            } else {
+                                value = parseInt(value);
+                            }
+                        }
+                        
+                        data[key] = value;
+                    }
+                }
+            });
+            
+            // Проверяем, что есть основные поля
+            const requiredFields = ['investmentAmount', 'investmentPeriod'];
+            const missingFields = requiredFields.filter(field => !data[field]);
+            
+            if (missingFields.length > 0) {
+                showNotification(`В CSV отсутствуют обязательные поля: ${missingFields.join(', ')}`, 'error');
+                return null;
+            }
+            
+            // Форматируем данные для отображения
+            data.name = data.name || 'Загруженная из CSV компания';
+            data.type = data.type || 'Данные из CSV файла';
+            data.logoText = 'CSV';
+            
+            return data;
+        }
+        
+        // Показать предпросмотр CSV данных
+        function showCSVPreview(data) {
+            const previewTable = document.getElementById('csvPreviewTable').getElementsByTagName('tbody')[0];
+            previewTable.innerHTML = '';
+            
+            const fields = [
+                {key: 'investmentAmount', label: 'Объём инвестиций (₽)'},
+                {key: 'investmentPeriod', label: 'Срок инвестиций (мес.)'},
+                {key: 'historicalRoi', label: 'Исторический ROI (%)'},
+                {key: 'riskTolerance', label: 'Допустимый риск (%)'},
+                {key: 'rdBudget', label: 'Бюджет R&D (%)'},
+                {key: 'projectCount', label: 'Кол-во R&D проектов'},
+                {key: 'currentRdSuccess', label: 'Доля окупающихся проектов (%)'},
+                {key: 'currentPaybackPeriod', label: 'Срок окупаемости (мес.)'},
+                {key: 'customerCount', label: 'Кол-во клиентов'},
+                {key: 'currentChurn', label: 'Отток клиентов (%)'},
+                {key: 'avgLtv', label: 'Средний LTV (₽)'},
+                {key: 'keyCustomersShare', label: 'Доля ключевых клиентов (%)'},
+                {key: 'infraCapex', label: 'CAPEX на инфраструктуру (₽)'},
+                {key: 'unplannedDowntime', label: 'Незапланированные простои (%)'},
+                {key: 'maintenanceCost', label: 'Затраты на поддержку (₽)'}
+            ];
+            
+            fields.forEach(field => {
+                if (data[field.key] !== undefined) {
+                    const row = previewTable.insertRow();
+                    const cell1 = row.insertCell(0);
+                    const cell2 = row.insertCell(1);
+                    
+                    cell1.textContent = field.label;
+                    
+                    // Форматируем значение
+                    let value = data[field.key];
+                    if (typeof value === 'number') {
+                        if (field.key.includes('Amount') || field.key.includes('Cost') || field.key.includes('Capex') || field.key.includes('Ltv')) {
+                            value = value.toLocaleString('ru-RU') + ' ₽';
+                        } else if (field.key.includes('Roi') || field.key.includes('Tolerance') || field.key.includes('Budget') || 
+                                  field.key.includes('Success') || field.key.includes('Churn') || field.key.includes('Share') || 
+                                  field.key.includes('Downtime')) {
+                            value = value + ' %';
+                        } else if (field.key.includes('Period')) {
+                            value = value + ' мес.';
+                        } else if (field.key.includes('Count')) {
+                            value = value + ' шт.';
+                        }
+                    }
+                    
+                    cell2.textContent = value;
+                }
+            });
+            
+            document.getElementById('csvPreview').classList.remove('hidden');
+        }
+        
+        // Скачать шаблон CSV файла
+        function downloadTemplateCSV() {
+            // Данные для шаблона CSV
+            const csvData = [
+                ['# Шаблон CSV файла для загрузки данных компании', ''],
+                ['# Все значения должны быть указаны без кавычек', ''],
+                ['name', 'ООО "Мобайл Парк ИТ"'],
+                ['type', 'Технологическая компания B2B'],
+                ['investmentAmount', '150000000'],
+                ['investmentPeriod', '24'],
+                ['historicalRoi', '15'],
+                ['riskTolerance', '10'],
+                ['rdBudget', '25'],
+                ['projectCount', '45'],
+                ['currentRdSuccess', '40'],
+                ['currentPaybackPeriod', '24'],
+                ['customerCount', '500'],
+                ['currentChurn', '10'],
+                ['avgLtv', '1500000'],
+                ['keyCustomersShare', '32'],
+                ['infraCapex', '15000000'],
+                ['unplannedDowntime', '5'],
+                ['maintenanceCost', '4500000'],
+                ['# Конец файла', '']
+            ];
+            
+            // Преобразуем в CSV строку
+            const csvContent = csvData.map(row => row.join(';')).join('\n');
+            
+            // Создаем Blob и ссылку для скачивания
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            
+            link.setAttribute('href', url);
+            link.setAttribute('download', 'mobile_park_it_template.csv');
+            link.style.visibility = 'hidden';
+            
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            showNotification('Шаблон CSV файла успешно скачан', 'success');
+        }
+        
         // Расчет результатов
         function calculateResults() {
-            // Проверяем, что компания выбрана
-            if (!currentCompany) {
-                showNotification('Сначала выберите компанию по ИНН', 'error');
+            // Проверяем, что данные загружены
+            if (!currentCompany && !uploadedCompanyData) {
+                showNotification('Сначала загрузите данные компании по ИНН или из CSV', 'error');
                 return;
             }
             
@@ -1228,8 +1555,8 @@
         
         // Пересчет результатов
         function recalculateResults() {
-            if (!currentCompany) {
-                showNotification('Сначала выберите компанию', 'error');
+            if (!currentCompany && !uploadedCompanyData) {
+                showNotification('Сначала загрузите данные компании', 'error');
                 return;
             }
             
@@ -1280,6 +1607,10 @@
                 maintenanceCost
             });
             
+            // Определяем имя компании для рекомендаций
+            const companyName = currentCompany ? currentCompany.name : 
+                               (uploadedCompanyData && uploadedCompanyData.name) ? uploadedCompanyData.name : 'Компания';
+            
             // Обновление UI с результатами
             updateResultsUI(results, {
                 investmentAmount,
@@ -1300,7 +1631,7 @@
             });
             
             // Генерация рекомендаций
-            generateRecommendations(results, currentCompany.name);
+            generateRecommendations(results, companyName);
         }
         
         // Расчет индикаторов на основе входных данных
@@ -1556,8 +1887,8 @@
         
         // Экспорт PDF
         function exportPDF() {
-            if (!currentCompany) {
-                showNotification('Сначала выберите компанию', 'error');
+            if (!currentCompany && !uploadedCompanyData) {
+                showNotification('Сначала загрузите данные компании', 'error');
                 return;
             }
             if (!isCalculated) {
@@ -1569,8 +1900,8 @@
         
         // Экспорт Excel
         function exportExcel() {
-            if (!currentCompany) {
-                showNotification('Сначала выберите компанию', 'error');
+            if (!currentCompany && !uploadedCompanyData) {
+                showNotification('Сначала загрузите данные компании', 'error');
                 return;
             }
             if (!isCalculated) {
@@ -1627,6 +1958,13 @@
                         }
                     }
                 });
+            });
+            
+            // Автоматическая загрузка CSV при выборе файла
+            document.getElementById('csvFile').addEventListener('change', function() {
+                if (this.files.length > 0) {
+                    uploadCSV();
+                }
             });
         });
     </script>
