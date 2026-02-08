@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quantum Investment AI 2026 | Next-Gen AI Investment Platform</title>
+    <title>Quantum Investment AI | Enterprise Investment Platform</title>
     
     <!-- Bootstrap 5 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -16,617 +16,501 @@
     
     <style>
         :root {
-            --quantum-blue: #0d47a1;
-            --ai-purple: #7b1fa2;
-            --neon-green: #00e676;
-            --cyber-orange: #ff9100;
-            --deep-space: #1a237e;
-            --matrix-green: #00ff88;
+            --primary: #1a237e;
+            --secondary: #0d47a1;
+            --accent: #2962ff;
+            --success: #00c853;
+            --warning: #ffab00;
+            --danger: #ff1744;
+            --dark: #0a0e17;
+            --light: #f8fafc;
         }
         
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #0a0e17;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: linear-gradient(135deg, #0a0e17 0%, #1a237e 100%);
             color: #e2e8f0;
-            background-image: 
-                radial-gradient(circle at 20% 80%, rgba(77, 92, 255, 0.1) 0%, transparent 40%),
-                radial-gradient(circle at 80% 20%, rgba(123, 31, 162, 0.1) 0%, transparent 40%);
             min-height: 100vh;
         }
         
-        /* Глассморфизм и неоморфизм */
-        .glass-card {
+        /* Энтерпрайз навигация */
+        .enterprise-nav {
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(20px);
-            border-radius: 24px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 
-                0 8px 32px rgba(0, 0, 0, 0.3),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1rem 0;
         }
         
-        .glass-card:hover {
-            transform: translateY(-8px);
-            border-color: rgba(0, 230, 118, 0.3);
-            box-shadow: 
-                0 20px 60px rgba(0, 230, 118, 0.15),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        .nav-logo {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
         
-        .neon-border {
-            border: 2px solid transparent;
-            background: linear-gradient(45deg, var(--quantum-blue), var(--ai-purple)) border-box;
-            border-radius: 24px;
-            position: relative;
-        }
-        
-        .neon-border::after {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: linear-gradient(45deg, var(--quantum-blue), var(--ai-purple), var(--neon-green));
-            border-radius: 24px;
-            z-index: -1;
-            filter: blur(15px);
-            opacity: 0.6;
-            animation: pulse 3s infinite;
-        }
-        
-        @keyframes pulse {
-            0%, 100% { opacity: 0.4; }
-            50% { opacity: 0.8; }
-        }
-        
-        /* Навигация 2026 */
-        .navbar-2026 {
-            background: rgba(10, 14, 23, 0.95);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(0, 230, 118, 0.1);
-            padding: 1.2rem 0;
-        }
-        
-        .nav-glow {
-            text-shadow: 0 0 20px rgba(0, 230, 118, 0.5);
-        }
-        
-        /* Hero секция с анимацией */
-        .hero-title {
-            font-size: 4.5rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #00e676 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            line-height: 1.1;
-            margin-bottom: 2rem;
-        }
-        
-        .typewriter {
-            overflow: hidden;
-            border-right: 2px solid var(--matrix-green);
-            white-space: nowrap;
-            animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
-        }
-        
-        @keyframes typing {
-            from { width: 0 }
-            to { width: 100% }
-        }
-        
-        @keyframes blink-caret {
-            from, to { border-color: transparent }
-            50% { border-color: var(--matrix-green); }
-        }
-        
-        /* KPI карточки 2026 */
-        .kpi-2026 {
-            background: linear-gradient(135deg, rgba(13, 71, 161, 0.3), rgba(123, 31, 162, 0.3));
+        /* Панель управления */
+        .dashboard-panel {
+            background: rgba(255, 255, 255, 0.03);
             border-radius: 20px;
-            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+        }
+        
+        .dashboard-panel:hover {
+            border-color: var(--accent);
+            box-shadow: 0 10px 40px rgba(41, 98, 255, 0.1);
+        }
+        
+        /* KPI метрики */
+        .kpi-metric {
+            background: linear-gradient(135deg, rgba(26, 35, 126, 0.3), rgba(13, 71, 161, 0.3));
+            border-radius: 16px;
+            padding: 25px;
+            text-align: center;
             position: relative;
             overflow: hidden;
         }
         
-        .kpi-2026::before {
+        .kpi-metric::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, var(--quantum-blue), var(--neon-green));
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
         }
         
-        .kpi-value-2026 {
-            font-size: 3.5rem;
+        .kpi-value {
+            font-size: 3rem;
             font-weight: 800;
-            background: linear-gradient(135deg, #ffffff, var(--neon-green));
+            background: linear-gradient(135deg, #fff, var(--accent));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
-            line-height: 1;
+            margin: 10px 0;
         }
         
-        /* Графики в стиле 2026 */
-        .chart-3d {
-            transform-style: preserve-3d;
-            perspective: 1000px;
+        /* Кнопки */
+        .btn-ai {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border: none;
+            color: white;
+            padding: 12px 28px;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
         }
         
-        /* Слайдеры 2026 */
-        .cyber-slider {
+        .btn-ai:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(41, 98, 255, 0.3);
+            color: white;
+        }
+        
+        /* Модели ИИ */
+        .ai-model {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 16px;
+            padding: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s;
+            height: 100%;
+        }
+        
+        .ai-model:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: var(--accent);
+        }
+        
+        .model-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+        
+        /* Графики */
+        .chart-container {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 16px;
+            padding: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Слайдеры */
+        .range-slider {
             -webkit-appearance: none;
             width: 100%;
             height: 8px;
-            background: linear-gradient(90deg, var(--quantum-blue), var(--neon-green));
-            border-radius: 10px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            border-radius: 4px;
             outline: none;
         }
         
-        .cyber-slider::-webkit-slider-thumb {
+        .range-slider::-webkit-slider-thumb {
             -webkit-appearance: none;
-            width: 28px;
-            height: 28px;
+            width: 24px;
+            height: 24px;
             border-radius: 50%;
             background: white;
             cursor: pointer;
-            border: 3px solid var(--neon-green);
-            box-shadow: 0 0 20px rgba(0, 230, 118, 0.5);
-            transform: scale(1);
-            transition: transform 0.2s;
+            border: 3px solid var(--accent);
+            box-shadow: 0 0 15px rgba(41, 98, 255, 0.5);
         }
         
-        .cyber-slider::-webkit-slider-thumb:hover {
-            transform: scale(1.2);
-        }
-        
-        /* Кнопки 2026 */
-        .btn-neon {
-            background: linear-gradient(135deg, var(--quantum-blue), var(--ai-purple));
-            border: none;
-            color: white;
-            padding: 1rem 2rem;
-            border-radius: 50px;
-            font-weight: 600;
-            position: relative;
+        /* Таблицы */
+        .data-table {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
             overflow: hidden;
-            transition: all 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
         
-        .btn-neon::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: left 0.5s;
-        }
-        
-        .btn-neon:hover::before {
-            left: 100%;
-        }
-        
-        .btn-neon:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(123, 31, 162, 0.4);
-        }
-        
-        /* Анимации */
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
-        }
-        
-        .floating {
-            animation: float 6s ease-in-out infinite;
-        }
-        
-        .glitch {
-            position: relative;
-        }
-        
-        .glitch::before {
-            content: attr(data-text);
-            position: absolute;
-            left: -2px;
-            text-shadow: 2px 0 #ff00ff;
-            clip: rect(24px, 550px, 90px, 0);
-            animation: glitch-anim 5s infinite linear alternate-reverse;
-        }
-        
-        @keyframes glitch-anim {
-            0% { clip: rect(42px, 9999px, 44px, 0); }
-            5% { clip: rect(12px, 9999px, 59px, 0); }
-            10% { clip: rect(48px, 9999px, 29px, 0); }
-            15% { clip: rect(42px, 9999px, 73px, 0); }
-            20% { clip: rect(63px, 9999px, 27px, 0); }
-            25% { clip: rect(34px, 9999px, 55px, 0); }
-            30% { clip: rect(86px, 9999px, 73px, 0); }
-            35% { clip: rect(20px, 9999px, 20px, 0); }
-            40% { clip: rect(26px, 9999px, 60px, 0); }
-            45% { clip: rect(25px, 9999px, 66px, 0); }
-            50% { clip: rect(57px, 9999px, 98px, 0); }
-            55% { clip: rect(5px, 9999px, 46px, 0); }
-            60% { clip: rect(82px, 9999px, 31px, 0); }
-            65% { clip: rect(54px, 9999px, 27px, 0); }
-            70% { clip: rect(28px, 9999px, 99px, 0); }
-            75% { clip: rect(45px, 9999px, 69px, 0); }
-            80% { clip: rect(23px, 9999px, 85px, 0); }
-            85% { clip: rect(54px, 9999px, 84px, 0); }
-            90% { clip: rect(45px, 9999px, 47px, 0); }
-            95% { clip: rect(37px, 9999px, 20px, 0); }
-            100% { clip: rect(4px, 9999px, 91px, 0); }
-        }
-        
-        /* Тёмная тема таблиц */
-        .dark-table {
-            background: rgba(255, 255, 255, 0.02);
-            border-radius: 16px;
-            overflow: hidden;
-        }
-        
-        .dark-table th {
-            background: rgba(0, 230, 118, 0.1);
-            color: var(--neon-green);
+        .data-table th {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px;
             font-weight: 600;
-            padding: 1.2rem;
-            border: none;
+            color: var(--accent);
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
         }
         
-        .dark-table td {
-            padding: 1.2rem;
+        .data-table td {
+            padding: 15px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
         
-        .dark-table tr:hover {
-            background: rgba(0, 230, 118, 0.05);
-        }
-        
-        /* Технологические бейджи */
-        .tech-badge {
-            display: inline-block;
-            padding: 0.5rem 1rem;
-            background: linear-gradient(135deg, rgba(13, 71, 161, 0.3), rgba(123, 31, 162, 0.3));
-            border: 1px solid rgba(0, 230, 118, 0.3);
-            border-radius: 50px;
-            font-size: 0.9rem;
+        /* Статусы */
+        .status-badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
             font-weight: 500;
-            margin: 0.25rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
         }
         
-        /* Секции */
-        .section-title {
-            font-size: 2.5rem;
-            font-weight: 800;
-            margin-bottom: 3rem;
-            text-align: center;
-            background: linear-gradient(135deg, #ffffff, var(--neon-green));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+        .status-active { background: rgba(0, 200, 83, 0.1); color: var(--success); }
+        .status-warning { background: rgba(255, 171, 0, 0.1); color: var(--warning); }
+        .status-critical { background: rgba(255, 23, 68, 0.1); color: var(--danger); }
+        
+        /* Анимации */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease-out;
         }
         
         /* Футер */
-        .footer-2026 {
+        .enterprise-footer {
             background: rgba(10, 14, 23, 0.95);
-            border-top: 1px solid rgba(0, 230, 118, 0.1);
-            margin-top: 6rem;
-            padding: 3rem 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 40px 0;
+            margin-top: 60px;
         }
         
-        /* Адаптивность */
-        @media (max-width: 768px) {
-            .hero-title {
-                font-size: 3rem;
-            }
-            
-            .kpi-value-2026 {
-                font-size: 2.5rem;
-            }
+        /* Утилиты */
+        .text-gradient {
+            background: linear-gradient(135deg, var(--accent), var(--success));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .border-gradient {
+            border: 2px solid transparent;
+            background: linear-gradient(45deg, var(--primary), var(--accent)) border-box;
+            border-radius: 16px;
         }
     </style>
-    
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Навигация 2026 -->
-    <nav class="navbar navbar-expand-lg navbar-2026 fixed-top">
+    <!-- Навигация -->
+    <nav class="navbar enterprise-nav">
         <div class="container">
-            <a class="navbar-brand fw-bold fs-3 nav-glow" href="#">
-                <i class="fas fa-atom me-2"></i>QuantumAI 2026
-            </a>
-            <div class="navbar-nav ms-auto">
-                <a class="nav-link mx-3" href="#live-models">Модели</a>
-                <a class="nav-link mx-3" href="#quantum-demo">Демо</a>
-                <a class="nav-link mx-3" href="#tech-stack">Технологии</a>
-                <a class="nav-link mx-3" href="#api">API</a>
+            <div class="nav-logo">
+                <i class="fas fa-brain"></i>
+                <span>Quantum Investment AI</span>
+            </div>
+            
+            <div class="navbar-nav ms-auto flex-row gap-4">
+                <a class="nav-link" href="#dashboard">Дашборд</a>
+                <a class="nav-link" href="#models">Модели</a>
+                <a class="nav-link" href="#analytics">Аналитика</a>
+                <a class="nav-link" href="#settings">Настройки</a>
+                
+                <div class="dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                        <i class="fas fa-user-circle"></i>
+                        <span class="ms-2">Администратор</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i>Настройки профиля</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt me-2"></i>Выйти</a></li>
+                    </ul>
+                </div>
             </div>
         </div>
     </nav>
 
-    <!-- Герой секция -->
-    <div class="container mt-10 pt-10 mb-8">
-        <div class="row align-items-center min-vh-80">
-            <div class="col-lg-7">
-                <h1 class="hero-title mb-4">
-                    Quantum Investment AI<br>
-                    <span class="typewriter">Следующее поколение ИИ для инвестиций</span>
-                </h1>
-                <p class="lead fs-5 mb-5 text-light" style="opacity: 0.9;">
-                    Три реальные модели машинного обучения, работающие с реальными данными 2026 года.<br>
-                    Нейросети, обученные на 15+ терабайтах финансовых данных.
-                </p>
-                
-                <div class="row g-4 mb-5">
-                    <div class="col-md-4">
-                        <div class="kpi-2026 glass-card">
-                            <div class="kpi-label-2026 text-uppercase small mb-2">Точность прогнозов</div>
-                            <div class="kpi-value-2026">94.7%</div>
-                            <div class="text-success small mt-2">
-                                <i class="fas fa-arrow-up me-1"></i>+5.4% с 2025
-                            </div>
-                        </div>
+    <!-- Основной контент -->
+    <div class="container py-5">
+        <!-- Панель KPI -->
+        <div class="row mb-5" id="dashboard">
+            <div class="col-lg-3 col-md-6 mb-4 fade-in">
+                <div class="kpi-metric">
+                    <div class="text-muted mb-2">ROI портфеля</div>
+                    <div class="kpi-value">24.8%</div>
+                    <div class="text-success small">
+                        <i class="fas fa-arrow-up me-1"></i>+3.2% за месяц
                     </div>
-                    <div class="col-md-4">
-                        <div class="kpi-2026 glass-card">
-                            <div class="kpi-label-2026 text-uppercase small mb-2">Обработка данных</div>
-                            <div class="kpi-value-2026">15.2TB</div>
-                            <div class="text-info small mt-2">
-                                <i class="fas fa-bolt me-1"></i>Реальное время
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="kpi-2026 glass-card">
-                            <div class="kpi-label-2026 text-uppercase small mb-2">ROI моделей</div>
-                            <div class="kpi-value-2026">+28.3%</div>
-                            <div class="text-warning small mt-2">
-                                <i class="fas fa-chart-line me-1"></i>Годовой рост
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="d-flex gap-3">
-                    <a href="#live-demo" class="btn-neon">
-                        <i class="fas fa-play-circle me-2"></i>Запустить демо
-                    </a>
-                    <a href="#api" class="btn btn-outline-light btn-lg px-4">
-                        <i class="fas fa-code me-2"></i>API Документация
-                    </a>
                 </div>
             </div>
             
-            <div class="col-lg-5">
-                <div class="floating">
-                    <div class="glass-card p-5 text-center">
-                        <div class="position-relative">
-                            <div class="glitch" data-text="AI LIVE">
-                                <h3 class="text-gradient fw-bold mb-4">AI LIVE</h3>
-                            </div>
-                            <div class="mt-4">
-                                <div class="spinner-grow text-primary" style="width: 20px; height: 20px;"></div>
-                                <div class="spinner-grow text-success mx-2" style="width: 20px; height: 20px;"></div>
-                                <div class="spinner-grow text-purple" style="width: 20px; height: 20px;"></div>
-                            </div>
-                            <div class="mt-4">
-                                <div class="tech-badge">Transformer-XL</div>
-                                <div class="tech-badge">Quantum ML</div>
-                                <div class="tech-badge">Neural ODE</div>
-                                <div class="tech-badge">GNN</div>
-                            </div>
-                        </div>
+            <div class="col-lg-3 col-md-6 mb-4 fade-in" style="animation-delay: 0.1s">
+                <div class="kpi-metric">
+                    <div class="text-muted mb-2">Активные клиенты</div>
+                    <div class="kpi-value">1,247</div>
+                    <div class="text-success small">
+                        <i class="fas fa-user-plus me-1"></i>+42 новых
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-6 mb-4 fade-in" style="animation-delay: 0.2s">
+                <div class="kpi-metric">
+                    <div class="text-muted mb-2">Средний LTV</div>
+                    <div class="kpi-value">₽2.1M</div>
+                    <div class="text-success small">
+                        <i class="fas fa-chart-line me-1"></i>+18% рост
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-6 mb-4 fade-in" style="animation-delay: 0.3s">
+                <div class="kpi-metric">
+                    <div class="text-muted mb-2">Экономия инфраструктуры</div>
+                    <div class="kpi-value">18.5%</div>
+                    <div class="text-success small">
+                        <i class="fas fa-money-bill-wave me-1"></i>₽3.8M сэкономлено
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- Живые модели ИИ -->
-    <div class="container py-8" id="live-models">
-        <h2 class="section-title mb-6">Работающие модели ИИ 2026</h2>
-        
-        <div class="row g-5">
-            <!-- Модель 1: Quantum LTV Predictor -->
-            <div class="col-lg-4">
-                <div class="glass-card h-100 p-5">
-                    <div class="d-flex align-items-center mb-4">
-                        <div class="rounded-circle bg-primary bg-opacity-20 p-3 me-3">
-                            <i class="fas fa-brain fa-2x text-primary"></i>
-                        </div>
+        <!-- Модели ИИ -->
+        <div class="row mb-5" id="models">
+            <div class="col-12 mb-4">
+                <h2 class="fw-bold mb-0">Модели искусственного интеллекта</h2>
+                <p class="text-muted">Работающие системы машинного обучения в реальном времени</p>
+            </div>
+            
+            <!-- Модель 1: LTV Predictor -->
+            <div class="col-lg-4 mb-4 fade-in">
+                <div class="ai-model">
+                    <div class="model-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    
+                    <div class="d-flex justify-content-between align-items-start mb-3">
                         <div>
-                            <span class="badge bg-primary bg-opacity-20 text-primary mb-2">Production v3.2</span>
-                            <h4 class="fw-bold mb-0">Quantum LTV Predictor</h4>
+                            <h4 class="fw-bold mb-1">LTV Predictor</h4>
+                            <span class="badge bg-success bg-opacity-20 text-success">Production v3.2</span>
+                        </div>
+                        <div class="text-end">
+                            <div class="h5 mb-0 text-success">96.3%</div>
+                            <div class="small text-muted">Точность</div>
                         </div>
                     </div>
                     
-                    <p class="text-light mb-4" style="opacity: 0.8;">
-                        Гибридная модель: Transformer + Quantum Neural Network. Прогнозирует пожизненную ценность клиента с точностью 96.3%.
+                    <p class="text-muted mb-4">
+                        Глубокое обучение для прогнозирования пожизненной ценности клиентов. Анализ 150+ факторов в реальном времени.
                     </p>
                     
                     <div class="mb-4">
-                        <div class="d-flex justify-content-between mb-2">
-                            <span class="small">Точность R²</span>
-                            <span class="text-success fw-bold">0.963</span>
-                        </div>
-                        <div class="progress" style="height: 8px; background: rgba(255,255,255,0.1)">
-                            <div class="progress-bar bg-success" style="width: 96.3%"></div>
+                        <label class="form-label small text-uppercase mb-2">Доход клиента (тыс. ₽)</label>
+                        <input type="range" class="range-slider" id="clientRevenue" min="50" max="500" value="250">
+                        <div class="text-center mt-2">
+                            <span id="revenueValue" class="h5">250</span> тыс. ₽/мес
                         </div>
                     </div>
                     
-                    <div class="model-interface mb-4">
-                        <div class="mb-3">
-                            <label class="form-label small text-uppercase mb-2">Доход клиента</label>
-                            <input type="range" class="cyber-slider" id="revenueSlider" min="50" max="500" value="250">
-                            <div class="text-center mt-2">
-                                <span id="revenueValue" class="h5 text-gradient">250K ₽/мес</span>
-                            </div>
-                        </div>
-                        
-                        <div class="mb-3">
-                            <label class="form-label small text-uppercase mb-2">Активность (из 100)</label>
-                            <input type="range" class="cyber-slider" id="activitySlider" min="0" max="100" value="75">
-                            <div class="text-center mt-2">
-                                <span id="activityValue" class="h5 text-gradient">75%</span>
-                            </div>
-                        </div>
+                    <div class="mb-4">
+                        <label class="form-label small text-uppercase mb-2">Уровень активности</label>
+                        <select class="form-select bg-dark text-light border-dark" id="activityLevel">
+                            <option value="low">Низкая (1-20%)</option>
+                            <option value="medium" selected>Средняя (21-60%)</option>
+                            <option value="high">Высокая (61-80%)</option>
+                            <option value="very-high">Очень высокая (81-100%)</option>
+                        </select>
                     </div>
                     
-                    <button class="btn-neon w-100" onclick="runQuantumLTV()">
-                        <i class="fas fa-bolt me-2"></i>Запустить квантовый расчет
+                    <button class="btn-ai w-100" onclick="runLTVPrediction()">
+                        <i class="fas fa-bolt"></i>
+                        Рассчитать прогноз
                     </button>
                     
-                    <div id="quantumResult" class="mt-4"></div>
+                    <div id="ltvResult" class="mt-3"></div>
                 </div>
             </div>
             
-            <!-- Модель 2: Neural Portfolio Optimizer -->
-            <div class="col-lg-4">
-                <div class="glass-card h-100 p-5">
-                    <div class="d-flex align-items-center mb-4">
-                        <div class="rounded-circle bg-success bg-opacity-20 p-3 me-3">
-                            <i class="fas fa-project-diagram fa-2x text-success"></i>
-                        </div>
+            <!-- Модель 2: Portfolio Optimizer -->
+            <div class="col-lg-4 mb-4 fade-in" style="animation-delay: 0.2s">
+                <div class="ai-model">
+                    <div class="model-icon">
+                        <i class="fas fa-project-diagram"></i>
+                    </div>
+                    
+                    <div class="d-flex justify-content-between align-items-start mb-3">
                         <div>
-                            <span class="badge bg-success bg-opacity-20 text-success mb-2">AI Agent v2.8</span>
-                            <h4 class="fw-bold mb-0">Neural Portfolio Optimizer</h4>
+                            <h4 class="fw-bold mb-1">Portfolio Optimizer</h4>
+                            <span class="badge bg-primary bg-opacity-20 text-primary">AI Agent v2.8</span>
+                        </div>
+                        <div class="text-end">
+                            <div class="h5 mb-0 text-warning">+31%</div>
+                            <div class="small text-muted">ROI улучшение</div>
                         </div>
                     </div>
                     
-                    <p class="text-light mb-4" style="opacity: 0.8;">
-                        Глубокая RL-архитектура с самообучением. Оптимизирует R&D портфель в реальном времени на основе рыночных данных.
+                    <p class="text-muted mb-4">
+                        Обучение с подкреплением для оптимизации инвестиционного портфеля. Автоматическое распределение ресурсов.
                     </p>
                     
                     <div class="mb-4">
-                        <div class="d-flex justify-content-between mb-2">
-                            <span class="small">ROI улучшение</span>
-                            <span class="text-warning fw-bold">+31.2%</span>
-                        </div>
-                        <div class="progress" style="height: 8px; background: rgba(255,255,255,0.1)">
-                            <div class="progress-bar bg-warning" style="width: 85%"></div>
+                        <label class="form-label small text-uppercase mb-2">Бюджет R&D (млн ₽)</label>
+                        <input type="range" class="range-slider" id="rdBudget" min="1" max="20" value="8">
+                        <div class="text-center mt-2">
+                            <span id="budgetValue" class="h5">8</span> млн ₽
                         </div>
                     </div>
                     
-                    <div class="model-interface mb-4">
-                        <div class="mb-3">
-                            <label class="form-label small text-uppercase mb-2">Бюджет R&D</label>
-                            <input type="range" class="cyber-slider" id="rdBudgetSlider" min="1" max="20" value="8">
-                            <div class="text-center mt-2">
-                                <span id="rdBudgetValue" class="h5 text-gradient">8 млн ₽</span>
-                            </div>
-                        </div>
-                        
-                        <div class="mb-3">
-                            <label class="form-label small text-uppercase mb-2">Риск-профиль</label>
-                            <select class="form-select bg-dark text-light border-dark">
-                                <option>Консервативный</option>
-                                <option selected>Сбалансированный</option>
-                                <option>Агрессивный</option>
-                                <option>Квантовый (экспериментальный)</option>
-                            </select>
-                        </div>
+                    <div class="mb-4">
+                        <label class="form-label small text-uppercase mb-2">Стратегия инвестирования</label>
+                        <select class="form-select bg-dark text-light border-dark" id="investmentStrategy">
+                            <option value="conservative">Консервативная</option>
+                            <option value="balanced" selected>Сбалансированная</option>
+                            <option value="aggressive">Агрессивная</option>
+                        </select>
                     </div>
                     
-                    <button class="btn-neon w-100" onclick="runNeuralOptimizer()">
-                        <i class="fas fa-robot me-2"></i>Оптимизировать портфель
+                    <button class="btn-ai w-100" onclick="runPortfolioOptimization()">
+                        <i class="fas fa-robot"></i>
+                        Оптимизировать портфель
                     </button>
                     
-                    <div id="optimizerResult" class="mt-4"></div>
+                    <div id="portfolioResult" class="mt-3"></div>
                 </div>
             </div>
             
-            <!-- Модель 3: Predictive Maintenance AI -->
-            <div class="col-lg-4">
-                <div class="glass-card h-100 p-5">
-                    <div class="d-flex align-items-center mb-4">
-                        <div class="rounded-circle bg-purple bg-opacity-20 p-3 me-3">
-                            <i class="fas fa-server fa-2x text-purple"></i>
-                        </div>
+            <!-- Модель 3: Predictive Maintenance -->
+            <div class="col-lg-4 mb-4 fade-in" style="animation-delay: 0.4s">
+                <div class="ai-model">
+                    <div class="model-icon">
+                        <i class="fas fa-server"></i>
+                    </div>
+                    
+                    <div class="d-flex justify-content-between align-items-start mb-3">
                         <div>
-                            <span class="badge bg-purple bg-opacity-20 text-purple mb-2">IoT Edge v4.1</span>
-                            <h4 class="fw-bold mb-0">Predictive Maintenance AI</h4>
+                            <h4 class="fw-bold mb-1">Predictive Maintenance</h4>
+                            <span class="badge bg-info bg-opacity-20 text-info">IoT Edge v4.1</span>
+                        </div>
+                        <div class="text-end">
+                            <div class="h5 mb-0 text-info">98.1%</div>
+                            <div class="small text-muted">Точность</div>
                         </div>
                     </div>
                     
-                    <p class="text-light mb-4" style="opacity: 0.8;">
-                        Графовые нейросети + временные ряды. Прогнозирует отказы оборудования за 96 часов с точностью 98.1%.
+                    <p class="text-muted mb-4">
+                        Графовые нейросети для предсказания отказов оборудования. Анализ временных рядов и аномалий.
                     </p>
                     
                     <div class="mb-4">
-                        <div class="d-flex justify-content-between mb-2">
-                            <span class="small">Точность прогнозов</span>
-                            <span class="text-info fw-bold">98.1%</span>
-                        </div>
-                        <div class="progress" style="height: 8px; background: rgba(255,255,255,0.1)">
-                            <div class="progress-bar bg-info" style="width: 98.1%"></div>
+                        <label class="form-label small text-uppercase mb-2">Выберите оборудование</label>
+                        <select class="form-select bg-dark text-light border-dark" id="equipmentSelect">
+                            <option>Серверный кластер DB-01</option>
+                            <option>Вычислительный узел GPU-12</option>
+                            <option>Сеть хранения данных</option>
+                            <option>Маршрутизатор ядра</option>
+                        </select>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label class="form-label small text-uppercase mb-2">Температура оборудования</label>
+                        <input type="range" class="range-slider" id="equipmentTemp" min="30" max="90" value="45">
+                        <div class="text-center mt-2">
+                            <span id="tempValue" class="h5">45</span> °C
                         </div>
                     </div>
                     
-                    <div class="model-interface mb-4">
-                        <div class="mb-3">
-                            <label class="form-label small text-uppercase mb-2">Выберите устройство</label>
-                            <select class="form-select bg-dark text-light border-dark" id="deviceSelect">
-                                <option>Квантовый сервер Q-2026</option>
-                                <option>Нейроморфный процессор</option>
-                                <option>Квантовая память 128Q</option>
-                                <option>Оптический маршрутизатор</option>
-                            </select>
-                        </div>
-                        
-                        <div class="mb-3">
-                            <label class="form-label small text-uppercase mb-2">Температура ядра</label>
-                            <input type="range" class="cyber-slider" id="tempSlider" min="30" max="90" value="45">
-                            <div class="text-center mt-2">
-                                <span id="tempValue" class="h5 text-gradient">45°C</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <button class="btn-neon w-100" onclick="runPredictiveAI()">
-                        <i class="fas fa-stethoscope me-2"></i>Анализировать состояние
+                    <button class="btn-ai w-100" onclick="runMaintenanceAnalysis()">
+                        <i class="fas fa-stethoscope"></i>
+                        Анализировать состояние
                     </button>
                     
-                    <div id="maintenanceResult" class="mt-4"></div>
+                    <div id="maintenanceResult" class="mt-3"></div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- Live демо с графиками -->
-    <div class="container py-8" id="live-demo">
-        <h2 class="section-title mb-6">Живые данные в реальном времени</h2>
-        
-        <div class="row g-5 mb-6">
-            <div class="col-lg-8">
-                <div class="glass-card p-5">
+        <!-- Живая аналитика -->
+        <div class="row mb-5" id="analytics">
+            <div class="col-12 mb-4">
+                <h2 class="fw-bold mb-0">Живая аналитика</h2>
+                <p class="text-muted">Данные обновляются в реальном времени</p>
+            </div>
+            
+            <div class="col-lg-8 mb-4">
+                <div class="chart-container">
                     <div class="d-flex justify-content-between align-items-center mb-4">
-                        <h4 class="fw-bold mb-0">Динамика прогнозов LTV</h4>
+                        <h5 class="fw-bold mb-0">Динамика инвестиционного портфеля</h5>
                         <span class="badge bg-success bg-opacity-20 text-success">
                             <i class="fas fa-circle me-1"></i>LIVE
                         </span>
                     </div>
-                    <div class="chart-container">
-                        <canvas id="liveLTVChart"></canvas>
-                    </div>
+                    <canvas id="portfolioChart"></canvas>
                 </div>
             </div>
             
-            <div class="col-lg-4">
-                <div class="glass-card h-100 p-5">
-                    <h4 class="fw-bold mb-4">Топ клиенты 2026</h4>
-                    <div class="dark-table">
-                        <table class="table table-borderless">
+            <div class="col-lg-4 mb-4">
+                <div class="chart-container">
+                    <h5 class="fw-bold mb-4">Распределение активов</h5>
+                    <canvas id="assetsChart"></canvas>
+                </div>
+            </div>
+            
+            <div class="col-lg-6 mb-4">
+                <div class="chart-container">
+                    <h5 class="fw-bold mb-4">Мониторинг инфраструктуры</h5>
+                    <canvas id="infrastructureChart"></canvas>
+                </div>
+            </div>
+            
+            <div class="col-lg-6 mb-4">
+                <div class="dashboard-panel">
+                    <h5 class="fw-bold mb-4">Топ клиентов по LTV</h5>
+                    <div class="data-table">
+                        <table class="table table-borderless mb-0">
                             <thead>
                                 <tr>
                                     <th>Клиент</th>
                                     <th class="text-end">LTV</th>
+                                    <th class="text-end">Тренд</th>
                                 </tr>
                             </thead>
                             <tbody id="topClients">
@@ -634,164 +518,82 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="mt-4 text-center">
-                        <button class="btn btn-outline-light btn-sm" onclick="refreshTopClients()">
-                            <i class="fas fa-sync-alt me-1"></i>Обновить
+                    <div class="text-center mt-3">
+                        <button class="btn btn-outline-light btn-sm" onclick="refreshClientData()">
+                            <i class="fas fa-sync-alt me-1"></i>Обновить данные
                         </button>
                     </div>
                 </div>
             </div>
         </div>
-        
-        <div class="row g-5">
-            <div class="col-lg-6">
-                <div class="glass-card p-5">
-                    <h4 class="fw-bold mb-4">Распределение R&D бюджета</h4>
-                    <div class="chart-container">
-                        <canvas id="rdPortfolioChart"></canvas>
-                    </div>
-                </div>
+
+        <!-- Проекты R&D -->
+        <div class="row mb-5">
+            <div class="col-12 mb-4">
+                <h2 class="fw-bold mb-0">Активные R&D проекты</h2>
+                <p class="text-muted">Управляемые искусственным интеллектом</p>
             </div>
             
-            <div class="col-lg-6">
-                <div class="glass-card p-5">
-                    <h4 class="fw-bold mb-4">Мониторинг инфраструктуры</h4>
-                    <div class="chart-container">
-                        <canvas id="infrastructureChart"></canvas>
+            <div class="col-12">
+                <div class="dashboard-panel">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h5 class="fw-bold mb-0">Портфель проектов</h5>
+                        <div>
+                            <button class="btn-ai me-2" onclick="addNewProject()">
+                                <i class="fas fa-plus"></i>Новый проект
+                            </button>
+                            <button class="btn btn-outline-light" onclick="optimizeAllProjects()">
+                                <i class="fas fa-robot"></i>Автооптимизация
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="data-table">
+                        <table class="table table-borderless">
+                            <thead>
+                                <tr>
+                                    <th>Проект</th>
+                                    <th>Бюджет</th>
+                                    <th>ROI</th>
+                                    <th>Срок</th>
+                                    <th>Приоритет ИИ</th>
+                                    <th>Статус</th>
+                                    <th>Действия</th>
+                                </tr>
+                            </thead>
+                            <tbody id="projectsTable">
+                                <!-- Заполнится через JS -->
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Технологический стек 2026 -->
-    <div class="container py-8" id="tech-stack">
-        <h2 class="section-title mb-6">Технологии 2026 года</h2>
-        
-        <div class="row g-4">
-            <div class="col-md-3 col-6">
-                <div class="glass-card text-center p-4">
-                    <div class="rounded-circle bg-primary bg-opacity-20 p-3 mb-3 mx-auto" style="width: 80px; height: 80px;">
-                        <i class="fas fa-quantum fa-2x text-primary"></i>
-                    </div>
-                    <h5 class="fw-bold mb-2">Квантовое ML</h5>
-                    <p class="small text-light" style="opacity: 0.8;">QNN на 128 кубитах</p>
-                </div>
-            </div>
-            
-            <div class="col-md-3 col-6">
-                <div class="glass-card text-center p-4">
-                    <div class="rounded-circle bg-success bg-opacity-20 p-3 mb-3 mx-auto" style="width: 80px; height: 80px;">
-                        <i class="fas fa-network-wired fa-2x text-success"></i>
-                    </div>
-                    <h5 class="fw-bold mb-2">Графовые GNN</h5>
-                    <p class="small text-light" style="opacity: 0.8;">Графовая теория + нейросети</p>
-                </div>
-            </div>
-            
-            <div class="col-md-3 col-6">
-                <div class="glass-card text-center p-4">
-                    <div class="rounded-circle bg-warning bg-opacity-20 p-3 mb-3 mx-auto" style="width: 80px; height: 80px;">
-                        <i class="fas fa-brain fa-2x text-warning"></i>
-                    </div>
-                    <h5 class="fw-bold mb-2">Нейроморфные чипы</h5>
-                    <p class="small text-light" style="opacity: 0.8;">Аналоговые вычисления</p>
-                </div>
-            </div>
-            
-            <div class="col-md-3 col-6">
-                <div class="glass-card text-center p-4">
-                    <div class="rounded-circle bg-purple bg-opacity-20 p-3 mb-3 mx-auto" style="width: 80px; height: 80px;">
-                        <i class="fas fa-bolt fa-2x text-purple"></i>
-                    </div>
-                    <h5 class="fw-bold mb-2">Оптические вычисления</h5>
-                    <p class="small text-light" style="opacity: 0.8;">Photon Processing Units</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- API документация -->
-    <div class="container py-8" id="api">
-        <h2 class="section-title mb-6">API для разработчиков</h2>
-        
-        <div class="glass-card p-5">
-            <div class="row">
-                <div class="col-lg-6">
-                    <h4 class="fw-bold mb-4">REST API Endpoints</h4>
-                    
-                    <div class="mb-4">
-                        <code class="d-block p-3 bg-dark rounded mb-2">POST /api/v3/predict-ltv</code>
-                        <p class="small text-light mb-0" style="opacity: 0.8;">
-                            Прогноз LTV с квантовыми поправками. Возвращает JSON с предсказанием и уверенностью.
-                        </p>
-                    </div>
-                    
-                    <div class="mb-4">
-                        <code class="d-block p-3 bg-dark rounded mb-2">POST /api/v3/optimize-portfolio</code>
-                        <p class="small text-light mb-0" style="opacity: 0.8;">
-                            Нейросетевая оптимизация портфеля проектов. Использует глубокое обучение с подкреплением.
-                        </p>
-                    </div>
-                    
-                    <div class="mb-4">
-                        <code class="d-block p-3 bg-dark rounded mb-2">GET /api/v3/live-metrics</code>
-                        <p class="small text-light mb-0" style="opacity: 0.8;">
-                            Потоковые метрики в реальном времени. WebSocket для live-данных.
-                        </p>
-                    </div>
-                </div>
-                
-                <div class="col-lg-6">
-                    <h4 class="fw-bold mb-4">Пример кода</h4>
-                    
-                    <pre class="bg-dark p-4 rounded" style="font-size: 0.9rem;">
-<span style="color: #ff79c6">import</span> quantumai <span style="color: #ff79c6">as</span> qai
-
-<span style="color: #ffb86c"># Инициализация клиента 2026</span>
-client = qai.Client(
-    api_key=<span style="color: #f1fa8c">"qai_2026_quantum_key"</span>,
-    quantum_mode=<span style="color: #50fa7b">True</span>
-)
-
-<span style="color: #ffb86c"># Квантовый прогноз LTV</span>
-prediction = client.predict_ltv(
-    customer_data={...},
-    use_quantum=<span style="color: #50fa7b">True</span>,
-    timestamp=<span style="color: #f1fa8c">"2026-01-31T14:30:00Z"</span>
-)
-
-<span style="color: #ffb86c"># Вывод результатов</span>
-<span style="color: #ff79c6">print</span>(<span style="color: #f1fa8c">f"Predicted LTV: {prediction.value:.2f}M ₽"</span>)
-<span style="color: #ff79c6">print</span>(<span style="color: #f1fa8c">f"Quantum Confidence: {prediction.confidence:.1%}"</span>)</pre>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Футер 2026 -->
-    <footer class="footer-2026">
+    <!-- Футер -->
+    <footer class="enterprise-footer">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-6">
                     <h4 class="fw-bold mb-3">
-                        <i class="fas fa-atom me-2"></i>Quantum Investment AI 2026
+                        <i class="fas fa-brain me-2"></i>Quantum Investment AI
                     </h4>
-                    <p class="text-light mb-0" style="opacity: 0.7;">
-                        Система искусственного интеллекта следующего поколения.<br>
-                        Все модели работают с реальными данными в режиме production.
+                    <p class="text-muted mb-0">
+                        Корпоративная платформа искусственного интеллекта для управления инвестициями.
+                        Система работает в режиме 24/7 с 2024 года.
                     </p>
                 </div>
                 <div class="col-lg-6 text-lg-end mt-4 mt-lg-0">
                     <div class="mb-3">
-                        <span class="badge bg-success bg-opacity-20 text-success me-2">
-                            <i class="fas fa-circle me-1"></i>Система активна
+                        <span class="status-badge status-active me-2">
+                            <i class="fas fa-circle"></i>Все системы активны
                         </span>
                         <span class="badge bg-primary bg-opacity-20 text-primary">
-                            v3.2.1 • 31.01.2026
+                            v3.2.1 • 2026
                         </span>
                     </div>
-                    <div class="text-light" style="opacity: 0.7;">
+                    <div class="text-muted">
                         <i class="fas fa-satellite-dish me-1"></i>Данные обновляются каждые 500мс
                     </div>
                 </div>
@@ -808,43 +610,76 @@ prediction = client.predict_ltv(
         document.addEventListener('DOMContentLoaded', function() {
             initCharts();
             loadTopClients();
+            loadProjectsTable();
             setupSliders();
             startLiveUpdates();
             simulateRealTimeData();
-            
-            // Эффект параллакса
-            window.addEventListener('scroll', function() {
-                const scrolled = window.pageYOffset;
-                const parallax = document.querySelector('.floating');
-                if (parallax) {
-                    parallax.style.transform = `translateY(${scrolled * 0.05}px)`;
-                }
-            });
         });
+        
+        // Данные проектов
+        const projects = [
+            {
+                id: 1,
+                name: "Квантовые вычисления для финансов",
+                budget: 2.5,
+                roi: 2.8,
+                duration: 18,
+                priority: 0.95,
+                status: "active",
+                description: "Разработка квантовых алгоритмов для оптимизации портфеля"
+            },
+            {
+                id: 2,
+                name: "ИИ-аналитика больших данных",
+                budget: 1.8,
+                roi: 2.2,
+                duration: 12,
+                priority: 0.88,
+                status: "active",
+                description: "Нейросети для анализа рыночных тенденций"
+            },
+            {
+                id: 3,
+                name: "Блокчейн для управления активами",
+                budget: 3.2,
+                roi: 1.9,
+                duration: 24,
+                priority: 0.72,
+                status: "planned",
+                description: "Распределенный реестр для учета активов"
+            },
+            {
+                id: 4,
+                name: "Автономные торговые агенты",
+                budget: 1.5,
+                roi: 3.1,
+                duration: 10,
+                priority: 0.91,
+                status: "active",
+                description: "ИИ-агенты для алгоритмической торговли"
+            }
+        ];
         
         // Инициализация графиков
         function initCharts() {
-            // Live LTV график
-            const ltvCtx = document.getElementById('liveLTVChart').getContext('2d');
-            new Chart(ltvCtx, {
+            // График портфеля
+            const portfolioCtx = document.getElementById('portfolioChart').getContext('2d');
+            new Chart(portfolioCtx, {
                 type: 'line',
                 data: {
-                    labels: Array.from({length: 24}, (_, i) => `${i}:00`),
+                    labels: ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл'],
                     datasets: [{
-                        label: 'Прогноз LTV (тыс. ₽)',
-                        data: Array.from({length: 24}, () => Math.random() * 500 + 1500),
-                        borderColor: '#00e676',
-                        backgroundColor: 'rgba(0, 230, 118, 0.1)',
+                        label: 'ROI портфеля (%)',
+                        data: [18.5, 20.1, 21.8, 22.5, 23.2, 24.1, 24.8],
+                        borderColor: '#00c853',
+                        backgroundColor: 'rgba(0, 200, 83, 0.1)',
                         borderWidth: 3,
                         tension: 0.4,
-                        fill: true,
-                        pointRadius: 0,
-                        pointHoverRadius: 6
+                        fill: true
                     }]
                 },
                 options: {
                     responsive: true,
-                    maintainAspectRatio: false,
                     plugins: {
                         legend: {
                             display: false
@@ -852,14 +687,12 @@ prediction = client.predict_ltv(
                     },
                     scales: {
                         y: {
+                            beginAtZero: false,
                             grid: {
-                                color: 'rgba(255,255,255,0.1)'
+                                color: 'rgba(255,255,255,0.05)'
                             },
                             ticks: {
-                                color: 'rgba(255,255,255,0.7)',
-                                callback: function(value) {
-                                    return (value / 1000).toFixed(0) + 'M';
-                                }
+                                color: 'rgba(255,255,255,0.7)'
                             }
                         },
                         x: {
@@ -874,72 +707,56 @@ prediction = client.predict_ltv(
                 }
             });
             
-            // R&D портфель
-            const rdCtx = document.getElementById('rdPortfolioChart').getContext('2d');
-            new Chart(rdCtx, {
+            // График активов
+            const assetsCtx = document.getElementById('assetsChart').getContext('2d');
+            new Chart(assetsCtx, {
                 type: 'doughnut',
                 data: {
-                    labels: ['Квантовые вычисления', 'ИИ-инфраструктура', 'IoT Edge', 'Блокчейн', 'AR/VR'],
+                    labels: ['Акции', 'Облигации', 'Недвижимость', 'Крипто', 'Венчурные'],
                     datasets: [{
                         data: [35, 25, 20, 12, 8],
                         backgroundColor: [
-                            '#667eea',
-                            '#764ba2',
-                            '#00e676',
-                            '#ff9100',
-                            '#f44336'
-                        ],
-                        borderWidth: 0
+                            '#2962ff',
+                            '#00c853',
+                            '#ffab00',
+                            '#7b1fa2',
+                            '#ff1744'
+                        ]
                     }]
                 },
                 options: {
                     responsive: true,
-                    maintainAspectRatio: false,
                     plugins: {
                         legend: {
                             position: 'right',
                             labels: {
-                                color: 'rgba(255,255,255,0.8)',
-                                padding: 20
+                                color: 'rgba(255,255,255,0.8)'
                             }
                         }
                     }
                 }
             });
             
-            // Инфраструктура
+            // График инфраструктуры
             const infraCtx = document.getElementById('infrastructureChart').getContext('2d');
             new Chart(infraCtx, {
                 type: 'bar',
                 data: {
-                    labels: ['Q-серверы', 'Нейрочипы', 'Квант. память', 'Опт. сети'],
+                    labels: ['CPU', 'RAM', 'Хранилище', 'Сеть', 'GPU'],
                     datasets: [{
-                        label: 'Загрузка (%)',
-                        data: [78, 92, 45, 65],
-                        backgroundColor: [
-                            'rgba(102, 126, 234, 0.8)',
-                            'rgba(118, 75, 162, 0.8)',
-                            'rgba(0, 230, 118, 0.8)',
-                            'rgba(255, 145, 0, 0.8)'
-                        ],
-                        borderWidth: 2,
-                        borderColor: 'rgba(255,255,255,0.2)'
+                        label: 'Использование (%)',
+                        data: [78, 65, 45, 32, 88],
+                        backgroundColor: '#2962ff'
                     }]
                 },
                 options: {
                     responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            display: false
-                        }
-                    },
                     scales: {
                         y: {
                             beginAtZero: true,
                             max: 100,
                             grid: {
-                                color: 'rgba(255,255,255,0.1)'
+                                color: 'rgba(255,255,255,0.05)'
                             },
                             ticks: {
                                 color: 'rgba(255,255,255,0.7)'
@@ -953,76 +770,24 @@ prediction = client.predict_ltv(
                                 color: 'rgba(255,255,255,0.7)'
                             }
                         }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
                     }
                 }
             });
         }
         
-        // Настройка слайдеров
-        function setupSliders() {
-            const sliders = ['revenueSlider', 'activitySlider', 'rdBudgetSlider', 'tempSlider'];
-            
-            sliders.forEach(sliderId => {
-                const slider = document.getElementById(sliderId);
-                const valueId = sliderId.replace('Slider', 'Value');
-                const valueElement = document.getElementById(valueId);
-                
-                if (slider && valueElement) {
-                    // Установить начальное значение
-                    updateSliderValue(sliderId);
-                    
-                    // Добавить обработчик
-                    slider.addEventListener('input', () => {
-                        updateSliderValue(sliderId);
-                    });
-                }
-            });
-        }
-        
-        function updateSliderValue(sliderId) {
-            const slider = document.getElementById(sliderId);
-            const valueId = sliderId.replace('Slider', 'Value');
-            const valueElement = document.getElementById(valueId);
-            
-            if (!slider || !valueElement) return;
-            
-            let value = parseInt(slider.value);
-            let displayValue;
-            
-            switch(sliderId) {
-                case 'revenueSlider':
-                    displayValue = `${value}K ₽/мес`;
-                    break;
-                case 'activitySlider':
-                    displayValue = `${value}%`;
-                    break;
-                case 'rdBudgetSlider':
-                    displayValue = `${value} млн ₽`;
-                    break;
-                case 'tempSlider':
-                    displayValue = `${value}°C`;
-                    break;
-                default:
-                    displayValue = value;
-            }
-            
-            valueElement.textContent = displayValue;
-            
-            // Анимация
-            valueElement.style.transform = 'scale(1.2)';
-            setTimeout(() => {
-                valueElement.style.transform = 'scale(1)';
-            }, 200);
-        }
-        
         // Загрузка топ клиентов
         function loadTopClients() {
             const clients = [
-                { name: 'Quantum Finance Corp', ltv: 8.2 },
-                { name: 'Neural Tech Holdings', ltv: 7.5 },
-                { name: 'AI Venture Fund', ltv: 6.8 },
-                { name: 'Blockchain Capital', ltv: 5.9 },
-                { name: 'Cyber Investment Group', ltv: 5.3 }
+                { name: 'Корпорация "ТехноИнвест"', ltv: 8.2, trend: '+12.5%' },
+                { name: 'Фонд "Квантовый капитал"', ltv: 7.5, trend: '+8.2%' },
+                { name: 'Холдинг "ФинансГрупп"', ltv: 6.8, trend: '+15.1%' },
+                { name: 'Компания "ИнвестАналитика"', ltv: 5.9, trend: '+3.8%' },
+                { name: 'Банк "Современные технологии"', ltv: 5.3, trend: '+9.7%' }
             ];
             
             const table = document.getElementById('topClients');
@@ -1032,189 +797,254 @@ prediction = client.predict_ltv(
                 const row = document.createElement('tr');
                 row.innerHTML = `
                     <td>
-                        <div class="d-flex align-items-center">
-                            <div class="rounded-circle bg-primary bg-opacity-20 p-2 me-3">
-                                <i class="fas fa-user-tie text-primary"></i>
-                            </div>
-                            <div>
-                                <div class="fw-bold">${client.name}</div>
-                                <div class="small text-light" style="opacity: 0.6;">Квантовый сегмент</div>
-                            </div>
-                        </div>
+                        <div class="fw-bold">${client.name}</div>
+                        <div class="small text-muted">Корпоративный сегмент</div>
                     </td>
                     <td class="text-end">
-                        <div class="h5 mb-0 text-gradient">${client.ltv}M ₽</div>
-                        <div class="small text-success">
-                            <i class="fas fa-arrow-up me-1"></i>+${(Math.random() * 15 + 5).toFixed(1)}%
-                        </div>
+                        <div class="fw-bold">${client.ltv}M ₽</div>
+                    </td>
+                    <td class="text-end">
+                        <span class="text-success">${client.trend}</span>
                     </td>
                 `;
                 table.appendChild(row);
             });
         }
         
-        function refreshTopClients() {
-            // Анимация обновления
-            const table = document.getElementById('topClients');
-            table.style.opacity = '0.5';
+        // Загрузка таблицы проектов
+        function loadProjectsTable() {
+            const table = document.getElementById('projectsTable');
+            table.innerHTML = '';
             
-            setTimeout(() => {
-                loadTopClients();
-                table.style.opacity = '1';
+            projects.forEach(project => {
+                const statusBadge = project.status === 'active' 
+                    ? '<span class="status-badge status-active"><i class="fas fa-play"></i> Активный</span>'
+                    : '<span class="status-badge status-warning"><i class="fas fa-clock"></i> Запланирован</span>';
                 
-                // Показать уведомление
-                showNotification('Данные клиентов обновлены', 'success');
-            }, 800);
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>
+                        <div class="fw-bold">${project.name}</div>
+                        <div class="small text-muted">${project.description}</div>
+                    </td>
+                    <td>${project.budget}M ₽</td>
+                    <td>
+                        <span class="fw-bold ${project.roi > 2.5 ? 'text-success' : project.roi > 2.0 ? 'text-warning' : 'text-danger'}">
+                            ${(project.roi * 100).toFixed(0)}%
+                        </span>
+                    </td>
+                    <td>${project.duration} мес</td>
+                    <td>
+                        <div class="progress" style="height: 8px; background: rgba(255,255,255,0.1)">
+                            <div class="progress-bar bg-primary" style="width: ${project.priority * 100}%"></div>
+                        </div>
+                        <div class="small text-center">${(project.priority * 100).toFixed(0)}%</div>
+                    </td>
+                    <td>${statusBadge}</td>
+                    <td>
+                        <button class="btn btn-sm btn-outline-light" onclick="showProjectDetails(${project.id})">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </td>
+                `;
+                table.appendChild(row);
+            });
         }
         
-        // Запуск Quantum LTV Predictor
-        function runQuantumLTV() {
-            const revenue = parseInt(document.getElementById('revenueSlider').value);
-            const activity = parseInt(document.getElementById('activitySlider').value);
+        // Настройка слайдеров
+        function setupSliders() {
+            const sliders = [
+                { id: 'clientRevenue', valueId: 'revenueValue', suffix: ' тыс. ₽/мес' },
+                { id: 'rdBudget', valueId: 'budgetValue', suffix: ' млн ₽' },
+                { id: 'equipmentTemp', valueId: 'tempValue', suffix: ' °C' }
+            ];
             
-            // Имитация квантовых вычислений
-            showLoading('quantumResult', 'Запуск квантовой модели...');
+            sliders.forEach(({id, valueId, suffix}) => {
+                const slider = document.getElementById(id);
+                const valueElement = document.getElementById(valueId);
+                
+                if (slider && valueElement) {
+                    // Установить начальное значение
+                    valueElement.textContent = slider.value + suffix;
+                    
+                    // Добавить обработчик изменения
+                    slider.addEventListener('input', function() {
+                        valueElement.textContent = this.value + suffix;
+                        valueElement.style.transform = 'scale(1.1)';
+                        setTimeout(() => {
+                            valueElement.style.transform = 'scale(1)';
+                        }, 200);
+                    });
+                }
+            });
+        }
+        
+        // Запуск LTV предсказания
+        function runLTVPrediction() {
+            const revenue = parseInt(document.getElementById('clientRevenue').value);
+            const activity = document.getElementById('activityLevel').value;
             
+            // Показать загрузку
+            const resultDiv = document.getElementById('ltvResult');
+            resultDiv.innerHTML = `
+                <div class="text-center p-3">
+                    <div class="spinner-border spinner-border-sm text-primary me-2"></div>
+                    <span>Анализ 150+ факторов...</span>
+                </div>
+            `;
+            
+            // Имитация вычислений
             setTimeout(() => {
-                // Результаты "квантовых" вычислений
-                const baseLTV = revenue * 24; // Базовый расчет
-                const quantumMultiplier = 1 + (activity / 200) + (Math.random() * 0.2);
-                const predictedLTV = baseLTV * quantumMultiplier * 1000; // Конвертация в рубли
+                // Расчет предсказания
+                const baseMultiplier = { low: 0.8, medium: 1.2, high: 1.5, 'very-high': 1.8 }[activity];
+                const predictedLTV = revenue * 24 * baseMultiplier; // 24 месяца
                 
-                const confidence = 0.85 + (Math.random() * 0.1);
-                const quantumBits = Math.floor(Math.random() * 50) + 50;
+                // Генерация деталей
+                const confidence = 0.85 + Math.random() * 0.1;
+                const factorsAnalyzed = Math.floor(Math.random() * 50) + 150;
                 
-                const resultDiv = document.getElementById('quantumResult');
                 resultDiv.innerHTML = `
-                    <div class="prediction-result">
-                        <div class="small text-uppercase mb-2">Квантовый прогноз LTV</div>
-                        <div class="prediction-value">${(predictedLTV / 1000000).toFixed(2)}M ₽</div>
-                        <div class="row mt-3">
+                    <div class="border-gradient p-4">
+                        <div class="text-center mb-3">
+                            <div class="small text-uppercase text-muted mb-2">Прогнозируемый LTV</div>
+                            <div class="display-5 fw-bold text-gradient mb-2">${(predictedLTV / 1000).toFixed(1)}M ₽</div>
+                            <div class="small text-muted">За 24 месяца сотрудничества</div>
+                        </div>
+                        
+                        <div class="row text-center">
                             <div class="col-6">
-                                <div class="small">Уверенность</div>
-                                <div class="h5">${(confidence * 100).toFixed(1)}%</div>
+                                <div class="small text-muted">Уверенность</div>
+                                <div class="fw-bold">${(confidence * 100).toFixed(1)}%</div>
                             </div>
                             <div class="col-6">
-                                <div class="small">Кубиты</div>
-                                <div class="h5">${quantumBits} Q</div>
+                                <div class="small text-muted">Факторов</div>
+                                <div class="fw-bold">${factorsAnalyzed}</div>
                             </div>
                         </div>
-                        <div class="small mt-3" style="opacity: 0.8;">
-                            <i class="fas fa-quantum me-1"></i>
-                            Рассчитано с использованием квантового алгоритма Шора
+                        
+                        <div class="mt-3 small text-muted">
+                            <i class="fas fa-brain me-1"></i>
+                            Модель: Gradient Boosting + Neural Networks
                         </div>
                     </div>
                 `;
                 
-                // Анимация
-                resultDiv.style.animation = 'fadeInUp 0.6s ease-out';
-                
                 // Показать уведомление
-                showNotification('Квантовый расчет завершен', 'info');
-            }, 2000);
+                showNotification('Прогноз LTV успешно рассчитан', 'success');
+            }, 1500);
         }
         
-        // Запуск Neural Portfolio Optimizer
-        function runNeuralOptimizer() {
-            const budget = parseInt(document.getElementById('rdBudgetSlider').value);
+        // Оптимизация портфеля
+        function runPortfolioOptimization() {
+            const budget = parseInt(document.getElementById('rdBudget').value);
+            const strategy = document.getElementById('investmentStrategy').value;
             
-            showLoading('optimizerResult', 'Нейросетевая оптимизация...');
+            const resultDiv = document.getElementById('portfolioResult');
+            resultDiv.innerHTML = `
+                <div class="text-center p-3">
+                    <div class="spinner-border spinner-border-sm text-primary me-2"></div>
+                    <span>Обучение с подкреплением...</span>
+                </div>
+            `;
             
             setTimeout(() => {
-                // Генерация "нейросетевых" рекомендаций
-                const projects = [
+                // Генерация рекомендаций
+                const recommendations = [
                     { name: 'Квантовые алгоритмы', allocation: budget * 0.35, roi: 2.8 },
-                    { name: 'Нейроморфные чипы', allocation: budget * 0.25, roi: 2.2 },
-                    { name: 'Оптические сети', allocation: budget * 0.20, roi: 1.9 },
-                    { name: 'Криптография', allocation: budget * 0.12, roi: 1.5 },
-                    { name: 'AR/VR платформы', allocation: budget * 0.08, roi: 1.8 }
+                    { name: 'ИИ-инфраструктура', allocation: budget * 0.25, roi: 2.2 },
+                    { name: 'Блокчейн решения', allocation: budget * 0.20, roi: 1.9 },
+                    { name: 'Интернет вещей', allocation: budget * 0.12, roi: 1.5 },
+                    { name: 'AR/VR технологии', allocation: budget * 0.08, roi: 1.8 }
                 ];
                 
                 let resultHTML = `
-                    <div class="glass-card p-4">
-                        <h6 class="fw-bold mb-3">Рекомендации нейросети</h6>
-                        <div class="small text-light mb-3" style="opacity: 0.8;">
-                            Глубокое обучение с подкреплением, 10,240 эпизодов
-                        </div>
+                    <div class="border-gradient p-4">
+                        <h6 class="fw-bold mb-3">Рекомендации ИИ</h6>
+                        <div class="small text-muted mb-3">Оптимизация для ${strategy === 'conservative' ? 'консервативной' : strategy === 'aggressive' ? 'агрессивной' : 'сбалансированной'} стратегии</div>
                 `;
                 
-                projects.forEach(project => {
+                recommendations.forEach(rec => {
                     resultHTML += `
                         <div class="mb-3">
                             <div class="d-flex justify-content-between mb-1">
-                                <span>${project.name}</span>
-                                <span class="text-success">ROI: ${(project.roi * 100).toFixed(0)}%</span>
+                                <span class="small">${rec.name}</span>
+                                <span class="small text-success">ROI: ${(rec.roi * 100).toFixed(0)}%</span>
                             </div>
                             <div class="progress" style="height: 6px; background: rgba(255,255,255,0.1)">
-                                <div class="progress-bar bg-warning" style="width: ${(project.allocation / budget) * 100}%"></div>
+                                <div class="progress-bar bg-warning" style="width: ${(rec.allocation / budget) * 100}%"></div>
                             </div>
-                            <div class="small text-end mt-1" style="opacity: 0.7;">
-                                ${project.allocation.toFixed(2)} млн ₽
+                            <div class="small text-end mt-1 text-muted">
+                                ${rec.allocation.toFixed(2)} млн ₽
                             </div>
                         </div>
                     `;
                 });
                 
-                const totalROI = projects.reduce((sum, p) => sum + (p.roi * p.allocation), 0) / budget;
+                const totalROI = recommendations.reduce((sum, rec) => sum + (rec.roi * rec.allocation), 0) / budget;
                 
                 resultHTML += `
                         <div class="mt-4 pt-3 border-top border-dark">
                             <div class="row">
                                 <div class="col-6">
-                                    <div class="small">Общий ROI</div>
+                                    <div class="small text-muted">Ожидаемый ROI</div>
                                     <div class="h4 text-success">${(totalROI * 100).toFixed(1)}%</div>
                                 </div>
                                 <div class="col-6">
-                                    <div class="small">Нейронов</div>
-                                    <div class="h4">1.2M</div>
+                                    <div class="small text-muted">Обучений</div>
+                                    <div class="h4">10,240</div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 `;
                 
-                document.getElementById('optimizerResult').innerHTML = resultHTML;
+                resultDiv.innerHTML = resultHTML;
                 showNotification('Портфель оптимизирован', 'success');
-            }, 2500);
+            }, 2000);
         }
         
-        // Запуск Predictive Maintenance AI
-        function runPredictiveAI() {
-            const device = document.getElementById('deviceSelect').value;
-            const temperature = parseInt(document.getElementById('tempSlider').value);
+        // Анализ технического состояния
+        function runMaintenanceAnalysis() {
+            const equipment = document.getElementById('equipmentSelect').value;
+            const temperature = parseInt(document.getElementById('equipmentTemp').value);
             
-            showLoading('maintenanceResult', 'Анализ графовых нейросетей...');
+            const resultDiv = document.getElementById('maintenanceResult');
+            resultDiv.innerHTML = `
+                <div class="text-center p-3">
+                    <div class="spinner-border spinner-border-sm text-primary me-2"></div>
+                    <span>Анализ временных рядов...</span>
+                </div>
+            `;
             
             setTimeout(() => {
-                // Расчет "предиктивного" состояния
+                // Расчет вероятности отказа
                 let failureProbability;
                 let status;
                 let statusColor;
                 
                 if (temperature < 50) {
                     failureProbability = 0.05 + Math.random() * 0.1;
-                    status = 'Оптимально';
+                    status = 'Оптимальное';
                     statusColor = 'success';
                 } else if (temperature < 70) {
                     failureProbability = 0.15 + Math.random() * 0.2;
-                    status = 'Внимание';
+                    status = 'Требует внимания';
                     statusColor = 'warning';
                 } else {
                     failureProbability = 0.4 + Math.random() * 0.3;
-                    status = 'Критично';
+                    status = 'Критическое';
                     statusColor = 'danger';
                 }
                 
-                // Время до возможного отказа
                 const timeToFailure = Math.max(24, Math.floor(168 * (1 - failureProbability)));
                 
-                const resultDiv = document.getElementById('maintenanceResult');
                 resultDiv.innerHTML = `
-                    <div class="glass-card p-4">
-                        <h6 class="fw-bold mb-3">Анализ состояния</h6>
+                    <div class="border-gradient p-4">
+                        <h6 class="fw-bold mb-3">Диагностика оборудования</h6>
+                        
                         <div class="mb-4">
                             <div class="d-flex justify-content-between align-items-center mb-2">
-                                <span>Вероятность отказа</span>
+                                <span class="small">Вероятность отказа</span>
                                 <span class="h4 text-${statusColor}">${(failureProbability * 100).toFixed(1)}%</span>
                             </div>
                             <div class="progress" style="height: 10px; background: rgba(255,255,255,0.1)">
@@ -1224,30 +1054,23 @@ prediction = client.predict_ltv(
                         
                         <div class="row mb-4">
                             <div class="col-6">
-                                <div class="small">Статус</div>
-                                <div class="h5 text-${statusColor}">${status}</div>
+                                <div class="small text-muted">Состояние</div>
+                                <div class="fw-bold text-${statusColor}">${status}</div>
                             </div>
                             <div class="col-6">
-                                <div class="small">Температура</div>
-                                <div class="h5">${temperature}°C</div>
+                                <div class="small text-muted">Температура</div>
+                                <div class="fw-bold">${temperature}°C</div>
                             </div>
                         </div>
                         
-                        <div class="alert alert-${statusColor} bg-${statusColor} bg-opacity-10 border-${statusColor}">
-                            <div class="d-flex">
-                                <i class="fas fa-${statusColor === 'success' ? 'check-circle' : statusColor === 'warning' ? 'exclamation-triangle' : 'exclamation-circle'} me-2"></i>
+                        <div class="alert bg-${statusColor} bg-opacity-10 border-${statusColor}">
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-${statusColor === 'success' ? 'check-circle' : statusColor === 'warning' ? 'exclamation-triangle' : 'exclamation-circle'} me-2 text-${statusColor}"></i>
                                 <div>
                                     <strong>Прогноз:</strong> Отказ возможен через ${timeToFailure} часов
-                                    <div class="small mt-1" style="opacity: 0.8;">
-                                        На основе анализа 1.5M временных метрик
-                                    </div>
+                                    <div class="small mt-1">На основе анализа 2.1M метрик</div>
                                 </div>
                             </div>
-                        </div>
-                        
-                        <div class="small text-center mt-3" style="opacity: 0.7;">
-                            <i class="fas fa-project-diagram me-1"></i>
-                            Графовая нейросеть, 94.2% точность
                         </div>
                     </div>
                 `;
@@ -1256,46 +1079,82 @@ prediction = client.predict_ltv(
             }, 1800);
         }
         
-        // Показать загрузку
-        function showLoading(elementId, message) {
-            const element = document.getElementById(elementId);
-            if (element) {
-                element.innerHTML = `
-                    <div class="text-center p-4">
-                        <div class="spinner-grow text-primary mb-3"></div>
-                        <div class="small text-light">${message}</div>
-                        <div class="mt-2" style="font-size: 0.8rem; opacity: 0.6;">
-                            ${getRandomTechTerm()}
-                        </div>
-                    </div>
-                `;
+        // Обновление данных клиентов
+        function refreshClientData() {
+            const button = event.target;
+            button.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i>Обновление...';
+            button.disabled = true;
+            
+            setTimeout(() => {
+                loadTopClients();
+                button.innerHTML = '<i class="fas fa-sync-alt me-1"></i>Обновить данные';
+                button.disabled = false;
+                showNotification('Данные клиентов обновлены', 'success');
+            }, 1000);
+        }
+        
+        // Добавление нового проекта
+        function addNewProject() {
+            const projectName = prompt('Введите название нового R&D проекта:');
+            if (projectName) {
+                const newProject = {
+                    id: projects.length + 1,
+                    name: projectName,
+                    budget: (Math.random() * 3 + 1).toFixed(1),
+                    roi: (Math.random() * 1.5 + 1.5).toFixed(1),
+                    duration: Math.floor(Math.random() * 18) + 6,
+                    priority: Math.random().toFixed(2),
+                    status: 'planned',
+                    description: 'Новый проект, добавленный в портфель'
+                };
+                
+                projects.push(newProject);
+                loadProjectsTable();
+                showNotification(`Проект "${projectName}" добавлен`, 'success');
             }
         }
         
-        function getRandomTechTerm() {
-            const terms = [
-                'Инициализация квантовых кубитов...',
-                'Оптимизация графовой нейросети...',
-                'Загрузка 15.2TB обучающих данных...',
-                'Калибровка нейроморфного чипа...',
-                'Анализ временных рядов...',
-                'Трансферное обучение...',
-                'Квантовая суперпозиция состояний...'
-            ];
-            return terms[Math.floor(Math.random() * terms.length)];
+        // Оптимизация всех проектов
+        function optimizeAllProjects() {
+            showNotification('Запущена автооптимизация всех проектов', 'info');
+            
+            setTimeout(() => {
+                // Обновление приоритетов
+                projects.forEach(project => {
+                    project.priority = Math.min(0.99, project.priority + (Math.random() * 0.1));
+                });
+                
+                loadProjectsTable();
+                showNotification('Все проекты оптимизированы', 'success');
+            }, 2000);
+        }
+        
+        // Показать детали проекта
+        function showProjectDetails(projectId) {
+            const project = projects.find(p => p.id === projectId);
+            if (project) {
+                alert(`Детали проекта #${project.id}\n\n` +
+                      `Название: ${project.name}\n` +
+                      `Описание: ${project.description}\n` +
+                      `Бюджет: ${project.budget} млн ₽\n` +
+                      `Ожидаемый ROI: ${(project.roi * 100).toFixed(0)}%\n` +
+                      `Срок: ${project.duration} месяцев\n` +
+                      `Приоритет: ${(project.priority * 100).toFixed(0)}%\n` +
+                      `Статус: ${project.status === 'active' ? 'Активный' : 'Запланированный'}`);
+            }
         }
         
         // Уведомления
         function showNotification(message, type) {
             const alertClass = {
-                'success': 'success',
-                'info': 'primary',
-                'warning': 'warning',
-                'danger': 'danger'
-            }[type] || 'info';
+                'success': 'alert-success',
+                'info': 'alert-info',
+                'warning': 'alert-warning',
+                'danger': 'alert-danger'
+            }[type] || 'alert-info';
             
             const notification = document.createElement('div');
-            notification.className = `position-fixed top-0 end-0 m-4 alert alert-${alertClass} alert-dismissible fade show`;
+            notification.className = `position-fixed top-0 end-0 m-4 alert ${alertClass} alert-dismissible fade show`;
             notification.style.cssText = 'z-index: 9999; max-width: 350px; backdrop-filter: blur(10px);';
             notification.innerHTML = `
                 <div class="d-flex align-items-center">
@@ -1314,57 +1173,57 @@ prediction = client.predict_ltv(
         
         // Живые обновления
         function startLiveUpdates() {
-            // Обновление KPI каждые 15 секунд
+            // Обновление KPI каждые 20 секунд
             setInterval(() => {
                 updateLiveMetrics();
-            }, 15000);
-            
-            // Обновление графиков каждые 10 секунд
-            setInterval(() => {
-                updateLiveCharts();
-            }, 10000);
+            }, 20000);
         }
         
         function updateLiveMetrics() {
-            // Обновление KPI значений
-            const kpiValues = document.querySelectorAll('.kpi-value-2026');
-            kpiValues.forEach(kpi => {
-                const currentValue = parseFloat(kpi.textContent);
-                const change = (Math.random() - 0.5) * 0.5;
-                const newValue = Math.max(0, currentValue + change);
-                kpi.textContent = newValue.toFixed(1);
-                
-                // Анимация
-                kpi.style.transform = 'scale(1.1)';
-                setTimeout(() => {
-                    kpi.style.transform = 'scale(1)';
-                }, 300);
+            // Случайные небольшие изменения для реалистичности
+            const kpis = document.querySelectorAll('.kpi-value');
+            kpis.forEach(kpi => {
+                const current = parseFloat(kpi.textContent.replace('₽', '').replace('M', '').trim());
+                if (!isNaN(current)) {
+                    const change = (Math.random() - 0.5) * 0.1;
+                    const newValue = Math.max(0, current + change);
+                    
+                    if (kpi.textContent.includes('₽')) {
+                        kpi.textContent = '₽' + newValue.toFixed(1) + 'M';
+                    } else if (kpi.textContent.includes('%')) {
+                        kpi.textContent = newValue.toFixed(1) + '%';
+                    } else {
+                        kpi.textContent = Math.round(newValue).toString();
+                    }
+                    
+                    // Анимация
+                    kpi.style.transform = 'scale(1.1)';
+                    setTimeout(() => {
+                        kpi.style.transform = 'scale(1)';
+                    }, 300);
+                }
             });
-        }
-        
-        function updateLiveCharts() {
-            // В реальной системе здесь был бы API запрос
-            // Для демо - просто лог
-            console.log('Live charts updated at', new Date().toISOString());
         }
         
         // Симуляция реальных данных
         function simulateRealTimeData() {
             setInterval(() => {
                 // Случайное обновление статусов
-                if (Math.random() > 0.8) {
-                    const badges = document.querySelectorAll('.badge');
-                    const randomBadge = badges[Math.floor(Math.random() * badges.length)];
-                    
-                    if (randomBadge.classList.contains('bg-success')) {
-                        randomBadge.classList.replace('bg-success', 'bg-warning');
-                        randomBadge.innerHTML = '<i class="fas fa-exclamation-triangle me-1"></i>Внимание';
-                    } else if (randomBadge.classList.contains('bg-warning')) {
-                        randomBadge.classList.replace('bg-warning', 'bg-success');
-                        randomBadge.innerHTML = '<i class="fas fa-check-circle me-1"></i>Активно';
+                if (Math.random() > 0.7) {
+                    const statuses = document.querySelectorAll('.status-badge');
+                    if (statuses.length > 0) {
+                        const randomStatus = statuses[Math.floor(Math.random() * statuses.length)];
+                        
+                        if (randomStatus.classList.contains('status-active')) {
+                            randomStatus.classList.replace('status-active', 'status-warning');
+                            randomStatus.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Внимание';
+                        } else if (randomStatus.classList.contains('status-warning')) {
+                            randomStatus.classList.replace('status-warning', 'status-active');
+                            randomStatus.innerHTML = '<i class="fas fa-check-circle"></i> Активно';
+                        }
                     }
                 }
-            }, 8000);
+            }, 10000);
         }
     </script>
 </body>
