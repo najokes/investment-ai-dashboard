@@ -1,6 +1,3 @@
-Верну фон и исправлю кнопку "Рассчитать показатели". Вот исправленный код с восстановленным дизайном:
-
-```html
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -206,25 +203,6 @@
             background: #0b7dda;
         }
         
-        .csv-success-message {
-            background: #e8f5e9;
-            color: #2e7d32;
-            padding: 15px;
-            border-radius: 8px;
-            margin-top: 15px;
-            border-left: 4px solid #2e7d32;
-            display: none;
-        }
-        
-        .csv-success-message.visible {
-            display: block;
-        }
-        
-        .csv-success-icon {
-            font-weight: bold;
-            margin-right: 10px;
-        }
-        
         .input-group {
             margin-bottom: 20px;
         }
@@ -317,12 +295,6 @@
             transform: none;
             box-shadow: none;
             opacity: 0.6;
-        }
-        
-        .calculate-btn.enabled {
-            background: linear-gradient(135deg, #283593 0%, #3949ab 100%);
-            cursor: pointer;
-            opacity: 1;
         }
         
         .recalculate-btn {
@@ -651,6 +623,52 @@
         .empty-field {
             color: #999 !important;
         }
+        
+        .csv-data-preview {
+            margin-top: 15px;
+            background: white;
+            border-radius: 8px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        
+        .csv-preview-title {
+            font-size: 0.9rem;
+            color: #283593;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+        
+        .csv-preview-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+        }
+        
+        .csv-preview-table th {
+            background: #f0f2ff;
+            color: #283593;
+            padding: 8px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        
+        .csv-preview-table td {
+            padding: 6px 8px;
+            border: 1px solid #ddd;
+        }
+        
+        .storage-indicator {
+            font-size: 0.85rem;
+            color: #4CAF50;
+            margin-top: 10px;
+            padding: 8px;
+            background: #f1f8e9;
+            border-radius: 6px;
+            border-left: 4px solid #4CAF50;
+        }
     </style>
 </head>
 <body>
@@ -668,24 +686,32 @@
                         <div class="company-logo">?</div>
                         <div class="company-details">
                             <h3 id="companyName">Компания не выбрана</h3>
-                            <p id="companyDetails">Введите ИНН компании для запуска анализа</p>
+                            <p id="companyDetails">Введите ИНН для загрузки данных или загрузите CSV-файл</p>
                         </div>
                     </div>
-                    <input type="text" class="inn-input" id="companyINN" placeholder="Введите ИНН компании (5047154189)">
-                    <button class="select-company-btn" onclick="selectCompany()">Запустить анализ компании</button>
+                    <input type="text" class="inn-input" id="companyINN" placeholder="Введите ИНН компании">
+                    <button class="select-company-btn" onclick="selectCompany()">Загрузить данные компании</button>
+                    
+                    <div id="storageIndicator" class="storage-indicator hidden">
+                        ✓ Данные из CSV успешно сохранены в хранилище
+                    </div>
                     
                     <div class="csv-upload-section">
-                        <div class="csv-upload-title">Загрузка данных в хранилище (CSV)</div>
+                        <div class="csv-upload-title">Загрузка данных из CSV-файла</div>
                         <input type="file" class="csv-input" id="csvFile" accept=".csv, .txt">
-                        <button class="csv-upload-btn" onclick="uploadCSV()">Загрузить CSV в хранилище</button>
+                        <button class="csv-upload-btn" onclick="uploadCSV()">Загрузить CSV файл</button>
                         <button class="csv-download-btn" onclick="downloadTemplateCSV()">Скачать шаблон CSV</button>
-                        
-                        <div class="csv-success-message" id="csvSuccessMessage">
-                            <div class="csv-success-icon">✓</div>
-                            <div>
-                                <strong>Файл успешно загружен!</strong><br>
-                                <small>Данные занесены в хранилище. Теперь введите ИНН компании для запуска анализа.</small>
-                            </div>
+                        <div class="csv-data-preview hidden" id="csvPreview">
+                            <div class="csv-preview-title">Предпросмотр данных из CSV:</div>
+                            <table class="csv-preview-table" id="csvPreviewTable">
+                                <thead>
+                                    <tr>
+                                        <th>Параметр</th>
+                                        <th>Значение</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -825,7 +851,7 @@
                     </div>
                 </div>
                 
-                <button class="calculate-btn" id="calculateBtn" onclick="calculateResults()">Рассчитать показатели</button>
+                <button class="calculate-btn" id="calculateBtn" onclick="calculateResults()" disabled>Рассчитать показатели</button>
                 <button class="recalculate-btn" id="recalculateBtn" onclick="recalculateResults()" style="display: none;">Пересчитать с новыми параметрами</button>
                 
                 <div class="export-buttons">
@@ -836,15 +862,10 @@
             
             <div class="results-section">
                 <div class="loading" id="loadingIndicator">
-                    <p>Для запуска анализа выполните следующие шаги:</p>
-                    <ol style="text-align: left; margin: 20px 0; padding-left: 20px;">
-                        <li>Загрузите CSV-файл с данными в хранилище</li>
-                        <li>Введите ИНН компании (например: <strong>5047154189</strong>)</li>
-                        <li>Нажмите "Запустить анализ компании"</li>
-                        <li>Отредактируйте параметры при необходимости</li>
-                        <li>Нажмите "Рассчитать показатели"</li>
-                    </ol>
-                    <p>Или просто введите ИНН: <strong>5047154189</strong> и нажмите "Запустить анализ компании"</p>
+                    <p>Введите ИНН компании для загрузки данных или загрузите CSV-файл</p>
+                    <p>Нажмите "Загрузить данные компании" или "Загрузить CSV файл"</p>
+                    <p>Отредактируйте параметры при необходимости</p>
+                    <p>Нажмите "Рассчитать показатели"</p>
                 </div>
                 
                 <div class="results-container hidden" id="resultsContainer">
@@ -910,7 +931,7 @@
                                 </div>
                                 <div class="detail-item">
                                     <span>Сокращение сроков окупаемости:</span>
-                                    <strong id="timeOptimization">—</strong>
+                                    <strong id="timeOptimization">—</span>
                                 </div>
                                 <div class="detail-item">
                                     <span>Ожидаемый прирост выручки:</span>
@@ -986,7 +1007,7 @@
                     <div class="recommendations">
                         <h2 class="section-title">Рекомендации системы</h2>
                         <div id="recommendationsPlaceholder" class="loading" style="padding: 20px;">
-                            <p>Введите ИНН компании и запустите анализ для получения рекомендаций</p>
+                            <p>Загрузите данные компании и нажмите "Рассчитать показатели" для получения рекомендаций</p>
                         </div>
                         <div id="recommendationsContent" class="hidden">
                             <!-- Рекомендации будут здесь -->
@@ -1008,8 +1029,9 @@
     </div>
 
     <script>
-        // База данных компаний (имитация хранилища)
-        let companyStorage = {
+        // Хранилище данных - симуляция базы данных в браузере
+        const dataStorage = {
+            // Начальные данные для компаний
             '5047154189': {
                 name: 'ООО "Мобайл Парк ИТ"',
                 type: 'Технологическая компания B2B',
@@ -1085,57 +1107,8 @@
         let isCalculated = false;
         let currentCompany = null;
         let previousValues = {};
-        
-        // Инициализация при загрузке
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('Страница загружена');
-            
-            // Предзаполняем ИНН для удобства
-            document.getElementById('companyINN').value = '5047154189';
-            
-            // Начальная настройка кнопки
-            updateCalculateButton();
-            
-            // Разрешаем ввод ИНН по Enter
-            document.getElementById('companyINN').addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    selectCompany();
-                }
-            });
-            
-            // Автоматическая загрузка CSV при выборе файла
-            document.getElementById('csvFile').addEventListener('change', function() {
-                if (this.files.length > 0) {
-                    uploadCSV();
-                }
-            });
-        });
-        
-        // Обновление состояния кнопки "Рассчитать показатели"
-        function updateCalculateButton() {
-            const btn = document.getElementById('calculateBtn');
-            const canCalculate = canCalculateResults();
-            
-            if (canCalculate) {
-                btn.disabled = false;
-                btn.classList.add('enabled');
-            } else {
-                btn.disabled = true;
-                btn.classList.remove('enabled');
-            }
-        }
-        
-        // Проверка возможности расчета
-        function canCalculateResults() {
-            if (!currentCompany) return false;
-            
-            const investmentAmount = getNumericValue('investmentAmount');
-            const investmentPeriod = getFloatValue('investmentPeriod');
-            const riskTolerance = getFloatValue('riskTolerance');
-            const rdBudget = getFloatValue('rdBudget');
-            
-            return investmentAmount > 0 && investmentPeriod > 0 && riskTolerance > 0 && rdBudget > 0;
-        }
+        let uploadedCompanyData = null;
+        let storageUpdated = false;
         
         // Сбросить все поля до пустых значений
         function resetFormFields() {
@@ -1147,16 +1120,17 @@
                 input.classList.add('empty-field');
             });
             
+            // Сбросить суффиксы
             const suffixes = document.querySelectorAll('.suffix');
             suffixes.forEach(suffix => {
                 suffix.classList.remove('editable');
             });
             
+            // Деактивировать кнопки
+            document.getElementById('calculateBtn').disabled = true;
             document.querySelectorAll('.export-btn').forEach(btn => {
                 btn.disabled = true;
             });
-            
-            updateCalculateButton();
         }
         
         // Включить все поля формы
@@ -1166,34 +1140,52 @@
                 input.removeAttribute('readonly');
                 input.classList.add('editable');
                 input.classList.remove('empty-field');
-                
-                // Добавляем обработчики для обновления кнопки
-                input.addEventListener('input', function() {
-                    updateCalculateButton();
-                });
-                input.addEventListener('change', function() {
-                    updateCalculateButton();
-                });
             });
             
+            // Активировать суффиксы
             const suffixes = document.querySelectorAll('.suffix');
             suffixes.forEach(suffix => {
                 suffix.classList.add('editable');
             });
             
+            document.getElementById('calculateBtn').disabled = false;
+            document.getElementById('calculateBtn').textContent = 'Рассчитать показатели';
+            
+            // Активируем кнопки экспорта
             document.querySelectorAll('.export-btn').forEach(btn => {
                 btn.disabled = false;
             });
+        }
+        
+        // Форматирование чисел с разделителями тысяч при вводе
+        function formatNumberOnBlur(input) {
+            if (!input.value) return;
             
-            updateCalculateButton();
+            let value = input.value.replace(/\s/g, '').replace(/,/g, '');
+            
+            if (!isNaN(value) && value !== '' && value !== '—') {
+                let num = parseInt(value);
+                input.setAttribute('data-original', num);
+                
+                let formatted = num.toLocaleString('ru-RU');
+                input.value = formatted;
+            }
+        }
+        
+        // Очистка форматирования при фокусе
+        function clearFormatting(input) {
+            let original = input.getAttribute('data-original');
+            if (original) {
+                input.value = original;
+            } else if (input.value === '—' || input.value === '') {
+                input.value = '';
+            }
         }
         
         // Получение числового значения из форматированного поля
         function getNumericValue(inputId) {
             const input = document.getElementById(inputId);
-            if (!input.value || input.value === '—' || input.value === '') {
-                return 0;
-            }
+            if (!input.value || input.value === '—') return 0;
             
             let value = input.value.replace(/\s/g, '').replace(/,/g, '');
             return parseInt(value) || 0;
@@ -1202,9 +1194,7 @@
         // Получение значения с плавающей точкой
         function getFloatValue(inputId) {
             const input = document.getElementById(inputId);
-            if (!input.value || input.value === '—' || input.value === '') {
-                return 0;
-            }
+            if (!input.value || input.value === '—') return 0;
             
             let value = input.value.replace(/\s/g, '').replace(/,/g, '');
             return parseFloat(value) || 0;
@@ -1213,17 +1203,16 @@
         // Выбор компании по ИНН
         function selectCompany() {
             const inn = document.getElementById('companyINN').value.trim();
-            console.log('Выбор компании по ИНН:', inn);
             
             if (!inn) {
-                showNotification('Введите ИНН компании для запуска анализа', 'error');
+                showNotification('Введите ИНН компании', 'error');
                 return;
             }
             
-            // Проверка существования компании в хранилище
-            if (companyStorage[inn]) {
-                console.log('Компания найдена в хранилище:', companyStorage[inn]);
-                currentCompany = companyStorage[inn];
+            // Проверяем есть ли компания в хранилище (включая загруженные из CSV данные)
+            if (dataStorage[inn] || inn === 'test') {
+                currentCompany = dataStorage[inn] || dataStorage['test'];
+                uploadedCompanyData = null;
                 
                 // Обновляем информацию о компании
                 document.getElementById('companyName').textContent = currentCompany.name;
@@ -1231,7 +1220,16 @@
                 document.querySelector('.company-logo').textContent = currentCompany.logoText;
                 document.querySelector('.company-logo').style.backgroundColor = '#283593';
                 
-                // Заполняем данные компании в форму
+                // Особое сообщение если это Мобайл Парк ИТ
+                if (inn === '5047154189' && storageUpdated) {
+                    document.getElementById('companyDetails').textContent = '✓ Данные обновлены из CSV файла | ' + currentCompany.description;
+                    showNotification('Используются данные из CSV файла для Мобайл Парк ИТ', 'success');
+                }
+                
+                // Сохраняем предыдущие значения для сравнения
+                saveCurrentValues();
+                
+                // Заполняем данные компании из хранилища
                 fillCompanyData(currentCompany);
                 
                 // Включаем поля формы
@@ -1248,24 +1246,47 @@
                 document.getElementById('resultsContainer').classList.add('hidden');
                 document.getElementById('loadingIndicator').classList.remove('hidden');
                 
-                showNotification('Данные компании загружены из хранилища. Теперь нажмите "Рассчитать показатели"', 'success');
+                // Скрываем предпросмотр CSV
+                document.getElementById('csvPreview').classList.add('hidden');
                 
             } else {
-                showNotification('Компания с таким ИНН не найдена в хранилище', 'error');
+                showNotification('Компания с таким ИНН не найдена в базе', 'error');
                 document.getElementById('companyName').textContent = 'Компания не найдена';
-                document.getElementById('companyDetails').textContent = 'Проверьте правильность ИНН или загрузите данные через CSV';
+                document.getElementById('companyDetails').textContent = 'Проверьте правильность ИНН';
                 document.querySelector('.company-logo').textContent = '!';
                 document.querySelector('.company-logo').style.backgroundColor = '#c62828';
                 currentCompany = null;
+                uploadedCompanyData = null;
                 
                 // Сбрасываем поля формы
                 resetFormFields();
             }
         }
         
+        // Сохранить текущие значения для сравнения
+        function saveCurrentValues() {
+            previousValues = {
+                investmentAmount: getNumericValue('investmentAmount'),
+                investmentPeriod: getFloatValue('investmentPeriod'),
+                historicalRoi: getFloatValue('historicalRoi'),
+                riskTolerance: getFloatValue('riskTolerance'),
+                rdBudget: getFloatValue('rdBudget'),
+                projectCount: getFloatValue('projectCount'),
+                currentRdSuccess: getFloatValue('currentRdSuccess'),
+                currentPaybackPeriod: getFloatValue('currentPaybackPeriod'),
+                customerCount: getNumericValue('customerCount'),
+                currentChurn: getFloatValue('currentChurn'),
+                avgLtv: getNumericValue('avgLtv'),
+                keyCustomersShare: getFloatValue('keyCustomersShare'),
+                infraCapex: getNumericValue('infraCapex'),
+                unplannedDowntime: getFloatValue('unplannedDowntime'),
+                maintenanceCost: getNumericValue('maintenanceCost')
+            };
+        }
+        
         // Заполнение данных компании
         function fillCompanyData(company) {
-            const data = company.data;
+            const data = company.data || company;
             
             // Заполняем поля с форматированием
             document.getElementById('investmentAmount').value = data.investmentAmount.toLocaleString('ru-RU');
@@ -1294,16 +1315,28 @@
             document.getElementById('maintenanceCost').value = data.maintenanceCost.toLocaleString('ru-RU');
             document.getElementById('maintenanceCost').setAttribute('data-original', data.maintenanceCost);
             
-            updateCalculateButton();
+            // Сохраняем новые значения
+            saveCurrentValues();
+            
+            // Добавляем обработчики для форматирования
+            const numberInputs = document.querySelectorAll('input[type="text"]:not(#companyINN)');
+            numberInputs.forEach(input => {
+                input.addEventListener('blur', function() {
+                    formatNumberOnBlur(this);
+                });
+                input.addEventListener('focus', function() {
+                    clearFormatting(this);
+                });
+            });
         }
         
-        // Загрузка CSV файла в хранилище
+        // Загрузка CSV файла
         function uploadCSV() {
             const fileInput = document.getElementById('csvFile');
             const file = fileInput.files[0];
             
             if (!file) {
-                showNotification('Выберите CSV файл для загрузки в хранилище', 'error');
+                showNotification('Выберите CSV файл для загрузки', 'error');
                 return;
             }
             
@@ -1315,47 +1348,13 @@
                     const csvData = parseCSV(csvContent);
                     
                     if (csvData) {
-                        // Генерируем уникальный ИНН для загруженных данных
-                        const generatedINN = generateINNFromCSV(csvData);
+                        // Имитация загрузки данных в хранилище
+                        simulateDataStorage(csvData);
                         
-                        // Сохраняем данные в хранилище
-                        companyStorage[generatedINN] = {
-                            name: csvData.name || 'Загруженная из CSV компания',
-                            type: csvData.type || 'Данные из CSV файла',
-                            description: 'Данные загружены из CSV файла',
-                            logoText: 'CSV',
-                            data: {
-                                investmentAmount: csvData.investmentAmount || 0,
-                                investmentPeriod: csvData.investmentPeriod || 0,
-                                historicalRoi: csvData.historicalRoi || 0,
-                                riskTolerance: csvData.riskTolerance || 0,
-                                rdBudget: csvData.rdBudget || 0,
-                                projectCount: csvData.projectCount || 0,
-                                currentRdSuccess: csvData.currentRdSuccess || 0,
-                                currentPaybackPeriod: csvData.currentPaybackPeriod || 0,
-                                customerCount: csvData.customerCount || 0,
-                                currentChurn: csvData.currentChurn || 0,
-                                avgLtv: csvData.avgLtv || 0,
-                                keyCustomersShare: csvData.keyCustomersShare || 0,
-                                infraCapex: csvData.infraCapex || 0,
-                                unplannedDowntime: csvData.unplannedDowntime || 0,
-                                maintenanceCost: csvData.maintenanceCost || 0
-                            }
-                        };
+                        // Показываем предпросмотр данных
+                        showCSVPreview(csvData);
                         
-                        // Показываем сообщение об успехе
-                        document.getElementById('csvSuccessMessage').classList.add('visible');
-                        
-                        // Очищаем поле файла
-                        fileInput.value = '';
-                        
-                        // Если в CSV был ИНН, показываем его для удобства
-                        if (csvData.inn) {
-                            document.getElementById('companyINN').value = csvData.inn;
-                            showNotification(`CSV файл успешно загружен в хранилище. ИНН ${csvData.inn} готов к использованию.`, 'success');
-                        } else {
-                            showNotification('CSV файл успешно загружен в хранилище. Теперь введите ИНН компании для запуска анализа.', 'success');
-                        }
+                        showNotification('CSV файл успешно загружен. Данные сохранены в хранилище.', 'success');
                     }
                 } catch (error) {
                     console.error('Ошибка обработки CSV:', error);
@@ -1370,25 +1369,43 @@
             reader.readAsText(file, 'UTF-8');
         }
         
-        // Генерация ИНН из данных CSV
-        function generateINNFromCSV(csvData) {
-            if (csvData.inn) {
-                return csvData.inn.toString();
-            }
+        // Имитация сохранения данных в хранилище
+        function simulateDataStorage(csvData) {
+            // Показываем индикатор хранения
+            document.getElementById('storageIndicator').classList.remove('hidden');
             
-            let inn = '9';
-            if (csvData.name) {
-                let hash = 0;
-                for (let i = 0; i < csvData.name.length; i++) {
-                    hash = ((hash << 5) - hash) + csvData.name.charCodeAt(i);
-                    hash = hash & hash;
+            // Устанавливаем флаг обновления хранилища
+            storageUpdated = true;
+            
+            // Обновляем хранилище данных
+            // Для тестирования обновляем данные Мобайл Парк ИТ
+            if (dataStorage['5047154189']) {
+                // Обновляем данные для Мобайл Парк ИТ из CSV
+                Object.assign(dataStorage['5047154189'].data, csvData);
+                
+                // Обновляем название если оно есть в CSV
+                if (csvData.name) {
+                    dataStorage['5047154189'].name = csvData.name;
                 }
-                inn += Math.abs(hash).toString().substring(0, 9);
-            } else {
-                inn += Math.floor(100000000 + Math.random() * 900000000).toString();
+                
+                // Показываем сообщение о том, что данные обновлены
+                showNotification('Данные для Мобайл Парк ИТ обновлены из CSV файла', 'success');
             }
             
-            return inn.substring(0, 10);
+            // Также создаем отдельную запись для загруженных данных
+            const csvCompanyId = 'csv_' + Date.now();
+            dataStorage[csvCompanyId] = {
+                name: csvData.name || 'Загруженная из CSV компания',
+                type: csvData.type || 'Данные из CSV файла',
+                description: 'Данные загружены из CSV файла',
+                logoText: 'CSV',
+                data: csvData
+            };
+            
+            // Через 5 секунд скрываем индикатор
+            setTimeout(() => {
+                document.getElementById('storageIndicator').classList.add('hidden');
+            }, 5000);
         }
         
         // Парсинг CSV файла
@@ -1396,6 +1413,7 @@
             const lines = csvContent.split('\n');
             const data = {};
             
+            // Определяем разделитель (запятая или точка с запятой)
             const delimiter = csvContent.includes(';') ? ';' : ',';
             
             lines.forEach(line => {
@@ -1403,9 +1421,10 @@
                 if (line && !line.startsWith('#')) {
                     const parts = line.split(delimiter);
                     if (parts.length >= 2) {
-                        const key = parts[0].trim().replace(/"/g, '').toLowerCase();
+                        const key = parts[0].trim().replace(/"/g, '');
                         let value = parts[1].trim().replace(/"/g, '');
                         
+                        // Преобразование числовых значений
                         if (!isNaN(value) && value !== '') {
                             if (value.includes('.')) {
                                 value = parseFloat(value);
@@ -1419,7 +1438,8 @@
                 }
             });
             
-            const requiredFields = ['investmentamount', 'investmentperiod'];
+            // Проверяем, что есть основные поля
+            const requiredFields = ['investmentAmount', 'investmentPeriod'];
             const missingFields = requiredFields.filter(field => !data[field]);
             
             if (missingFields.length > 0) {
@@ -1427,44 +1447,73 @@
                 return null;
             }
             
-            const normalizedData = {};
-            Object.keys(data).forEach(key => {
-                const keyMap = {
-                    'inn': 'inn',
-                    'name': 'name',
-                    'type': 'type',
-                    'investmentamount': 'investmentAmount',
-                    'investmentperiod': 'investmentPeriod',
-                    'historicalroi': 'historicalRoi',
-                    'risktolerance': 'riskTolerance',
-                    'rdbudget': 'rdBudget',
-                    'projectcount': 'projectCount',
-                    'currentrdsuccess': 'currentRdSuccess',
-                    'currentpaybackperiod': 'currentPaybackPeriod',
-                    'customercount': 'customerCount',
-                    'currentchurn': 'currentChurn',
-                    'avgltv': 'avgLtv',
-                    'keycustomersshare': 'keyCustomersShare',
-                    'infracapex': 'infraCapex',
-                    'unplanneddowntime': 'unplannedDowntime',
-                    'maintenancecost': 'maintenanceCost'
-                };
-                
-                if (keyMap[key]) {
-                    normalizedData[keyMap[key]] = data[key];
+            // Форматируем данные для отображения
+            data.name = data.name || 'Загруженная из CSV компания';
+            data.type = data.type || 'Данные из CSV файла';
+            
+            return data;
+        }
+        
+        // Показать предпросмотр CSV данных
+        function showCSVPreview(data) {
+            const previewTable = document.getElementById('csvPreviewTable').getElementsByTagName('tbody')[0];
+            previewTable.innerHTML = '';
+            
+            const fields = [
+                {key: 'investmentAmount', label: 'Объём инвестиций (₽)'},
+                {key: 'investmentPeriod', label: 'Срок инвестиций (мес.)'},
+                {key: 'historicalRoi', label: 'Исторический ROI (%)'},
+                {key: 'riskTolerance', label: 'Допустимый риск (%)'},
+                {key: 'rdBudget', label: 'Бюджет R&D (%)'},
+                {key: 'projectCount', label: 'Кол-во R&D проектов'},
+                {key: 'currentRdSuccess', label: 'Доля окупающихся проектов (%)'},
+                {key: 'currentPaybackPeriod', label: 'Срок окупаемости (мес.)'},
+                {key: 'customerCount', label: 'Кол-во клиентов'},
+                {key: 'currentChurn', label: 'Отток клиентов (%)'},
+                {key: 'avgLtv', label: 'Средний LTV (₽)'},
+                {key: 'keyCustomersShare', label: 'Доля ключевых клиентов (%)'},
+                {key: 'infraCapex', label: 'CAPEX на инфраструктуру (₽)'},
+                {key: 'unplannedDowntime', label: 'Незапланированные простои (%)'},
+                {key: 'maintenanceCost', label: 'Затраты на поддержку (₽)'}
+            ];
+            
+            fields.forEach(field => {
+                if (data[field.key] !== undefined) {
+                    const row = previewTable.insertRow();
+                    const cell1 = row.insertCell(0);
+                    const cell2 = row.insertCell(1);
+                    
+                    cell1.textContent = field.label;
+                    
+                    // Форматируем значение
+                    let value = data[field.key];
+                    if (typeof value === 'number') {
+                        if (field.key.includes('Amount') || field.key.includes('Cost') || field.key.includes('Capex') || field.key.includes('Ltv')) {
+                            value = value.toLocaleString('ru-RU') + ' ₽';
+                        } else if (field.key.includes('Roi') || field.key.includes('Tolerance') || field.key.includes('Budget') || 
+                                  field.key.includes('Success') || field.key.includes('Churn') || field.key.includes('Share') || 
+                                  field.key.includes('Downtime')) {
+                            value = value + ' %';
+                        } else if (field.key.includes('Period')) {
+                            value = value + ' мес.';
+                        } else if (field.key.includes('Count')) {
+                            value = value + ' шт.';
+                        }
+                    }
+                    
+                    cell2.textContent = value;
                 }
             });
             
-            return normalizedData;
+            document.getElementById('csvPreview').classList.remove('hidden');
         }
         
         // Скачать шаблон CSV файла
         function downloadTemplateCSV() {
+            // Данные для шаблона CSV
             const csvData = [
                 ['# Шаблон CSV файла для загрузки данных компании', ''],
                 ['# Все значения должны быть указаны без кавычек', ''],
-                ['# Используйте точку с запятой (;) как разделитель', ''],
-                ['inn', '5047154189'],
                 ['name', 'ООО "Мобайл Парк ИТ"'],
                 ['type', 'Технологическая компания B2B'],
                 ['investmentAmount', '150000000'],
@@ -1485,7 +1534,10 @@
                 ['# Конец файла', '']
             ];
             
+            // Преобразуем в CSV строку
             const csvContent = csvData.map(row => row.join(';')).join('\n');
+            
+            // Создаем Blob и ссылку для скачивания
             const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
             const url = URL.createObjectURL(blob);
             const link = document.createElement('a');
@@ -1503,11 +1555,9 @@
         
         // Расчет результатов
         function calculateResults() {
-            console.log('Нажата кнопка Рассчитать показатели');
-            
-            // Проверяем, что компания выбрана
-            if (!currentCompany) {
-                showNotification('Сначала выберите компанию по ИНН', 'error');
+            // Проверяем, что данные загружены
+            if (!currentCompany && !uploadedCompanyData) {
+                showNotification('Сначала загрузите данные компании по ИНН или из CSV', 'error');
                 return;
             }
             
@@ -1537,16 +1587,17 @@
             
             // Выполняем расчет
             performCalculation();
-            
-            showNotification('Расчет выполнен успешно!', 'success');
         }
         
         // Пересчет результатов
         function recalculateResults() {
-            if (!currentCompany) {
+            if (!currentCompany && !uploadedCompanyData) {
                 showNotification('Сначала загрузите данные компании', 'error');
                 return;
             }
+            
+            // Сохраняем текущие значения
+            saveCurrentValues();
             
             // Выполняем расчет
             performCalculation();
@@ -1556,6 +1607,7 @@
         
         // Основная функция расчета
         function performCalculation() {
+            // Получение ТЕКУЩИХ значений из формы
             const investmentAmount = getNumericValue('investmentAmount');
             const investmentPeriod = getFloatValue('investmentPeriod');
             const historicalRoi = getFloatValue('historicalRoi');
@@ -1572,6 +1624,7 @@
             const unplannedDowntime = getFloatValue('unplannedDowntime');
             const maintenanceCost = getNumericValue('maintenanceCost');
             
+            // Расчет показателей на основе ВВЕДЕННЫХ данных
             const results = calculateIndicators({
                 investmentAmount,
                 investmentPeriod,
@@ -1590,6 +1643,11 @@
                 maintenanceCost
             });
             
+            // Определяем имя компании для рекомендаций
+            const companyName = currentCompany ? currentCompany.name : 
+                               (uploadedCompanyData && uploadedCompanyData.name) ? uploadedCompanyData.name : 'Компания';
+            
+            // Обновление UI с результатами
             updateResultsUI(results, {
                 investmentAmount,
                 investmentPeriod,
@@ -1608,60 +1666,75 @@
                 maintenanceCost
             });
             
-            generateRecommendations(results, currentCompany.name);
+            // Генерация рекомендаций
+            generateRecommendations(results, companyName);
         }
         
         // Расчет индикаторов на основе входных данных
         function calculateIndicators(inputs) {
+            // Базовые коэффициенты из ВКР с динамической адаптацией
+            
+            // Динамический расчет ROI на основе введенных данных
             let baseRoi = inputs.historicalRoi || 15;
-            let roiWithAI = baseRoi * 1.4;
+            let roiWithAI = baseRoi * 1.4; // Базовое улучшение 40%
             
+            // Корректировка ROI на основе объема инвестиций
             if (inputs.investmentAmount > 200000000) {
-                roiWithAI *= 1.1;
+                roiWithAI *= 1.1; // +10% для больших инвестиций
             } else if (inputs.investmentAmount < 50000000) {
-                roiWithAI *= 0.95;
+                roiWithAI *= 0.95; // -5% для малых инвестиций
             }
             
+            // Корректировка на основе риск-аппетита
             if (inputs.riskTolerance > 15) {
-                roiWithAI *= 1.07;
+                roiWithAI *= 1.07; // +7% для высокого риска
             } else if (inputs.riskTolerance < 5) {
-                roiWithAI *= 0.93;
+                roiWithAI *= 0.93; // -7% для низкого риска
             }
             
+            // Динамический расчет оттока клиентов
             let baseChurn = inputs.currentChurn || 10;
-            let churnWithAI = baseChurn * 0.7;
+            let churnWithAI = baseChurn * 0.7; // Снижение на 30%
             
+            // Корректировка оттока на основе LTV
             if (inputs.avgLtv > 2000000) {
-                churnWithAI *= 0.9;
+                churnWithAI *= 0.9; // Дополнительное снижение для высокого LTV
             }
             
+            // Динамический расчет эффективности R&D
             let baseRdEfficiency = inputs.currentRdSuccess || 40;
-            let rdEfficiency = baseRdEfficiency * 1.625;
+            let rdEfficiency = baseRdEfficiency * 1.625; // Улучшение на 62.5%
             
+            // Корректировка на основе бюджета R&D
             if (inputs.rdBudget > 30) {
-                rdEfficiency *= 1.08;
+                rdEfficiency *= 1.08; // +8% для большого бюджета
             } else if (inputs.rdBudget < 15) {
-                rdEfficiency *= 0.92;
+                rdEfficiency *= 0.92; // -8% для малого бюджета
             }
             
+            // Динамический расчет срока окупаемости
             let basePayback = inputs.currentPaybackPeriod || 24;
-            let paybackPeriod = basePayback * 0.792;
+            let paybackPeriod = basePayback * 0.792; // Ускорение на 20.8%
             
+            // Динамический расчет для LightGBM модели
             let segmentHigh = Math.min(50, Math.max(20, inputs.keyCustomersShare || 32));
-            let ltvGrowth = Math.min(15, Math.max(5, 8 * (inputs.avgLtv / 1500000)));
-            let retentionInvestment = Math.min(40, Math.max(15, 25 * (inputs.currentChurn / 10)));
-            let ltvEffect = Math.min(25, Math.max(10, 15 * (inputs.avgLtv / 1500000)));
+            let ltvGrowth = Math.min(15, Math.max(5, 8 * (inputs.avgLtv / 1500000))); // Зависит от LTV
+            let retentionInvestment = Math.min(40, Math.max(15, 25 * (inputs.currentChurn / 10))); // Зависит от оттока
+            let ltvEffect = Math.min(25, Math.max(10, 15 * (inputs.avgLtv / 1500000))); // Зависит от LTV
             
-            let rdRedistribution = Math.min(30, Math.max(10, 20 * (inputs.rdBudget / 25)));
-            let fastProjects = Math.min(80, Math.max(40, 65 * (inputs.projectCount / 45)));
-            let timeOptimization = Math.min(8, Math.max(2, 5 * (inputs.currentPaybackPeriod / 24)));
-            let revenueGrowth = Math.min(25, Math.max(10, 15 * (inputs.currentRdSuccess / 40)));
+            // Динамический расчет для Q-learning модели
+            let rdRedistribution = Math.min(30, Math.max(10, 20 * (inputs.rdBudget / 25))); // Зависит от бюджета
+            let fastProjects = Math.min(80, Math.max(40, 65 * (inputs.projectCount / 45))); // Зависит от кол-ва проектов
+            let timeOptimization = Math.min(8, Math.max(2, 5 * (inputs.currentPaybackPeriod / 24))); // Зависит от срока окупаемости
+            let revenueGrowth = Math.min(25, Math.max(10, 15 * (inputs.currentRdSuccess / 40))); // Зависит от эффективности
             
-            let downtimeReduction = Math.min(60, Math.max(20, 40 * (inputs.unplannedDowntime / 5)));
-            let capexSavings = Math.min(25, Math.max(5, 15 * (inputs.infraCapex / 15000000)));
-            let maintenanceSavings = Math.min(25, Math.max(10, 18 * (inputs.maintenanceCost / 4500000)));
-            let predictiveRoi = Math.min(350, Math.max(150, 245 * (inputs.infraCapex / 15000000)));
+            // Динамический расчет для предиктивного обслуживания
+            let downtimeReduction = Math.min(60, Math.max(20, 40 * (inputs.unplannedDowntime / 5))); // Зависит от простоев
+            let capexSavings = Math.min(25, Math.max(5, 15 * (inputs.infraCapex / 15000000))); // Зависит от CAPEX
+            let maintenanceSavings = Math.min(25, Math.max(10, 18 * (inputs.maintenanceCost / 4500000))); // Зависит от затрат на поддержку
+            let predictiveRoi = Math.min(350, Math.max(150, 245 * (inputs.infraCapex / 15000000))); // Зависит от CAPEX
             
+            // Расчет индекса ИИ-зрелости на основе всех параметров
             let maturityScore = calculateMaturityScore(inputs);
             let maturityLevel = getMaturityLevel(maturityScore);
             
@@ -1682,8 +1755,8 @@
                 capexSavings: Math.round(capexSavings),
                 maintenanceSavings: Math.round(maintenanceSavings),
                 predictiveRoi: Math.round(predictiveRoi),
-                ineffectiveInvestments: Math.max(5, Math.min(30, 25 - (inputs.historicalRoi / 2))),
-                decisionTime: Math.max(5, Math.min(20, 28 - (inputs.investmentAmount / 10000000))),
+                ineffectiveInvestments: Math.max(5, Math.min(30, 25 - (inputs.historicalRoi / 2))), // Зависит от ROI
+                decisionTime: Math.max(5, Math.min(20, 28 - (inputs.investmentAmount / 10000000))), // Зависит от объема инвестиций
                 maturityScore: maturityScore,
                 maturityLevel: maturityLevel
             };
@@ -1691,20 +1764,25 @@
         
         // Расчет индекса ИИ-зрелости
         function calculateMaturityScore(inputs) {
-            let score = 3.0;
+            let score = 3.0; // Базовый уровень
             
+            // Корректировка на основе объема инвестиций
             if (inputs.investmentAmount > 100000000) score += 0.5;
             else if (inputs.investmentAmount < 30000000) score -= 0.3;
             
+            // Корректировка на основе ROI
             if (inputs.historicalRoi > 20) score += 0.4;
             else if (inputs.historicalRoi < 10) score -= 0.2;
             
+            // Корректировка на основе бюджета R&D
             if (inputs.rdBudget > 25) score += 0.3;
             else if (inputs.rdBudget < 15) score -= 0.2;
             
+            // Корректировка на основе оттока клиентов
             if (inputs.currentChurn < 8) score += 0.2;
             else if (inputs.currentChurn > 15) score -= 0.3;
             
+            // Ограничение значения
             return Math.min(5.0, Math.max(1.0, score)).toFixed(1);
         }
         
@@ -1720,14 +1798,17 @@
         
         // Обновление интерфейса с результатами
         function updateResultsUI(results, currentValues) {
+            // Обновление метрик
             document.getElementById('roiValue').textContent = results.roiWithAI.toFixed(1) + '%';
             document.getElementById('churnValue').textContent = results.churnWithAI.toFixed(1) + '%';
             document.getElementById('rdValue').textContent = results.rdEfficiency.toFixed(0) + '%';
             
+            // Обновление подзаголовков
             document.getElementById('roiSubtitle').innerHTML = `Целевой: 22% | Без ИИ: ${currentValues.historicalRoi.toFixed(1)}%`;
             document.getElementById('churnSubtitle').innerHTML = `Целевой: <6% | Без ИИ: ${currentValues.currentChurn.toFixed(1)}%`;
             document.getElementById('rdSubtitle').innerHTML = `Проекты окупаются за ${results.paybackPeriod.toFixed(0)} мес.`;
             
+            // Обновление деталей алгоритмов
             document.getElementById('segmentHigh').textContent = results.segmentHigh + '%';
             document.getElementById('ltvGrowth').textContent = '+' + results.ltvGrowth + '%';
             document.getElementById('retentionInvestment').textContent = results.retentionInvestment + '%';
@@ -1743,11 +1824,13 @@
             document.getElementById('maintenanceSavings').textContent = results.maintenanceSavings + '%';
             document.getElementById('predictiveRoi').textContent = results.predictiveRoi + '%';
             
+            // Расчет изменений для KPI
             const roiChange = results.roiWithAI - currentValues.historicalRoi;
             const ineffectiveChange = (25 - results.ineffectiveInvestments);
             const paybackChange = currentValues.currentPaybackPeriod - results.paybackPeriod;
             const decisionTimeChange = 28 - results.decisionTime;
             
+            // Обновление KPI
             document.getElementById('portfolioRoi').textContent = results.roiWithAI.toFixed(1) + '%';
             updateKPIChange('roiChange', roiChange, '%', true);
             document.getElementById('portfolioBefore').innerHTML = `До внедрения: ${currentValues.historicalRoi.toFixed(1)}%`;
@@ -1764,6 +1847,7 @@
             updateKPIChange('decisionTimeChange', decisionTimeChange, 'дней', true);
             document.getElementById('decisionBefore').innerHTML = `До внедрения: 28 дней`;
             
+            // Обновление ИИ-зрелости
             document.getElementById('aiMaturityScore').textContent = results.maturityScore;
             document.getElementById('maturityLevel').textContent = results.maturityLevel;
         }
@@ -1782,6 +1866,7 @@
             formatted += ' ' + unit;
             element.textContent = formatted;
             
+            // Определяем класс в зависимости от знака и типа изменения
             if ((value > 0 && !isPositiveWhenNegative) || (value < 0 && isPositiveWhenNegative)) {
                 element.className = 'kpi-change positive';
             } else if ((value < 0 && !isPositiveWhenNegative) || (value > 0 && isPositiveWhenNegative)) {
@@ -1829,4 +1914,95 @@
                     <div class="rec-details">
                         Система на основе автокодировщиков рекомендована для прогнозирования сбоев оборудования. Ожидаемая экономия: снижение незапланированных простоев на ${results.downtimeReduction}%, оптимизация CAPEX на ${results.capexSavings}% и снижение затрат на поддержку на ${results.maintenanceSavings}%.
                     </div>
-                    <
+                    <div class="risk-indicator low-risk">Низкий риск</div>
+                </div>
+            `;
+            
+            document.getElementById('recommendationsContent').innerHTML = recommendationsHTML;
+        }
+        
+        // Экспорт PDF
+        function exportPDF() {
+            if (!currentCompany && !uploadedCompanyData) {
+                showNotification('Сначала загрузите данные компании', 'error');
+                return;
+            }
+            if (!isCalculated) {
+                showNotification('Сначала выполните расчет показателей', 'error');
+                return;
+            }
+            showNotification('PDF-отчёт формируется...', 'success');
+        }
+        
+        // Экспорт Excel
+        function exportExcel() {
+            if (!currentCompany && !uploadedCompanyData) {
+                showNotification('Сначала загрузите данные компании', 'error');
+                return;
+            }
+            if (!isCalculated) {
+                showNotification('Сначала выполните расчет показателей', 'error');
+                return;
+            }
+            showNotification('Excel-файл с данными готов к скачиванию', 'success');
+        }
+        
+        // Показать уведомление
+        function showNotification(message, type) {
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+        
+        // Инициализация при загрузке
+        document.addEventListener('DOMContentLoaded', function() {
+            // Сбрасываем поля при загрузке
+            resetFormFields();
+            
+            // Разрешаем ввод ИНН по Enter
+            document.getElementById('companyINN').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    selectCompany();
+                }
+            });
+            
+            // Автоматическое форматирование чисел при вводе
+            document.addEventListener('input', function(e) {
+                if (e.target.type === 'text' && e.target.id !== 'companyINN' && e.target.classList.contains('editable')) {
+                    // Позволяем вводить только цифры и запятые
+                    e.target.value = e.target.value.replace(/[^\d,]/g, '');
+                }
+            });
+            
+            // Валидация числовых полей
+            const numberInputs = document.querySelectorAll('input[type="number"]');
+            numberInputs.forEach(input => {
+                input.addEventListener('input', function(e) {
+                    if (this.classList.contains('editable')) {
+                        const value = parseFloat(this.value);
+                        if (this.min && value < parseFloat(this.min)) {
+                            this.value = this.min;
+                        }
+                        if (this.max && value > parseFloat(this.max)) {
+                            this.value = this.max;
+                        }
+                    }
+                });
+            });
+            
+            // Автоматическая загрузка CSV при выборе файла
+            document.getElementById('csvFile').addEventListener('change', function() {
+                if (this.files.length > 0) {
+                    uploadCSV();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
