@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ИИ-платформа управления инвестициями МПИТ</title>
     <style>
-        /* Стили остаются без изменений */
         * {
             margin: 0;
             padding: 0;
@@ -65,12 +64,17 @@
             border-radius: 10px;
             padding: 25px;
             border: 1px solid #e9ecef;
+            height: calc(100vh - 200px);
+            overflow-y: auto;
+            position: relative;
         }
         
         .results-section {
             background: white;
             border-radius: 10px;
             border: 1px solid #e9ecef;
+            height: calc(100vh - 200px);
+            overflow-y: auto;
         }
         
         .section-title {
@@ -218,8 +222,77 @@
             box-shadow: 0 5px 15px rgba(0, 123, 255, 0.3);
         }
         
-        .input-group {
-            margin-bottom: 20px;
+        /* НОВЫЕ СТИЛИ ДЛЯ ПЕРЕМЕЩАЮЩИХСЯ ПЛАШЕК */
+        .input-groups-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .input-group-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            border: 2px solid #e9ecef;
+            cursor: grab;
+            transition: all 0.3s ease;
+            user-select: none;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        
+        .input-group-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-color: #dc3545;
+        }
+        
+        .input-group-card:active {
+            cursor: grabbing;
+            transform: translateY(0);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .input-group-card.dragging {
+            opacity: 0.5;
+            transform: rotate(3deg);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        
+        .input-group-card .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f8f9fa;
+        }
+        
+        .input-group-card .card-title {
+            color: #dc3545;
+            font-size: 1.1rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .drag-handle {
+            color: #6c757d;
+            cursor: grab;
+            font-size: 1.2rem;
+            padding: 5px;
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+        
+        .drag-handle:hover {
+            color: #dc3545;
+            background: #f8f9fa;
+        }
+        
+        .drag-handle:active {
+            cursor: grabbing;
         }
         
         .input-row {
@@ -716,6 +789,37 @@
             color: #dc3545;
             margin-bottom: 20px;
         }
+        
+        .drop-zone {
+            background: #f8f9fa;
+            border: 2px dashed #dc3545;
+            border-radius: 8px;
+            height: 20px;
+            margin: 10px 0;
+            transition: all 0.3s;
+            opacity: 0;
+        }
+        
+        .drop-zone.active {
+            height: 40px;
+            opacity: 1;
+            background: #e9ecef;
+        }
+        
+        .category-icon {
+            font-size: 1rem;
+        }
+        
+        .drag-instructions {
+            font-size: 0.85rem;
+            color: #6c757d;
+            margin-top: 10px;
+            text-align: center;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 6px;
+            border: 1px dashed #ced4da;
+        }
     </style>
 </head>
 <body>
@@ -764,138 +868,12 @@
                 </div>
                 
                 <h2 class="section-title">Параметры для анализа</h2>
-                <p class="editable-note">Все поля можно редактировать перед расчетом. Измененные поля подсвечиваются.</p>
+                <p class="editable-note">Перетаскивайте плашки для изменения порядка. Все поля можно редактировать.</p>
                 
-                <div class="input-group">
-                    <h3 style="color: #dc3545; margin-bottom: 15px; font-size: 1.1rem;">Базовые показатели</h3>
-                    <div class="input-row">
-                        <label>Объём инвестиций (₽)<span class="required-mark">*</span>:</label>
-                        <div class="input-container">
-                            <input type="text" id="investmentAmount" placeholder="—" readonly>
-                            <span class="suffix">₽</span>
-                        </div>
-                    </div>
-                    
-                    <div class="input-row">
-                        <label>Срок инвестиций (мес.)<span class="required-mark">*</span>:</label>
-                        <div class="input-container">
-                            <input type="number" id="investmentPeriod" min="3" max="60" placeholder="—" readonly>
-                            <span class="suffix">мес.</span>
-                        </div>
-                    </div>
-                    
-                    <div class="input-row">
-                        <label>Исторический ROI (%):</label>
-                        <div class="input-container">
-                            <input type="number" id="historicalRoi" min="5" max="50" step="0.5" placeholder="—" readonly>
-                            <span class="suffix">%</span>
-                        </div>
-                    </div>
-                    
-                    <div class="input-row">
-                        <label>Допустимый риск<span class="required-mark">*</span>:</label>
-                        <div class="input-container">
-                            <input type="number" id="riskTolerance" min="1" max="30" step="0.5" placeholder="—" readonly>
-                            <span class="suffix">%</span>
-                        </div>
-                    </div>
-                </div>
+                <div class="drag-instructions">↕️ Перетаскивайте плашки, меняя их порядок</div>
                 
-                <div class="input-group">
-                    <h3 style="color: #dc3545; margin-bottom: 15px; font-size: 1.1rem;">R&D проекты</h3>
-                    <div class="input-row">
-                        <label>Бюджет R&D (% от инвест.)<span class="required-mark">*</span>:</label>
-                        <div class="input-container">
-                            <input type="number" id="rdBudget" min="5" max="40" step="1" placeholder="—" readonly>
-                            <span class="suffix">%</span>
-                        </div>
-                    </div>
-                    
-                    <div class="input-row">
-                        <label>Кол-во активных R&D проектов:</label>
-                        <div class="input-container">
-                            <input type="number" id="projectCount" min="1" max="100" placeholder="—" readonly>
-                            <span class="suffix">шт.</span>
-                        </div>
-                    </div>
-                    
-                    <div class="input-row">
-                        <label>Текущая доля окупающихся проектов:</label>
-                        <div class="input-container">
-                            <input type="number" id="currentRdSuccess" min="10" max="100" placeholder="—" readonly>
-                            <span class="suffix">%</span>
-                        </div>
-                    </div>
-                    
-                    <div class="input-row">
-                        <label>Средний срок окупаемости:</label>
-                        <div class="input-container">
-                            <input type="number" id="currentPaybackPeriod" min="6" max="60" placeholder="—" readonly>
-                            <span class="suffix">мес.</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="input-group">
-                    <h3 style="color: #dc3545; margin-bottom: 15px; font-size: 1.1rem;">Клиентская база</h3>
-                    <div class="input-row">
-                        <label>Кол-во корпоративных клиентов:</label>
-                        <div class="input-container">
-                            <input type="text" id="customerCount" placeholder="—" readonly>
-                            <span class="suffix">компаний</span>
-                        </div>
-                    </div>
-                    
-                    <div class="input-row">
-                        <label>Текущий отток клиентов (Churn Rate):</label>
-                        <div class="input-container">
-                            <input type="number" id="currentChurn" min="1" max="50" step="0.5" placeholder="—" readonly>
-                            <span class="suffix">%</span>
-                        </div>
-                    </div>
-                    
-                    <div class="input-row">
-                        <label>Средний годовой LTV клиента:</label>
-                        <div class="input-container">
-                            <input type="text" id="avgLtv" placeholder="—" readonly>
-                            <span class="suffix">₽</span>
-                        </div>
-                    </div>
-                    
-                    <div class="input-row">
-                        <label>Доля ключевых (TOP 20%) клиентов:</label>
-                        <div class="input-container">
-                            <input type="number" id="keyCustomersShare" min="20" max="100" placeholder="—" readonly>
-                            <span class="suffix">%</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="input-group">
-                    <h3 style="color: #dc3545; margin-bottom: 15px; font-size: 1.1rem;">Инфраструктура</h3>
-                    <div class="input-row">
-                        <label>Годовой CAPEX на инфраструктуру:</label>
-                        <div class="input-container">
-                            <input type="text" id="infraCapex" placeholder="—" readonly>
-                            <span class="suffix">₽</span>
-                        </div>
-                    </div>
-                    
-                    <div class="input-row">
-                        <label>Уровень незапланированных простоев:</label>
-                        <div class="input-container">
-                            <input type="number" id="unplannedDowntime" min="0" max="20" step="0.5" placeholder="—" readonly>
-                            <span class="suffix">%</span>
-                        </div>
-                    </div>
-                    
-                    <div class="input-row">
-                        <label>Затраты на техническую поддержку:</label>
-                        <div class="input-container">
-                            <input type="text" id="maintenanceCost" placeholder="—" readonly>
-                            <span class="suffix">₽</span>
-                        </div>
-                    </div>
+                <div class="input-groups-container" id="inputGroupsContainer">
+                    <!-- Плашки будут вставлены сюда через JavaScript -->
                 </div>
                 
                 <button class="calculate-btn" id="calculateBtn" onclick="calculateResults()" disabled>Рассчитать показатели</button>
@@ -1041,9 +1019,9 @@
     </div>
 
     <script>
-        // База данных компаний с Мобайл Парк ИТ
+        // База данных компаний с Мобайл Парк ИТ (ИНН 5047154189)
         const companyDatabase = {
-            "7701234567": {
+            "5047154189": {
                 name: "Мобайл Парк ИТ",
                 details: "Мобильные решения, парковочные системы, 320 сотрудников",
                 investmentAmount: "250000000",
@@ -1068,7 +1046,7 @@
                     rdEfficiency: "45"
                 }
             },
-            "7712345678": {
+            "7701234567": {
                 name: "ТехноПрогресс Инновации",
                 details: "ИТ-услуги, разработка ПО, 250 сотрудников",
                 investmentAmount: "150000000",
@@ -1093,7 +1071,7 @@
                     rdEfficiency: "32"
                 }
             },
-            "7723456789": {
+            "7712345678": {
                 name: "Роботех Системы",
                 details: "Робототехника, автоматизация, 180 сотрудников",
                 investmentAmount: "80000000",
@@ -1122,6 +1100,51 @@
 
         let originalValues = {};
         let currentAnalysisData = null;
+        let draggedCard = null;
+        let cardOrder = ['base', 'rd', 'customer', 'infrastructure'];
+
+        // Данные для плашек
+        const inputGroupsData = {
+            base: {
+                title: "Базовые показатели",
+                icon: "📊",
+                inputs: [
+                    { id: "investmentAmount", label: "Объём инвестиций (₽)", suffix: "₽", type: "text", required: true },
+                    { id: "investmentPeriod", label: "Срок инвестиций (мес.)", suffix: "мес.", type: "number", min: 3, max: 60, required: true },
+                    { id: "historicalRoi", label: "Исторический ROI (%)", suffix: "%", type: "number", min: 5, max: 50, step: 0.5 },
+                    { id: "riskTolerance", label: "Допустимый риск", suffix: "%", type: "number", min: 1, max: 30, step: 0.5, required: true }
+                ]
+            },
+            rd: {
+                title: "R&D проекты",
+                icon: "🔬",
+                inputs: [
+                    { id: "rdBudget", label: "Бюджет R&D (% от инвест.)", suffix: "%", type: "number", min: 5, max: 40, step: 1, required: true },
+                    { id: "projectCount", label: "Кол-во активных R&D проектов", suffix: "шт.", type: "number", min: 1, max: 100 },
+                    { id: "currentRdSuccess", label: "Текущая доля окупающихся проектов", suffix: "%", type: "number", min: 10, max: 100 },
+                    { id: "currentPaybackPeriod", label: "Средний срок окупаемости", suffix: "мес.", type: "number", min: 6, max: 60 }
+                ]
+            },
+            customer: {
+                title: "Клиентская база",
+                icon: "👥",
+                inputs: [
+                    { id: "customerCount", label: "Кол-во корпоративных клиентов", suffix: "компаний", type: "text" },
+                    { id: "currentChurn", label: "Текущий отток клиентов (Churn Rate)", suffix: "%", type: "number", min: 1, max: 50, step: 0.5 },
+                    { id: "avgLtv", label: "Средний годовой LTV клиента", suffix: "₽", type: "text" },
+                    { id: "keyCustomersShare", label: "Доля ключевых (TOP 20%) клиентов", suffix: "%", type: "number", min: 20, max: 100 }
+                ]
+            },
+            infrastructure: {
+                title: "Инфраструктура",
+                icon: "🏗️",
+                inputs: [
+                    { id: "infraCapex", label: "Годовой CAPEX на инфраструктуру", suffix: "₽", type: "text" },
+                    { id: "unplannedDowntime", label: "Уровень незапланированных простоев", suffix: "%", type: "number", min: 0, max: 20, step: 0.5 },
+                    { id: "maintenanceCost", label: "Затраты на техническую поддержку", suffix: "₽", type: "text" }
+                ]
+            }
+        };
 
         // Форматирование чисел
         function formatNumber(num) {
@@ -1148,11 +1171,138 @@
             }, 3000);
         }
 
+        // Создание перемещаемых плашек
+        function createInputCards() {
+            const container = document.getElementById('inputGroupsContainer');
+            container.innerHTML = '';
+            
+            cardOrder.forEach(groupKey => {
+                const group = inputGroupsData[groupKey];
+                if (!group) return;
+                
+                const card = document.createElement('div');
+                card.className = 'input-group-card';
+                card.dataset.group = groupKey;
+                card.draggable = true;
+                
+                let inputsHTML = '';
+                group.inputs.forEach(input => {
+                    const requiredMark = input.required ? '<span class="required-mark">*</span>' : '';
+                    inputsHTML += `
+                        <div class="input-row">
+                            <label>${input.label}${requiredMark}:</label>
+                            <div class="input-container">
+                                <input type="${input.type}" 
+                                       id="${input.id}" 
+                                       ${input.min ? `min="${input.min}"` : ''}
+                                       ${input.max ? `max="${input.max}"` : ''}
+                                       ${input.step ? `step="${input.step}"` : ''}
+                                       placeholder="—" 
+                                       readonly>
+                                <span class="suffix">${input.suffix}</span>
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                card.innerHTML = `
+                    <div class="card-header">
+                        <div class="card-title">
+                            <span class="category-icon">${group.icon}</span>
+                            ${group.title}
+                        </div>
+                        <div class="drag-handle">⋮⋮</div>
+                    </div>
+                    ${inputsHTML}
+                `;
+                
+                container.appendChild(card);
+                
+                // Добавляем обработчики перетаскивания
+                addDragAndDropHandlers(card);
+            });
+        }
+
+        // Добавление обработчиков перетаскивания
+        function addDragAndDropHandlers(card) {
+            card.addEventListener('dragstart', handleDragStart);
+            card.addEventListener('dragover', handleDragOver);
+            card.addEventListener('dragenter', handleDragEnter);
+            card.addEventListener('dragleave', handleDragLeave);
+            card.addEventListener('drop', handleDrop);
+            card.addEventListener('dragend', handleDragEnd);
+            
+            // Обработчик для drag handle
+            const dragHandle = card.querySelector('.drag-handle');
+            dragHandle.addEventListener('mousedown', (e) => {
+                card.draggable = true;
+                card.style.cursor = 'grabbing';
+            });
+            
+            dragHandle.addEventListener('mouseup', (e) => {
+                card.style.cursor = 'grab';
+            });
+        }
+
+        // Обработчики drag and drop
+        function handleDragStart(e) {
+            draggedCard = this;
+            this.classList.add('dragging');
+            e.dataTransfer.effectAllowed = 'move';
+            e.dataTransfer.setData('text/html', this.innerHTML);
+        }
+
+        function handleDragOver(e) {
+            e.preventDefault();
+            e.dataTransfer.dropEffect = 'move';
+            return false;
+        }
+
+        function handleDragEnter(e) {
+            this.classList.add('over');
+        }
+
+        function handleDragLeave(e) {
+            this.classList.remove('over');
+        }
+
+        function handleDrop(e) {
+            e.stopPropagation();
+            e.preventDefault();
+            
+            if (draggedCard !== this) {
+                const container = document.getElementById('inputGroupsContainer');
+                const cards = Array.from(container.querySelectorAll('.input-group-card'));
+                const draggedIndex = cards.indexOf(draggedCard);
+                const dropIndex = cards.indexOf(this);
+                
+                // Обновляем порядок в массиве
+                const draggedGroup = cardOrder[draggedIndex];
+                cardOrder.splice(draggedIndex, 1);
+                cardOrder.splice(dropIndex, 0, draggedGroup);
+                
+                // Перерисовываем плашки
+                createInputCards();
+                
+                showNotification('Порядок плашек изменен', 'success');
+            }
+            
+            return false;
+        }
+
+        function handleDragEnd(e) {
+            document.querySelectorAll('.input-group-card').forEach(card => {
+                card.classList.remove('dragging');
+                card.classList.remove('over');
+            });
+            draggedCard = null;
+        }
+
         // Сделать поля редактируемыми
         function makeAllFieldsEditable() {
-            const inputs = document.querySelectorAll('.input-section input, .input-section select');
+            const inputs = document.querySelectorAll('.input-section input');
             inputs.forEach(input => {
-                if (input.id && input.id !== 'companyINN') {
+                if (input.id) {
                     input.classList.add('editable');
                     input.readOnly = false;
                     
@@ -1204,6 +1354,9 @@
             // Заполняем данные компании
             document.getElementById('companyName').textContent = company.name;
             document.getElementById('companyDetails').textContent = company.details;
+            
+            // Создаем плашки
+            createInputCards();
             
             // Заполняем поля формы
             document.getElementById('investmentAmount').value = formatNumber(company.investmentAmount);
@@ -1470,10 +1623,14 @@
                         return;
                     }
                     
-                    // Заполняем форму
+                    // Создаем плашки
+                    createInputCards();
+                    
+                    // Заполняем данные компании
                     document.getElementById('companyName').textContent = csvData.companyName;
                     document.getElementById('companyDetails').textContent = csvData.companyDetails || 'Данные загружены из CSV';
                     
+                    // Заполняем поля формы
                     if (csvData.investmentAmount) document.getElementById('investmentAmount').value = formatNumber(csvData.investmentAmount);
                     if (csvData.investmentPeriod) document.getElementById('investmentPeriod').value = csvData.investmentPeriod;
                     if (csvData.historicalRoi) document.getElementById('historicalRoi').value = csvData.historicalRoi;
@@ -1526,7 +1683,7 @@
         // Скачать шаблон CSV
         function downloadTemplateCSV() {
             const template = `companyName,Мобайл Парк ИТ
-companyDetails,Мобильные решения, парковочные системы
+companyDetails,Мобильные решения, парковочные системы, 320 сотрудников
 investmentAmount,250000000
 investmentPeriod,30
 historicalRoi,24.5
@@ -1580,8 +1737,16 @@ maintenanceCost,15000000`;
 
         // Инициализация
         document.addEventListener('DOMContentLoaded', function() {
+            // Создаем плашки при загрузке
+            createInputCards();
+            
             // Автозаполнение для тестирования
-            document.getElementById('companyINN').value = '7701234567'; // Мобайл Парк ИТ
+            document.getElementById('companyINN').value = '5047154189'; // Мобайл Парк ИТ
+            
+            // Автоматически загружаем данные при загрузке страницы для удобства тестирования
+            setTimeout(() => {
+                selectCompany();
+            }, 500);
         });
     </script>
 </body>
