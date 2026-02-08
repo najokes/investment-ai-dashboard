@@ -3,98 +3,96 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ИИ-платформа управления инвестициями | ВКР Рогова А.Г.</title>
+    <title>Инвестиционная ИИ-платформа | ООО "Мобайл Парк ИТ"</title>
+    
     <!-- Bootstrap 5 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
     <style>
-        /* Основные стили */
         :root {
-            --primary-color: #2c3e50;
-            --secondary-color: #3498db;
-            --success-color: #27ae60;
-            --warning-color: #f39c12;
-            --danger-color: #e74c3c;
-            --purple-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --primary: #1a237e;
+            --secondary: #3949ab;
+            --accent: #00b0ff;
+            --success: #00c853;
+            --warning: #ff9100;
+            --danger: #ff1744;
         }
         
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f8f9fa;
-            min-height: 100vh;
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #f5f7fa;
+            color: #333;
         }
         
         /* Навигация */
         .navbar {
             background: white;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            padding: 15px 0;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+            padding: 0.8rem 0;
         }
         
         .navbar-brand {
             font-weight: 700;
-            color: #2c3e50;
-            font-size: 1.5rem;
+            color: var(--primary);
+            font-size: 1.4rem;
         }
         
         /* Карточки */
-        .card {
-            border: none;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        .dashboard-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
             margin-bottom: 25px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border: 1px solid #eef1f7;
             transition: transform 0.3s ease;
         }
         
-        .card:hover {
-            transform: translateY(-5px);
+        .dashboard-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(0,0,0,0.12);
         }
         
         .card-header {
-            background: var(--purple-gradient);
+            background: var(--primary);
             color: white;
-            border-radius: 15px 15px 0 0 !important;
             padding: 20px;
-            font-weight: 600;
-        }
-        
-        /* Вкладки */
-        .nav-tabs {
-            border-bottom: 2px solid #e9ecef;
-            margin-bottom: 25px;
-        }
-        
-        .nav-tabs .nav-link {
-            border: none;
-            color: #6c757d;
-            font-weight: 500;
-            padding: 12px 25px;
-            margin-right: 5px;
             border-radius: 10px 10px 0 0;
-        }
-        
-        .nav-tabs .nav-link.active {
-            background: var(--purple-gradient);
-            color: white;
+            font-weight: 600;
             border: none;
         }
         
-        /* KPI карточки */
-        .kpi-card {
+        /* KPI метрики */
+        .kpi-metric {
             text-align: center;
             padding: 20px;
             border-radius: 10px;
+            background: white;
             margin-bottom: 15px;
         }
         
         .kpi-value {
-            font-size: 2.2rem;
-            font-weight: 700;
+            font-size: 2.8rem;
+            font-weight: 800;
             margin: 10px 0;
+            line-height: 1;
         }
+        
+        .kpi-trend {
+            font-size: 0.9rem;
+            padding: 4px 10px;
+            border-radius: 20px;
+            display: inline-block;
+        }
+        
+        .trend-up { background: #e8f5e9; color: var(--success); }
+        .trend-down { background: #ffebee; color: var(--danger); }
         
         /* Графики */
         .chart-container {
@@ -104,58 +102,91 @@
         }
         
         /* Таблицы */
-        .table {
+        .data-table {
+            width: 100%;
             background: white;
             border-radius: 10px;
             overflow: hidden;
             box-shadow: 0 3px 10px rgba(0,0,0,0.05);
         }
         
-        .table th {
-            background: #f8f9fa;
-            border-bottom: 2px solid #e9ecef;
+        .data-table th {
+            background: #f8fafc;
+            padding: 15px;
             font-weight: 600;
+            color: var(--primary);
+            border-bottom: 2px solid #eef1f7;
         }
         
-        /* Статусные бейджи */
+        .data-table td {
+            padding: 15px;
+            border-bottom: 1px solid #eef1f7;
+        }
+        
+        /* Статусы */
         .status-badge {
-            padding: 5px 12px;
+            padding: 6px 14px;
             border-radius: 20px;
             font-size: 0.85rem;
             font-weight: 500;
         }
         
+        .status-active { background: #e8f5e9; color: var(--success); }
+        .status-warning { background: #fff3e0; color: var(--warning); }
+        .status-critical { background: #ffebee; color: var(--danger); }
+        .status-planned { background: #e8eaf6; color: var(--secondary); }
+        
+        /* Вкладки */
+        .nav-tabs {
+            border-bottom: 2px solid #eef1f7;
+            margin-bottom: 30px;
+        }
+        
+        .nav-tabs .nav-link {
+            border: none;
+            color: #64748b;
+            font-weight: 500;
+            padding: 12px 25px;
+            margin-right: 5px;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+        
+        .nav-tabs .nav-link:hover {
+            background: #f1f5f9;
+        }
+        
+        .nav-tabs .nav-link.active {
+            background: var(--primary);
+            color: white;
+        }
+        
         /* Анимации */
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
+            from { opacity: 0; transform: translateY(15px); }
             to { opacity: 1; transform: translateY(0); }
         }
         
-        .fade-in {
-            animation: fadeIn 0.5s ease-out;
+        .animate-fade {
+            animation: fadeIn 0.4s ease-out;
         }
         
         /* Футер */
-        footer {
-            margin-top: 50px;
-            padding: 30px 0;
-            background: #2c3e50;
+        .site-footer {
+            background: var(--primary);
             color: white;
+            padding: 40px 0;
+            margin-top: 60px;
         }
         
         /* Адаптивность */
         @media (max-width: 768px) {
-            .card {
-                margin-bottom: 15px;
-            }
-            
-            .nav-tabs .nav-link {
-                padding: 10px 15px;
-                font-size: 0.9rem;
-            }
-            
             .kpi-value {
-                font-size: 1.8rem;
+                font-size: 2.2rem;
+            }
+            
+            .dashboard-card {
+                padding: 20px;
             }
         }
     </style>
@@ -165,472 +196,131 @@
     <nav class="navbar navbar-expand-lg">
         <div class="container">
             <a class="navbar-brand" href="#">
-                <i class="fas fa-brain me-2"></i>ИИ-Инвестиции
+                <i class="fas fa-chart-network me-2"></i>AI Investment Platform
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#home">Главная</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#models">Модели ИИ</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#results">Результаты</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#about">О ВКР</a>
-                    </li>
-                </ul>
+            <div class="navbar-nav ms-auto">
+                <div class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                        <i class="fas fa-user-circle me-1"></i>Администратор
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i>Настройки</a></li>
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt me-2"></i>Выйти</a></li>
+                    </ul>
+                </div>
             </div>
         </div>
     </nav>
 
-    <!-- Главный баннер -->
-    <div class="container mt-4">
-        <div class="card" id="home">
-            <div class="card-header">
-                <h3><i class="fas fa-rocket me-2"></i>ИИ-платформа управления инвестициями</h3>
-            </div>
-            <div class="card-body">
-                <div class="row align-items-center">
-                    <div class="col-md-8">
-                        <h4 class="text-primary mb-3">Автоматизация процессов управления большими данными в сфере инвестиций</h4>
-                        <p class="lead">Трехконтурная модель на основе искусственного интеллекта для повышения эффективности инвестиционных решений</p>
-                        <div class="row mt-4">
-                            <div class="col-md-4">
-                                <div class="kpi-card" style="background: #e8f4fd;">
-                                    <i class="fas fa-chart-line fa-2x text-primary mb-2"></i>
-                                    <div class="kpi-value" id="kpi-roi">21.3%</div>
-                                    <small>ROI портфеля</small>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="kpi-card" style="background: #f0f9ff;">
-                                    <i class="fas fa-users fa-2x text-success mb-2"></i>
-                                    <div class="kpi-value" id="kpi-churn">7.2%</div>
-                                    <small>Отток клиентов</small>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="kpi-card" style="background: #fff4e6;">
-                                    <i class="fas fa-cogs fa-2x text-warning mb-2"></i>
-                                    <div class="kpi-value" id="kpi-projects">65%</div>
-                                    <small>Окупаемость проектов</small>
-                                </div>
-                            </div>
+    <!-- Дашборд -->
+    <div class="container-fluid mt-4">
+        <div class="row">
+            <!-- Основной контент -->
+            <div class="col-lg-10 mx-auto">
+                <!-- KPI Панель -->
+                <div class="row mb-4">
+                    <div class="col-md-3">
+                        <div class="kpi-metric">
+                            <div class="text-muted mb-2">ROI портфеля</div>
+                            <div class="kpi-value text-primary">21.3%</div>
+                            <div><span class="kpi-trend trend-up">+6.3% с внедрения</span></div>
                         </div>
                     </div>
-                    <div class="col-md-4 text-center">
-                        <div class="p-4" style="background: var(--purple-gradient); border-radius: 15px; color: white;">
-                            <i class="fas fa-graduation-cap fa-4x mb-3"></i>
-                            <h5>Магистерская диссертация</h5>
-                            <p class="mb-0">Рогова А.Г.</p>
-                            <small>Финансовый университет</small>
+                    <div class="col-md-3">
+                        <div class="kpi-metric">
+                            <div class="text-muted mb-2">LTV клиентов</div>
+                            <div class="kpi-value text-success">4.2M ₽</div>
+                            <div><span class="kpi-trend trend-up">+18% за квартал</span></div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="kpi-metric">
+                            <div class="text-muted mb-2">Экономия CAPEX</div>
+                            <div class="kpi-value text-warning">15%</div>
+                            <div><span class="kpi-trend trend-up">3.2M ₽ сэкономлено</span></div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="kpi-metric">
+                            <div class="text-muted mb-2">Время принятия решений</div>
+                            <div class="kpi-value text-info">1.5 нед</div>
+                            <div><span class="kpi-trend trend-down">-62.5% от изначального</span></div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
 
-    <!-- Вкладки с моделями -->
-    <div class="container mt-4">
-        <ul class="nav nav-tabs" id="modelsTab">
-            <li class="nav-item">
-                <a class="nav-link active" data-bs-toggle="tab" href="#ltv">
-                    <i class="fas fa-chart-line me-2"></i>Прогноз LTV
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="tab" href="#rnd">
-                    <i class="fas fa-project-diagram me-2"></i>R&D Оптимизация
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="tab" href="#maintenance">
-                    <i class="fas fa-tools me-2"></i>Обслуживание
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="tab" href="#dashboard">
-                    <i class="fas fa-tachometer-alt me-2"></i>Дашборд
-                </a>
-            </li>
-        </ul>
+                <!-- Навигация по модулям -->
+                <ul class="nav nav-tabs" id="mainTabs">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-bs-toggle="tab" href="#overview">
+                            <i class="fas fa-tachometer-alt me-2"></i>Обзор
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="tab" href="#clients">
+                            <i class="fas fa-users me-2"></i>Клиенты (LTV)
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="tab" href="#projects">
+                            <i class="fas fa-project-diagram me-2"></i>Проекты R&D
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="tab" href="#maintenance">
+                            <i class="fas fa-server me-2"></i>Инфраструктура
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="tab" href="#reports">
+                            <i class="fas fa-chart-bar me-2"></i>Отчеты
+                        </a>
+                    </li>
+                </ul>
 
-        <div class="tab-content" id="modelsContent">
-            <!-- Вкладка 1: Прогноз LTV -->
-            <div class="tab-pane fade show active" id="ltv">
-                <div class="card fade-in">
-                    <div class="card-header">
-                        <h4><i class="fas fa-chart-line me-2"></i>Прогнозирование LTV клиентов</h4>
-                    </div>
-                    <div class="card-body">
+                <div class="tab-content">
+                    <!-- Вкладка 1: Обзор -->
+                    <div class="tab-pane fade show active animate-fade" id="overview">
                         <div class="row">
-                            <div class="col-md-6">
-                                <div class="card h-100">
-                                    <div class="card-body">
-                                        <h5>Демонстрация модели</h5>
-                                        <p>Алгоритм градиентного бустинга (LightGBM) для прогнозирования пожизненной ценности клиента</p>
-                                        
-                                        <div class="mb-3">
-                                            <label class="form-label">Выберите сегмент клиента:</label>
-                                            <select class="form-select" id="segmentSelect">
-                                                <option value="high">Высокопотенциальный</option>
-                                                <option value="stable">Стабильный</option>
-                                                <option value="risk">Требующий удержания</option>
-                                                <option value="low">Низкомаржинальный</option>
-                                            </select>
-                                        </div>
-                                        
-                                        <div class="mb-3">
-                                            <label class="form-label">Текущий доход (тыс. ₽):</label>
-                                            <input type="range" class="form-range" id="revenueSlider" min="50" max="500" value="200">
-                                            <div class="text-center">
-                                                <span id="revenueValue" class="h5">200</span> тыс. ₽/мес
-                                            </div>
-                                        </div>
-                                        
-                                        <button class="btn btn-primary w-100" onclick="calculateLTV()">
-                                            <i class="fas fa-calculator me-2"></i>Рассчитать прогноз
-                                        </button>
-                                        
-                                        <div id="ltvResult" class="mt-3"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="col-md-6">
-                                <div class="card h-100">
-                                    <div class="card-body">
-                                        <h5>Информация о модели</h5>
-                                        <div class="mb-3">
-                                            <h6><i class="fas fa-microchip text-primary me-2"></i>Технические характеристики</h6>
-                                            <ul class="list-group list-group-flush">
-                                                <li class="list-group-item">Алгоритм: <strong>LightGBM</strong></li>
-                                                <li class="list-group-item">Точность (R²): <strong>0.89</strong></li>
-                                                <li class="list-group-item">Признаков: <strong>150+</strong></li>
-                                                <li class="list-group-item">Время обучения: <strong>45 мин</strong></li>
-                                            </ul>
-                                        </div>
-                                        
-                                        <div class="mb-3">
-                                            <h6><i class="fas fa-chart-bar text-success me-2"></i>Результаты внедрения</h6>
-                                            <ul class="list-group list-group-flush">
-                                                <li class="list-group-item">Отток клиентов: <span class="text-danger float-end">↓ 10% → 7%</span></li>
-                                                <li class="list-group-item">Точность прогнозов: <span class="text-success float-end">↑ 25%</span></li>
-                                                <li class="list-group-item">Сегментация: <span class="text-primary float-end">4 группы</span></li>
-                                            </ul>
-                                        </div>
-                                        
-                                        <div class="mt-4">
-                                            <canvas id="ltvChart"></canvas>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="row mt-4">
-                            <div class="col-12">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h5>Рекомендации по сегментам</h5>
-                                        <div class="table-responsive">
-                                            <table class="table table-hover">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Сегмент</th>
-                                                        <th>Доля в базе</th>
-                                                        <th>Средний LTV</th>
-                                                        <th>Риск оттока</th>
-                                                        <th>Рекомендации</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr style="background: #e8f7f0;">
-                                                        <td><strong class="text-success">Высокопотенциальный</strong></td>
-                                                        <td>20%</td>
-                                                        <td>450 тыс. ₽</td>
-                                                        <td>15%</td>
-                                                        <td>Приоритетная разработка, выделенный менеджер</td>
-                                                    </tr>
-                                                    <tr style="background: #e8f4fd;">
-                                                        <td><strong class="text-primary">Стабильный</strong></td>
-                                                        <td>35%</td>
-                                                        <td>250 тыс. ₽</td>
-                                                        <td>25%</td>
-                                                        <td>Оптимизация обслуживания, дополнительные услуги</td>
-                                                    </tr>
-                                                    <tr style="background: #fff4e6;">
-                                                        <td><strong class="text-warning">Требующий удержания</strong></td>
-                                                        <td>25%</td>
-                                                        <td>180 тыс. ₽</td>
-                                                        <td>65%</td>
-                                                        <td>Программа лояльности, анализ причин оттока</td>
-                                                    </tr>
-                                                    <tr style="background: #f9f9f9;">
-                                                        <td><strong class="text-secondary">Низкомаржинальный</strong></td>
-                                                        <td>20%</td>
-                                                        <td>80 тыс. ₽</td>
-                                                        <td>40%</td>
-                                                        <td>Стандартизированные тарифы, автоматизация</td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Вкладка 2: R&D Оптимизация -->
-            <div class="tab-pane fade" id="rnd">
-                <div class="card fade-in">
-                    <div class="card-header">
-                        <h4><i class="fas fa-project-diagram me-2"></i>Оптимизация R&D портфеля</h4>
-                    </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-5">
-                                <div class="card h-100">
-                                    <div class="card-body">
-                                        <h5>Оптимизатор портфеля</h5>
-                                        <p>Алгоритм обучения с подкреплением (Q-learning) для распределения бюджета</p>
-                                        
-                                        <div class="mb-3">
-                                            <label class="form-label">Бюджет R&D (млн ₽):</label>
-                                            <input type="range" class="form-range" id="budgetSlider" min="3" max="15" value="8">
-                                            <div class="text-center">
-                                                <span id="budgetValue" class="h4">8</span> млн ₽
-                                            </div>
-                                        </div>
-                                        
-                                        <div class="mb-3">
-                                            <label class="form-label">Стратегия оптимизации:</label>
-                                            <select class="form-select" id="strategySelect">
-                                                <option value="roi">Максимизация ROI</option>
-                                                <option value="balance">Баланс ROI и риска</option>
-                                                <option value="short">Краткосрочная отдача</option>
-                                                <option value="long">Долгосрочные проекты</option>
-                                            </select>
-                                        </div>
-                                        
-                                        <button class="btn btn-success w-100 mb-3" onclick="optimizePortfolio()">
-                                            <i class="fas fa-optimize me-2"></i>Оптимизировать портфель
-                                        </button>
-                                        
-                                        <div id="optimizationResult" class="mt-3"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="col-md-7">
-                                <div class="card h-100">
-                                    <div class="card-body">
-                                        <h5>Проекты R&D</h5>
-                                        <div class="table-responsive">
-                                            <table class="table table-hover">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Проект</th>
-                                                        <th>Бюджет</th>
-                                                        <th>ROI</th>
-                                                        <th>Срок</th>
-                                                        <th>Риск</th>
-                                                        <th>Приоритет</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody id="projectsTable">
-                                                    <!-- Заполнится через JS -->
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                        <div class="mt-3">
-                                            <canvas id="portfolioChart"></canvas>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="row mt-4">
-                            <div class="col-md-6">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h5><i class="fas fa-brain text-purple me-2"></i>Об алгоритме Q-learning</h5>
-                                        <p><strong>Агент:</strong> Система принятия решений</p>
-                                        <p><strong>Среда:</strong> Рыночные условия + ресурсы компании</p>
-                                        <p><strong>Действия:</strong> Финансировать/закрыть проект</p>
-                                        <p><strong>Вознаграждение:</strong> ROI + стратегические цели</p>
-                                        <p><strong>Результат:</strong> Увеличение доли окупающихся проектов с 40% до 65%</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h5><i class="fas fa-chart-line text-success me-2"></i>Эффективность</h5>
-                                        <div class="row text-center">
-                                            <div class="col-6">
-                                                <div class="p-3" style="background: #e8f7f0; border-radius: 10px;">
-                                                    <h3 class="text-success">65%</h3>
-                                                    <small>Окупающихся проектов</small>
-                                                </div>
-                                            </div>
-                                            <div class="col-6">
-                                                <div class="p-3" style="background: #e8f4fd; border-radius: 10px;">
-                                                    <h3 class="text-primary">19 мес</h3>
-                                                    <small>Срок окупаемости</small>
-                                                </div>
-                                            </div>
-                                            <div class="col-6 mt-3">
-                                                <div class="p-3" style="background: #fff4e6; border-radius: 10px;">
-                                                    <h3 class="text-warning">20%</h3>
-                                                    <small>Перераспределение бюджета</small>
-                                                </div>
-                                            </div>
-                                            <div class="col-6 mt-3">
-                                                <div class="p-3" style="background: #f9f9f9; border-radius: 10px;">
-                                                    <h3>94%</h3>
-                                                    <small>Точность прогнозов</small>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Вкладка 3: Предиктивное обслуживание -->
-            <div class="tab-pane fade" id="maintenance">
-                <div class="card fade-in">
-                    <div class="card-header">
-                        <h4><i class="fas fa-tools me-2"></i>Предиктивное обслуживание оборудования</h4>
-                    </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="card h-100">
-                                    <div class="card-body">
-                                        <h5>Мониторинг состояния</h5>
-                                        <p>Автокодировщики для обнаружения аномалий в работе оборудования</p>
-                                        
-                                        <div class="mb-3">
-                                            <label class="form-label">Выберите оборудование:</label>
-                                            <select class="form-select" id="equipmentSelect" onchange="updateEquipmentStatus()">
-                                                <option value="server1">Сервер 1 (Основной)</option>
-                                                <option value="server2">Сервер 2 (Резервный)</option>
-                                                <option value="router">Маршрутизатор</option>
-                                                <option value="storage">Система хранения</option>
-                                            </select>
-                                        </div>
-                                        
-                                        <div class="mb-3">
-                                            <div id="equipmentStatus"></div>
-                                        </div>
-                                        
-                                        <button class="btn btn-warning w-100" onclick="predictFailure()">
-                                            <i class="fas fa-exclamation-triangle me-2"></i>Провести анализ
-                                        </button>
-                                        
-                                        <div id="predictionResult" class="mt-3"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="col-md-8">
-                                <div class="card h-100">
-                                    <div class="card-body">
-                                        <h5>Статус оборудования</h5>
-                                        <div class="row" id="equipmentDashboard">
-                                            <!-- Заполнится через JS -->
-                                        </div>
-                                        
-                                        <div class="mt-4">
-                                            <h6>Метрики в реальном времени</h6>
-                                            <canvas id="metricsChart"></canvas>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="row mt-4">
-                            <div class="col-md-12">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h5><i class="fas fa-chart-bar text-danger me-2"></i>Результаты внедрения</h5>
-                                        <div class="row text-center">
-                                            <div class="col-md-3">
-                                                <div class="p-4" style="background: #ffe6e6; border-radius: 10px;">
-                                                    <i class="fas fa-times-circle fa-2x text-danger mb-2"></i>
-                                                    <h3 class="text-danger">-40%</h3>
-                                                    <small>Незапланированные простои</small>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <div class="p-4" style="background: #e6f7ff; border-radius: 10px;">
-                                                    <i class="fas fa-money-bill-wave fa-2x text-primary mb-2"></i>
-                                                    <h3 class="text-primary">-15%</h3>
-                                                    <small>CAPEX инфраструктуры</small>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <div class="p-4" style="background: #f0ffe6; border-radius: 10px;">
-                                                    <i class="fas fa-check-circle fa-2x text-success mb-2"></i>
-                                                    <h3 class="text-success">94%</h3>
-                                                    <small>Точность прогнозов</small>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <div class="p-4" style="background: #fff0e6; border-radius: 10px;">
-                                                    <i class="fas fa-clock fa-2x text-warning mb-2"></i>
-                                                    <h3 class="text-warning">72 ч</h3>
-                                                    <small>Предупреждение до отказа</small>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Вкладка 4: Дашборд -->
-            <div class="tab-pane fade" id="dashboard">
-                <div class="card fade-in">
-                    <div class="card-header">
-                        <h4><i class="fas fa-tachometer-alt me-2"></i>Дашборд эффективности</h4>
-                    </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-8">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h5>Динамика ключевых показателей</h5>
+                            <div class="col-lg-8">
+                                <div class="dashboard-card">
+                                    <h5 class="mb-4"><i class="fas fa-chart-line me-2 text-primary"></i>Динамика ключевых показателей</h5>
+                                    <div class="chart-container">
                                         <canvas id="performanceChart"></canvas>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h5>Сводка по месяцам</h5>
-                                        <div id="monthlySummary">
-                                            <!-- Заполнится через JS -->
+                            <div class="col-lg-4">
+                                <div class="dashboard-card">
+                                    <h5 class="mb-4"><i class="fas fa-bell me-2 text-warning"></i>Активные алерты</h5>
+                                    <div class="alert-list">
+                                        <div class="alert alert-warning d-flex align-items-center mb-3">
+                                            <i class="fas fa-exclamation-triangle me-3"></i>
+                                            <div>
+                                                <strong>Клиент #2045</strong>
+                                                <div class="small">Риск оттока 68%</div>
+                                            </div>
+                                        </div>
+                                        <div class="alert alert-success d-flex align-items-center mb-3">
+                                            <i class="fas fa-check-circle me-3"></i>
+                                            <div>
+                                                <strong>Проект "AI Analytics"</strong>
+                                                <div class="small">ROI превысил 150%</div>
+                                            </div>
+                                        </div>
+                                        <div class="alert alert-danger d-flex align-items-center mb-3">
+                                            <i class="fas fa-server me-3"></i>
+                                            <div>
+                                                <strong>Сервер DB-03</strong>
+                                                <div class="small">Температура CPU: 78°C</div>
+                                            </div>
+                                        </div>
+                                        <div class="alert alert-info d-flex align-items-center">
+                                            <i class="fas fa-lightbulb me-3"></i>
+                                            <div>
+                                                <strong>Рекомендация ИИ</strong>
+                                                <div class="small">Увеличить бюджет проекта #12</div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -638,34 +328,242 @@
                         </div>
                         
                         <div class="row mt-4">
-                            <div class="col-md-12">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h5><i class="fas fa-sitemap me-2"></i>Трехконтурная архитектура</h5>
-                                        <div class="row text-center">
-                                            <div class="col-md-4">
-                                                <div class="p-4" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 15px;">
-                                                    <i class="fas fa-chess-king fa-3x mb-3"></i>
-                                                    <h5>Стратегический</h5>
-                                                    <p>Цели, KPI, этический контроль</p>
-                                                    <small>Человеческое управление</small>
-                                                </div>
+                            <div class="col-md-6">
+                                <div class="dashboard-card">
+                                    <h5 class="mb-4"><i class="fas fa-user-friends me-2 text-success"></i>Топ клиентов по LTV</h5>
+                                    <div class="table-responsive">
+                                        <table class="data-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Клиент</th>
+                                                    <th>LTV</th>
+                                                    <th>Тренд</th>
+                                                    <th>Статус</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>МТС Digital</td>
+                                                    <td>2.1M ₽</td>
+                                                    <td><span class="kpi-trend trend-up">+12%</span></td>
+                                                    <td><span class="status-badge status-active">Высокий</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>СберТех</td>
+                                                    <td>1.8M ₽</td>
+                                                    <td><span class="kpi-trend trend-up">+8%</span></td>
+                                                    <td><span class="status-badge status-active">Высокий</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Тинькофф Бизнес</td>
+                                                    <td>1.5M ₽</td>
+                                                    <td><span class="kpi-trend trend-down">-3%</span></td>
+                                                    <td><span class="status-badge status-warning">Риск</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Яндекс.Облако</td>
+                                                    <td>1.2M ₽</td>
+                                                    <td><span class="kpi-trend trend-up">+15%</span></td>
+                                                    <td><span class="status-badge status-active">Высокий</span></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="dashboard-card">
+                                    <h5 class="mb-4"><i class="fas fa-chart-pie me-2 text-primary"></i>Распределение инвестиций</h5>
+                                    <div class="chart-container">
+                                        <canvas id="investmentChart"></canvas>
+                                    </div>
+                                    <div class="row mt-3 text-center">
+                                        <div class="col-6">
+                                            <div class="text-muted">R&D проекты</div>
+                                            <div class="h4">42%</div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="text-muted">Инфраструктура</div>
+                                            <div class="h4">28%</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Вкладка 2: Клиенты -->
+                    <div class="tab-pane fade animate-fade" id="clients">
+                        <div class="dashboard-card">
+                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                <h5><i class="fas fa-users me-2 text-success"></i>Управление клиентским портфелем</h5>
+                                <button class="btn btn-primary" onclick="runLTVAnalysis()">
+                                    <i class="fas fa-sync-alt me-2"></i>Запустить анализ
+                                </button>
+                            </div>
+                            
+                            <div class="row mb-4">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="form-label">Сегмент клиента</label>
+                                        <select class="form-select" id="segmentFilter">
+                                            <option value="all">Все сегменты</option>
+                                            <option value="high">Высокопотенциальный</option>
+                                            <option value="stable">Стабильный</option>
+                                            <option value="risk">Риск оттока</option>
+                                            <option value="low">Низкомаржинальный</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="form-label">Минимальный LTV</label>
+                                        <input type="range" class="form-range" id="ltvRange" min="0" max="5000000" step="100000" value="1000000">
+                                        <div class="text-center">
+                                            <span id="ltvValue" class="h5">1,000,000 ₽</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="form-label">Показать</label>
+                                        <select class="form-select" id="showFilter">
+                                            <option value="all">Всех клиентов</option>
+                                            <option value="high-risk">Только высокий риск</option>
+                                            <option value="growth">Растущий потенциал</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="table-responsive">
+                                <table class="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Клиент</th>
+                                            <th>Текущий LTV</th>
+                                            <th>Прогноз LTV</th>
+                                            <th>Сегмент</th>
+                                            <th>Риск оттока</th>
+                                            <th>Рекомендации ИИ</th>
+                                            <th>Действия</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="clientsTable">
+                                        <!-- Заполнится через JS -->
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <div class="row mt-4">
+                                <div class="col-md-8">
+                                    <div class="chart-container">
+                                        <canvas id="ltvChart"></canvas>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="dashboard-card">
+                                        <h6><i class="fas fa-brain me-2"></i>Анализ модели</h6>
+                                        <p><strong>Алгоритм:</strong> LightGBM</p>
+                                        <p><strong>Точность:</strong> R² = 0.89</p>
+                                        <p><strong>Последнее обучение:</strong> 25.03.2025</p>
+                                        <p><strong>Выборка:</strong> 524 клиента</p>
+                                        <div class="mt-3">
+                                            <div class="progress" style="height: 10px;">
+                                                <div class="progress-bar bg-success" style="width: 89%"></div>
                                             </div>
-                                            <div class="col-md-4">
-                                                <div class="p-4" style="background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%); color: white; border-radius: 15px;">
-                                                    <i class="fas fa-chess-knight fa-3x mb-3"></i>
-                                                    <h5>Тактический</h5>
-                                                    <p>Оптимизация, распределение ресурсов</p>
-                                                    <small>ИИ + человек</small>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="p-4" style="background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%); color: white; border-radius: 15px;">
-                                                    <i class="fas fa-chess-pawn fa-3x mb-3"></i>
-                                                    <h5>Операционный</h5>
-                                                    <p>Обработка данных, мониторинг</p>
-                                                    <small>Автоматизация ИИ</small>
-                                                </div>
+                                            <small class="text-muted">Качество прогнозов</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Вкладка 3: Проекты R&D -->
+                    <div class="tab-pane fade animate-fade" id="projects">
+                        <div class="dashboard-card">
+                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                <h5><i class="fas fa-project-diagram me-2 text-primary"></i>Оптимизация R&D портфеля</h5>
+                                <div>
+                                    <button class="btn btn-success me-2" onclick="optimizePortfolio()">
+                                        <i class="fas fa-robot me-2"></i>Автооптимизация
+                                    </button>
+                                    <button class="btn btn-outline-primary" onclick="addNewProject()">
+                                        <i class="fas fa-plus me-2"></i>Новый проект
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="row mb-4">
+                                <div class="col-md-3">
+                                    <div class="kpi-metric">
+                                        <div class="text-muted mb-2">Бюджет R&D</div>
+                                        <div class="kpi-value">8.5M ₽</div>
+                                        <div class="small">Использовано: 72%</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="kpi-metric">
+                                        <div class="text-muted mb-2">Средний ROI</div>
+                                        <div class="kpi-value text-success">184%</div>
+                                        <div><span class="kpi-trend trend-up">+44%</span></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="kpi-metric">
+                                        <div class="text-muted mb-2">Активных проектов</div>
+                                        <div class="kpi-value">12</div>
+                                        <div class="small">Завершено: 8</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="kpi-metric">
+                                        <div class="text-muted mb-2">Срок окупаемости</div>
+                                        <div class="kpi-value text-info">19 мес</div>
+                                        <div><span class="kpi-trend trend-down">-5 мес</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="table-responsive">
+                                <table class="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Проект</th>
+                                            <th>Бюджет</th>
+                                            <th>Приоритет ИИ</th>
+                                            <th>Ожидаемый ROI</th>
+                                            <th>Срок</th>
+                                            <th>Риск</th>
+                                            <th>Статус</th>
+                                            <th>Рекомендации</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="projectsTable">
+                                        <!-- Заполнится через JS -->
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <div class="row mt-4">
+                                <div class="col-md-6">
+                                    <div class="chart-container">
+                                        <canvas id="roiChart"></canvas>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="dashboard-card">
+                                        <h6><i class="fas fa-robot me-2"></i>Алгоритм оптимизации</h6>
+                                        <p><strong>Метод:</strong> Q-learning</p>
+                                        <p><strong>Обучающих эпизодов:</strong> 10,240</p>
+                                        <p><strong>Точность прогнозов:</strong> 87%</p>
+                                        <p><strong>Последняя оптимизация:</strong> 26.03.2025</p>
+                                        <div class="mt-3">
+                                            <div class="alert alert-info">
+                                                <i class="fas fa-lightbulb me-2"></i>
+                                                <strong>Рекомендация:</strong> Увеличить финансирование проекта #07 на 15%
                                             </div>
                                         </div>
                                     </div>
@@ -673,154 +571,155 @@
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <!-- Раздел с результатами -->
-    <div class="container mt-4" id="results">
-        <div class="card">
-            <div class="card-header">
-                <h4><i class="fas fa-trophy me-2"></i>Результаты исследования</h4>
-            </div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="card h-100">
-                            <div class="card-body">
-                                <h5 class="text-success"><i class="fas fa-check-circle me-2"></i>Достигнутые цели</h5>
-                                <ul class="list-group list-group-flush">
-                                    <li class="list-group-item">Разработана трехконтурная архитектура ИИ-системы</li>
-                                    <li class="list-group-item">Внедрены и апробированы алгоритмы машинного обучения</li>
-                                    <li class="list-group-item">Достигнут экономический эффект 26 млн руб./год</li>
-                                    <li class="list-group-item">Срок окупаемости проекта: 6.5 месяцев</li>
-                                    <li class="list-group-item">Создана тиражируемая модель для технологических компаний</li>
-                                </ul>
+                    <!-- Вкладка 4: Инфраструктура -->
+                    <div class="tab-pane fade animate-fade" id="maintenance">
+                        <div class="dashboard-card">
+                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                <h5><i class="fas fa-server me-2 text-warning"></i>Мониторинг и предиктивное обслуживание</h5>
+                                <button class="btn btn-warning" onclick="runPredictiveCheck()">
+                                    <i class="fas fa-search me-2"></i>Проверить оборудование
+                                </button>
                             </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="card h-100">
-                            <div class="card-body">
-                                <h5 class="text-primary"><i class="fas fa-chart-line me-2"></i>Ключевые показатели</h5>
-                                <table class="table table-bordered">
+                            
+                            <div class="row mb-4">
+                                <div class="col-md-8">
+                                    <div class="chart-container">
+                                        <canvas id="infrastructureChart"></canvas>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="dashboard-card">
+                                        <h6><i class="fas fa-chart-line me-2"></i>Эффективность системы</h6>
+                                        <p><strong>Простои за месяц:</strong> 2.3 часа</p>
+                                        <p><strong>Экономия CAPEX:</strong> 3.2M ₽</p>
+                                        <p><strong>Точность прогнозов:</strong> 94%</p>
+                                        <p><strong>Предупреждение до отказа:</strong> 72 часа</p>
+                                        <div class="mt-3">
+                                            <div class="progress" style="height: 10px;">
+                                                <div class="progress-bar bg-warning" style="width: 94%"></div>
+                                            </div>
+                                            <small class="text-muted">Качество предикций</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="table-responsive">
+                                <table class="data-table">
                                     <thead>
                                         <tr>
-                                            <th>Показатель</th>
-                                            <th>До внедрения</th>
-                                            <th>После внедрения</th>
-                                            <th>Изменение</th>
+                                            <th>Оборудование</th>
+                                            <th>Тип</th>
+                                            <th>Состояние</th>
+                                            <th>Вероятность сбоя</th>
+                                            <th>Последнее ТО</th>
+                                            <th>Следующее ТО</th>
+                                            <th>Рекомендации</th>
+                                            <th>Действия</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>ROI портфеля</td>
-                                            <td>15%</td>
-                                            <td class="text-success">21%</td>
-                                            <td class="text-success">+6%</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Отток клиентов</td>
-                                            <td>10%</td>
-                                            <td class="text-danger">7%</td>
-                                            <td class="text-success">-3%</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Окупаемость R&D</td>
-                                            <td>40%</td>
-                                            <td class="text-success">65%</td>
-                                            <td class="text-success">+25%</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Простои инфраструктуры</td>
-                                            <td>100 ч/год</td>
-                                            <td class="text-danger">60 ч/год</td>
-                                            <td class="text-success">-40%</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Время принятия решений</td>
-                                            <td>4 недели</td>
-                                            <td class="text-success">1.5 недели</td>
-                                            <td class="text-success">-62.5%</td>
-                                        </tr>
+                                    <tbody id="equipmentTable">
+                                        <!-- Заполнится через JS -->
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <!-- Раздел "О ВКР" -->
-    <div class="container mt-4" id="about">
-        <div class="card">
-            <div class="card-header">
-                <h4><i class="fas fa-graduation-cap me-2"></i>О магистерской диссертации</h4>
-            </div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-md-4 text-center">
-                        <div class="p-4" style="border: 2px dashed #667eea; border-radius: 15px;">
-                            <i class="fas fa-user-graduate fa-4x text-primary mb-3"></i>
-                            <h5>Рогова Анастасия Григорьевна</h5>
-                            <p class="mb-1"><strong>Студентка группы:</strong> ДПИ23-1м</p>
-                            <p class="mb-1"><strong>Направление:</strong> 09.04.03 «Прикладная информатика»</p>
-                            <p class="mb-0"><strong>Программа:</strong> «Управление большими данными»</p>
-                        </div>
-                    </div>
-                    <div class="col-md-4 text-center">
-                        <div class="p-4" style="border: 2px dashed #2ecc71; border-radius: 15px;">
-                            <i class="fas fa-chalkboard-teacher fa-4x text-success mb-3"></i>
-                            <h5>Научный руководитель</h5>
-                            <h6 class="mt-3">Рамазанова Эльвира Нажмеддиновна</h6>
-                            <p class="mb-1">к.т.н., доцент</p>
-                            <p class="mb-0">Кафедра информационных технологий</p>
-                        </div>
-                    </div>
-                    <div class="col-md-4 text-center">
-                        <div class="p-4" style="border: 2px dashed #f39c12; border-radius: 15px;">
-                            <i class="fas fa-university fa-4x text-warning mb-3"></i>
-                            <h5>Учебное заведение</h5>
-                            <h6 class="mt-3">Финансовый университет при Правительстве РФ</h6>
-                            <p class="mb-0">Факультет информационных технологий и анализа больших данных</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="row mt-4">
-                    <div class="col-md-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="text-primary"><i class="fas fa-file-alt me-2"></i>Тема диссертации</h5>
-                                <blockquote class="blockquote p-3" style="background: #f8f9fa; border-left: 5px solid #667eea;">
-                                    <h4>«Автоматизация процессов управления большими данными в сфере инвестиций с использованием технологий искусственного интеллекта»</h4>
-                                </blockquote>
-                                
-                                <div class="row mt-4">
-                                    <div class="col-md-6">
-                                        <h6><i class="fas fa-bullseye me-2"></i>Положения на защиту:</h6>
-                                        <ol>
-                                            <li class="mb-2">Интегрированная трехконтурная модель автоматизации</li>
-                                            <li class="mb-2">Комплекс алгоритмов машинного обучения</li>
-                                            <li class="mb-2">Экономическая целесообразность внедрения</li>
-                                            <li>Тиражируемость решения для технологических компаний</li>
-                                        </ol>
+                    <!-- Вкладка 5: Отчеты -->
+                    <div class="tab-pane fade animate-fade" id="reports">
+                        <div class="dashboard-card">
+                            <h5 class="mb-4"><i class="fas fa-chart-bar me-2 text-primary"></i>Аналитические отчеты</h5>
+                            
+                            <div class="row mb-4">
+                                <div class="col-md-3">
+                                    <div class="card text-center p-3 hover-shadow">
+                                        <i class="fas fa-file-invoice-dollar fa-2x text-primary mb-3"></i>
+                                        <h6>Финансовый отчет</h6>
+                                        <small class="text-muted">Q1 2025</small>
+                                        <button class="btn btn-sm btn-primary mt-2" onclick="generateReport('financial')">
+                                            Сгенерировать
+                                        </button>
                                     </div>
-                                    <div class="col-md-6">
-                                        <h6><i class="fas fa-cogs me-2"></i>Технологический стек:</h6>
-                                        <div class="d-flex flex-wrap gap-2">
-                                            <span class="badge bg-primary p-2">Python</span>
-                                            <span class="badge bg-success p-2">LightGBM</span>
-                                            <span class="badge bg-warning p-2">TensorFlow</span>
-                                            <span class="badge bg-danger p-2">Apache Spark</span>
-                                            <span class="badge bg-info p-2">PostgreSQL</span>
-                                            <span class="badge bg-dark p-2">MLOps</span>
-                                            <span class="badge bg-purple p-2">REST API</span>
-                                            <span class="badge bg-secondary p-2">Docker</span>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="card text-center p-3 hover-shadow">
+                                        <i class="fas fa-user-chart fa-2x text-success mb-3"></i>
+                                        <h6>Анализ клиентов</h6>
+                                        <small class="text-muted">По сегментам</small>
+                                        <button class="btn btn-sm btn-success mt-2" onclick="generateReport('clients')">
+                                            Сгенерировать
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="card text-center p-3 hover-shadow">
+                                        <i class="fas fa-project-diagram fa-2x text-warning mb-3"></i>
+                                        <h6>Эффективность R&D</h6>
+                                        <small class="text-muted">ROI анализ</small>
+                                        <button class="btn btn-sm btn-warning mt-2" onclick="generateReport('rd')">
+                                            Сгенерировать
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="card text-center p-3 hover-shadow">
+                                        <i class="fas fa-server fa-2x text-danger mb-3"></i>
+                                        <h6>Отчет по инфраструктуре</h6>
+                                        <small class="text-muted">Экономия и надежность</small>
+                                        <button class="btn btn-sm btn-danger mt-2" onclick="generateReport('infrastructure')">
+                                            Сгенерировать
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="dashboard-card">
+                                        <h6>Ключевые метрики системы</h6>
+                                        <table class="table">
+                                            <tbody>
+                                                <tr>
+                                                    <td>Общий экономический эффект</td>
+                                                    <td class="text-success"><strong>26.4M ₽/год</strong></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Срок окупаемости системы</td>
+                                                    <td><strong>6.5 месяцев</strong></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Рост рентабельности портфеля</td>
+                                                    <td class="text-success"><strong>+6.3%</strong></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Снижение операционных рисков</td>
+                                                    <td class="text-success"><strong>-40%</strong></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Автоматизация процессов</td>
+                                                    <td><strong>85% задач</strong></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="dashboard-card">
+                                        <h6>Акт о внедрении</h6>
+                                        <div class="alert alert-success">
+                                            <i class="fas fa-check-circle me-2"></i>
+                                            <strong>Система внедрена и работает в ООО "Мобайл Парк ИТ"</strong>
                                         </div>
+                                        <p><strong>Дата внедрения:</strong> 15.01.2025</p>
+                                        <p><strong>Период эксплуатации:</strong> 3 месяца</p>
+                                        <p><strong>Статус:</strong> <span class="status-badge status-active">Работает в production</span></p>
+                                        <p><strong>Ответственный:</strong> Рогова А.Г.</p>
+                                        <p><strong>Результаты подтверждены:</strong> Да, акт №ИВ-2025-03-28</p>
+                                        <button class="btn btn-outline-primary mt-2" onclick="viewDeploymentAct()">
+                                            <i class="fas fa-file-contract me-2"></i>Посмотреть акт
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -832,16 +731,20 @@
     </div>
 
     <!-- Футер -->
-    <footer>
+    <footer class="site-footer">
         <div class="container">
-            <div class="row">
+            <div class="row align-items-center">
                 <div class="col-md-6">
-                    <h5><i class="fas fa-brain me-2"></i>ИИ-платформа управления инвестициями</h5>
-                    <p>Демонстрационная версия для защиты магистерской диссертации</p>
+                    <h5><i class="fas fa-chart-network me-2"></i>Инвестиционная ИИ-платформа</h5>
+                    <p class="mb-0">Производственная система ООО "Мобайл Парк ИТ"</p>
+                    <small>Версия 2.1.4 | Последнее обновление: 28.03.2025</small>
                 </div>
                 <div class="col-md-6 text-end">
-                    <p>© 2025 Финансовый университет при Правительстве РФ</p>
-                    <p class="small">Все данные демонстрационные. Разработано для образовательных целей.</p>
+                    <div class="mb-2">
+                        <span class="status-badge status-active me-2">Production</span>
+                        <span class="status-badge status-active">Все системы работают</span>
+                    </div>
+                    <small>© 2025 ООО "Мобайл Парк ИТ". Все права защищены.</small>
                 </div>
             </div>
         </div>
@@ -850,367 +753,52 @@
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 
-    <!-- Основной JavaScript код -->
+    <!-- Основной JavaScript -->
     <script>
         // Инициализация при загрузке
         document.addEventListener('DOMContentLoaded', function() {
-            initProjects();
-            initEquipmentDashboard();
             initCharts();
-            updateMonthlySummary();
-            smoothScroll();
-            
-            // Обновление KPI каждые 10 секунд
-            setInterval(updateKPI, 10000);
+            loadClientsTable();
+            loadProjectsTable();
+            loadEquipmentTable();
+            setupEventListeners();
+            startLiveUpdates();
         });
         
-        // Данные проектов R&D
-        const projectsData = [
-            { id: 1, name: "AI-модуль для телематики", budget: 1.2, roi: 1.8, duration: 18, risk: "Средний", priority: 0.9, selected: true },
-            { id: 2, name: "Облачная аналитика Big Data", budget: 2.5, roi: 1.5, duration: 24, risk: "Высокий", priority: 0.7, selected: true },
-            { id: 3, name: "Мобильное приложение IoT", budget: 0.8, roi: 2.2, duration: 12, risk: "Низкий", priority: 0.95, selected: false },
-            { id: 4, name: "Блокчейн для страхования", budget: 1.5, roi: 1.2, duration: 36, risk: "Высокий", priority: 0.6, selected: false },
-            { id: 5, name: "Платформа предиктивной аналитики", budget: 1.8, roi: 1.9, duration: 20, risk: "Средний", priority: 0.85, selected: true },
-            { id: 6, name: "Система компьютерного зрения", budget: 2.2, roi: 1.6, duration: 28, risk: "Средний", priority: 0.75, selected: true }
+        // Данные клиентов
+        const clientsData = [
+            { id: 2045, name: "МТС Digital", segment: "high", currentLTV: 2100000, predictedLTV: 2350000, churnRisk: 0.15, recommendation: "Увеличить поддержку" },
+            { id: 2046, name: "СберТех", segment: "high", currentLTV: 1800000, predictedLTV: 1950000, churnRisk: 0.08, recommendation: "Разработка кастомного модуля" },
+            { id: 2047, name: "Тинькофф Бизнес", segment: "risk", currentLTV: 1500000, predictedLTV: 1450000, churnRisk: 0.68, recommendation: "Программа лояльности" },
+            { id: 2048, name: "Яндекс.Облако", segment: "high", currentLTV: 1200000, predictedLTV: 1380000, churnRisk: 0.12, recommendation: "Предложить премиум-тариф" },
+            { id: 2049, name: "Газпромнефть-ИТ", segment: "stable", currentLTV: 950000, predictedLTV: 980000, churnRisk: 0.25, recommendation: "Стандартное обслуживание" },
+            { id: 2050, name: "Ростелеком-ЦОД", segment: "stable", currentLTV: 850000, predictedLTV: 870000, churnRisk: 0.18, recommendation: "Актуализация контракта" },
+            { id: 2051, name: "ВТБ IT", segment: "risk", currentLTV: 700000, predictedLTV: 650000, churnRisk: 0.55, recommendation: "Анализ причин оттока" },
+            { id: 2052, name: "М.Видео-IT", segment: "low", currentLTV: 450000, predictedLTV: 420000, churnRisk: 0.35, recommendation: "Оптимизация затрат" }
         ];
         
-        // Инициализация таблицы проектов
-        function initProjects() {
-            const table = document.getElementById('projectsTable');
-            table.innerHTML = '';
-            
-            projectsData.forEach(project => {
-                const riskColor = project.risk === 'Низкий' ? 'success' : 
-                                 project.risk === 'Средний' ? 'warning' : 'danger';
-                
-                const row = document.createElement('tr');
-                row.style.background = project.selected ? '#e8f7f0' : '';
-                row.innerHTML = `
-                    <td>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" ${project.selected ? 'checked' : ''} 
-                                   onchange="toggleProject(${project.id})">
-                            <label class="form-check-label">${project.name}</label>
-                        </div>
-                    </td>
-                    <td>${project.budget.toFixed(1)} млн ₽</td>
-                    <td><span class="badge bg-success">${(project.roi * 100).toFixed(0)}%</span></td>
-                    <td>${project.duration} мес</td>
-                    <td><span class="badge bg-${riskColor}">${project.risk}</span></td>
-                    <td>
-                        <div class="progress" style="height: 20px;">
-                            <div class="progress-bar" style="width: ${project.priority * 100}%">
-                                ${(project.priority * 100).toFixed(0)}%
-                            </div>
-                        </div>
-                    </td>
-                `;
-                table.appendChild(row);
-            });
-        }
-        
-        // Переключение проекта
-        function toggleProject(id) {
-            const project = projectsData.find(p => p.id === id);
-            if (project) {
-                project.selected = !project.selected;
-                initProjects();
-            }
-        }
-        
-        // Расчет LTV
-        function calculateLTV() {
-            const segment = document.getElementById('segmentSelect').value;
-            const revenue = parseInt(document.getElementById('revenueSlider').value);
-            const resultDiv = document.getElementById('ltvResult');
-            
-            let baseLTV, multiplier, recommendation;
-            
-            switch(segment) {
-                case 'high':
-                    baseLTV = revenue * 24; // 2 года
-                    multiplier = 1.3;
-                    recommendation = "Приоритетная разработка кастомных функций, выделенный менеджер";
-                    break;
-                case 'stable':
-                    baseLTV = revenue * 18; // 1.5 года
-                    multiplier = 1.1;
-                    recommendation = "Инвестиции в автоматизацию обслуживания, предложение пакетов услуг";
-                    break;
-                case 'risk':
-                    baseLTV = revenue * 12; // 1 год
-                    multiplier = 0.9;
-                    recommendation = "Запуск программы лояльности, глубокий анализ причин оттока";
-                    break;
-                case 'low':
-                    baseLTV = revenue * 8; // 8 месяцев
-                    multiplier = 0.7;
-                    recommendation = "Перевод на стандартизированные тарифы, ограничение кастомной разработки";
-                    break;
-            }
-            
-            const predictedLTV = baseLTV * multiplier;
-            
-            resultDiv.innerHTML = `
-                <div class="alert alert-info">
-                    <h5><i class="fas fa-chart-line me-2"></i>Результат прогноза</h5>
-                    <div class="row">
-                        <div class="col-6">
-                            <p class="mb-1"><strong>Базовый LTV:</strong></p>
-                            <h4>${formatCurrency(baseLTV * 1000)}</h4>
-                        </div>
-                        <div class="col-6">
-                            <p class="mb-1"><strong>Прогнозируемый LTV:</strong></p>
-                            <h4 class="text-success">${formatCurrency(predictedLTV * 1000)}</h4>
-                        </div>
-                    </div>
-                    <p class="mb-1"><strong>Рекомендация:</strong> ${recommendation}</p>
-                    <p class="small text-muted mb-0"><i class="fas fa-info-circle me-1"></i>На основе алгоритма LightGBM, точность R²=0.89</p>
-                </div>
-            `;
-        }
-        
-        // Оптимизация портфеля
-        function optimizePortfolio() {
-            const budget = parseInt(document.getElementById('budgetSlider').value);
-            const strategy = document.getElementById('strategySelect').value;
-            const resultDiv = document.getElementById('optimizationResult');
-            
-            // Фильтрация проектов
-            let filteredProjects = [...projectsData];
-            
-            if (strategy === 'roi') {
-                filteredProjects.sort((a, b) => b.roi - a.roi);
-            } else if (strategy === 'balance') {
-                filteredProjects.sort((a, b) => (b.roi / getRiskValue(b.risk)) - (a.roi / getRiskValue(a.risk)));
-            } else if (strategy === 'short') {
-                filteredProjects.sort((a, b) => a.duration - b.duration);
-            } else if (strategy === 'long') {
-                filteredProjects.sort((a, b) => b.duration - a.duration);
-            }
-            
-            // Выбор проектов в рамках бюджета
-            let selected = [];
-            let totalCost = 0;
-            let totalROI = 0;
-            
-            for (let project of filteredProjects) {
-                if (totalCost + project.budget <= budget) {
-                    selected.push(project);
-                    totalCost += project.budget;
-                    totalROI += project.roi * project.budget;
-                }
-            }
-            
-            const avgROI = totalROI / totalCost;
-            
-            let projectsHTML = '';
-            selected.forEach(p => {
-                projectsHTML += `<li class="mb-1">${p.name} (${p.budget} млн ₽, ROI: ${(p.roi*100).toFixed(0)}%)</li>`;
-            });
-            
-            resultDiv.innerHTML = `
-                <div class="alert alert-success">
-                    <h5><i class="fas fa-check-circle me-2"></i>Результат оптимизации</h5>
-                    <p><strong>Бюджет:</strong> ${budget} млн ₽</p>
-                    <p><strong>Использовано:</strong> ${totalCost.toFixed(1)} млн ₽ (${((totalCost/budget)*100).toFixed(0)}%)</p>
-                    <p><strong>Ожидаемый ROI портфеля:</strong> <span class="text-success h5">${(avgROI*100).toFixed(1)}%</span></p>
-                    <p><strong>Количество проектов:</strong> ${selected.length}</p>
-                    <p><strong>Выбранные проекты:</strong></p>
-                    <ul class="mb-0">${projectsHTML}</ul>
-                </div>
-            `;
-        }
-        
-        function getRiskValue(risk) {
-            return risk === 'Низкий' ? 1 : risk === 'Средний' ? 2 : 3;
-        }
+        // Данные проектов
+        const projectsData = [
+            { id: "P-07", name: "AI-аналитика телеметрии", budget: 1200000, priority: 0.95, expectedROI: 2.4, duration: 12, risk: "low", status: "active", recommendation: "Увеличить финансирование" },
+            { id: "P-08", name: "Облачная платформа IoT", budget: 2500000, priority: 0.87, expectedROI: 1.8, duration: 18, risk: "medium", status: "active", recommendation: "Продолжить как есть" },
+            { id: "P-09", name: "Мобильный клиент M2M", budget: 800000, priority: 0.92, expectedROI: 2.2, duration: 8, risk: "low", status: "planned", recommendation: "Ускорить запуск" },
+            { id: "P-10", name: "Блокчейн для логистики", budget: 1500000, priority: 0.65, expectedROI: 1.3, duration: 24, risk: "high", status: "review", recommendation: "Сократить бюджет" },
+            { id: "P-11", name: "Предиктивная аналитика", budget: 1800000, priority: 0.88, expectedROI: 1.9, duration: 15, risk: "medium", status: "active", recommendation: "Расширить команду" },
+            { id: "P-12", name: "Компьютерное зрение", budget: 2200000, priority: 0.78, expectedROI: 1.6, duration: 20, risk: "medium", status: "active", recommendation: "Стабильное развитие" }
+        ];
         
         // Данные оборудования
         const equipmentData = [
-            { id: 'server1', name: 'Сервер 1', status: 'normal', lastMaintenance: '2025-01-15', nextMaintenance: '2025-04-15', failureProb: 0.15 },
-            { id: 'server2', name: 'Сервер 2', status: 'warning', lastMaintenance: '2024-12-10', nextMaintenance: '2025-02-10', failureProb: 0.45 },
-            { id: 'router', name: 'Маршрутизатор', status: 'normal', lastMaintenance: '2025-01-20', nextMaintenance: '2025-04-20', failureProb: 0.12 },
-            { id: 'storage', name: 'Система хранения', status: 'critical', lastMaintenance: '2024-11-05', nextMaintenance: 'СРОЧНО', failureProb: 0.78 }
+            { id: "DB-01", name: "Сервер БД Oracle", type: "database", status: "normal", failureProb: 0.12, lastMaintenance: "15.03.2025", nextMaintenance: "15.06.2025", recommendation: "Плановое ТО" },
+            { id: "APP-03", name: "Сервер приложений", type: "application", status: "warning", failureProb: 0.45, lastMaintenance: "10.02.2025", nextMaintenance: "10.04.2025", recommendation: "Проверить память" },
+            { id: "STOR-02", name: "Система хранения", type: "storage", status: "critical", failureProb: 0.78, lastMaintenance: "05.01.2025", nextMaintenance: "СРОЧНО", recommendation: "Заменить диски" },
+            { id: "NET-01", name: "Маршрутизатор ядра", type: "network", status: "normal", failureProb: 0.08, lastMaintenance: "20.03.2025", nextMaintenance: "20.06.2025", recommendation: "Резервное копирование" },
+            { id: "VM-12", name: "Виртуальный хост", type: "virtual", status: "warning", failureProb: 0.35, lastMaintenance: "28.02.2025", nextMaintenance: "28.04.2025", recommendation: "Оптимизировать нагрузку" },
+            { id: "BCK-01", name: "Система резервирования", type: "backup", status: "normal", failureProb: 0.15, lastMaintenance: "18.03.2025", nextMaintenance: "18.06.2025", recommendation: "Проверить копии" }
         ];
-        
-        // Инициализация дашборда оборудования
-        function initEquipmentDashboard() {
-            const dashboard = document.getElementById('equipmentDashboard');
-            dashboard.innerHTML = '';
-            
-            equipmentData.forEach(eq => {
-                let statusClass, statusText, icon;
-                
-                if (eq.status === 'normal') {
-                    statusClass = 'success';
-                    statusText = 'Нормальный';
-                    icon = 'check-circle';
-                } else if (eq.status === 'warning') {
-                    statusClass = 'warning';
-                    statusText = 'Требует внимания';
-                    icon = 'exclamation-triangle';
-                } else {
-                    statusClass = 'danger';
-                    statusText = 'Критический';
-                    icon = 'times-circle';
-                }
-                
-                const card = document.createElement('div');
-                card.className = 'col-md-3';
-                card.innerHTML = `
-                    <div class="card h-100">
-                        <div class="card-body text-center">
-                            <i class="fas fa-${icon} fa-2x text-${statusClass} mb-2"></i>
-                            <h6>${eq.name}</h6>
-                            <p class="mb-1"><small>Последнее обслуживание:</small></p>
-                            <p class="mb-1"><strong>${eq.lastMaintenance}</strong></p>
-                            <p class="mb-1"><small>Следующее:</small></p>
-                            <p class="mb-2"><strong>${eq.nextMaintenance}</strong></p>
-                            <span class="badge bg-${statusClass}">${statusText}</span>
-                        </div>
-                    </div>
-                `;
-                dashboard.appendChild(card);
-            });
-            
-            updateEquipmentStatus();
-        }
-        
-        // Обновление статуса оборудования
-        function updateEquipmentStatus() {
-            const select = document.getElementById('equipmentSelect');
-            const statusDiv = document.getElementById('equipmentStatus');
-            const equipment = equipmentData.find(e => e.id === select.value);
-            
-            if (equipment) {
-                let statusHtml = '';
-                if (equipment.status === 'normal') {
-                    statusHtml = `<div class="alert alert-success">
-                        <h6><i class="fas fa-check-circle me-2"></i>Статус: Нормальный</h6>
-                        <p class="mb-0">Оборудование работает в штатном режиме</p>
-                    </div>`;
-                } else if (equipment.status === 'warning') {
-                    statusHtml = `<div class="alert alert-warning">
-                        <h6><i class="fas fa-exclamation-triangle me-2"></i>Статус: Требует внимания</h6>
-                        <p class="mb-0">Рекомендуется провести диагностику</p>
-                    </div>`;
-                } else {
-                    statusHtml = `<div class="alert alert-danger">
-                        <h6><i class="fas fa-times-circle me-2"></i>Статус: Критический</h6>
-                        <p class="mb-0">Требуется срочное обслуживание!</p>
-                    </div>`;
-                }
-                
-                statusDiv.innerHTML = statusHtml;
-            }
-        }
-        
-        // Прогноз отказов
-        function predictFailure() {
-            const select = document.getElementById('equipmentSelect');
-            const resultDiv = document.getElementById('predictionResult');
-            const equipment = equipmentData.find(e => e.id === select.value);
-            
-            if (equipment) {
-                const probability = equipment.failureProb;
-                let recommendation;
-                
-                if (probability < 0.3) {
-                    recommendation = "Плановое обслуживание через 3 месяца";
-                } else if (probability < 0.6) {
-                    recommendation = "Рекомендуется обслуживание в течение 2 недель";
-                } else {
-                    recommendation = "Требуется СРОЧНОЕ обслуживание! Высокий риск отказа";
-                }
-                
-                resultDiv.innerHTML = `
-                    <div class="alert ${probability < 0.3 ? 'alert-info' : probability < 0.6 ? 'alert-warning' : 'alert-danger'}">
-                        <h5><i class="fas fa-chart-bar me-2"></i>Результат анализа</h5>
-                        <p><strong>Вероятность отказа в ближайшие 72 часа:</strong></p>
-                        <h3 class="text-center my-3">${(probability * 100).toFixed(1)}%</h3>
-                        <p><strong>Рекомендация:</strong> ${recommendation}</p>
-                        <p class="small text-muted mb-0"><i class="fas fa-info-circle me-1"></i>На основе алгоритма автокодировщиков, точность 94%</p>
-                    </div>
-                `;
-            }
-        }
         
         // Инициализация графиков
         function initCharts() {
-            // График LTV
-            const ltvCtx = document.getElementById('ltvChart').getContext('2d');
-            new Chart(ltvCtx, {
-                type: 'bar',
-                data: {
-                    labels: ['Высокопотенциальный', 'Стабильный', 'Требующий удержания', 'Низкомаржинальный'],
-                    datasets: [{
-                        label: 'Средний LTV (тыс. ₽)',
-                        data: [450, 250, 180, 80],
-                        backgroundColor: ['#2ecc71', '#3498db', '#f39c12', '#95a5a6'],
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    plugins: {
-                        legend: { display: false }
-                    }
-                }
-            });
-            
-            // График портфеля
-            const portfolioCtx = document.getElementById('portfolioChart').getContext('2d');
-            new Chart(portfolioCtx, {
-                type: 'doughnut',
-                data: {
-                    labels: projectsData.map(p => p.name),
-                    datasets: [{
-                        data: projectsData.map(p => p.budget),
-                        backgroundColor: [
-                            '#2ecc71', '#3498db', '#f39c12', '#e74c3c', '#9b59b6', '#1abc9c'
-                        ]
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    plugins: {
-                        legend: { position: 'right' }
-                    }
-                }
-            });
-            
-            // График метрик
-            const metricsCtx = document.getElementById('metricsChart').getContext('2d');
-            new Chart(metricsCtx, {
-                type: 'line',
-                data: {
-                    labels: ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн'],
-                    datasets: [{
-                        label: 'Загрузка CPU (%)',
-                        data: [65, 59, 80, 81, 56, 55],
-                        borderColor: '#e74c3c',
-                        tension: 0.4
-                    }, {
-                        label: 'Использование RAM (%)',
-                        data: [28, 48, 40, 19, 86, 27],
-                        borderColor: '#3498db',
-                        tension: 0.4
-                    }, {
-                        label: 'Температура (°C)',
-                        data: [45, 48, 52, 55, 60, 58],
-                        borderColor: '#f39c12',
-                        tension: 0.4
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    plugins: {
-                        legend: { position: 'top' }
-                    }
-                }
-            });
-            
             // График производительности
             const perfCtx = document.getElementById('performanceChart').getContext('2d');
             new Chart(perfCtx, {
@@ -1218,121 +806,532 @@
                 data: {
                     labels: ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл'],
                     datasets: [{
-                        label: 'ROI портфеля (%)',
-                        data: [15.2, 16.5, 18.1, 19.3, 20.5, 21.3, 21.8],
-                        borderColor: '#2ecc71',
-                        backgroundColor: 'rgba(46, 204, 113, 0.1)',
-                        fill: true,
-                        tension: 0.4
+                        label: 'ROI портфеля',
+                        data: [15.0, 16.2, 18.5, 19.8, 20.5, 21.3, 22.1],
+                        borderColor: '#00b0ff',
+                        backgroundColor: 'rgba(0, 176, 255, 0.1)',
+                        borderWidth: 2,
+                        tension: 0.3,
+                        fill: true
                     }, {
-                        label: 'Отток клиентов (%)',
-                        data: [10.5, 9.8, 8.7, 8.1, 7.6, 7.2, 7.0],
-                        borderColor: '#e74c3c',
-                        backgroundColor: 'rgba(231, 76, 60, 0.1)',
-                        fill: true,
-                        tension: 0.4
+                        label: 'Отток клиентов',
+                        data: [10.5, 9.2, 8.0, 7.5, 7.2, 7.0, 6.8],
+                        borderColor: '#ff1744',
+                        backgroundColor: 'rgba(255, 23, 68, 0.1)',
+                        borderWidth: 2,
+                        tension: 0.3,
+                        fill: true
                     }]
                 },
                 options: {
                     responsive: true,
+                    maintainAspectRatio: false,
                     plugins: {
-                        legend: { position: 'top' }
+                        legend: {
+                            position: 'top',
+                        }
                     },
                     scales: {
                         y: {
-                            beginAtZero: true
+                            beginAtZero: false,
+                            grid: {
+                                drawBorder: false
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // График инвестиций
+            const investCtx = document.getElementById('investmentChart').getContext('2d');
+            new Chart(investCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['R&D проекты', 'Инфраструктура', 'Маркетинг', 'Персонал', 'Резерв'],
+                    datasets: [{
+                        data: [42, 28, 15, 10, 5],
+                        backgroundColor: ['#00c853', '#00b0ff', '#ff9100', '#9c27b0', '#607d8b']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'right'
+                        }
+                    }
+                }
+            });
+            
+            // График LTV
+            const ltvCtx = document.getElementById('ltvChart').getContext('2d');
+            new Chart(ltvCtx, {
+                type: 'bar',
+                data: {
+                    labels: clientsData.map(c => c.name),
+                    datasets: [{
+                        label: 'Текущий LTV',
+                        data: clientsData.map(c => c.currentLTV / 1000000),
+                        backgroundColor: '#00b0ff'
+                    }, {
+                        label: 'Прогноз LTV',
+                        data: clientsData.map(c => c.predictedLTV / 1000000),
+                        backgroundColor: '#00c853'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Млн ₽'
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // График ROI
+            const roiCtx = document.getElementById('roiChart').getContext('2d');
+            new Chart(roiCtx, {
+                type: 'bar',
+                data: {
+                    labels: projectsData.map(p => p.id),
+                    datasets: [{
+                        label: 'Ожидаемый ROI',
+                        data: projectsData.map(p => p.expectedROI * 100),
+                        backgroundColor: projectsData.map(p => 
+                            p.risk === 'low' ? '#00c853' : 
+                            p.risk === 'medium' ? '#ff9100' : '#ff1744'
+                        )
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'ROI (%)'
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // График инфраструктуры
+            const infraCtx = document.getElementById('infrastructureChart').getContext('2d');
+            new Chart(infraCtx, {
+                type: 'line',
+                data: {
+                    labels: ['6:00', '9:00', '12:00', '15:00', '18:00', '21:00', '00:00'],
+                    datasets: [{
+                        label: 'Загрузка CPU (%)',
+                        data: [45, 62, 78, 85, 72, 58, 42],
+                        borderColor: '#ff1744',
+                        tension: 0.3
+                    }, {
+                        label: 'Использование RAM (%)',
+                        data: [58, 65, 72, 78, 82, 75, 60],
+                        borderColor: '#00b0ff',
+                        tension: 0.3
+                    }, {
+                        label: 'Температура (°C)',
+                        data: [48, 52, 58, 62, 65, 60, 50],
+                        borderColor: '#ff9100',
+                        tension: 0.3
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'top'
                         }
                     }
                 }
             });
         }
         
-        // Обновление месячной сводки
-        function updateMonthlySummary() {
-            const summaryDiv = document.getElementById('monthlySummary');
-            const months = [
-                { month: 'Январь', roi: 15.2, churn: 10.5, projects: 3 },
-                { month: 'Февраль', roi: 16.5, churn: 9.8, projects: 4 },
-                { month: 'Март', roi: 18.1, churn: 8.7, projects: 5 },
-                { month: 'Апрель', roi: 19.3, churn: 8.1, projects: 6 },
-                { month: 'Май', roi: 20.5, churn: 7.6, projects: 7 },
-                { month: 'Июнь', roi: 21.3, churn: 7.2, projects: 8 }
-            ];
+        // Загрузка таблицы клиентов
+        function loadClientsTable() {
+            const table = document.getElementById('clientsTable');
+            table.innerHTML = '';
             
-            let html = '';
-            months.reverse().forEach(m => {
-                html += `
-                    <div class="mb-3 p-2" style="border-bottom: 1px solid #eee;">
-                        <div class="d-flex justify-content-between">
-                            <strong>${m.month}</strong>
-                            <span class="text-success">${m.roi.toFixed(1)}%</span>
+            clientsData.forEach(client => {
+                const segmentText = {
+                    'high': 'Высокопотенциальный',
+                    'stable': 'Стабильный',
+                    'risk': 'Риск оттока',
+                    'low': 'Низкомаржинальный'
+                }[client.segment];
+                
+                const segmentColor = {
+                    'high': 'success',
+                    'stable': 'primary',
+                    'risk': 'warning',
+                    'low': 'secondary'
+                }[client.segment];
+                
+                const churnClass = client.churnRisk > 0.5 ? 'status-critical' : 
+                                 client.churnRisk > 0.2 ? 'status-warning' : 'status-active';
+                
+                const churnText = client.churnRisk > 0.5 ? 'Высокий' : 
+                                client.churnRisk > 0.2 ? 'Средний' : 'Низкий';
+                
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${client.id}</td>
+                    <td><strong>${client.name}</strong></td>
+                    <td>${formatCurrency(client.currentLTV)}</td>
+                    <td>
+                        <span class="${client.predictedLTV > client.currentLTV ? 'text-success' : 'text-danger'}">
+                            ${formatCurrency(client.predictedLTV)}
+                        </span>
+                    </td>
+                    <td><span class="status-badge status-${segmentColor}">${segmentText}</span></td>
+                    <td>
+                        <div class="d-flex align-items-center">
+                            <div class="me-2">${(client.churnRisk * 100).toFixed(0)}%</div>
+                            <div class="progress flex-grow-1" style="height: 6px;">
+                                <div class="progress-bar ${client.churnRisk > 0.5 ? 'bg-danger' : client.churnRisk > 0.2 ? 'bg-warning' : 'bg-success'}" 
+                                     style="width: ${client.churnRisk * 100}%">
+                                </div>
+                            </div>
                         </div>
-                        <div class="d-flex justify-content-between small">
-                            <span>Отток: ${m.churn.toFixed(1)}%</span>
-                            <span>Проекты: ${m.projects}</span>
-                        </div>
-                    </div>
+                    </td>
+                    <td><small>${client.recommendation}</small></td>
+                    <td>
+                        <button class="btn btn-sm btn-outline-primary" onclick="showClientDetails(${client.id})">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </td>
                 `;
+                table.appendChild(row);
             });
+        }
+        
+        // Загрузка таблицы проектов
+        function loadProjectsTable() {
+            const table = document.getElementById('projectsTable');
+            table.innerHTML = '';
             
-            summaryDiv.innerHTML = html;
+            projectsData.forEach(project => {
+                const riskText = {
+                    'low': 'Низкий',
+                    'medium': 'Средний',
+                    'high': 'Высокий'
+                }[project.risk];
+                
+                const riskColor = {
+                    'low': 'success',
+                    'medium': 'warning',
+                    'high': 'danger'
+                }[project.risk];
+                
+                const statusText = {
+                    'active': 'Активный',
+                    'planned': 'Запланирован',
+                    'review': 'На рассмотрении'
+                }[project.status];
+                
+                const statusColor = {
+                    'active': 'success',
+                    'planned': 'primary',
+                    'review': 'warning'
+                }[project.status];
+                
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>
+                        <div><strong>${project.id}</strong></div>
+                        <div class="small">${project.name}</div>
+                    </td>
+                    <td>${formatCurrency(project.budget)}</td>
+                    <td>
+                        <div class="progress" style="height: 20px;">
+                            <div class="progress-bar bg-primary" style="width: ${project.priority * 100}%">
+                                ${(project.priority * 100).toFixed(0)}%
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <span class="h5 ${project.expectedROI > 1.8 ? 'text-success' : project.expectedROI > 1.2 ? 'text-warning' : 'text-danger'}">
+                            ${(project.expectedROI * 100).toFixed(0)}%
+                        </span>
+                    </td>
+                    <td>${project.duration} мес</td>
+                    <td><span class="status-badge status-${riskColor}">${riskText}</span></td>
+                    <td><span class="status-badge status-${statusColor}">${statusText}</span></td>
+                    <td><small>${project.recommendation}</small></td>
+                `;
+                table.appendChild(row);
+            });
+        }
+        
+        // Загрузка таблицы оборудования
+        function loadEquipmentTable() {
+            const table = document.getElementById('equipmentTable');
+            table.innerHTML = '';
+            
+            equipmentData.forEach(eq => {
+                const statusText = {
+                    'normal': 'Нормальный',
+                    'warning': 'Требует внимания',
+                    'critical': 'Критический'
+                }[eq.status];
+                
+                const statusColor = {
+                    'normal': 'success',
+                    'warning': 'warning',
+                    'critical': 'danger'
+                }[eq.status];
+                
+                const typeText = {
+                    'database': 'База данных',
+                    'application': 'Приложение',
+                    'storage': 'Хранилище',
+                    'network': 'Сеть',
+                    'virtual': 'Виртуальный',
+                    'backup': 'Резервное'
+                }[eq.type];
+                
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td><strong>${eq.id}</strong><br><small>${eq.name}</small></td>
+                    <td>${typeText}</td>
+                    <td><span class="status-badge status-${statusColor}">${statusText}</span></td>
+                    <td>
+                        <div class="d-flex align-items-center">
+                            <div class="me-2">${(eq.failureProb * 100).toFixed(0)}%</div>
+                            <div class="progress flex-grow-1" style="height: 6px;">
+                                <div class="progress-bar ${eq.failureProb > 0.6 ? 'bg-danger' : eq.failureProb > 0.3 ? 'bg-warning' : 'bg-success'}" 
+                                     style="width: ${eq.failureProb * 100}%">
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td>${eq.lastMaintenance}</td>
+                    <td><strong>${eq.nextMaintenance}</strong></td>
+                    <td><small>${eq.recommendation}</small></td>
+                    <td>
+                        <button class="btn btn-sm btn-outline-warning me-1" onclick="scheduleMaintenance('${eq.id}')">
+                            <i class="fas fa-calendar-check"></i>
+                        </button>
+                        <button class="btn btn-sm btn-outline-danger" onclick="showEquipmentDetails('${eq.id}')">
+                            <i class="fas fa-info-circle"></i>
+                        </button>
+                    </td>
+                `;
+                table.appendChild(row);
+            });
+        }
+        
+        // Настройка обработчиков событий
+        function setupEventListeners() {
+            // Слайдер LTV
+            const ltvSlider = document.getElementById('ltvRange');
+            const ltvValue = document.getElementById('ltvValue');
+            
+            if (ltvSlider) {
+                ltvSlider.addEventListener('input', function() {
+                    ltvValue.textContent = formatCurrency(parseInt(this.value));
+                });
+            }
+            
+            // Фильтры
+            document.getElementById('segmentFilter').addEventListener('change', filterClients);
+            document.getElementById('showFilter').addEventListener('change', filterClients);
+        }
+        
+        // Фильтрация клиентов
+        function filterClients() {
+            // В реальной системе здесь был бы AJAX-запрос
+            console.log('Фильтрация клиентов...');
+        }
+        
+        // Запуск анализа LTV
+        function runLTVAnalysis() {
+            showNotification('Анализ LTV запущен', 'info');
+            setTimeout(() => {
+                showNotification('Анализ завершен. Обновлено 8 прогнозов', 'success');
+            }, 2000);
+        }
+        
+        // Оптимизация портфеля
+        function optimizePortfolio() {
+            showNotification('Запущена автооптимизация портфеля', 'info');
+            setTimeout(() => {
+                const recommendations = [
+                    'Увеличен приоритет проекта P-07 на 15%',
+                    'Сокращен бюджет проекта P-10 на 20%',
+                    'Ускорен запуск проекта P-09'
+                ];
+                
+                showNotification(`Оптимизация завершена. Рекомендации: ${recommendations.join(', ')}`, 'success');
+            }, 3000);
+        }
+        
+        // Проверка оборудования
+        function runPredictiveCheck() {
+            showNotification('Запущена проверка оборудования', 'info');
+            setTimeout(() => {
+                const issues = equipmentData.filter(eq => eq.failureProb > 0.3).length;
+                showNotification(`Проверка завершена. Найдено ${issues} проблемных устройств`, 
+                                issues > 0 ? 'warning' : 'success');
+            }, 2500);
+        }
+        
+        // Генерация отчетов
+        function generateReport(type) {
+            const reportNames = {
+                'financial': 'Финансовый отчет',
+                'clients': 'Анализ клиентов',
+                'rd': 'Эффективность R&D',
+                'infrastructure': 'Отчет по инфраструктуре'
+            };
+            
+            showNotification(`Генерация отчета "${reportNames[type]}"...`, 'info');
+            setTimeout(() => {
+                showNotification(`Отчет "${reportNames[type]}" готов к скачиванию`, 'success');
+                // В реальной системе здесь был бы скачиваемый файл
+            }, 1500);
+        }
+        
+        // Просмотр акта о внедрении
+        function viewDeploymentAct() {
+            alert('Акт о внедрении №ИВ-2025-03-28\n\n' +
+                  'Система внедрена в ООО "Мобайл Парк ИТ"\n' +
+                  'Дата: 15.01.2025\n' +
+                  'Срок окупаемости: 6.5 месяцев\n' +
+                  'Экономический эффект: 26.4 млн руб./год\n' +
+                  'Статус: Успешно внедрена и эксплуатируется\n\n' +
+                  'Подписано: Генеральный директор ООО "Мобайл Парк ИТ"');
+        }
+        
+        // Добавление нового проекта
+        function addNewProject() {
+            const projectName = prompt('Введите название нового проекта:');
+            if (projectName) {
+                showNotification(`Проект "${projectName}" добавлен на рассмотрение`, 'success');
+            }
+        }
+        
+        // Показать детали клиента
+        function showClientDetails(id) {
+            const client = clientsData.find(c => c.id === id);
+            if (client) {
+                alert(`Детали клиента #${id}\n\n` +
+                      `Название: ${client.name}\n` +
+                      `Текущий LTV: ${formatCurrency(client.currentLTV)}\n` +
+                      `Прогноз LTV: ${formatCurrency(client.predictedLTV)}\n` +
+                      `Риск оттока: ${(client.churnRisk * 100).toFixed(1)}%\n` +
+                      `Рекомендация ИИ: ${client.recommendation}`);
+            }
+        }
+        
+        // Запланировать обслуживание
+        function scheduleMaintenance(equipmentId) {
+            const date = prompt('Введите дату обслуживания (ДД.ММ.ГГГГ):', '15.04.2025');
+            if (date) {
+                showNotification(`Обслуживание ${equipmentId} запланировано на ${date}`, 'success');
+            }
+        }
+        
+        // Детали оборудования
+        function showEquipmentDetails(id) {
+            const eq = equipmentData.find(e => e.id === id);
+            if (eq) {
+                alert(`Информация об оборудовании\n\n` +
+                      `ID: ${eq.id}\n` +
+                      `Название: ${eq.name}\n` +
+                      `Тип: ${eq.type}\n` +
+                      `Состояние: ${eq.status}\n` +
+                      `Вероятность сбоя: ${(eq.failureProb * 100).toFixed(1)}%\n` +
+                      `Последнее ТО: ${eq.lastMaintenance}\n` +
+                      `Следующее ТО: ${eq.nextMaintenance}\n` +
+                      `Рекомендация: ${eq.recommendation}`);
+            }
+        }
+        
+        // Уведомления
+        function showNotification(message, type) {
+            const alertClass = {
+                'success': 'alert-success',
+                'info': 'alert-info',
+                'warning': 'alert-warning',
+                'danger': 'alert-danger'
+            }[type] || 'alert-info';
+            
+            const alert = document.createElement('div');
+            alert.className = `alert ${alertClass} alert-dismissible fade show position-fixed`;
+            alert.style.cssText = 'top: 20px; right: 20px; z-index: 1000; min-width: 300px;';
+            alert.innerHTML = `
+                ${message}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            `;
+            
+            document.body.appendChild(alert);
+            
+            setTimeout(() => {
+                alert.remove();
+            }, 5000);
+        }
+        
+        // Живые обновления
+        function startLiveUpdates() {
+            // Обновление KPI каждые 30 секунд
+            setInterval(() => {
+                updateKPI();
+            }, 30000);
+            
+            // Симуляция реальных данных
+            setInterval(() => {
+                simulateLiveData();
+            }, 15000);
         }
         
         // Обновление KPI
         function updateKPI() {
-            // Случайные колебания для реалистичности
-            const roiElement = document.getElementById('kpi-roi');
-            const churnElement = document.getElementById('kpi-churn');
-            const projectsElement = document.getElementById('kpi-projects');
-            
-            const currentROI = parseFloat(roiElement.textContent);
-            const currentChurn = parseFloat(churnElement.textContent);
-            
-            // Небольшие случайные изменения
-            const newROI = Math.max(20, Math.min(22, currentROI + (Math.random() - 0.5) * 0.1));
-            const newChurn = Math.max(6.5, Math.min(7.5, currentChurn + (Math.random() - 0.5) * 0.05));
-            
-            roiElement.textContent = newROI.toFixed(1) + '%';
-            churnElement.textContent = newChurn.toFixed(1) + '%';
+            // Случайные небольшие изменения для реалистичности
+            const roiElement = document.querySelector('.kpi-value.text-primary');
+            if (roiElement) {
+                const current = parseFloat(roiElement.textContent);
+                const change = (Math.random() - 0.5) * 0.1;
+                roiElement.textContent = (current + change).toFixed(1) + '%';
+            }
+        }
+        
+        // Симуляция живых данных
+        function simulateLiveData() {
+            // Случайное обновление статуса оборудования
+            const randomEq = equipmentData[Math.floor(Math.random() * equipmentData.length)];
+            if (Math.random() > 0.7) {
+                const newProb = Math.min(0.95, Math.max(0.05, randomEq.failureProb + (Math.random() - 0.5) * 0.1));
+                randomEq.failureProb = parseFloat(newProb.toFixed(2));
+                loadEquipmentTable();
+            }
         }
         
         // Форматирование валюты
         function formatCurrency(value) {
             if (value >= 1000000) {
-                return (value / 1000000).toFixed(1) + ' млн ₽';
+                return (value / 1000000).toFixed(1).replace('.', ',') + ' млн ₽';
             } else if (value >= 1000) {
                 return (value / 1000).toFixed(0) + ' тыс ₽';
             }
             return value.toFixed(0) + ' ₽';
         }
-        
-        // Плавная прокрутка
-        function smoothScroll() {
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const targetId = this.getAttribute('href');
-                    if (targetId === '#') return;
-                    
-                    const targetElement = document.querySelector(targetId);
-                    if (targetElement) {
-                        window.scrollTo({
-                            top: targetElement.offsetTop - 80,
-                            behavior: 'smooth'
-                        });
-                    }
-                });
-            });
-        }
-        
-        // Обновление слайдеров
-        document.getElementById('revenueSlider').addEventListener('input', function() {
-            document.getElementById('revenueValue').textContent = this.value;
-        });
-        
-        document.getElementById('budgetSlider').addEventListener('input', function() {
-            document.getElementById('budgetValue').textContent = this.value;
-        });
     </script>
 </body>
 </html>
