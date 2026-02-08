@@ -1,294 +1,3 @@
-// Добавим в начало файла, перед остальными функциями
-
-// База данных компаний (в реальности это был бы API-запрос)
-const companyDatabase = {
-    "7701234567": {
-        name: "ТехноПрогресс Инновации",
-        details: "ИТ-услуги, разработка ПО, 250 сотрудников",
-        investmentAmount: "150000000",
-        investmentPeriod: "24",
-        historicalRoi: "18.5",
-        riskTolerance: "12",
-        rdBudget: "15",
-        projectCount: "8",
-        currentRdSuccess: "35",
-        currentPaybackPeriod: "18",
-        customerCount: "120",
-        currentChurn: "14.2",
-        avgLtv: "850000",
-        keyCustomersShare: "42",
-        infraCapex: "25000000",
-        unplannedDowntime: "8.3",
-        maintenanceCost: "12000000",
-        // Добавим исторические данные для сравнения
-        historicalData: {
-            portfolioRoi: "16.8",
-            ineffectiveInvestments: "28",
-            customerRetention: "85.8",
-            rdEfficiency: "32"
-        }
-    },
-    "7712345678": {
-        name: "Роботех Системы",
-        details: "Робототехника, автоматизация, 180 сотрудников",
-        investmentAmount: "80000000",
-        investmentPeriod: "18",
-        historicalRoi: "22.3",
-        riskTolerance: "18",
-        rdBudget: "25",
-        projectCount: "12",
-        currentRdSuccess: "28",
-        currentPaybackPeriod: "22",
-        customerCount: "65",
-        currentChurn: "9.8",
-        avgLtv: "1250000",
-        keyCustomersShare: "55",
-        infraCapex: "18000000",
-        unplannedDowntime: "5.2",
-        maintenanceCost: "9500000",
-        historicalData: {
-            portfolioRoi: "20.5",
-            ineffectiveInvestments: "35",
-            customerRetention: "90.2",
-            rdEfficiency: "27"
-        }
-    },
-    "7723456789": {
-        name: "АйтиРешения Групп",
-        details: "Корпоративные ИТ-решения, 400 сотрудников",
-        investmentAmount: "300000000",
-        investmentPeriod: "36",
-        historicalRoi: "15.8",
-        riskTolerance: "8",
-        rdBudget: "12",
-        projectCount: "15",
-        currentRdSuccess: "42",
-        currentPaybackPeriod: "16",
-        customerCount: "210",
-        currentChurn: "18.5",
-        avgLtv: "680000",
-        keyCustomersShare: "38",
-        infraCapex: "45000000",
-        unplannedDowntime: "12.5",
-        maintenanceCost: "22000000",
-        historicalData: {
-            portfolioRoi: "14.2",
-            ineffectiveInvestments: "45",
-            customerRetention: "81.5",
-            rdEfficiency: "38"
-        }
-    }
-};
-
-// Обновим функцию selectCompany
-function selectCompany() {
-    const inn = document.getElementById('companyINN').value.trim();
-    
-    if (!inn) {
-        showNotification('Введите ИНН компании', 'error');
-        return;
-    }
-    
-    const company = companyDatabase[inn];
-    
-    if (!company) {
-        showNotification('Компания не найдена в базе. Проверьте ИНН или загрузите данные через CSV', 'error');
-        return;
-    }
-    
-    // Заполняем данные компании
-    document.getElementById('companyName').textContent = company.name;
-    document.getElementById('companyDetails').textContent = company.details;
-    
-    // Заполняем поля формы
-    document.getElementById('investmentAmount').value = formatNumber(company.investmentAmount);
-    document.getElementById('investmentPeriod').value = company.investmentPeriod;
-    document.getElementById('historicalRoi').value = company.historicalRoi;
-    document.getElementById('riskTolerance').value = company.riskTolerance;
-    document.getElementById('rdBudget').value = company.rdBudget;
-    document.getElementById('projectCount').value = company.projectCount;
-    document.getElementById('currentRdSuccess').value = company.currentRdSuccess;
-    document.getElementById('currentPaybackPeriod').value = company.currentPaybackPeriod;
-    document.getElementById('customerCount').value = formatNumber(company.customerCount);
-    document.getElementById('currentChurn').value = company.currentChurn;
-    document.getElementById('avgLtv').value = formatNumber(company.avgLtv);
-    document.getElementById('keyCustomersShare').value = company.keyCustomersShare;
-    document.getElementById('infraCapex').value = formatNumber(company.infraCapex);
-    document.getElementById('unplannedDowntime').value = company.unplannedDowntime;
-    document.getElementById('maintenanceCost').value = formatNumber(company.maintenanceCost);
-    
-    // Делаем все поля редактируемыми
-    makeAllFieldsEditable();
-    
-    // Сохраняем исходные значения для сравнения
-    saveOriginalValues();
-    
-    // Активируем кнопку расчета
-    document.getElementById('calculateBtn').disabled = false;
-    
-    showNotification(`Данные компании "${company.name}" загружены`, 'success');
-}
-
-// Обновим функцию calculateResults
-function calculateResults() {
-    // Показываем индикатор загрузки
-    document.getElementById('loadingIndicator').classList.add('hidden');
-    document.getElementById('resultsContainer').classList.remove('hidden');
-    
-    // Получаем значения из формы
-    const investmentAmount = parseFloat(document.getElementById('investmentAmount').value.replace(/\s/g, '').replace('₽', ''));
-    const investmentPeriod = parseInt(document.getElementById('investmentPeriod').value);
-    const historicalRoi = parseFloat(document.getElementById('historicalRoi').value);
-    const riskTolerance = parseFloat(document.getElementById('riskTolerance').value);
-    const rdBudget = parseFloat(document.getElementById('rdBudget').value);
-    const projectCount = parseInt(document.getElementById('projectCount').value);
-    const currentRdSuccess = parseFloat(document.getElementById('currentRdSuccess').value);
-    const currentPaybackPeriod = parseInt(document.getElementById('currentPaybackPeriod').value);
-    const customerCount = parseInt(document.getElementById('customerCount').value.replace(/\s/g, ''));
-    const currentChurn = parseFloat(document.getElementById('currentChurn').value);
-    const avgLtv = parseFloat(document.getElementById('avgLtv').value.replace(/\s/g, '').replace('₽', ''));
-    const keyCustomersShare = parseFloat(document.getElementById('keyCustomersShare').value);
-    const infraCapex = parseFloat(document.getElementById('infraCapex').value.replace(/\s/g, '').replace('₽', ''));
-    const unplannedDowntime = parseFloat(document.getElementById('unplannedDowntime').value);
-    const maintenanceCost = parseFloat(document.getElementById('maintenanceCost').value.replace(/\s/g, '').replace('₽', ''));
-    
-    // Получаем исторические данные (в реальности из БД)
-    const inn = document.getElementById('companyINN').value.trim();
-    const company = companyDatabase[inn];
-    const historicalData = company ? company.historicalData : {
-        portfolioRoi: "15.0",
-        ineffectiveInvestments: "30",
-        customerRetention: "85.0",
-        rdEfficiency: "35"
-    };
-    
-    // Рассчитываем улучшения от ИИ
-    const aiImprovements = {
-        roi: Math.min(30, historicalRoi + 3.5 + (riskTolerance / 10)),
-        churnReduction: Math.max(3, currentChurn * 0.45),
-        rdEfficiency: Math.min(75, currentRdSuccess + 25 + (rdBudget / 5)),
-        paybackImprovement: Math.max(6, currentPaybackPeriod * 0.65),
-        segmentHigh: Math.round(customerCount * 0.15),
-        ltvGrowth: Math.round(avgLtv * 1.32),
-        downtimeReduction: Math.max(1, unplannedDowntime * 0.4),
-        capexSavings: Math.round(infraCapex * 0.18),
-        portfolioRoiWithAI: Math.min(28, parseFloat(historicalData.portfolioRoi) + 4.2),
-        ineffectiveInvestmentsAI: Math.max(8, parseFloat(historicalData.ineffectiveInvestments) * 0.55)
-    };
-    
-    // Обновляем метрики
-    document.getElementById('roiValue').textContent = aiImprovements.roi.toFixed(1) + '%';
-    document.getElementById('roiSubtitle').textContent = `Целевой: 22% | Без ИИ: ${historicalRoi.toFixed(1)}%`;
-    
-    document.getElementById('churnValue').textContent = aiImprovements.churnReduction.toFixed(1) + '%';
-    document.getElementById('churnSubtitle').textContent = `Целевой: <6% | Без ИИ: ${currentChurn.toFixed(1)}%`;
-    
-    document.getElementById('rdValue').textContent = aiImprovements.rdEfficiency.toFixed(0) + '%';
-    document.getElementById('rdSubtitle').textContent = `Проекты окупаются за ${aiImprovements.paybackImprovement} мес.`;
-    
-    // Обновляем аналитические модели
-    document.getElementById('segmentHigh').textContent = aiImprovements.segmentHigh + ' компаний';
-    document.getElementById('ltvGrowth').textContent = formatNumber(aiImprovements.ltvGrowth) + ' ₽';
-    document.getElementById('retentionInvestment').textContent = formatNumber(Math.round(investmentAmount * 0.08)) + ' ₽';
-    document.getElementById('ltvEffect').textContent = '+18% к доходности';
-    
-    const rdRedistribution = `${Math.round(rdBudget * 0.6)}% → высокоэффективные, ${Math.round(rdBudget * 0.3)}% → средние, ${Math.round(rdBudget * 0.1)}% → низкие`;
-    document.getElementById('rdRedistribution').textContent = rdRedistribution;
-    document.getElementById('fastProjects').textContent = Math.round(projectCount * 0.45) + ' из ' + projectCount;
-    document.getElementById('timeOptimization').textContent = '-' + (currentPaybackPeriod - aiImprovements.paybackImprovement) + ' мес.';
-    document.getElementById('revenueGrowth').textContent = formatNumber(Math.round(investmentAmount * (aiImprovements.roi/100) * 0.3)) + ' ₽';
-    
-    document.getElementById('downtimeReduction').textContent = '-' + (unplannedDowntime - aiImprovements.downtimeReduction).toFixed(1) + '%';
-    document.getElementById('capexSavings').textContent = formatNumber(aiImprovements.capexSavings) + ' ₽';
-    document.getElementById('maintenanceSavings').textContent = formatNumber(Math.round(maintenanceCost * 0.22)) + ' ₽';
-    document.getElementById('predictiveRoi').textContent = '142%';
-    
-    // Обновляем KPI с историческими сравнениями
-    document.getElementById('portfolioRoi').textContent = aiImprovements.portfolioRoiWithAI.toFixed(1) + '%';
-    document.getElementById('portfolioBefore').textContent = `До внедрения: ${historicalData.portfolioRoi}%`;
-    
-    const roiChange = aiImprovements.portfolioRoiWithAI - parseFloat(historicalData.portfolioRoi);
-    document.getElementById('roiChange').textContent = (roiChange > 0 ? '+' : '') + roiChange.toFixed(1) + '%';
-    document.getElementById('roiChange').className = `kpi-change ${roiChange > 0 ? 'positive' : 'negative'}`;
-    
-    document.getElementById('ineffectiveInvestments').textContent = aiImprovements.ineffectiveInvestmentsAI.toFixed(0) + '%';
-    
-    const ineffectiveChange = parseFloat(historicalData.ineffectiveInvestments) - aiImprovements.ineffectiveInvestmentsAI;
-    document.getElementById('ineffectiveChange').textContent = '-' + ineffectiveChange.toFixed(0) + '%';
-    document.getElementById('ineffectiveChange').className = `kpi-change positive`;
-    
-    // Показываем кнопку пересчета
-    document.getElementById('calculateBtn').style.display = 'none';
-    document.getElementById('recalculateBtn').style.display = 'block';
-    
-    // Активируем кнопки экспорта
-    document.getElementById('exportPdfBtn').disabled = false;
-    document.getElementById('exportExcelBtn').disabled = false;
-    
-    // Добавляем рекомендации на основе анализа
-    generateRecommendations(aiImprovements, investmentAmount, currentChurn);
-    
-    showNotification('Анализ завершен. Получены рекомендации по внедрению ИИ', 'success');
-}
-
-// Добавим функцию для генерации рекомендаций
-function generateRecommendations(aiImprovements, investmentAmount, currentChurn) {
-    const recommendationsContainer = document.querySelector('.recommendations');
-    if (!recommendationsContainer) return;
-    
-    recommendationsContainer.innerHTML = `
-        <h2 class="section-title">Рекомендации по внедрению ИИ</h2>
-        <div class="recommendation-card">
-            <div class="recommendation-header">
-                <div class="rec-title">Приоритет #1: Внедрение предиктивной аналитики LTV</div>
-                <div class="rec-impact">Высокий эффект</div>
-            </div>
-            <div class="rec-details">
-                Внедрение LightGBM для сегментации клиентов позволит увеличить средний LTV на 32% и сократить отток на ${(currentChurn - aiImprovements.churnReduction).toFixed(1)}%. 
-                <span class="risk-indicator low-risk">Низкий риск</span>
-            </div>
-        </div>
-        
-        <div class="recommendation-card">
-            <div class="recommendation-header">
-                <div class="rec-title">Приоритет #2: Оптимизация R&D портфеля</div>
-                <div class="rec-impact">Средний эффект</div>
-            </div>
-            <div class="rec-details">
-                Q-learning алгоритм перераспределит R&D бюджет, увеличив долю окупаемых проектов до ${aiImprovements.rdEfficiency.toFixed(0)}% и сократив сроки окупаемости на ${(aiImprovements.paybackImprovement/currentPaybackPeriod*100).toFixed(0)}%.
-                <span class="risk-indicator medium-risk">Средний риск</span>
-            </div>
-        </div>
-        
-        <div class="recommendation-card">
-            <div class="recommendation-header">
-                <div class="rec-title">Приоритет #3: Предиктивное обслуживание инфраструктуры</div>
-                <div class="rec-impact">Высокий ROI</div>
-            </div>
-            <div class="rec-details">
-                Автокодировщики сократят незапланированные простои на ${(unplannedDowntime - aiImprovements.downtimeReduction).toFixed(1)}% и сэкономят ${formatNumber(aiImprovements.capexSavings)} ₽ CAPEX ежегодно.
-                <span class="risk-indicator low-risk">Низкий риск</span>
-            </div>
-        </div>
-        
-        <div class="ai-maturity">
-            <div class="maturity-level">Уровень зрелости ИИ-внедрения</div>
-            <div class="maturity-score">${calculateMaturityScore(aiImprovements)}/100</div>
-            <div>Рекомендуемый бюджет на внедрение: ${formatNumber(Math.round(investmentAmount * 0.07))} ₽</div>
-            <div class="maturity-scale">1-30: Начальный | 31-70: Развивающийся | 71-100: Продвинутый</div>
-        </div>
-    `;
-}
-
-// Вспомогательная функция для расчета зрелости
-function calculateMaturityScore(aiImprovements) {
-    const baseScore = 40;
-    const roiScore = Math.min(20, (aiImprovements.roi - 15) * 2);
-    const churnScore = Math.min(15, (15 - aiImprovements.churnReduction) * 2);
-    const rdScore = Math.min(25, (aiImprovements.rdEfficiency - 30));
-    
-    return Math.round(baseScore + roiScore + churnScore + rdScore);
-}
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -994,6 +703,18 @@ function calculateMaturityScore(aiImprovements) {
             background-color: #fff3cd !important;
             border-color: #ffc107 !important;
         }
+        
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #6c757d;
+        }
+        
+        .empty-state-icon {
+            font-size: 3rem;
+            color: #dc3545;
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 <body>
@@ -1186,11 +907,10 @@ function calculateMaturityScore(aiImprovements) {
             </div>
             
             <div class="results-section">
-                <div class="loading" id="loadingIndicator">
-                    <p>Введите ИНН компании для загрузки данных или загрузите CSV-файл</p>
-                    <p>Нажмите "Загрузить данные компании" или "Загрузить CSV файл"</p>
-                    <p>Отредактируйте параметры при необходимости</p>
-                    <p>Нажмите "Рассчитать показатели"</p>
+                <div class="empty-state" id="loadingIndicator">
+                    <div class="empty-state-icon">📊</div>
+                    <h3 style="color: #343a40; margin-bottom: 15px;">Готов к анализу</h3>
+                    <p style="color: #6c757d;">Загрузите данные компании для получения прогнозов и рекомендаций</p>
                 </div>
                 
                 <div class="results-container hidden" id="resultsContainer">
@@ -1310,44 +1030,10 @@ function calculateMaturityScore(aiImprovements) {
                                 <div class="kpi-value" id="ineffectiveInvestments">—</div>
                                 <div style="font-size: 0.85rem; color: #6c757d; margin-top: 5px;" id="ineffectiveBefore">До внедрения: —</div>
                             </div>
-                            <div class="kpi-item">
-                                <div class="kpi-header">
-                                    <span>Срок окупаемости R&D проектов</span>
-                                    <span class="kpi-change neutral" id="paybackChange">—</span>
-                                </div>
-                                <div class="kpi-value" id="paybackPeriod">—</div>
-                                <div style="font-size: 0.85rem; color: #6c757d; margin-top: 5px;" id="paybackBefore">До внедрения: —</div>
-                            </div>
-                            <div class="kpi-item">
-                                <div class="kpi-header">
-                                    <span>Время принятия инвестиционных решений</span>
-                                    <span class="kpi-change neutral" id="decisionTimeChange">—</span>
-                                </div>
-                                <div class="kpi-value" id="decisionTime">—</div>
-                                <div style="font-size: 0.85rem; color: #6c757d; margin-top: 5px;" id="decisionBefore">До внедрения: —</div>
-                            </div>
                         </div>
                     </div>
                     
-                    <div class="recommendations">
-                        <h2 class="section-title">Рекомендации системы</h2>
-                        <div id="recommendationsPlaceholder" class="loading" style="padding: 20px;">
-                            <p>Загрузите данные компании и нажмите "Рассчитать показатели" для получения рекомендаций</p>
-                        </div>
-                        <div id="recommendationsContent" class="hidden">
-                            <!-- Рекомендации будут здесь -->
-                        </div>
-                    </div>
-                    
-                    <div class="ai-maturity">
-                        <h3>Индекс "ИИ-зрелости" управленческой команды</h3>
-                        <div class="maturity-score" id="aiMaturityScore">—</div>
-                        <div class="maturity-level" id="maturityLevel">Не определен</div>
-                        <div class="maturity-scale">Оценка по шкале от 1 до 5</div>
-                        <p style="margin-top: 10px; opacity: 0.9; font-size: 0.9rem;">
-                            Оценка основана на использовании data-driven подходов, понимании ИИ-инструментов и скорости принятия решений после внедрения трёхконтурной модели
-                        </p>
-                    </div>
+                    <div class="recommendations" id="recommendationsSection"></div>
                 </div>
             </div>
         </div>
@@ -1355,972 +1041,99 @@ function calculateMaturityScore(aiImprovements) {
 
     <script>
         // База данных компаний
-        const companies = {
-            '5047154189': {
-                name: 'ООО "Мобайл Парк ИТ"',
-                type: 'Технологическая компания B2B',
-                description: 'Разработка IT-решений и облачных сервисов (PaaS)',
-                logoText: 'МП',
-                data: {
-                    investmentAmount: 150000000,
-                    investmentPeriod: 24,
-                    historicalRoi: 15,
-                    riskTolerance: 10,
-                    rdBudget: 25,
-                    projectCount: 45,
-                    currentRdSuccess: 40,
-                    currentPaybackPeriod: 24,
-                    customerCount: 500,
-                    currentChurn: 10,
-                    avgLtv: 1500000,
-                    keyCustomersShare: 32,
-                    infraCapex: 15000000,
-                    unplannedDowntime: 5,
-                    maintenanceCost: 4500000
+        const companyDatabase = {
+            "7701234567": {
+                name: "ТехноПрогресс Инновации",
+                details: "ИТ-услуги, разработка ПО, 250 сотрудников",
+                investmentAmount: "150000000",
+                investmentPeriod: "24",
+                historicalRoi: "18.5",
+                riskTolerance: "12",
+                rdBudget: "15",
+                projectCount: "8",
+                currentRdSuccess: "35",
+                currentPaybackPeriod: "18",
+                customerCount: "120",
+                currentChurn: "14.2",
+                avgLtv: "850000",
+                keyCustomersShare: "42",
+                infraCapex: "25000000",
+                unplannedDowntime: "8.3",
+                maintenanceCost: "12000000",
+                historicalData: {
+                    portfolioRoi: "16.8",
+                    ineffectiveInvestments: "28",
+                    customerRetention: "85.8",
+                    rdEfficiency: "32"
                 }
             },
-            '1234567890': {
-                name: 'ООО "ТехноИнвест"',
-                type: 'Инвестиционная компания',
-                description: 'Управление венчурными инвестициями',
-                logoText: 'ТИ',
-                data: {
-                    investmentAmount: 80000000,
-                    investmentPeriod: 36,
-                    historicalRoi: 18,
-                    riskTolerance: 15,
-                    rdBudget: 30,
-                    projectCount: 25,
-                    currentRdSuccess: 35,
-                    currentPaybackPeriod: 30,
-                    customerCount: 150,
-                    currentChurn: 8,
-                    avgLtv: 2500000,
-                    keyCustomersShare: 40,
-                    infraCapex: 8000000,
-                    unplannedDowntime: 3,
-                    maintenanceCost: 2400000
+            "7712345678": {
+                name: "Роботех Системы",
+                details: "Робототехника, автоматизация, 180 сотрудников",
+                investmentAmount: "80000000",
+                investmentPeriod: "18",
+                historicalRoi: "22.3",
+                riskTolerance: "18",
+                rdBudget: "25",
+                projectCount: "12",
+                currentRdSuccess: "28",
+                currentPaybackPeriod: "22",
+                customerCount: "65",
+                currentChurn: "9.8",
+                avgLtv: "1250000",
+                keyCustomersShare: "55",
+                infraCapex: "18000000",
+                unplannedDowntime: "5.2",
+                maintenanceCost: "9500000",
+                historicalData: {
+                    portfolioRoi: "20.5",
+                    ineffectiveInvestments: "35",
+                    customerRetention: "90.2",
+                    rdEfficiency: "27"
                 }
             },
-            'test': {
-                name: 'Тестовая компания',
-                type: 'Технологический стартап',
-                description: 'Разработка инновационных решений',
-                logoText: 'ТЕ',
-                data: {
-                    investmentAmount: 50000000,
-                    investmentPeriod: 18,
-                    historicalRoi: 12,
-                    riskTolerance: 8,
-                    rdBudget: 20,
-                    projectCount: 15,
-                    currentRdSuccess: 30,
-                    currentPaybackPeriod: 30,
-                    customerCount: 80,
-                    currentChurn: 15,
-                    avgLtv: 800000,
-                    keyCustomersShare: 25,
-                    infraCapex: 5000000,
-                    unplannedDowntime: 8,
-                    maintenanceCost: 2000000
+            "7723456789": {
+                name: "АйтиРешения Групп",
+                details: "Корпоративные ИТ-решения, 400 сотрудников",
+                investmentAmount: "300000000",
+                investmentPeriod: "36",
+                historicalRoi: "15.8",
+                riskTolerance: "8",
+                rdBudget: "12",
+                projectCount: "15",
+                currentRdSuccess: "42",
+                currentPaybackPeriod: "16",
+                customerCount: "210",
+                currentChurn: "18.5",
+                avgLtv: "680000",
+                keyCustomersShare: "38",
+                infraCapex: "45000000",
+                unplannedDowntime: "12.5",
+                maintenanceCost: "22000000",
+                historicalData: {
+                    portfolioRoi: "14.2",
+                    ineffectiveInvestments: "45",
+                    customerRetention: "81.5",
+                    rdEfficiency: "38"
                 }
             }
         };
-        
-        // Переменная для отслеживания состояния
-        let isCalculated = false;
-        let currentCompany = null;
-        let previousValues = {};
-        let uploadedCompanyData = null;
-        let storageUpdated = false;
-        
-        // Сбросить все поля до пустых значений
-        function resetFormFields() {
-            const inputs = document.querySelectorAll('.input-section input:not(#companyINN):not(#csvFile)');
-            inputs.forEach(input => {
-                input.value = '';
-                input.setAttribute('readonly', true);
-                input.classList.remove('editable');
-                input.classList.add('empty-field');
-                input.classList.remove('input-changed');
-            });
+
+        let originalValues = {};
+        let currentAnalysisData = null;
+
+        // Форматирование чисел
+        function formatNumber(num) {
+            if (!num && num !== 0) return '—';
+            const numValue = typeof num === 'string' ? parseFloat(num.replace(/\s/g, '').replace('₽', '')) : num;
+            if (isNaN(numValue)) return '—';
             
-            // Сбросить суффиксы
-            const suffixes = document.querySelectorAll('.suffix');
-            suffixes.forEach(suffix => {
-                suffix.classList.remove('editable');
-            });
-            
-            // Деактивировать кнопки
-            document.getElementById('calculateBtn').disabled = true;
-            document.getElementById('exportPdfBtn').disabled = true;
-            document.getElementById('exportExcelBtn').disabled = true;
-        }
-        
-        // Включить все поля формы
-        function enableFormFields() {
-            const inputs = document.querySelectorAll('.input-section input:not(#companyINN):not(#csvFile)');
-            inputs.forEach(input => {
-                input.removeAttribute('readonly');
-                input.classList.add('editable');
-                input.classList.remove('empty-field');
-            });
-            
-            // Активировать суффиксы
-            const suffixes = document.querySelectorAll('.suffix');
-            suffixes.forEach(suffix => {
-                suffix.classList.add('editable');
-            });
-            
-            document.getElementById('calculateBtn').disabled = false;
-            
-            // Активируем кнопки экспорта
-            document.getElementById('exportPdfBtn').disabled = false;
-            document.getElementById('exportExcelBtn').disabled = false;
-        }
-        
-        // Отметить поле как измененное
-        function markAsChanged(input) {
-            if (!input.classList.contains('editable')) return;
-            
-            const originalValue = input.getAttribute('data-original');
-            const currentValue = input.value;
-            
-            if (originalValue && currentValue !== originalValue) {
-                input.classList.add('input-changed');
-            } else {
-                input.classList.remove('input-changed');
-            }
-        }
-        
-        // Форматирование чисел с разделителями тысяч при вводе
-        function formatNumberOnBlur(input) {
-            if (!input.value || input.value === '—') return;
-            
-            let value = input.value.replace(/\s/g, '').replace(/,/g, '');
-            
-            if (!isNaN(value) && value !== '' && value !== '—') {
-                let num = parseInt(value);
-                input.setAttribute('data-original', num);
-                
-                let formatted = num.toLocaleString('ru-RU');
-                input.value = formatted;
-            }
-            
-            markAsChanged(input);
-        }
-        
-        // Очистка форматирования при фокусе
-        function clearFormatting(input) {
-            let original = input.getAttribute('data-original');
-            if (original) {
-                input.value = original;
-            } else if (input.value === '—' || input.value === '') {
-                input.value = '';
-            }
-        }
-        
-        // Получение числового значения из форматированного поля
-        function getNumericValue(inputId) {
-            const input = document.getElementById(inputId);
-            if (!input.value || input.value === '—') return 0;
-            
-            let value = input.value.replace(/\s/g, '').replace(/,/g, '');
-            return parseInt(value) || 0;
-        }
-        
-        // Получение значения с плавающей точкой
-        function getFloatValue(inputId) {
-            const input = document.getElementById(inputId);
-            if (!input.value || input.value === '—') return 0;
-            
-            let value = input.value.replace(/\s/g, '').replace(/,/g, '');
-            return parseFloat(value) || 0;
-        }
-        
-        // Выбор компании по ИНН
-        function selectCompany() {
-            const inn = document.getElementById('companyINN').value.trim();
-            
-            if (!inn) {
-                showNotification('Введите ИНН компании', 'error');
-                return;
-            }
-            
-            // Проверка для тестовой компании
-            if (inn === 'test' || companies[inn]) {
-                currentCompany = companies[inn] || companies['test'];
-                uploadedCompanyData = null;
-                
-                // Обновляем информацию о компании
-                document.getElementById('companyName').textContent = currentCompany.name;
-                document.getElementById('companyDetails').textContent = currentCompany.type + ' | ' + currentCompany.description;
-                document.querySelector('.company-logo').textContent = currentCompany.logoText;
-                document.querySelector('.company-logo').style.background = 'linear-gradient(135deg, #dc3545 0%, #c82333 100%)';
-                
-                // Особое сообщение если это Мобайл Парк ИТ и данные обновлены
-                if (inn === '5047154189' && storageUpdated) {
-                    document.getElementById('companyDetails').textContent = '✓ Данные обновлены из CSV файла | ' + currentCompany.description;
-                    showNotification('Используются данные из CSV файла для Мобайл Парк ИТ', 'success');
-                }
-                
-                // Сохраняем предыдущие значения для сравнения
-                saveCurrentValues();
-                
-                // Заполняем данные компании
-                fillCompanyData(currentCompany);
-                
-                // Включаем поля формы
-                enableFormFields();
-                
-                // Скрываем кнопку пересчета если она была показана
-                document.getElementById('recalculateBtn').style.display = 'none';
-                document.getElementById('calculateBtn').style.display = 'block';
-                
-                // Сбрасываем состояние расчета
-                isCalculated = false;
-                
-                // Скрываем результаты если они были показаны
-                document.getElementById('resultsContainer').classList.add('hidden');
-                document.getElementById('loadingIndicator').classList.remove('hidden');
-                
-                // Скрываем предпросмотр CSV
-                document.getElementById('csvPreview').classList.add('hidden');
-                
-            } else {
-                showNotification('Компания с таким ИНН не найдена в базе', 'error');
-                document.getElementById('companyName').textContent = 'Компания не найдена';
-                document.getElementById('companyDetails').textContent = 'Проверьте правильность ИНН';
-                document.querySelector('.company-logo').textContent = '!';
-                document.querySelector('.company-logo').style.background = 'linear-gradient(135deg, #6c757d 0%, #495057 100%)';
-                currentCompany = null;
-                uploadedCompanyData = null;
-                
-                // Сбрасываем поля формы
-                resetFormFields();
-            }
-        }
-        
-        // Сохранить текущие значения для сравнения
-        function saveCurrentValues() {
-            previousValues = {
-                investmentAmount: getNumericValue('investmentAmount'),
-                investmentPeriod: getFloatValue('investmentPeriod'),
-                historicalRoi: getFloatValue('historicalRoi'),
-                riskTolerance: getFloatValue('riskTolerance'),
-                rdBudget: getFloatValue('rdBudget'),
-                projectCount: getFloatValue('projectCount'),
-                currentRdSuccess: getFloatValue('currentRdSuccess'),
-                currentPaybackPeriod: getFloatValue('currentPaybackPeriod'),
-                customerCount: getNumericValue('customerCount'),
-                currentChurn: getFloatValue('currentChurn'),
-                avgLtv: getNumericValue('avgLtv'),
-                keyCustomersShare: getFloatValue('keyCustomersShare'),
-                infraCapex: getNumericValue('infraCapex'),
-                unplannedDowntime: getFloatValue('unplannedDowntime'),
-                maintenanceCost: getNumericValue('maintenanceCost')
-            };
-        }
-        
-        // Заполнение данных компании
-        function fillCompanyData(company) {
-            const data = company.data || company;
-            
-            // Заполняем поля с форматированием
-            document.getElementById('investmentAmount').value = data.investmentAmount.toLocaleString('ru-RU');
-            document.getElementById('investmentAmount').setAttribute('data-original', data.investmentAmount);
-            
-            document.getElementById('investmentPeriod').value = data.investmentPeriod;
-            document.getElementById('investmentPeriod').setAttribute('data-original', data.investmentPeriod);
-            
-            document.getElementById('historicalRoi').value = data.historicalRoi;
-            document.getElementById('historicalRoi').setAttribute('data-original', data.historicalRoi);
-            
-            document.getElementById('riskTolerance').value = data.riskTolerance;
-            document.getElementById('riskTolerance').setAttribute('data-original', data.riskTolerance);
-            
-            document.getElementById('rdBudget').value = data.rdBudget;
-            document.getElementById('rdBudget').setAttribute('data-original', data.rdBudget);
-            
-            document.getElementById('projectCount').value = data.projectCount;
-            document.getElementById('projectCount').setAttribute('data-original', data.projectCount);
-            
-            document.getElementById('currentRdSuccess').value = data.currentRdSuccess;
-            document.getElementById('currentRdSuccess').setAttribute('data-original', data.currentRdSuccess);
-            
-            document.getElementById('currentPaybackPeriod').value = data.currentPaybackPeriod;
-            document.getElementById('currentPaybackPeriod').setAttribute('data-original', data.currentPaybackPeriod);
-            
-            document.getElementById('customerCount').value = data.customerCount.toLocaleString('ru-RU');
-            document.getElementById('customerCount').setAttribute('data-original', data.customerCount);
-            
-            document.getElementById('currentChurn').value = data.currentChurn;
-            document.getElementById('currentChurn').setAttribute('data-original', data.currentChurn);
-            
-            document.getElementById('avgLtv').value = data.avgLtv.toLocaleString('ru-RU');
-            document.getElementById('avgLtv').setAttribute('data-original', data.avgLtv);
-            
-            document.getElementById('keyCustomersShare').value = data.keyCustomersShare;
-            document.getElementById('keyCustomersShare').setAttribute('data-original', data.keyCustomersShare);
-            
-            document.getElementById('infraCapex').value = data.infraCapex.toLocaleString('ru-RU');
-            document.getElementById('infraCapex').setAttribute('data-original', data.infraCapex);
-            
-            document.getElementById('unplannedDowntime').value = data.unplannedDowntime;
-            document.getElementById('unplannedDowntime').setAttribute('data-original', data.unplannedDowntime);
-            
-            document.getElementById('maintenanceCost').value = data.maintenanceCost.toLocaleString('ru-RU');
-            document.getElementById('maintenanceCost').setAttribute('data-original', data.maintenanceCost);
-            
-            // Сохраняем новые значения
-            saveCurrentValues();
-            
-            // Добавляем обработчики для форматирования
-            const numberInputs = document.querySelectorAll('input[type="text"]:not(#companyINN)');
-            numberInputs.forEach(input => {
-                input.addEventListener('blur', function() {
-                    formatNumberOnBlur(this);
-                });
-                input.addEventListener('focus', function() {
-                    clearFormatting(this);
-                });
-                input.addEventListener('input', function() {
-                    markAsChanged(this);
-                });
-            });
-            
-            // Добавляем обработчики для числовых полей
-            const numericInputs = document.querySelectorAll('input[type="number"]');
-            numericInputs.forEach(input => {
-                input.addEventListener('input', function() {
-                    markAsChanged(this);
-                });
-                input.addEventListener('change', function() {
-                    markAsChanged(this);
-                });
-            });
-            
-            // Сбрасываем подсветку изменений
-            const changedInputs = document.querySelectorAll('.input-changed');
-            changedInputs.forEach(input => {
-                input.classList.remove('input-changed');
+            return numValue.toLocaleString('ru-RU', {
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0
             });
         }
-        
-        // Загрузка CSV файла
-        function uploadCSV() {
-            const fileInput = document.getElementById('csvFile');
-            const file = fileInput.files[0];
-            
-            if (!file) {
-                showNotification('Выберите CSV файл для загрузки', 'error');
-                return;
-            }
-            
-            const reader = new FileReader();
-            
-            reader.onload = function(e) {
-                try {
-                    const csvContent = e.target.result;
-                    const csvData = parseCSV(csvContent);
-                    
-                    if (csvData) {
-                        // Имитация загрузки данных в хранилище
-                        simulateDataStorage(csvData);
-                        
-                        // Показываем предпросмотр данных
-                        showCSVPreview(csvData);
-                        
-                        showNotification('CSV файл успешно загружен. Данные сохранены в хранилище.', 'success');
-                    }
-                } catch (error) {
-                    console.error('Ошибка обработки CSV:', error);
-                    showNotification('Ошибка обработки CSV файла. Проверьте формат.', 'error');
-                }
-            };
-            
-            reader.onerror = function() {
-                showNotification('Ошибка чтения файла', 'error');
-            };
-            
-            reader.readAsText(file, 'UTF-8');
-        }
-        
-        // Имитация сохранения данных в хранилище
-        function simulateDataStorage(csvData) {
-            // Показываем индикатор хранения
-            document.getElementById('storageIndicator').classList.remove('hidden');
-            
-            // Устанавливаем флаг обновления хранилища
-            storageUpdated = true;
-            
-            // Обновляем данные для Мобайл Парк ИТ
-            if (companies['5047154189']) {
-                // Обновляем данные для Мобайл Парк ИТ из CSV
-                Object.assign(companies['5047154189'].data, csvData);
-                
-                // Обновляем название если оно есть в CSV
-                if (csvData.name) {
-                    companies['5047154189'].name = csvData.name;
-                }
-                
-                // Показываем сообщение о том, что данные обновлены
-                showNotification('Данные для Мобайл Парк ИТ обновлены из CSV файла', 'success');
-            }
-            
-            // Через 5 секунд скрываем индикатор
-            setTimeout(() => {
-                document.getElementById('storageIndicator').classList.add('hidden');
-            }, 5000);
-        }
-        
-        // Парсинг CSV файла
-        function parseCSV(csvContent) {
-            const lines = csvContent.split('\n');
-            const data = {};
-            
-            // Определяем разделитель (запятая или точка с запятой)
-            const delimiter = csvContent.includes(';') ? ';' : ',';
-            
-            lines.forEach(line => {
-                line = line.trim();
-                if (line && !line.startsWith('#')) {
-                    const parts = line.split(delimiter);
-                    if (parts.length >= 2) {
-                        const key = parts[0].trim().replace(/"/g, '');
-                        let value = parts[1].trim().replace(/"/g, '');
-                        
-                        // Преобразование числовых значений
-                        if (!isNaN(value) && value !== '') {
-                            if (value.includes('.')) {
-                                value = parseFloat(value);
-                            } else {
-                                value = parseInt(value);
-                            }
-                        }
-                        
-                        data[key] = value;
-                    }
-                }
-            });
-            
-            // Проверяем, что есть основные поля
-            const requiredFields = ['investmentAmount', 'investmentPeriod'];
-            const missingFields = requiredFields.filter(field => !data[field]);
-            
-            if (missingFields.length > 0) {
-                showNotification(`В CSV отсутствуют обязательные поля: ${missingFields.join(', ')}`, 'error');
-                return null;
-            }
-            
-            // Форматируем данные для отображения
-            data.name = data.name || 'Загруженная из CSV компания';
-            data.type = data.type || 'Данные из CSV файла';
-            
-            return data;
-        }
-        
-        // Показать предпросмотр CSV данных
-        function showCSVPreview(data) {
-            const previewTable = document.getElementById('csvPreviewTable').getElementsByTagName('tbody')[0];
-            previewTable.innerHTML = '';
-            
-            const fields = [
-                {key: 'investmentAmount', label: 'Объём инвестиций (₽)'},
-                {key: 'investmentPeriod', label: 'Срок инвестиций (мес.)'},
-                {key: 'historicalRoi', label: 'Исторический ROI (%)'},
-                {key: 'riskTolerance', label: 'Допустимый риск (%)'},
-                {key: 'rdBudget', label: 'Бюджет R&D (%)'},
-                {key: 'projectCount', label: 'Кол-во R&D проектов'},
-                {key: 'currentRdSuccess', label: 'Доля окупающихся проектов (%)'},
-                {key: 'currentPaybackPeriod', label: 'Срок окупаемости (мес.)'},
-                {key: 'customerCount', label: 'Кол-во клиентов'},
-                {key: 'currentChurn', label: 'Отток клиентов (%)'},
-                {key: 'avgLtv', label: 'Средний LTV (₽)'},
-                {key: 'keyCustomersShare', label: 'Доля ключевых клиентов (%)'},
-                {key: 'infraCapex', label: 'CAPEX на инфраструктуру (₽)'},
-                {key: 'unplannedDowntime', label: 'Незапланированные простои (%)'},
-                {key: 'maintenanceCost', label: 'Затраты на поддержку (₽)'}
-            ];
-            
-            fields.forEach(field => {
-                if (data[field.key] !== undefined) {
-                    const row = previewTable.insertRow();
-                    const cell1 = row.insertCell(0);
-                    const cell2 = row.insertCell(1);
-                    
-                    cell1.textContent = field.label;
-                    
-                    // Форматируем значение
-                    let value = data[field.key];
-                    if (typeof value === 'number') {
-                        if (field.key.includes('Amount') || field.key.includes('Cost') || field.key.includes('Capex') || field.key.includes('Ltv')) {
-                            value = value.toLocaleString('ru-RU') + ' ₽';
-                        } else if (field.key.includes('Roi') || field.key.includes('Tolerance') || field.key.includes('Budget') || 
-                                  field.key.includes('Success') || field.key.includes('Churn') || field.key.includes('Share') || 
-                                  field.key.includes('Downtime')) {
-                            value = value + ' %';
-                        } else if (field.key.includes('Period')) {
-                            value = value + ' мес.';
-                        } else if (field.key.includes('Count')) {
-                            value = value + ' шт.';
-                        }
-                    }
-                    
-                    cell2.textContent = value;
-                }
-            });
-            
-            document.getElementById('csvPreview').classList.remove('hidden');
-        }
-        
-        // Скачать шаблон CSV файла
-        function downloadTemplateCSV() {
-            // Данные для шаблона CSV
-            const csvData = [
-                ['# Шаблон CSV файла для загрузки данных компании', ''],
-                ['# Все значения должны быть указаны без кавычек', ''],
-                ['name', 'ООО "Мобайл Парк ИТ"'],
-                ['type', 'Технологическая компания B2B'],
-                ['investmentAmount', '150000000'],
-                ['investmentPeriod', '24'],
-                ['historicalRoi', '15'],
-                ['riskTolerance', '10'],
-                ['rdBudget', '25'],
-                ['projectCount', '45'],
-                ['currentRdSuccess', '40'],
-                ['currentPaybackPeriod', '24'],
-                ['customerCount', '500'],
-                ['currentChurn', '10'],
-                ['avgLtv', '1500000'],
-                ['keyCustomersShare', '32'],
-                ['infraCapex', '15000000'],
-                ['unplannedDowntime', '5'],
-                ['maintenanceCost', '4500000'],
-                ['# Конец файла', '']
-            ];
-            
-            // Преобразуем в CSV строку
-            const csvContent = csvData.map(row => row.join(';')).join('\n');
-            
-            // Создаем Blob и ссылку для скачивания
-            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-            const url = URL.createObjectURL(blob);
-            const link = document.createElement('a');
-            
-            link.setAttribute('href', url);
-            link.setAttribute('download', 'mobile_park_it_template.csv');
-            link.style.visibility = 'hidden';
-            
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            
-            showNotification('Шаблон CSV файла успешно скачан', 'success');
-        }
-        
-        // Расчет результатов
-        function calculateResults() {
-            // Проверяем, что данные загружены
-            if (!currentCompany && !uploadedCompanyData) {
-                showNotification('Сначала загрузите данные компании по ИНН или из CSV', 'error');
-                return;
-            }
-            
-            // Проверяем, что обязательные поля заполнены
-            const investmentAmount = getNumericValue('investmentAmount');
-            const investmentPeriod = getFloatValue('investmentPeriod');
-            const riskTolerance = getFloatValue('riskTolerance');
-            const rdBudget = getFloatValue('rdBudget');
-            
-            if (investmentAmount === 0 || investmentPeriod === 0 || riskTolerance === 0 || rdBudget === 0) {
-                showNotification('Заполните все обязательные поля (отмечены *)', 'error');
-                return;
-            }
-            
-            // Показать результаты
-            document.getElementById('loadingIndicator').classList.add('hidden');
-            document.getElementById('resultsContainer').classList.remove('hidden');
-            document.getElementById('recommendationsPlaceholder').classList.add('hidden');
-            document.getElementById('recommendationsContent').classList.remove('hidden');
-            
-            // Показать кнопку пересчета
-            document.getElementById('recalculateBtn').style.display = 'block';
-            document.getElementById('calculateBtn').style.display = 'none';
-            
-            // Устанавливаем флаг расчета
-            isCalculated = true;
-            
-            // Выполняем расчет
-            performCalculation();
-            
-            showNotification('Показатели успешно рассчитаны', 'success');
-        }
-        
-        // Пересчет результатов
-        function recalculateResults() {
-            if (!currentCompany && !uploadedCompanyData) {
-                showNotification('Сначала загрузите данные компании', 'error');
-                return;
-            }
-            
-            // Сохраняем текущие значения
-            saveCurrentValues();
-            
-            // Выполняем расчет с ОБНОВЛЕННЫМИ значениями из формы
-            performCalculation();
-            
-            showNotification('Показатели пересчитаны с новыми параметрами', 'success');
-            
-            // Сбрасываем подсветку изменений
-            const changedInputs = document.querySelectorAll('.input-changed');
-            changedInputs.forEach(input => {
-                input.classList.remove('input-changed');
-            });
-        }
-        
-        // Основная функция расчета
-        function performCalculation() {
-            // Получение ТЕКУЩИХ значений из формы
-            const investmentAmount = getNumericValue('investmentAmount');
-            const investmentPeriod = getFloatValue('investmentPeriod');
-            const historicalRoi = getFloatValue('historicalRoi');
-            const riskTolerance = getFloatValue('riskTolerance');
-            const rdBudget = getFloatValue('rdBudget');
-            const projectCount = getFloatValue('projectCount');
-            const currentRdSuccess = getFloatValue('currentRdSuccess');
-            const currentPaybackPeriod = getFloatValue('currentPaybackPeriod');
-            const customerCount = getNumericValue('customerCount');
-            const currentChurn = getFloatValue('currentChurn');
-            const avgLtv = getNumericValue('avgLtv');
-            const keyCustomersShare = getFloatValue('keyCustomersShare');
-            const infraCapex = getNumericValue('infraCapex');
-            const unplannedDowntime = getFloatValue('unplannedDowntime');
-            const maintenanceCost = getNumericValue('maintenanceCost');
-            
-            // Расчет показателей на основе ВВЕДЕННЫХ данных
-            const results = calculateIndicators({
-                investmentAmount,
-                investmentPeriod,
-                historicalRoi,
-                riskTolerance,
-                rdBudget,
-                projectCount,
-                currentRdSuccess,
-                currentPaybackPeriod,
-                customerCount,
-                currentChurn,
-                avgLtv,
-                keyCustomersShare,
-                infraCapex,
-                unplannedDowntime,
-                maintenanceCost
-            });
-            
-            // Определяем имя компании для рекомендаций
-            const companyName = currentCompany ? currentCompany.name : 
-                               (uploadedCompanyData && uploadedCompanyData.name) ? uploadedCompanyData.name : 'Компания';
-            
-            // Обновление UI с результатами
-            updateResultsUI(results, {
-                investmentAmount,
-                investmentPeriod,
-                historicalRoi,
-                riskTolerance,
-                rdBudget,
-                projectCount,
-                currentRdSuccess,
-                currentPaybackPeriod,
-                customerCount,
-                currentChurn,
-                avgLtv,
-                keyCustomersShare,
-                infraCapex,
-                unplannedDowntime,
-                maintenanceCost
-            });
-            
-            // Генерация рекомендаций
-            generateRecommendations(results, companyName);
-        }
-        
-        // Расчет индикаторов на основе входных данных
-        function calculateIndicators(inputs) {
-            // Базовые коэффициенты из ВКР с динамической адаптацией
-            
-            // Динамический расчет ROI на основе введенных данных
-            let baseRoi = inputs.historicalRoi || 15;
-            let roiWithAI = baseRoi * 1.4; // Базовое улучшение 40%
-            
-            // Корректировка ROI на основе объема инвестиций
-            if (inputs.investmentAmount > 200000000) {
-                roiWithAI *= 1.1; // +10% для больших инвестиций
-            } else if (inputs.investmentAmount < 50000000) {
-                roiWithAI *= 0.95; // -5% для малых инвестиций
-            }
-            
-            // Корректировка на основе риск-аппетита
-            if (inputs.riskTolerance > 15) {
-                roiWithAI *= 1.07; // +7% для высокого риска
-            } else if (inputs.riskTolerance < 5) {
-                roiWithAI *= 0.93; // -7% для низкого риска
-            }
-            
-            // Динамический расчет оттока клиентов
-            let baseChurn = inputs.currentChurn || 10;
-            let churnWithAI = baseChurn * 0.7; // Снижение на 30%
-            
-            // Корректировка оттока на основе LTV
-            if (inputs.avgLtv > 2000000) {
-                churnWithAI *= 0.9; // Дополнительное снижение для высокого LTV
-            }
-            
-            // Динамический расчет эффективности R&D
-            let baseRdEfficiency = inputs.currentRdSuccess || 40;
-            let rdEfficiency = baseRdEfficiency * 1.625; // Улучшение на 62.5%
-            
-            // Корректировка на основе бюджета R&D
-            if (inputs.rdBudget > 30) {
-                rdEfficiency *= 1.08; // +8% для большого бюджета
-            } else if (inputs.rdBudget < 15) {
-                rdEfficiency *= 0.92; // -8% для малого бюджета
-            }
-            
-            // Динамический расчет срока окупаемости
-            let basePayback = inputs.currentPaybackPeriod || 24;
-            let paybackPeriod = basePayback * 0.792; // Ускорение на 20.8%
-            
-            // Динамический расчет для LightGBM модели
-            let segmentHigh = Math.min(50, Math.max(20, inputs.keyCustomersShare || 32));
-            let ltvGrowth = Math.min(15, Math.max(5, 8 * (inputs.avgLtv / 1500000))); // Зависит от LTV
-            let retentionInvestment = Math.min(40, Math.max(15, 25 * (inputs.currentChurn / 10))); // Зависит от оттока
-            let ltvEffect = Math.min(25, Math.max(10, 15 * (inputs.avgLtv / 1500000))); // Зависит от LTV
-            
-            // Динамический расчет для Q-learning модели
-            let rdRedistribution = Math.min(30, Math.max(10, 20 * (inputs.rdBudget / 25))); // Зависит от бюджета
-            let fastProjects = Math.min(80, Math.max(40, 65 * (inputs.projectCount / 45))); // Зависит от кол-ва проектов
-            let timeOptimization = Math.min(8, Math.max(2, 5 * (inputs.currentPaybackPeriod / 24))); // Зависит от срока окупаемости
-            let revenueGrowth = Math.min(25, Math.max(10, 15 * (inputs.currentRdSuccess / 40))); // Зависит от эффективности
-            
-            // Динамический расчет для предиктивного обслуживания
-            let downtimeReduction = Math.min(60, Math.max(20, 40 * (inputs.unplannedDowntime / 5))); // Зависит от простоев
-            let capexSavings = Math.min(25, Math.max(5, 15 * (inputs.infraCapex / 15000000))); // Зависит от CAPEX
-            let maintenanceSavings = Math.min(25, Math.max(10, 18 * (inputs.maintenanceCost / 4500000))); // Зависит от затрат на поддержку
-            let predictiveRoi = Math.min(350, Math.max(150, 245 * (inputs.infraCapex / 15000000))); // Зависит от CAPEX
-            
-            // Расчет индекса ИИ-зрелости на основе всех параметров
-            let maturityScore = calculateMaturityScore(inputs);
-            let maturityLevel = getMaturityLevel(maturityScore);
-            
-            return {
-                roiWithAI: Math.min(35, Math.max(10, roiWithAI)),
-                churnWithAI: Math.min(20, Math.max(2, churnWithAI)),
-                rdEfficiency: Math.min(85, Math.max(30, rdEfficiency)),
-                paybackPeriod: Math.min(36, Math.max(12, paybackPeriod)),
-                segmentHigh: Math.round(segmentHigh),
-                ltvGrowth: Math.round(ltvGrowth),
-                retentionInvestment: Math.round(retentionInvestment),
-                ltvEffect: Math.round(ltvEffect),
-                rdRedistribution: Math.round(rdRedistribution),
-                fastProjects: Math.round(fastProjects),
-                timeOptimization: Math.round(timeOptimization),
-                revenueGrowth: Math.round(revenueGrowth),
-                downtimeReduction: Math.round(downtimeReduction),
-                capexSavings: Math.round(capexSavings),
-                maintenanceSavings: Math.round(maintenanceSavings),
-                predictiveRoi: Math.round(predictiveRoi),
-                ineffectiveInvestments: Math.max(5, Math.min(30, 25 - (inputs.historicalRoi / 2))), // Зависит от ROI
-                decisionTime: Math.max(5, Math.min(20, 28 - (inputs.investmentAmount / 10000000))), // Зависит от объема инвестиций
-                maturityScore: maturityScore,
-                maturityLevel: maturityLevel
-            };
-        }
-        
-        // Расчет индекса ИИ-зрелости
-        function calculateMaturityScore(inputs) {
-            let score = 3.0; // Базовый уровень
-            
-            // Корректировка на основе объема инвестиций
-            if (inputs.investmentAmount > 100000000) score += 0.5;
-            else if (inputs.investmentAmount < 30000000) score -= 0.3;
-            
-            // Корректировка на основе ROI
-            if (inputs.historicalRoi > 20) score += 0.4;
-            else if (inputs.historicalRoi < 10) score -= 0.2;
-            
-            // Корректировка на основе бюджета R&D
-            if (inputs.rdBudget > 25) score += 0.3;
-            else if (inputs.rdBudget < 15) score -= 0.2;
-            
-            // Корректировка на основе оттока клиентов
-            if (inputs.currentChurn < 8) score += 0.2;
-            else if (inputs.currentChurn > 15) score -= 0.3;
-            
-            // Ограничение значения
-            return Math.min(5.0, Math.max(1.0, score)).toFixed(1);
-        }
-        
-        // Определение уровня зрелости
-        function getMaturityLevel(score) {
-            if (score >= 4.5) return 'Очень высокий уровень';
-            if (score >= 4.0) return 'Высокий уровень';
-            if (score >= 3.5) return 'Выше среднего';
-            if (score >= 3.0) return 'Средний уровень';
-            if (score >= 2.5) return 'Ниже среднего';
-            return 'Начальный уровень';
-        }
-        
-        // Обновление интерфейса с результатами
-        function updateResultsUI(results, currentValues) {
-            // Обновление метрик
-            document.getElementById('roiValue').textContent = results.roiWithAI.toFixed(1) + '%';
-            document.getElementById('churnValue').textContent = results.churnWithAI.toFixed(1) + '%';
-            document.getElementById('rdValue').textContent = results.rdEfficiency.toFixed(0) + '%';
-            
-            // Обновление подзаголовков
-            document.getElementById('roiSubtitle').innerHTML = `Целевой: 22% | Без ИИ: ${currentValues.historicalRoi.toFixed(1)}%`;
-            document.getElementById('churnSubtitle').innerHTML = `Целевой: <6% | Без ИИ: ${currentValues.currentChurn.toFixed(1)}%`;
-            document.getElementById('rdSubtitle').innerHTML = `Проекты окупаются за ${results.paybackPeriod.toFixed(0)} мес.`;
-            
-            // Обновление деталей алгоритмов
-            document.getElementById('segmentHigh').textContent = results.segmentHigh + '%';
-            document.getElementById('ltvGrowth').textContent = '+' + results.ltvGrowth + '%';
-            document.getElementById('retentionInvestment').textContent = results.retentionInvestment + '%';
-            document.getElementById('ltvEffect').textContent = '+' + results.ltvEffect + '%';
-            
-            document.getElementById('rdRedistribution').textContent = results.rdRedistribution + '%';
-            document.getElementById('fastProjects').textContent = results.fastProjects + '%';
-            document.getElementById('timeOptimization').textContent = '-' + results.timeOptimization + ' месяцев';
-            document.getElementById('revenueGrowth').textContent = '+' + results.revenueGrowth + '%';
-            
-            document.getElementById('downtimeReduction').textContent = results.downtimeReduction + '%';
-            document.getElementById('capexSavings').textContent = results.capexSavings + '%';
-            document.getElementById('maintenanceSavings').textContent = results.maintenanceSavings + '%';
-            document.getElementById('predictiveRoi').textContent = results.predictiveRoi + '%';
-            
-            // Расчет изменений для KPI
-            const roiChange = results.roiWithAI - currentValues.historicalRoi;
-            const ineffectiveChange = (25 - results.ineffectiveInvestments);
-            const paybackChange = currentValues.currentPaybackPeriod - results.paybackPeriod;
-            const decisionTimeChange = 28 - results.decisionTime;
-            
-            // Обновление KPI
-            document.getElementById('portfolioRoi').textContent = results.roiWithAI.toFixed(1) + '%';
-            updateKPIChange('roiChange', roiChange, '%', true);
-            document.getElementById('portfolioBefore').innerHTML = `До внедрения: ${currentValues.historicalRoi.toFixed(1)}%`;
-            
-            document.getElementById('ineffectiveInvestments').textContent = results.ineffectiveInvestments + '%';
-            updateKPIChange('ineffectiveChange', ineffectiveChange, '%', false);
-            document.getElementById('ineffectiveBefore').innerHTML = `До внедрения: 25%`;
-            
-            document.getElementById('paybackPeriod').textContent = results.paybackPeriod.toFixed(0) + ' мес.';
-            updateKPIChange('paybackChange', paybackChange, 'мес.', true);
-            document.getElementById('paybackBefore').innerHTML = `До внедрения: ${currentValues.currentPaybackPeriod} мес.`;
-            
-            document.getElementById('decisionTime').textContent = results.decisionTime + ' дней';
-            updateKPIChange('decisionTimeChange', decisionTimeChange, 'дней', true);
-            document.getElementById('decisionBefore').innerHTML = `До внедрения: 28 дней`;
-            
-            // Обновление ИИ-зрелости
-            document.getElementById('aiMaturityScore').textContent = results.maturityScore;
-            document.getElementById('maturityLevel').textContent = results.maturityLevel;
-        }
-        
-        // Обновление KPI изменений
-        function updateKPIChange(elementId, value, unit, isPositiveWhenNegative = false) {
-            const element = document.getElementById(elementId);
-            
-            if (Math.abs(value) < 0.1) {
-                element.textContent = '0 ' + unit;
-                element.className = 'kpi-change neutral';
-                return;
-            }
-            
-            let formatted = value > 0 ? '+' + value.toFixed(1) : value.toFixed(1);
-            formatted += ' ' + unit;
-            element.textContent = formatted;
-            
-            // Определяем класс в зависимости от знака и типа изменения
-            if ((value > 0 && !isPositiveWhenNegative) || (value < 0 && isPositiveWhenNegative)) {
-                element.className = 'kpi-change positive';
-            } else if ((value < 0 && !isPositiveWhenNegative) || (value > 0 && isPositiveWhenNegative)) {
-                element.className = 'kpi-change negative';
-            } else {
-                element.className = 'kpi-change neutral';
-            }
-        }
-        
-        // Генерация рекомендаций
-        function generateRecommendations(results, companyName) {
-            const riskLevel = results.maturityScore >= 4 ? 'low-risk' : 
-                             results.maturityScore >= 3 ? 'medium-risk' : 'high-risk';
-            const riskText = results.maturityScore >= 4 ? 'Низкий риск' : 
-                            results.maturityScore >= 3 ? 'Средний риск' : 'Высокий риск';
-            
-            const recommendationsHTML = `
-                <div class="recommendation-card">
-                    <div class="recommendation-header">
-                        <div class="rec-title">Увеличение инвестиций в сегмент "Высокопотенциальный"</div>
-                        <div class="rec-impact">+${results.ltvGrowth}% ROI</div>
-                    </div>
-                    <div class="rec-details">
-                        На основе прогноза LTV рекомендовано увеличить инвестиции в развитие продуктов для клиентов с прогнозируемым LTV > 2 млн ₽ (${results.segmentHigh}% клиентской базы ${companyName}). Ожидаемый рост доходности сегмента: +${results.ltvEffect}%.
-                    </div>
-                    <div class="risk-indicator ${riskLevel}">${riskText}</div>
-                </div>
-                
-                <div class="recommendation-card">
-                    <div class="recommendation-header">
-                        <div class="rec-title">Перераспределение R&D бюджета на основе алгоритма Q-learning</div>
-                        <div class="rec-impact">-${results.timeOptimization} месяцев окупаемости</div>
-                    </div>
-                    <div class="rec-details">
-                        Алгоритм рекомендует перевести ${results.rdRedistribution}% бюджета из долгосрочных проектов в проекты с быстрой коммерциализацией. Ожидается увеличение доли окупающихся проектов до ${results.fastProjects}% и сокращение среднего срока окупаемости с 24 до ${results.paybackPeriod} месяцев.
-                    </div>
-                    <div class="risk-indicator medium-risk">Средний риск</div>
-                </div>
-                
-                <div class="recommendation-card">
-                    <div class="recommendation-header">
-                        <div class="rec-title">Внедрение предиктивного обслуживания инфраструктуры</div>
-                        <div class="rec-impact">${results.downtimeReduction}% снижение простоев</div>
-                    </div>
-                    <div class="rec-details">
-                        Система на основе автокодировщиков рекомендована для прогнозирования сбоев оборудования. Ожидаемая экономия: снижение незапланированных простоев на ${results.downtimeReduction}%, оптимизация CAPEX на ${results.capexSavings}% и снижение затрат на поддержку на ${results.maintenanceSavings}%.
-                    </div>
-                    <div class="risk-indicator low-risk">Низкий риск</div>
-                </div>
-            `;
-            
-            document.getElementById('recommendationsContent').innerHTML = recommendationsHTML;
-        }
-        
-        // Экспорт PDF
-        function exportPDF() {
-            if (!currentCompany && !uploadedCompanyData) {
-                showNotification('Сначала загрузите данные компании', 'error');
-                return;
-            }
-            if (!isCalculated) {
-                showNotification('Сначала выполните расчет показателей', 'error');
-                return;
-            }
-            showNotification('PDF-отчёт формируется...', 'success');
-        }
-        
-        // Экспорт Excel
-        function exportExcel() {
-            if (!currentCompany && !uploadedCompanyData) {
-                showNotification('Сначала загрузите данные компании', 'error');
-                return;
-            }
-            if (!isCalculated) {
-                showNotification('Сначала выполните расчет показателей', 'error');
-                return;
-            }
-            showNotification('Excel-файл с данными готов к скачиванию', 'success');
-        }
-        
+
         // Показать уведомление
         function showNotification(message, type) {
             const notification = document.createElement('div');
@@ -2333,25 +1146,441 @@ function calculateMaturityScore(aiImprovements) {
                 setTimeout(() => notification.remove(), 300);
             }, 3000);
         }
-        
-        // Инициализация при загрузке
+
+        // Сделать поля редактируемыми
+        function makeAllFieldsEditable() {
+            const inputs = document.querySelectorAll('#input-section input, #input-section select');
+            inputs.forEach(input => {
+                if (input.id && input.id !== 'companyINN') {
+                    input.classList.add('editable');
+                    input.readOnly = false;
+                    
+                    // Добавляем слушатель для подсветки изменений
+                    input.addEventListener('input', function() {
+                        const originalValue = originalValues[this.id];
+                        if (originalValue && this.value !== originalValue) {
+                            this.classList.add('input-changed');
+                        } else {
+                            this.classList.remove('input-changed');
+                        }
+                    });
+                    
+                    // Обновляем суффикс
+                    const suffix = this.nextElementSibling;
+                    if (suffix && suffix.classList.contains('suffix')) {
+                        suffix.classList.add('editable');
+                    }
+                }
+            });
+        }
+
+        // Сохранить оригинальные значения
+        function saveOriginalValues() {
+            const inputs = document.querySelectorAll('#input-section input');
+            inputs.forEach(input => {
+                if (input.id) {
+                    originalValues[input.id] = input.value;
+                }
+            });
+        }
+
+        // Выбор компании по ИНН
+        function selectCompany() {
+            const inn = document.getElementById('companyINN').value.trim();
+            
+            if (!inn) {
+                showNotification('Введите ИНН компании', 'error');
+                return;
+            }
+            
+            const company = companyDatabase[inn];
+            
+            if (!company) {
+                showNotification('Компания не найдена в базе. Проверьте ИНН или загрузите данные через CSV', 'error');
+                return;
+            }
+            
+            // Заполняем данные компании
+            document.getElementById('companyName').textContent = company.name;
+            document.getElementById('companyDetails').textContent = company.details;
+            
+            // Заполняем поля формы
+            document.getElementById('investmentAmount').value = formatNumber(company.investmentAmount);
+            document.getElementById('investmentPeriod').value = company.investmentPeriod;
+            document.getElementById('historicalRoi').value = company.historicalRoi;
+            document.getElementById('riskTolerance').value = company.riskTolerance;
+            document.getElementById('rdBudget').value = company.rdBudget;
+            document.getElementById('projectCount').value = company.projectCount;
+            document.getElementById('currentRdSuccess').value = company.currentRdSuccess;
+            document.getElementById('currentPaybackPeriod').value = company.currentPaybackPeriod;
+            document.getElementById('customerCount').value = formatNumber(company.customerCount);
+            document.getElementById('currentChurn').value = company.currentChurn;
+            document.getElementById('avgLtv').value = formatNumber(company.avgLtv);
+            document.getElementById('keyCustomersShare').value = company.keyCustomersShare;
+            document.getElementById('infraCapex').value = formatNumber(company.infraCapex);
+            document.getElementById('unplannedDowntime').value = company.unplannedDowntime;
+            document.getElementById('maintenanceCost').value = formatNumber(company.maintenanceCost);
+            
+            // Делаем все поля редактируемыми
+            makeAllFieldsEditable();
+            
+            // Сохраняем исходные значения для сравнения
+            saveOriginalValues();
+            
+            // Активируем кнопку расчета
+            document.getElementById('calculateBtn').disabled = false;
+            
+            showNotification(`Данные компании "${company.name}" загружены`, 'success');
+        }
+
+        // Расчет результатов
+        function calculateResults() {
+            // Показываем результаты
+            document.getElementById('loadingIndicator').classList.add('hidden');
+            const resultsContainer = document.getElementById('resultsContainer');
+            resultsContainer.classList.remove('hidden');
+            
+            // Получаем значения из формы
+            const investmentAmount = parseFloat(document.getElementById('investmentAmount').value.replace(/\s/g, '').replace('₽', '')) || 0;
+            const investmentPeriod = parseInt(document.getElementById('investmentPeriod').value) || 24;
+            const historicalRoi = parseFloat(document.getElementById('historicalRoi').value) || 15;
+            const riskTolerance = parseFloat(document.getElementById('riskTolerance').value) || 10;
+            const rdBudget = parseFloat(document.getElementById('rdBudget').value) || 15;
+            const projectCount = parseInt(document.getElementById('projectCount').value) || 10;
+            const currentRdSuccess = parseFloat(document.getElementById('currentRdSuccess').value) || 30;
+            const currentPaybackPeriod = parseInt(document.getElementById('currentPaybackPeriod').value) || 18;
+            const customerCount = parseInt(document.getElementById('customerCount').value.replace(/\s/g, '')) || 100;
+            const currentChurn = parseFloat(document.getElementById('currentChurn').value) || 15;
+            const avgLtv = parseFloat(document.getElementById('avgLtv').value.replace(/\s/g, '').replace('₽', '')) || 500000;
+            const keyCustomersShare = parseFloat(document.getElementById('keyCustomersShare').value) || 40;
+            const infraCapex = parseFloat(document.getElementById('infraCapex').value.replace(/\s/g, '').replace('₽', '')) || 20000000;
+            const unplannedDowntime = parseFloat(document.getElementById('unplannedDowntime').value) || 10;
+            const maintenanceCost = parseFloat(document.getElementById('maintenanceCost').value.replace(/\s/g, '').replace('₽', '')) || 10000000;
+            
+            // Получаем исторические данные
+            const inn = document.getElementById('companyINN').value.trim();
+            const company = companyDatabase[inn];
+            const historicalData = company ? company.historicalData : {
+                portfolioRoi: "15.0",
+                ineffectiveInvestments: "30",
+                customerRetention: "85.0",
+                rdEfficiency: "35"
+            };
+            
+            // Рассчитываем улучшения от ИИ
+            const aiImprovements = {
+                roi: Math.min(30, historicalRoi + 3.5 + (riskTolerance / 10)),
+                churnReduction: Math.max(3, currentChurn * 0.45),
+                rdEfficiency: Math.min(75, currentRdSuccess + 25 + (rdBudget / 5)),
+                paybackImprovement: Math.max(6, currentPaybackPeriod * 0.65),
+                segmentHigh: Math.round(customerCount * 0.15),
+                ltvGrowth: Math.round(avgLtv * 1.32),
+                downtimeReduction: Math.max(1, unplannedDowntime * 0.4),
+                capexSavings: Math.round(infraCapex * 0.18),
+                portfolioRoiWithAI: Math.min(28, parseFloat(historicalData.portfolioRoi) + 4.2),
+                ineffectiveInvestmentsAI: Math.max(8, parseFloat(historicalData.ineffectiveInvestments) * 0.55)
+            };
+            
+            // Сохраняем данные для пересчета
+            currentAnalysisData = {
+                investmentAmount,
+                investmentPeriod,
+                historicalRoi,
+                riskTolerance,
+                rdBudget,
+                projectCount,
+                currentRdSuccess,
+                currentPaybackPeriod,
+                customerCount,
+                currentChurn,
+                avgLtv,
+                keyCustomersShare,
+                infraCapex,
+                unplannedDowntime,
+                maintenanceCost,
+                historicalData,
+                aiImprovements
+            };
+            
+            // Обновляем метрики
+            document.getElementById('roiValue').textContent = aiImprovements.roi.toFixed(1) + '%';
+            document.getElementById('roiSubtitle').textContent = `Целевой: 22% | Без ИИ: ${historicalRoi.toFixed(1)}%`;
+            
+            document.getElementById('churnValue').textContent = aiImprovements.churnReduction.toFixed(1) + '%';
+            document.getElementById('churnSubtitle').textContent = `Целевой: <6% | Без ИИ: ${currentChurn.toFixed(1)}%`;
+            
+            document.getElementById('rdValue').textContent = aiImprovements.rdEfficiency.toFixed(0) + '%';
+            document.getElementById('rdSubtitle').textContent = `Проекты окупаются за ${aiImprovements.paybackImprovement} мес.`;
+            
+            // Обновляем аналитические модели
+            document.getElementById('segmentHigh').textContent = aiImprovements.segmentHigh + ' компаний';
+            document.getElementById('ltvGrowth').textContent = formatNumber(aiImprovements.ltvGrowth) + ' ₽';
+            document.getElementById('retentionInvestment').textContent = formatNumber(Math.round(investmentAmount * 0.08)) + ' ₽';
+            document.getElementById('ltvEffect').textContent = '+18% к доходности';
+            
+            const rdRedistribution = `${Math.round(rdBudget * 0.6)}% → высокоэффективные, ${Math.round(rdBudget * 0.3)}% → средние, ${Math.round(rdBudget * 0.1)}% → низкие`;
+            document.getElementById('rdRedistribution').textContent = rdRedistribution;
+            document.getElementById('fastProjects').textContent = Math.round(projectCount * 0.45) + ' из ' + projectCount;
+            document.getElementById('timeOptimization').textContent = '-' + (currentPaybackPeriod - aiImprovements.paybackImprovement) + ' мес.';
+            document.getElementById('revenueGrowth').textContent = formatNumber(Math.round(investmentAmount * (aiImprovements.roi/100) * 0.3)) + ' ₽';
+            
+            document.getElementById('downtimeReduction').textContent = '-' + (unplannedDowntime - aiImprovements.downtimeReduction).toFixed(1) + '%';
+            document.getElementById('capexSavings').textContent = formatNumber(aiImprovements.capexSavings) + ' ₽';
+            document.getElementById('maintenanceSavings').textContent = formatNumber(Math.round(maintenanceCost * 0.22)) + ' ₽';
+            document.getElementById('predictiveRoi').textContent = '142%';
+            
+            // Обновляем KPI с историческими сравнениями
+            document.getElementById('portfolioRoi').textContent = aiImprovements.portfolioRoiWithAI.toFixed(1) + '%';
+            document.getElementById('portfolioBefore').textContent = `До внедрения: ${historicalData.portfolioRoi}%`;
+            
+            const roiChange = aiImprovements.portfolioRoiWithAI - parseFloat(historicalData.portfolioRoi);
+            const roiChangeElem = document.getElementById('roiChange');
+            roiChangeElem.textContent = (roiChange > 0 ? '+' : '') + roiChange.toFixed(1) + '%';
+            roiChangeElem.className = `kpi-change ${roiChange > 0 ? 'positive' : 'negative'}`;
+            
+            document.getElementById('ineffectiveInvestments').textContent = aiImprovements.ineffectiveInvestmentsAI.toFixed(0) + '%';
+            document.getElementById('ineffectiveBefore').textContent = `До внедрения: ${historicalData.ineffectiveInvestments}%`;
+            
+            const ineffectiveChange = parseFloat(historicalData.ineffectiveInvestments) - aiImprovements.ineffectiveInvestmentsAI;
+            const ineffectiveChangeElem = document.getElementById('ineffectiveChange');
+            ineffectiveChangeElem.textContent = '-' + ineffectiveChange.toFixed(0) + '%';
+            ineffectiveChangeElem.className = `kpi-change positive`;
+            
+            // Показываем кнопку пересчета
+            document.getElementById('calculateBtn').style.display = 'none';
+            document.getElementById('recalculateBtn').style.display = 'block';
+            
+            // Активируем кнопки экспорта
+            document.getElementById('exportPdfBtn').disabled = false;
+            document.getElementById('exportExcelBtn').disabled = false;
+            
+            // Добавляем рекомендации
+            generateRecommendations(aiImprovements, investmentAmount, currentChurn, unplannedDowntime);
+            
+            showNotification('Анализ завершен. Получены рекомендации по внедрению ИИ', 'success');
+        }
+
+        // Пересчет результатов
+        function recalculateResults() {
+            // Сброс измененной подсветки
+            const changedInputs = document.querySelectorAll('.input-changed');
+            changedInputs.forEach(input => {
+                input.classList.remove('input-changed');
+                originalValues[input.id] = input.value;
+            });
+            
+            calculateResults();
+        }
+
+        // Генерация рекомендаций
+        function generateRecommendations(aiImprovements, investmentAmount, currentChurn, unplannedDowntime) {
+            const recommendationsSection = document.getElementById('recommendationsSection');
+            
+            const recommendationsHTML = `
+                <h2 class="section-title">Рекомендации по внедрению ИИ</h2>
+                <div class="recommendation-card">
+                    <div class="recommendation-header">
+                        <div class="rec-title">Приоритет #1: Внедрение предиктивной аналитики LTV</div>
+                        <div class="rec-impact">Высокий эффект</div>
+                    </div>
+                    <div class="rec-details">
+                        Внедрение LightGBM для сегментации клиентов позволит увеличить средний LTV на 32% и сократить отток на ${(currentChurn - aiImprovements.churnReduction).toFixed(1)}%. 
+                        <span class="risk-indicator low-risk">Низкий риск</span>
+                    </div>
+                </div>
+                
+                <div class="recommendation-card">
+                    <div class="recommendation-header">
+                        <div class="rec-title">Приоритет #2: Оптимизация R&D портфеля</div>
+                        <div class="rec-impact">Средний эффект</div>
+                    </div>
+                    <div class="rec-details">
+                        Q-learning алгоритм перераспределит R&D бюджет, увеличив долю окупаемых проектов до ${aiImprovements.rdEfficiency.toFixed(0)}% и сократив сроки окупаемости на ${Math.round((1 - aiImprovements.paybackImprovement/currentChurn)*100)}%.
+                        <span class="risk-indicator medium-risk">Средний риск</span>
+                    </div>
+                </div>
+                
+                <div class="recommendation-card">
+                    <div class="recommendation-header">
+                        <div class="rec-title">Приоритет #3: Предиктивное обслуживание инфраструктуры</div>
+                        <div class="rec-impact">Высокий ROI</div>
+                    </div>
+                    <div class="rec-details">
+                        Автокодировщики сократят незапланированные простои на ${(unplannedDowntime - aiImprovements.downtimeReduction).toFixed(1)}% и сэкономят ${formatNumber(aiImprovements.capexSavings)} ₽ CAPEX ежегодно.
+                        <span class="risk-indicator low-risk">Низкий риск</span>
+                    </div>
+                </div>
+                
+                <div class="ai-maturity">
+                    <div class="maturity-level">Уровень зрелости ИИ-внедрения</div>
+                    <div class="maturity-score">${calculateMaturityScore(aiImprovements)}/100</div>
+                    <div>Рекомендуемый бюджет на внедрение: ${formatNumber(Math.round(investmentAmount * 0.07))} ₽</div>
+                    <div class="maturity-scale">1-30: Начальный | 31-70: Развивающийся | 71-100: Продвинутый</div>
+                </div>
+            `;
+            
+            recommendationsSection.innerHTML = recommendationsHTML;
+        }
+
+        // Расчет зрелости
+        function calculateMaturityScore(aiImprovements) {
+            const baseScore = 40;
+            const roiScore = Math.min(20, (aiImprovements.roi - 15) * 2);
+            const churnScore = Math.min(15, (15 - aiImprovements.churnReduction) * 2);
+            const rdScore = Math.min(25, (aiImprovements.rdEfficiency - 30));
+            
+            return Math.round(baseScore + roiScore + churnScore + rdScore);
+        }
+
+        // Загрузка CSV
+        function uploadCSV() {
+            const fileInput = document.getElementById('csvFile');
+            const file = fileInput.files[0];
+            
+            if (!file) {
+                showNotification('Выберите CSV файл', 'error');
+                return;
+            }
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const content = e.target.result;
+                    const lines = content.split('\n');
+                    
+                    // Парсим CSV
+                    const csvData = {};
+                    lines.forEach(line => {
+                        const [key, value] = line.split(',');
+                        if (key && value) {
+                            csvData[key.trim()] = value.trim();
+                        }
+                    });
+                    
+                    // Проверяем обязательные поля
+                    if (!csvData.companyName || !csvData.investmentAmount) {
+                        showNotification('CSV файл должен содержать обязательные поля: companyName, investmentAmount', 'error');
+                        return;
+                    }
+                    
+                    // Заполняем форму
+                    document.getElementById('companyName').textContent = csvData.companyName;
+                    document.getElementById('companyDetails').textContent = csvData.companyDetails || 'Данные загружены из CSV';
+                    
+                    if (csvData.investmentAmount) document.getElementById('investmentAmount').value = formatNumber(csvData.investmentAmount);
+                    if (csvData.investmentPeriod) document.getElementById('investmentPeriod').value = csvData.investmentPeriod;
+                    if (csvData.historicalRoi) document.getElementById('historicalRoi').value = csvData.historicalRoi;
+                    if (csvData.riskTolerance) document.getElementById('riskTolerance').value = csvData.riskTolerance;
+                    if (csvData.rdBudget) document.getElementById('rdBudget').value = csvData.rdBudget;
+                    if (csvData.projectCount) document.getElementById('projectCount').value = csvData.projectCount;
+                    if (csvData.currentRdSuccess) document.getElementById('currentRdSuccess').value = csvData.currentRdSuccess;
+                    if (csvData.currentPaybackPeriod) document.getElementById('currentPaybackPeriod').value = csvData.currentPaybackPeriod;
+                    if (csvData.customerCount) document.getElementById('customerCount').value = formatNumber(csvData.customerCount);
+                    if (csvData.currentChurn) document.getElementById('currentChurn').value = csvData.currentChurn;
+                    if (csvData.avgLtv) document.getElementById('avgLtv').value = formatNumber(csvData.avgLtv);
+                    if (csvData.keyCustomersShare) document.getElementById('keyCustomersShare').value = csvData.keyCustomersShare;
+                    if (csvData.infraCapex) document.getElementById('infraCapex').value = formatNumber(csvData.infraCapex);
+                    if (csvData.unplannedDowntime) document.getElementById('unplannedDowntime').value = csvData.unplannedDowntime;
+                    if (csvData.maintenanceCost) document.getElementById('maintenanceCost').value = formatNumber(csvData.maintenanceCost);
+                    
+                    // Делаем поля редактируемыми
+                    makeAllFieldsEditable();
+                    saveOriginalValues();
+                    
+                    // Показываем предпросмотр
+                    const preview = document.getElementById('csvPreview');
+                    const table = document.getElementById('csvPreviewTable').querySelector('tbody');
+                    table.innerHTML = '';
+                    
+                    Object.entries(csvData).forEach(([key, value]) => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `<td>${key}</td><td>${value}</td>`;
+                        table.appendChild(row);
+                    });
+                    
+                    preview.classList.remove('hidden');
+                    
+                    // Активируем кнопку расчета
+                    document.getElementById('calculateBtn').disabled = false;
+                    
+                    // Показываем индикатор сохранения
+                    document.getElementById('storageIndicator').classList.remove('hidden');
+                    
+                    showNotification('CSV файл успешно загружен', 'success');
+                    
+                } catch (error) {
+                    showNotification('Ошибка чтения CSV файла: ' + error.message, 'error');
+                }
+            };
+            
+            reader.readAsText(file, 'UTF-8');
+        }
+
+        // Скачать шаблон CSV
+        function downloadTemplateCSV() {
+            const template = `companyName,Тестовая компания
+companyDetails,Описание компании
+investmentAmount,100000000
+investmentPeriod,24
+historicalRoi,18.5
+riskTolerance,12
+rdBudget,15
+projectCount,8
+currentRdSuccess,35
+currentPaybackPeriod,18
+customerCount,120
+currentChurn,14.2
+avgLtv,850000
+keyCustomersShare,42
+infraCapex,25000000
+unplannedDowntime,8.3
+maintenanceCost,12000000`;
+            
+            const blob = new Blob([template], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            const url = URL.createObjectURL(blob);
+            
+            link.setAttribute('href', url);
+            link.setAttribute('download', 'шаблон_данных_компании.csv');
+            link.style.visibility = 'hidden';
+            
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            showNotification('Шаблон CSV скачан', 'success');
+        }
+
+        // Экспорт PDF
+        function exportPDF() {
+            if (!currentAnalysisData) {
+                showNotification('Сначала выполните расчет', 'error');
+                return;
+            }
+            
+            showNotification('PDF отчет будет сгенерирован. В реальной системе здесь был бы вызов API для генерации PDF.', 'success');
+            
+            // В реальной системе здесь был бы вызов API для генерации PDF
+            // Например: window.open('/api/generate-pdf', '_blank');
+        }
+
+        // Экспорт Excel
+        function exportExcel() {
+            if (!currentAnalysisData) {
+                showNotification('Сначала выполните расчет', 'error');
+                return;
+            }
+            
+            showNotification('Excel файл будет сгенерирован. В реальной системе здесь был бы вызов API для генерации Excel.', 'success');
+            
+            // В реальной системе здесь был бы вызов API для генерации Excel
+            // Например: window.open('/api/generate-excel', '_blank');
+        }
+
+        // Инициализация
         document.addEventListener('DOMContentLoaded', function() {
-            // Сбрасываем поля при загрузке
-            resetFormFields();
-            
-            // Разрешаем ввод ИНН по Enter
-            document.getElementById('companyINN').addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    selectCompany();
-                }
-            });
-            
-            // Автоматическая загрузка CSV при выборе файла
-            document.getElementById('csvFile').addEventListener('change', function() {
-                if (this.files.length > 0) {
-                    uploadCSV();
-                }
-            });
+            // Пример для быстрого тестирования
+            document.getElementById('companyINN').value = '7701234567';
         });
     </script>
 </body>
