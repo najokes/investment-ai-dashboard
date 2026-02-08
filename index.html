@@ -203,6 +203,25 @@
             background: #0b7dda;
         }
         
+        .csv-success-message {
+            background: #e8f5e9;
+            color: #2e7d32;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            border-left: 4px solid #2e7d32;
+            display: none;
+        }
+        
+        .csv-success-message.visible {
+            display: block;
+        }
+        
+        .csv-success-icon {
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        
         .input-group {
             margin-bottom: 20px;
         }
@@ -623,42 +642,6 @@
         .empty-field {
             color: #999 !important;
         }
-        
-        .csv-data-preview {
-            margin-top: 15px;
-            background: white;
-            border-radius: 8px;
-            padding: 15px;
-            border: 1px solid #ddd;
-            max-height: 200px;
-            overflow-y: auto;
-        }
-        
-        .csv-preview-title {
-            font-size: 0.9rem;
-            color: #283593;
-            margin-bottom: 10px;
-            font-weight: 500;
-        }
-        
-        .csv-preview-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 0.85rem;
-        }
-        
-        .csv-preview-table th {
-            background: #f0f2ff;
-            color: #283593;
-            padding: 8px;
-            text-align: left;
-            border: 1px solid #ddd;
-        }
-        
-        .csv-preview-table td {
-            padding: 6px 8px;
-            border: 1px solid #ddd;
-        }
     </style>
 </head>
 <body>
@@ -676,28 +659,24 @@
                         <div class="company-logo">?</div>
                         <div class="company-details">
                             <h3 id="companyName">Компания не выбрана</h3>
-                            <p id="companyDetails">Введите ИНН для загрузки данных или загрузите CSV-файл</p>
+                            <p id="companyDetails">Введите ИНН компании для запуска анализа</p>
                         </div>
                     </div>
                     <input type="text" class="inn-input" id="companyINN" placeholder="Введите ИНН компании">
-                    <button class="select-company-btn" onclick="selectCompany()">Загрузить данные компании</button>
+                    <button class="select-company-btn" onclick="selectCompany()">Запустить анализ компании</button>
                     
                     <div class="csv-upload-section">
-                        <div class="csv-upload-title">Загрузка данных из CSV-файла</div>
+                        <div class="csv-upload-title">Загрузка данных в хранилище (CSV)</div>
                         <input type="file" class="csv-input" id="csvFile" accept=".csv, .txt">
-                        <button class="csv-upload-btn" onclick="uploadCSV()">Загрузить CSV файл</button>
+                        <button class="csv-upload-btn" onclick="uploadCSV()">Загрузить CSV в хранилище</button>
                         <button class="csv-download-btn" onclick="downloadTemplateCSV()">Скачать шаблон CSV</button>
-                        <div class="csv-data-preview hidden" id="csvPreview">
-                            <div class="csv-preview-title">Предпросмотр данных из CSV:</div>
-                            <table class="csv-preview-table" id="csvPreviewTable">
-                                <thead>
-                                    <tr>
-                                        <th>Параметр</th>
-                                        <th>Значение</th>
-                                    </tr>
-                                </thead>
-                                <tbody></tbody>
-                            </table>
+                        
+                        <div class="csv-success-message" id="csvSuccessMessage">
+                            <div class="csv-success-icon">✓</div>
+                            <div>
+                                <strong>Файл успешно загружен!</strong><br>
+                                <small>Данные занесены в хранилище. Теперь введите ИНН компании для запуска анализа.</small>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -848,10 +827,15 @@
             
             <div class="results-section">
                 <div class="loading" id="loadingIndicator">
-                    <p>Введите ИНН компании для загрузки данных или загрузите CSV-файл</p>
-                    <p>Нажмите "Загрузить данные компании" или "Загрузить CSV файл"</p>
-                    <p>Отредактируйте параметры при необходимости</p>
-                    <p>Нажмите "Рассчитать показатели"</p>
+                    <p>Для запуска анализа выполните следующие шаги:</p>
+                    <ol style="text-align: left; margin: 20px 0; padding-left: 20px;">
+                        <li>Загрузите CSV-файл с данными в хранилище</li>
+                        <li>Введите ИНН компании (например: 5047154189)</li>
+                        <li>Нажмите "Запустить анализ компании"</li>
+                        <li>Отредактируйте параметры при необходимости</li>
+                        <li>Нажмите "Рассчитать показатели"</li>
+                    </ol>
+                    <p>Или используйте тестовый ИНН: <strong>5047154189</strong> (ООО "Мобайл Парк ИТ")</p>
                 </div>
                 
                 <div class="results-container hidden" id="resultsContainer">
@@ -993,7 +977,7 @@
                     <div class="recommendations">
                         <h2 class="section-title">Рекомендации системы</h2>
                         <div id="recommendationsPlaceholder" class="loading" style="padding: 20px;">
-                            <p>Загрузите данные компании и нажмите "Рассчитать показатели" для получения рекомендаций</p>
+                            <p>Введите ИНН компании и запустите анализ для получения рекомендаций</p>
                         </div>
                         <div id="recommendationsContent" class="hidden">
                             <!-- Рекомендации будут здесь -->
@@ -1015,8 +999,8 @@
     </div>
 
     <script>
-        // База данных компаний
-        const companies = {
+        // База данных компаний (имитация хранилища)
+        let companyStorage = {
             '5047154189': {
                 name: 'ООО "Мобайл Парк ИТ"',
                 type: 'Технологическая компания B2B',
@@ -1092,7 +1076,6 @@
         let isCalculated = false;
         let currentCompany = null;
         let previousValues = {};
-        let uploadedCompanyData = null;
         
         // Сбросить все поля до пустых значений
         function resetFormFields() {
@@ -1189,14 +1172,13 @@
             const inn = document.getElementById('companyINN').value.trim();
             
             if (!inn) {
-                showNotification('Введите ИНН компании', 'error');
+                showNotification('Введите ИНН компании для запуска анализа', 'error');
                 return;
             }
             
-            // Проверка для тестовой компании
-            if (inn === 'test' || companies[inn]) {
-                currentCompany = companies[inn] || companies['test'];
-                uploadedCompanyData = null;
+            // Проверка существования компании в хранилище
+            if (companyStorage[inn]) {
+                currentCompany = companyStorage[inn];
                 
                 // Обновляем информацию о компании
                 document.getElementById('companyName').textContent = currentCompany.name;
@@ -1224,17 +1206,15 @@
                 document.getElementById('resultsContainer').classList.add('hidden');
                 document.getElementById('loadingIndicator').classList.remove('hidden');
                 
-                // Скрываем предпросмотр CSV
-                document.getElementById('csvPreview').classList.add('hidden');
+                showNotification('Данные компании загружены из хранилища', 'success');
                 
             } else {
-                showNotification('Компания с таким ИНН не найдена в базе', 'error');
+                showNotification('Компания с таким ИНН не найдена в хранилище', 'error');
                 document.getElementById('companyName').textContent = 'Компания не найдена';
-                document.getElementById('companyDetails').textContent = 'Проверьте правильность ИНН';
+                document.getElementById('companyDetails').textContent = 'Проверьте правильность ИНН или загрузите данные через CSV';
                 document.querySelector('.company-logo').textContent = '!';
                 document.querySelector('.company-logo').style.backgroundColor = '#c62828';
                 currentCompany = null;
-                uploadedCompanyData = null;
                 
                 // Сбрасываем поля формы
                 resetFormFields();
@@ -1264,7 +1244,7 @@
         
         // Заполнение данных компании
         function fillCompanyData(company) {
-            const data = company.data || company;
+            const data = company.data;
             
             // Заполняем поля с форматированием
             document.getElementById('investmentAmount').value = data.investmentAmount.toLocaleString('ru-RU');
@@ -1308,13 +1288,13 @@
             });
         }
         
-        // Загрузка CSV файла
+        // Загрузка CSV файла в хранилище
         function uploadCSV() {
             const fileInput = document.getElementById('csvFile');
             const file = fileInput.files[0];
             
             if (!file) {
-                showNotification('Выберите CSV файл для загрузки', 'error');
+                showNotification('Выберите CSV файл для загрузки в хранилище', 'error');
                 return;
             }
             
@@ -1326,37 +1306,47 @@
                     const csvData = parseCSV(csvContent);
                     
                     if (csvData) {
-                        // Обновляем информацию о компании
-                        document.getElementById('companyName').textContent = csvData.name || 'Загруженная из CSV компания';
-                        document.getElementById('companyDetails').textContent = csvData.type || 'Данные из CSV файла';
-                        document.querySelector('.company-logo').textContent = csvData.logoText || 'CSV';
-                        document.querySelector('.company-logo').style.backgroundColor = '#4CAF50';
+                        // Генерируем уникальный ИНН для загруженных данных
+                        const generatedINN = generateINNFromCSV(csvData);
                         
-                        // Сохраняем данные
-                        uploadedCompanyData = csvData;
-                        currentCompany = null;
+                        // Сохраняем данные в хранилище
+                        companyStorage[generatedINN] = {
+                            name: csvData.name || 'Загруженная из CSV компания',
+                            type: csvData.type || 'Данные из CSV файла',
+                            description: 'Данные загружены из CSV файла',
+                            logoText: 'CSV',
+                            data: {
+                                investmentAmount: csvData.investmentAmount || 0,
+                                investmentPeriod: csvData.investmentPeriod || 0,
+                                historicalRoi: csvData.historicalRoi || 0,
+                                riskTolerance: csvData.riskTolerance || 0,
+                                rdBudget: csvData.rdBudget || 0,
+                                projectCount: csvData.projectCount || 0,
+                                currentRdSuccess: csvData.currentRdSuccess || 0,
+                                currentPaybackPeriod: csvData.currentPaybackPeriod || 0,
+                                customerCount: csvData.customerCount || 0,
+                                currentChurn: csvData.currentChurn || 0,
+                                avgLtv: csvData.avgLtv || 0,
+                                keyCustomersShare: csvData.keyCustomersShare || 0,
+                                infraCapex: csvData.infraCapex || 0,
+                                unplannedDowntime: csvData.unplannedDowntime || 0,
+                                maintenanceCost: csvData.maintenanceCost || 0
+                            }
+                        };
                         
-                        // Заполняем поля формы
-                        fillCompanyData(csvData);
+                        // Показываем сообщение об успехе
+                        document.getElementById('csvSuccessMessage').classList.add('visible');
                         
-                        // Включаем поля формы
-                        enableFormFields();
+                        // Очищаем поле файла
+                        fileInput.value = '';
                         
-                        // Скрываем кнопку пересчета если она была показана
-                        document.getElementById('recalculateBtn').style.display = 'none';
-                        document.getElementById('calculateBtn').style.display = 'block';
+                        // Не заполняем форму, только сохраняем в хранилище
+                        showNotification('CSV файл успешно загружен в хранилище. Теперь введите ИНН компании для запуска анализа.', 'success');
                         
-                        // Сбрасываем состояние расчета
-                        isCalculated = false;
-                        
-                        // Скрываем результаты если они были показаны
-                        document.getElementById('resultsContainer').classList.add('hidden');
-                        document.getElementById('loadingIndicator').classList.remove('hidden');
-                        
-                        // Показываем предпросмотр данных
-                        showCSVPreview(csvData);
-                        
-                        showNotification('CSV файл успешно загружен и обработан', 'success');
+                        // Если в CSV был ИНН, показываем его для удобства
+                        if (csvData.inn) {
+                            document.getElementById('companyINN').value = csvData.inn;
+                        }
                     }
                 } catch (error) {
                     console.error('Ошибка обработки CSV:', error);
@@ -1369,6 +1359,31 @@
             };
             
             reader.readAsText(file, 'UTF-8');
+        }
+        
+        // Генерация ИНН из данных CSV
+        function generateINNFromCSV(csvData) {
+            // Если в CSV есть ИНН, используем его
+            if (csvData.inn) {
+                return csvData.inn.toString();
+            }
+            
+            // Иначе генерируем уникальный ИНН на основе названия компании
+            let inn = '9';
+            if (csvData.name) {
+                // Создаем числовой хэш из названия компании
+                let hash = 0;
+                for (let i = 0; i < csvData.name.length; i++) {
+                    hash = ((hash << 5) - hash) + csvData.name.charCodeAt(i);
+                    hash = hash & hash;
+                }
+                inn += Math.abs(hash).toString().substring(0, 9);
+            } else {
+                // Генерируем случайный ИНН
+                inn += Math.floor(100000000 + Math.random() * 900000000).toString();
+            }
+            
+            return inn.substring(0, 10); // ИНН должен быть 10 символов
         }
         
         // Парсинг CSV файла
@@ -1384,7 +1399,7 @@
                 if (line && !line.startsWith('#')) {
                     const parts = line.split(delimiter);
                     if (parts.length >= 2) {
-                        const key = parts[0].trim().replace(/"/g, '');
+                        const key = parts[0].trim().replace(/"/g, '').toLowerCase();
                         let value = parts[1].trim().replace(/"/g, '');
                         
                         // Преобразование числовых значений
@@ -1402,7 +1417,7 @@
             });
             
             // Проверяем, что есть основные поля
-            const requiredFields = ['investmentAmount', 'investmentPeriod'];
+            const requiredFields = ['investmentamount', 'investmentperiod'];
             const missingFields = requiredFields.filter(field => !data[field]);
             
             if (missingFields.length > 0) {
@@ -1410,74 +1425,47 @@
                 return null;
             }
             
-            // Форматируем данные для отображения
-            data.name = data.name || 'Загруженная из CSV компания';
-            data.type = data.type || 'Данные из CSV файла';
-            data.logoText = 'CSV';
-            
-            return data;
-        }
-        
-        // Показать предпросмотр CSV данных
-        function showCSVPreview(data) {
-            const previewTable = document.getElementById('csvPreviewTable').getElementsByTagName('tbody')[0];
-            previewTable.innerHTML = '';
-            
-            const fields = [
-                {key: 'investmentAmount', label: 'Объём инвестиций (₽)'},
-                {key: 'investmentPeriod', label: 'Срок инвестиций (мес.)'},
-                {key: 'historicalRoi', label: 'Исторический ROI (%)'},
-                {key: 'riskTolerance', label: 'Допустимый риск (%)'},
-                {key: 'rdBudget', label: 'Бюджет R&D (%)'},
-                {key: 'projectCount', label: 'Кол-во R&D проектов'},
-                {key: 'currentRdSuccess', label: 'Доля окупающихся проектов (%)'},
-                {key: 'currentPaybackPeriod', label: 'Срок окупаемости (мес.)'},
-                {key: 'customerCount', label: 'Кол-во клиентов'},
-                {key: 'currentChurn', label: 'Отток клиентов (%)'},
-                {key: 'avgLtv', label: 'Средний LTV (₽)'},
-                {key: 'keyCustomersShare', label: 'Доля ключевых клиентов (%)'},
-                {key: 'infraCapex', label: 'CAPEX на инфраструктуру (₽)'},
-                {key: 'unplannedDowntime', label: 'Незапланированные простои (%)'},
-                {key: 'maintenanceCost', label: 'Затраты на поддержку (₽)'}
-            ];
-            
-            fields.forEach(field => {
-                if (data[field.key] !== undefined) {
-                    const row = previewTable.insertRow();
-                    const cell1 = row.insertCell(0);
-                    const cell2 = row.insertCell(1);
-                    
-                    cell1.textContent = field.label;
-                    
-                    // Форматируем значение
-                    let value = data[field.key];
-                    if (typeof value === 'number') {
-                        if (field.key.includes('Amount') || field.key.includes('Cost') || field.key.includes('Capex') || field.key.includes('Ltv')) {
-                            value = value.toLocaleString('ru-RU') + ' ₽';
-                        } else if (field.key.includes('Roi') || field.key.includes('Tolerance') || field.key.includes('Budget') || 
-                                  field.key.includes('Success') || field.key.includes('Churn') || field.key.includes('Share') || 
-                                  field.key.includes('Downtime')) {
-                            value = value + ' %';
-                        } else if (field.key.includes('Period')) {
-                            value = value + ' мес.';
-                        } else if (field.key.includes('Count')) {
-                            value = value + ' шт.';
-                        }
-                    }
-                    
-                    cell2.textContent = value;
+            // Приводим ключи к стандартному виду
+            const normalizedData = {};
+            Object.keys(data).forEach(key => {
+                // Сопоставляем ключи CSV с ключами в системе
+                const keyMap = {
+                    'inn': 'inn',
+                    'name': 'name',
+                    'type': 'type',
+                    'investmentamount': 'investmentAmount',
+                    'investmentperiod': 'investmentPeriod',
+                    'historicalroi': 'historicalRoi',
+                    'risktolerance': 'riskTolerance',
+                    'rdbudget': 'rdBudget',
+                    'projectcount': 'projectCount',
+                    'currentrdsuccess': 'currentRdSuccess',
+                    'currentpaybackperiod': 'currentPaybackPeriod',
+                    'customercount': 'customerCount',
+                    'currentchurn': 'currentChurn',
+                    'avgltv': 'avgLtv',
+                    'keycustomersshare': 'keyCustomersShare',
+                    'infracapex': 'infraCapex',
+                    'unplanneddowntime': 'unplannedDowntime',
+                    'maintenancecost': 'maintenanceCost'
+                };
+                
+                if (keyMap[key]) {
+                    normalizedData[keyMap[key]] = data[key];
                 }
             });
             
-            document.getElementById('csvPreview').classList.remove('hidden');
+            return normalizedData;
         }
         
         // Скачать шаблон CSV файла
         function downloadTemplateCSV() {
-            // Данные для шаблона CSV
+            // Данные для шаблона CSV (ООО "Мобайл Парк ИТ")
             const csvData = [
                 ['# Шаблон CSV файла для загрузки данных компании', ''],
                 ['# Все значения должны быть указаны без кавычек', ''],
+                ['# Используйте точку с запятой (;) как разделитель', ''],
+                ['inn', '5047154189'],
                 ['name', 'ООО "Мобайл Парк ИТ"'],
                 ['type', 'Технологическая компания B2B'],
                 ['investmentAmount', '150000000'],
@@ -1519,9 +1507,9 @@
         
         // Расчет результатов
         function calculateResults() {
-            // Проверяем, что данные загружены
-            if (!currentCompany && !uploadedCompanyData) {
-                showNotification('Сначала загрузите данные компании по ИНН или из CSV', 'error');
+            // Проверяем, что компания выбрана
+            if (!currentCompany) {
+                showNotification('Сначала выберите компанию по ИНН', 'error');
                 return;
             }
             
@@ -1555,7 +1543,7 @@
         
         // Пересчет результатов
         function recalculateResults() {
-            if (!currentCompany && !uploadedCompanyData) {
+            if (!currentCompany) {
                 showNotification('Сначала загрузите данные компании', 'error');
                 return;
             }
@@ -1607,10 +1595,6 @@
                 maintenanceCost
             });
             
-            // Определяем имя компании для рекомендаций
-            const companyName = currentCompany ? currentCompany.name : 
-                               (uploadedCompanyData && uploadedCompanyData.name) ? uploadedCompanyData.name : 'Компания';
-            
             // Обновление UI с результатами
             updateResultsUI(results, {
                 investmentAmount,
@@ -1631,7 +1615,7 @@
             });
             
             // Генерация рекомендаций
-            generateRecommendations(results, companyName);
+            generateRecommendations(results, currentCompany.name);
         }
         
         // Расчет индикаторов на основе входных данных
@@ -1887,8 +1871,8 @@
         
         // Экспорт PDF
         function exportPDF() {
-            if (!currentCompany && !uploadedCompanyData) {
-                showNotification('Сначала загрузите данные компании', 'error');
+            if (!currentCompany) {
+                showNotification('Сначала выберите компанию', 'error');
                 return;
             }
             if (!isCalculated) {
@@ -1900,8 +1884,8 @@
         
         // Экспорт Excel
         function exportExcel() {
-            if (!currentCompany && !uploadedCompanyData) {
-                showNotification('Сначала загрузите данные компании', 'error');
+            if (!currentCompany) {
+                showNotification('Сначала выберите компанию', 'error');
                 return;
             }
             if (!isCalculated) {
