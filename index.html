@@ -125,6 +125,55 @@
             font-size: 0.88rem;
         }
         
+        .inn-input-container {
+            margin-bottom: 15px;
+        }
+        
+        .inn-input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+            background: white;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .inn-input:focus {
+            outline: none;
+            border-color: #e94560;
+            box-shadow: 0 0 0 3px rgba(233, 69, 96, 0.1);
+        }
+        
+        .inn-example {
+            font-size: 0.85rem;
+            color: #777;
+            margin-top: 5px;
+            font-style: italic;
+        }
+        
+        .search-by-inn-btn {
+            background: linear-gradient(135deg, #e94560 0%, #c1223d 100%);
+            color: white;
+            border: none;
+            padding: 12px 15px;
+            border-radius: 6px;
+            font-size: 1rem;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 5px;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+        
+        .search-by-inn-btn:hover {
+            background: linear-gradient(135deg, #ff5573 0%, #e94560 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(233, 69, 96, 0.2);
+        }
+        
         .company-dropdown {
             width: 100%;
             padding: 12px 15px;
@@ -135,6 +184,7 @@
             background: white;
             color: #333;
             margin-bottom: 15px;
+            display: none;
         }
         
         .company-dropdown:focus {
@@ -160,6 +210,7 @@
             margin-top: 5px;
             transition: all 0.3s;
             font-weight: 500;
+            display: none;
         }
         
         .select-company-btn:hover {
@@ -920,14 +971,25 @@
         
         <div class="input-section">
             <div class="company-selector">
-                <h2 class="section-title">Выбор компании</h2>
+                <h2 class="section-title">Поиск компании по ИНН</h2>
                 <div class="company-info">
                     <div class="company-logo" id="companyLogo">?</div>
                     <div class="company-details">
-                        <h3 id="companyName">Компания не выбрана</h3>
-                        <p id="companyDetails">Выберите компанию из списка или загрузите CSV-файл</p>
+                        <h3 id="companyName">Введите ИНН компании</h3>
+                        <p id="companyDetails">Начните ввод ИНН для поиска компании</p>
                     </div>
                 </div>
+                
+                <div class="inn-input-container">
+                    <input type="text" 
+                           class="inn-input" 
+                           id="innInput" 
+                           placeholder="Введите ИНН компании (например, 7707049388)"
+                           maxlength="12">
+                    <div class="inn-example">Пример: 7707049388 для ООО "Мобайл Парк ИТ"</div>
+                </div>
+                
+                <button class="search-by-inn-btn" onclick="searchByINN()">🔍 Найти по ИНН</button>
                 
                 <select class="company-dropdown" id="companyDropdown">
                     <option value="">-- Выберите компанию --</option>
@@ -984,9 +1046,9 @@
         <div class="results-section">
             <div class="empty-results" id="emptyResults">
                 <div class="empty-results-icon">📈</div>
-                <h3 style="color: #333; margin-bottom: 15px;">Готов к анализу</h3>
+                <h3 style="color: #333; margin-bottom: 15px;">Введите ИНН компании для анализа</h3>
                 <p style="color: #666; max-width: 400px; margin: 0 auto 20px;">
-                    Выберите компанию для получения прогнозов и рекомендаций на основе трёхконтурной модели ИИ
+                    Используйте поле поиска по ИНН для загрузки данных компании и получения AI-прогнозов
                 </p>
                 <div style="display: flex; gap: 10px; margin-top: 20px;">
                     <button class="csv-upload-btn" style="width: auto; padding: 10px 20px;" onclick="document.getElementById('csvFile').click()">
@@ -1137,9 +1199,10 @@
     </div>
 
     <script>
-        // База данных компаний разных отраслей
-        const companyDatabase = {
-            "mobit": {
+        // База данных компаний по ИНН
+        const companyDatabaseByINN = {
+            "7707049388": {
+                id: "mobit",
                 name: "ООО 'Мобайл Парк ИТ' (МПИТ)",
                 details: "Технологическая компания, IoT и телематические решения, PaaS платформа, 250+ сотрудников",
                 logo: "М",
@@ -1180,7 +1243,8 @@
                     paybackWithAI: "19"
                 }
             },
-            "techcorp": {
+            "1234567890": {
+                id: "techcorp",
                 name: "TechCorp Solutions",
                 details: "Технологическая компания, разработка ПО, 450 сотрудников",
                 logo: "T",
@@ -1209,7 +1273,8 @@
                     churnRate: "12.5"
                 }
             },
-            "retail": {
+            "0987654321": {
+                id: "retail",
                 name: "Retail Chain Group",
                 details: "Ритейл сеть, 550 сотрудников",
                 logo: "R",
@@ -1238,7 +1303,8 @@
                     churnRate: "16.8"
                 }
             },
-            "energy": {
+            "1122334455": {
+                id: "energy",
                 name: "Energy Systems Ltd",
                 details: "Энергетика, возобновляемые источники, 380 сотрудников",
                 logo: "E",
@@ -1268,6 +1334,9 @@
                 }
             }
         };
+
+        // Список известных ИНН для демонстрации
+        const knownINNs = ["7707049388", "1234567890", "0987654321", "1122334455"];
 
         let originalValues = {};
         let currentAnalysisData = null;
@@ -1356,7 +1425,7 @@
                         id: "currentRdSuccess", 
                         label: "Доля окупающихся проектов", 
                         suffix: "%", 
-        type: "slider", 
+                        type: "slider", 
                         min: 10, 
                         max: 100, 
                         step: 1,
@@ -1697,9 +1766,131 @@
             draggedCard = null;
         }
 
-        // Загрузка данных компании
+        // Поиск компании по ИНН
+        function searchByINN() {
+            const innInput = document.getElementById('innInput').value.trim();
+            
+            if (!innInput) {
+                showNotification('Введите ИНН компании', 'error');
+                return;
+            }
+            
+            // Проверяем, есть ли компания с таким ИНН
+            const company = companyDatabaseByINN[innInput];
+            
+            if (company) {
+                // Компания найдена, загружаем её данные
+                currentCompanyId = company.id;
+                
+                // Обновляем информацию о компании
+                document.getElementById('companyName').textContent = company.name;
+                document.getElementById('companyDetails').textContent = company.details;
+                document.getElementById('companyLogo').textContent = company.logo;
+                document.getElementById('companyLogo').style.background = `linear-gradient(135deg, ${company.color} 0%, ${company.color}99 100%)`;
+                
+                // Устанавливаем значение в dropdown
+                document.getElementById('companyDropdown').value = company.id;
+                document.getElementById('companyDropdown').style.display = 'block';
+                document.getElementById('select-company-btn').style.display = 'block';
+                
+                // Создаем плашки, если еще не созданы
+                if (document.getElementById('inputGroupsContainer').children.length === 0) {
+                    createInputCards();
+                }
+                
+                // Заполняем бегунки значениями компании
+                Object.keys(inputGroupsData).forEach(groupKey => {
+                    inputGroupsData[groupKey].inputs.forEach(input => {
+                        const element = document.getElementById(input.id);
+                        if (element) {
+                            let value;
+                            
+                            switch(input.id) {
+                                case 'investmentAmount':
+                                    value = company.investmentAmount;
+                                    break;
+                                case 'investmentPeriod':
+                                    value = company.investmentPeriod;
+                                    break;
+                                case 'historicalRoi':
+                                    value = company.historicalRoi;
+                                    break;
+                                case 'riskTolerance':
+                                    value = company.riskTolerance;
+                                    break;
+                                case 'rdBudget':
+                                    value = company.rdBudget;
+                                    break;
+                                case 'projectCount':
+                                    value = company.projectCount;
+                                    break;
+                                case 'currentRdSuccess':
+                                    value = company.currentRdSuccess;
+                                    break;
+                                case 'currentPaybackPeriod':
+                                    value = company.currentPaybackPeriod;
+                                    break;
+                                case 'customerCount':
+                                    value = company.customerCount;
+                                    break;
+                                case 'currentChurn':
+                                    value = company.currentChurn;
+                                    break;
+                                case 'avgLtv':
+                                    value = company.avgLtv;
+                                    break;
+                                case 'keyCustomersShare':
+                                    value = company.keyCustomersShare;
+                                    break;
+                                case 'infraCapex':
+                                    value = company.infraCapex;
+                                    break;
+                                case 'unplannedDowntime':
+                                    value = company.unplannedDowntime;
+                                    break;
+                                case 'maintenanceCost':
+                                    value = company.maintenanceCost;
+                                    break;
+                                default:
+                                    value = input.value;
+                            }
+                            
+                            element.value = value;
+                            updateSliderValue(input.id, value);
+                        }
+                    });
+                });
+                
+                // Сохраняем исходные значения для сравнения
+                saveOriginalValues();
+                
+                // Активируем кнопку расчета
+                checkRequiredFields();
+                
+                // Скрываем пустое состояние
+                document.getElementById('emptyResults').classList.add('hidden');
+                
+                showNotification(`Компания "${company.name}" найдена по ИНН`, 'success');
+                
+            } else {
+                // Компания не найдена
+                showNotification('Компания с таким ИНН не найдена. Проверьте правильность ИНН или используйте CSV загрузку.', 'error');
+                
+                // Показываем примеры известных ИНН
+                document.getElementById('innInput').placeholder = `Введите ИНН (например: ${knownINNs.join(', ')})`;
+            }
+        }
+
+        // Загрузка данных компании из dropdown
         function loadCompany(companyId) {
-            const company = companyDatabase[companyId];
+            // Находим компанию в базе данных
+            let company = null;
+            for (const inn in companyDatabaseByINN) {
+                if (companyDatabaseByINN[inn].id === companyId) {
+                    company = companyDatabaseByINN[inn];
+                    break;
+                }
+            }
             
             if (!company) {
                 showNotification('Компания не найдена', 'error');
@@ -1845,7 +2036,16 @@
             const maintenanceCost = parseFloat(document.getElementById('maintenanceCost').value) || 15000000;
             
             // Получаем исторические данные компании
-            const company = companyDatabase[currentCompanyId];
+            let company = null;
+            if (currentCompanyId) {
+                for (const inn in companyDatabaseByINN) {
+                    if (companyDatabaseByINN[inn].id === currentCompanyId) {
+                        company = companyDatabaseByINN[inn];
+                        break;
+                    }
+                }
+            }
+            
             const historicalData = company ? company.historicalData : {
                 portfolioRoi: historicalRoi.toFixed(1),
                 ineffectiveInvestments: "25.0",
@@ -2256,15 +2456,24 @@ maintenanceCost,18000000`;
             // Создаем плашки при загрузке
             createInputCards();
             
-            // Автоматически загружаем данные МПИТ для демонстрации
-            setTimeout(() => {
-                loadCompany('mobit');
-                setTimeout(() => {
-                    if (!document.getElementById('calculateBtn').disabled) {
-                        calculateResults();
-                    }
-                }, 500);
-            }, 300);
+            // Автоматически устанавливаем фокус на поле ИНН
+            document.getElementById('innInput').focus();
+            
+            // Добавляем обработчик Enter на поле ИНН
+            document.getElementById('innInput').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    searchByINN();
+                }
+            });
+            
+            // Добавляем автозаполнение при вводе известных ИНН
+            document.getElementById('innInput').addEventListener('input', function() {
+                const value = this.value;
+                if (knownINNs.includes(value)) {
+                    // Если введен известный ИНН, сразу ищем компанию
+                    setTimeout(() => searchByINN(), 300);
+                }
+            });
         });
     </script>
 </body>
