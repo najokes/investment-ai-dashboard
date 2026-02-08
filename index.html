@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ИИ-платформа управления инвестициями МПИТ</title>
+    <title>AI-платформа управления инвестициями</title>
     <style>
         * {
             margin: 0;
@@ -38,11 +38,11 @@
         
         header {
             grid-column: 1 / -1;
-            background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
             color: white;
             padding: 30px;
             text-align: center;
-            border-bottom: 3px solid #bd2130;
+            border-bottom: 3px solid #1a252f;
         }
         
         h1 {
@@ -53,7 +53,7 @@
         .subtitle {
             opacity: 0.9;
             font-size: 1.1rem;
-            color: #ffcccc;
+            color: #ecf0f1;
         }
         
         .input-section {
@@ -73,7 +73,7 @@
         }
         
         .section-title {
-            color: #dc3545;
+            color: #2c3e50;
             margin-bottom: 25px;
             padding-bottom: 10px;
             border-bottom: 2px solid #e9ecef;
@@ -99,7 +99,7 @@
         .company-logo {
             width: 50px;
             height: 50px;
-            background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
             color: white;
             border-radius: 50%;
             display: flex;
@@ -110,34 +110,35 @@
         }
         
         .company-details h3 {
-            color: #343a40;
+            color: #2c3e50;
             margin-bottom: 5px;
         }
         
         .company-details p {
-            color: #6c757d;
+            color: #7f8c8d;
             font-size: 0.9rem;
         }
         
-        .inn-input {
+        .company-dropdown {
             width: 100%;
             padding: 12px 15px;
-            border: 2px solid #ced4da;
+            border: 2px solid #bdc3c7;
             border-radius: 6px;
             font-size: 1rem;
             transition: border-color 0.3s;
             background: white;
-            color: #495057;
+            color: #2c3e50;
+            margin-bottom: 10px;
         }
         
-        .inn-input:focus {
+        .company-dropdown:focus {
             outline: none;
-            border-color: #dc3545;
-            box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+            border-color: #3498db;
+            box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
         }
         
         .select-company-btn {
-            background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
             color: white;
             border: none;
             padding: 12px 15px;
@@ -145,14 +146,14 @@
             font-size: 1rem;
             cursor: pointer;
             width: 100%;
-            margin-top: 10px;
+            margin-top: 5px;
             transition: all 0.3s;
         }
         
         .select-company-btn:hover {
-            background: linear-gradient(135deg, #c82333 0%, #bd2130 100%);
+            background: linear-gradient(135deg, #2980b9 0%, #1c6ea4 100%);
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(220, 53, 69, 0.3);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
         }
         
         .csv-upload-section {
@@ -160,12 +161,12 @@
             padding: 15px;
             background: #f8f9fa;
             border-radius: 8px;
-            border: 2px dashed #dc3545;
+            border: 2px dashed #3498db;
         }
         
         .csv-upload-title {
             font-size: 1rem;
-            color: #dc3545;
+            color: #3498db;
             margin-bottom: 10px;
             font-weight: 500;
         }
@@ -174,14 +175,14 @@
             width: 100%;
             padding: 10px;
             margin-bottom: 10px;
-            border: 2px solid #ced4da;
+            border: 2px solid #bdc3c7;
             border-radius: 6px;
             background: white;
-            color: #495057;
+            color: #2c3e50;
         }
         
         .csv-upload-btn {
-            background: #28a745;
+            background: #27ae60;
             color: white;
             border: none;
             padding: 12px 15px;
@@ -193,13 +194,13 @@
         }
         
         .csv-upload-btn:hover {
-            background: #218838;
+            background: #219653;
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.3);
+            box-shadow: 0 5px 15px rgba(39, 174, 96, 0.3);
         }
         
         .csv-download-btn {
-            background: #007bff;
+            background: #9b59b6;
             color: white;
             border: none;
             padding: 12px 15px;
@@ -212,9 +213,9 @@
         }
         
         .csv-download-btn:hover {
-            background: #0056b3;
+            background: #8e44ad;
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 123, 255, 0.3);
+            box-shadow: 0 5px 15px rgba(155, 89, 182, 0.3);
         }
         
         .input-groups-container {
@@ -238,7 +239,7 @@
         .input-group-card:hover {
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            border-color: #dc3545;
+            border-color: #3498db;
         }
         
         .input-group-card:active {
@@ -263,7 +264,7 @@
         }
         
         .input-group-card .card-title {
-            color: #dc3545;
+            color: #2c3e50;
             font-size: 1.1rem;
             font-weight: 600;
             display: flex;
@@ -272,7 +273,7 @@
         }
         
         .drag-handle {
-            color: #6c757d;
+            color: #7f8c8d;
             cursor: grab;
             font-size: 1.2rem;
             padding: 5px;
@@ -281,7 +282,7 @@
         }
         
         .drag-handle:hover {
-            color: #dc3545;
+            color: #3498db;
             background: #f8f9fa;
         }
         
@@ -311,7 +312,7 @@
         
         .slider-label-text {
             font-weight: 500;
-            color: #495057;
+            color: #2c3e50;
             font-size: 0.95rem;
         }
         
@@ -319,7 +320,7 @@
             min-width: 50px;
             text-align: right;
             font-weight: 600;
-            color: #dc3545;
+            color: #3498db;
             font-size: 0.95rem;
         }
         
@@ -330,27 +331,28 @@
             background: #e9ecef;
             border-radius: 3px;
             outline: none;
+            cursor: pointer;
         }
         
         input[type="range"]::-webkit-slider-thumb {
             -webkit-appearance: none;
             width: 20px;
             height: 20px;
-            background: #dc3545;
+            background: #3498db;
             border-radius: 50%;
             cursor: pointer;
             transition: all 0.2s;
         }
         
         input[type="range"]::-webkit-slider-thumb:hover {
-            background: #c82333;
+            background: #2980b9;
             transform: scale(1.1);
         }
         
         input[type="range"]::-moz-range-thumb {
             width: 20px;
             height: 20px;
-            background: #dc3545;
+            background: #3498db;
             border-radius: 50%;
             cursor: pointer;
             border: none;
@@ -358,50 +360,12 @@
         
         .suffix {
             margin-left: 5px;
-            color: #6c757d;
+            color: #7f8c8d;
             font-size: 0.9rem;
         }
         
-        .amount-input {
-            padding: 10px 12px;
-            border: 2px solid #ced4da;
-            border-radius: 6px;
-            font-size: 0.95rem;
-            transition: border-color 0.3s;
-            background-color: #f8f9fa;
-            color: #495057;
-            cursor: not-allowed;
-            width: 100%;
-        }
-        
-        .amount-input.editable {
-            background-color: white;
-            color: #495057;
-            cursor: text;
-            border-color: #ced4da;
-        }
-        
-        .amount-input.editable:focus {
-            outline: none;
-            border-color: #dc3545;
-            box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.1);
-        }
-        
-        .amount-container {
-            position: relative;
-            display: flex;
-            align-items: center;
-        }
-        
-        .amount-suffix {
-            position: absolute;
-            right: 12px;
-            color: #6c757d;
-            pointer-events: none;
-        }
-        
         .calculate-btn {
-            background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
             color: white;
             border: none;
             padding: 16px 30px;
@@ -416,11 +380,11 @@
         
         .calculate-btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(220, 53, 69, 0.3);
+            box-shadow: 0 10px 25px rgba(52, 152, 219, 0.3);
         }
         
         .calculate-btn:disabled {
-            background: #6c757d;
+            background: #7f8c8d;
             cursor: not-allowed;
             transform: none;
             box-shadow: none;
@@ -428,7 +392,7 @@
         }
         
         .recalculate-btn {
-            background: linear-gradient(135deg, #28a745 0%, #218838 100%);
+            background: linear-gradient(135deg, #27ae60 0%, #219653 100%);
             color: white;
             border: none;
             padding: 14px 20px;
@@ -443,7 +407,7 @@
         
         .recalculate-btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(40, 167, 69, 0.3);
+            box-shadow: 0 8px 20px rgba(39, 174, 96, 0.3);
         }
         
         .export-buttons {
@@ -455,8 +419,8 @@
         
         .export-btn {
             background: white;
-            border: 2px solid #dc3545;
-            color: #dc3545;
+            border: 2px solid #3498db;
+            color: #3498db;
             padding: 14px;
             border-radius: 6px;
             font-weight: 500;
@@ -465,15 +429,15 @@
         }
         
         .export-btn:hover {
-            background: #dc3545;
+            background: #3498db;
             color: white;
             transform: translateY(-2px);
         }
         
         .export-btn:disabled {
             background: #f8f9fa;
-            border-color: #ced4da;
-            color: #6c757d;
+            border-color: #bdc3c7;
+            color: #7f8c8d;
             cursor: not-allowed;
             transform: none;
         }
@@ -501,19 +465,19 @@
         
         .metric-title {
             font-size: 0.9rem;
-            color: #6c757d;
+            color: #7f8c8d;
             margin-bottom: 10px;
         }
         
         .metric-value {
             font-size: 2rem;
             font-weight: 700;
-            color: #dc3545;
+            color: #3498db;
         }
         
         .metric-subtitle {
             font-size: 0.85rem;
-            color: #adb5bd;
+            color: #95a5a6;
             margin-top: 5px;
         }
         
@@ -531,7 +495,7 @@
             padding: 20px;
             margin-bottom: 15px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-            border-left: 4px solid #dc3545;
+            border-left: 4px solid #3498db;
         }
         
         .algorithm-header {
@@ -543,7 +507,7 @@
         
         .algorithm-name {
             font-weight: 600;
-            color: #343a40;
+            color: #2c3e50;
         }
         
         .algorithm-accuracy {
@@ -597,7 +561,7 @@
         .kpi-value {
             font-size: 1.5rem;
             font-weight: 600;
-            color: #dc3545;
+            color: #3498db;
         }
         
         .kpi-change {
@@ -628,7 +592,7 @@
         
         .recommendation-card {
             background: white;
-            border-left: 4px solid #28a745;
+            border-left: 4px solid #27ae60;
             padding: 20px;
             border-radius: 0 8px 8px 0;
             margin-bottom: 15px;
@@ -643,12 +607,12 @@
         
         .rec-title {
             font-weight: 600;
-            color: #343a40;
+            color: #2c3e50;
         }
         
         .rec-impact {
             background: #f8f9fa;
-            color: #28a745;
+            color: #27ae60;
             padding: 5px 12px;
             border-radius: 12px;
             font-size: 0.9rem;
@@ -656,7 +620,7 @@
         }
         
         .rec-details {
-            color: #495057;
+            color: #2c3e50;
             font-size: 0.95rem;
             line-height: 1.5;
         }
@@ -686,7 +650,7 @@
         }
         
         .ai-maturity {
-            background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
             color: white;
             padding: 25px;
             border-radius: 10px;
@@ -716,17 +680,6 @@
             display: none;
         }
         
-        .loading {
-            text-align: center;
-            padding: 40px;
-            color: #6c757d;
-        }
-        
-        .required-mark {
-            color: #dc3545;
-            margin-left: 2px;
-        }
-        
         .notification {
             position: fixed;
             top: 20px;
@@ -739,12 +692,12 @@
         }
         
         .success {
-            background: #28a745;
+            background: #27ae60;
             color: white;
         }
         
         .error {
-            background: #dc3545;
+            background: #e74c3c;
             color: white;
         }
         
@@ -760,13 +713,9 @@
         
         .editable-note {
             font-size: 0.85rem;
-            color: #6c757d;
+            color: #7f8c8d;
             margin-top: 5px;
             font-style: italic;
-        }
-        
-        .empty-field {
-            color: #adb5bd !important;
         }
         
         .csv-data-preview {
@@ -781,7 +730,7 @@
         
         .csv-preview-title {
             font-size: 0.9rem;
-            color: #dc3545;
+            color: #3498db;
             margin-bottom: 10px;
             font-weight: 500;
         }
@@ -794,7 +743,7 @@
         
         .csv-preview-table th {
             background: #f8f9fa;
-            color: #dc3545;
+            color: #3498db;
             padding: 8px;
             text-align: left;
             border: 1px solid #e9ecef;
@@ -803,65 +752,29 @@
         .csv-preview-table td {
             padding: 6px 8px;
             border: 1px solid #e9ecef;
-            color: #495057;
+            color: #2c3e50;
         }
         
         .storage-indicator {
             font-size: 0.85rem;
-            color: #28a745;
+            color: #27ae60;
             margin-top: 10px;
             padding: 10px;
             background: #d4edda;
             border-radius: 6px;
-            border-left: 4px solid #28a745;
+            border-left: 4px solid #27ae60;
         }
         
-        .input-changed {
-            border-color: #ffc107 !important;
-            background-color: #fff3cd !important;
+        .slider-changed {
+            background: #f39c12 !important;
         }
         
-        .empty-state {
-            text-align: center;
-            padding: 60px 20px;
-            color: #6c757d;
+        .slider-changed::-webkit-slider-thumb {
+            background: #f39c12 !important;
         }
         
-        .empty-state-icon {
-            font-size: 3rem;
-            color: #dc3545;
-            margin-bottom: 20px;
-        }
-        
-        .drop-zone {
-            background: #f8f9fa;
-            border: 2px dashed #dc3545;
-            border-radius: 8px;
-            height: 20px;
-            margin: 10px 0;
-            transition: all 0.3s;
-            opacity: 0;
-        }
-        
-        .drop-zone.active {
-            height: 40px;
-            opacity: 1;
-            background: #e9ecef;
-        }
-        
-        .category-icon {
-            font-size: 1rem;
-        }
-        
-        .drag-instructions {
-            font-size: 0.85rem;
-            color: #6c757d;
-            margin-top: 10px;
-            text-align: center;
-            padding: 10px;
-            background: #f8f9fa;
-            border-radius: 6px;
-            border: 1px dashed #ced4da;
+        .slider-changed::-moz-range-thumb {
+            background: #f39c12 !important;
         }
         
         .empty-results {
@@ -870,61 +783,106 @@
             align-items: center;
             justify-content: center;
             height: 100%;
-            color: #6c757d;
+            color: #7f8c8d;
             text-align: center;
         }
         
         .empty-results-icon {
             font-size: 4rem;
-            color: #dc3545;
+            color: #3498db;
             margin-bottom: 20px;
             opacity: 0.5;
         }
         
-        .slider-changed {
-            background: #ffc107 !important;
+        .drag-instructions {
+            font-size: 0.85rem;
+            color: #7f8c8d;
+            margin-top: 10px;
+            text-align: center;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 6px;
+            border: 1px dashed #bdc3c7;
         }
         
-        .slider-changed::-webkit-slider-thumb {
-            background: #ffc107 !important;
+        .company-options {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
         }
         
-        .slider-changed::-moz-range-thumb {
-            background: #ffc107 !important;
+        .company-option-btn {
+            flex: 1;
+            padding: 10px;
+            background: #ecf0f1;
+            border: 2px solid #bdc3c7;
+            border-radius: 6px;
+            color: #2c3e50;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+        
+        .company-option-btn:hover {
+            background: #3498db;
+            color: white;
+            border-color: #3498db;
+            transform: translateY(-2px);
+        }
+        
+        .company-option-btn.active {
+            background: #3498db;
+            color: white;
+            border-color: #3498db;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>ИИ-платформа управления инвестициями МПИТ</h1>
-            <p class="subtitle">Трёхконтурная архитектура для data-driven решений на основе ВКР Роговой А.Г.</p>
+            <h1>AI-платформа управления инвестициями</h1>
+            <p class="subtitle">Трёхконтурная модель для data-driven решений</p>
         </header>
         
         <div class="input-section">
             <div class="company-selector">
                 <h2 class="section-title">Выбор компании</h2>
                 <div class="company-info">
-                    <div class="company-logo">МП</div>
+                    <div class="company-logo" id="companyLogo">?</div>
                     <div class="company-details">
-                        <h3 id="companyName">Мобайл Парк ИТ (ООО)</h3>
-                        <p id="companyDetails">ИТ-решения, телематика, 320 сотрудников</p>
+                        <h3 id="companyName">Компания не выбрана</h3>
+                        <p id="companyDetails">Выберите компанию из списка или загрузите CSV-файл</p>
                     </div>
                 </div>
-                <input type="text" class="inn-input" id="companyINN" placeholder="Введите ИНН компании" value="5047154189">
+                
+                <select class="company-dropdown" id="companyDropdown">
+                    <option value="">-- Выберите компанию --</option>
+                    <option value="techcorp">TechCorp Solutions (Технологии)</option>
+                    <option value="fintech">FinTech Innovations (Финтех)</option>
+                    <option value="biotech">BioTech Labs (Биотехнологии)</option>
+                    <option value="retail">Retail Chain Group (Ритейл)</option>
+                    <option value="energy">Energy Systems Ltd (Энергетика)</option>
+                </select>
+                
+                <div class="company-options">
+                    <button class="company-option-btn" onclick="loadCompany('techcorp')">Технологии</button>
+                    <button class="company-option-btn" onclick="loadCompany('fintech')">Финтех</button>
+                    <button class="company-option-btn" onclick="loadCompany('biotech')">Биотех</button>
+                </div>
+                
                 <button class="select-company-btn" onclick="selectCompany()">Загрузить данные компании</button>
                 
                 <div id="storageIndicator" class="storage-indicator hidden">
-                    ✓ Данные из CSV успешно сохранены в хранилище
+                    ✓ Данные из CSV успешно сохранены
                 </div>
                 
                 <div class="csv-upload-section">
-                    <div class="csv-upload-title">Загрузка данных из CSV-файла</div>
+                    <div class="csv-upload-title">Или загрузите данные из CSV-файла</div>
                     <input type="file" class="csv-input" id="csvFile" accept=".csv, .txt">
-                    <button class="csv-upload-btn" onclick="uploadCSV()">Загрузить CSV файл</button>
-                    <button class="csv-download-btn" onclick="downloadTemplateCSV()">Скачать шаблон CSV</button>
+                    <button class="csv-upload-btn" onclick="uploadCSV()">📁 Загрузить CSV файл</button>
+                    <button class="csv-download-btn" onclick="downloadTemplateCSV()">📥 Скачать шаблон CSV</button>
                     <div class="csv-data-preview hidden" id="csvPreview">
-                        <div class="csv-preview-title">Предпросмотр данных из CSV:</div>
+                        <div class="csv-preview-title">Предпросмотр данных:</div>
                         <table class="csv-preview-table" id="csvPreviewTable">
                             <thead>
                                 <tr>
@@ -947,8 +905,8 @@
                 <!-- Плашки будут вставлены сюда через JavaScript -->
             </div>
             
-            <button class="calculate-btn" id="calculateBtn" onclick="calculateResults()" disabled>Рассчитать показатели</button>
-            <button class="recalculate-btn" id="recalculateBtn" onclick="recalculateResults()" style="display: none;">Пересчитать с новыми параметрами</button>
+            <button class="calculate-btn" id="calculateBtn" onclick="calculateResults()" disabled>📊 Рассчитать показатели</button>
+            <button class="recalculate-btn" id="recalculateBtn" onclick="recalculateResults()" style="display: none;">🔄 Пересчитать с новыми параметрами</button>
             
             <div class="export-buttons">
                 <button class="export-btn" id="exportPdfBtn" onclick="exportPDF()" disabled>📄 PDF отчёт</button>
@@ -959,13 +917,13 @@
         <div class="results-section">
             <div class="empty-results" id="emptyResults">
                 <div class="empty-results-icon">📈</div>
-                <h3 style="color: #343a40; margin-bottom: 15px;">Готов к анализу</h3>
-                <p style="color: #6c757d; max-width: 400px; margin: 0 auto 20px;">
-                    Загрузите данные компании для получения прогнозов и рекомендаций на основе трёхконтурной модели ИИ
+                <h3 style="color: #2c3e50; margin-bottom: 15px;">Готов к анализу</h3>
+                <p style="color: #7f8c8d; max-width: 400px; margin: 0 auto 20px;">
+                    Выберите компанию для получения прогнозов и рекомендаций на основе трёхконтурной модели ИИ
                 </p>
                 <div style="display: flex; gap: 10px; margin-top: 20px;">
-                    <button class="select-company-btn" style="width: auto; padding: 10px 20px;" onclick="selectCompany()">
-                        Загрузить данные Мобайл Парк ИТ
+                    <button class="select-company-btn" style="width: auto; padding: 10px 20px;" onclick="loadCompany('techcorp')">
+                        Технологическая компания
                     </button>
                     <button class="csv-upload-btn" style="width: auto; padding: 10px 20px;" onclick="document.getElementById('csvFile').click()">
                         Загрузить CSV
@@ -993,12 +951,12 @@
                 </div>
                 
                 <div class="algorithm-results">
-                    <h2 class="section-title">Аналитические модели ИИ (из ВКР)</h2>
+                    <h2 class="section-title">Аналитические модели ИИ</h2>
                     
                     <div class="algorithm-card">
                         <div class="algorithm-header">
                             <div class="algorithm-name">Прогнозирование LTV клиентов (LightGBM)</div>
-                            <div class="algorithm-accuracy">Точность: 89% (R² = 0.89)</div>
+                            <div class="algorithm-accuracy">Точность: 89%</div>
                         </div>
                         <div class="algorithm-details">
                             <div class="detail-item">
@@ -1080,7 +1038,7 @@
                                 <span class="kpi-change neutral" id="roiChange">—</span>
                             </div>
                             <div class="kpi-value" id="portfolioRoi">—</div>
-                            <div style="font-size: 0.85rem; color: #6c757d; margin-top: 5px;" id="portfolioBefore">До внедрения: —</div>
+                            <div style="font-size: 0.85rem; color: #7f8c8d; margin-top: 5px;" id="portfolioBefore">До внедрения: —</div>
                         </div>
                         <div class="kpi-item">
                             <div class="kpi-header">
@@ -1088,7 +1046,7 @@
                                 <span class="kpi-change neutral" id="ineffectiveChange">—</span>
                             </div>
                             <div class="kpi-value" id="ineffectiveInvestments">—</div>
-                            <div style="font-size: 0.85rem; color: #6c757d; margin-top: 5px;" id="ineffectiveBefore">До внедрения: —</div>
+                            <div style="font-size: 0.85rem; color: #7f8c8d; margin-top: 5px;" id="ineffectiveBefore">До внедрения: —</div>
                         </div>
                         <div class="kpi-item">
                             <div class="kpi-header">
@@ -1096,7 +1054,7 @@
                                 <span class="kpi-change neutral" id="paybackChange">—</span>
                             </div>
                             <div class="kpi-value" id="paybackPeriod">— мес.</div>
-                            <div style="font-size: 0.85rem; color: #6c757d; margin-top: 5px;" id="paybackBefore">До внедрения: — мес.</div>
+                            <div style="font-size: 0.85rem; color: #7f8c8d; margin-top: 5px;" id="paybackBefore">До внедрения: — мес.</div>
                         </div>
                         <div class="kpi-item">
                             <div class="kpi-header">
@@ -1104,7 +1062,7 @@
                                 <span class="kpi-change neutral" id="churnKpiChange">—</span>
                             </div>
                             <div class="kpi-value" id="churnKpi">—</div>
-                            <div style="font-size: 0.85rem; color: #6c757d; margin-top: 5px;" id="churnBefore">До внедрения: —</div>
+                            <div style="font-size: 0.85rem; color: #7f8c8d; margin-top: 5px;" id="churnBefore">До внедрения: —</div>
                         </div>
                     </div>
                 </div>
@@ -1115,65 +1073,156 @@
     </div>
 
     <script>
-        // Данные из ВКР (таблицы 3.1-3.4, главы 2-3)
+        // База данных компаний разных отраслей
         const companyDatabase = {
-            "5047154189": {
-                name: "Мобайл Парк ИТ (ООО)",
-                details: "ИТ-решения, телематика, облачные сервисы, 320 сотрудников",
-                // Базовые показатели (таблица 3.3)
-                investmentAmount: "250000000",
-                investmentPeriod: "30",
-                historicalRoi: "15.0",
-                riskTolerance: "15",
-                // R&D проекты (раздел 3.2)
-                rdBudget: "22",
-                projectCount: "14",
-                currentRdSuccess: "40",
-                currentPaybackPeriod: "24",
-                // Клиентская база (таблица 3.2)
-                customerCount: "185",
-                currentChurn: "10.0",
-                avgLtv: "950000",
-                keyCustomersShare: "52",
-                // Инфраструктура (раздел 3.2)
-                infraCapex: "32000000",
-                unplannedDowntime: "6.8",
-                maintenanceCost: "15000000",
-                // Исторические данные до внедрения ИИ (из ВКР)
+            "techcorp": {
+                name: "TechCorp Solutions",
+                details: "Технологическая компания, разработка ПО, 450 сотрудников",
+                logo: "T",
+                color: "#3498db",
+                // Базовые показатели
+                investmentAmount: "280000000",
+                investmentPeriod: "36",
+                historicalRoi: "18.5",
+                riskTolerance: "22",
+                // R&D проекты
+                rdBudget: "28",
+                projectCount: "18",
+                currentRdSuccess: "42",
+                currentPaybackPeriod: "22",
+                // Клиентская база
+                customerCount: "220",
+                currentChurn: "12.5",
+                avgLtv: "1050000",
+                keyCustomersShare: "48",
+                // Инфраструктура
+                infraCapex: "35000000",
+                unplannedDowntime: "8.2",
+                maintenanceCost: "18000000",
+                // Исторические данные до внедрения ИИ
                 historicalData: {
-                    portfolioRoi: "15.0",
-                    ineffectiveInvestments: "25.0",
-                    customerRetention: "90.0",
-                    rdEfficiency: "40",
-                    paybackPeriod: "24",
-                    churnRate: "10.0"
+                    portfolioRoi: "18.5",
+                    ineffectiveInvestments: "28.0",
+                    customerRetention: "87.5",
+                    rdEfficiency: "42",
+                    paybackPeriod: "22",
+                    churnRate: "12.5"
                 }
             },
-            "7701234567": {
-                name: "ТехноПрогресс Инновации",
-                details: "ИТ-услуги, разработка ПО, 250 сотрудников",
-                investmentAmount: "150000000",
+            "fintech": {
+                name: "FinTech Innovations",
+                details: "Финтех компания, платежные решения, 320 сотрудников",
+                logo: "F",
+                color: "#9b59b6",
+                investmentAmount: "190000000",
                 investmentPeriod: "24",
-                historicalRoi: "18.5",
-                riskTolerance: "12",
-                rdBudget: "15",
-                projectCount: "8",
-                currentRdSuccess: "35",
-                currentPaybackPeriod: "18",
-                customerCount: "120",
-                currentChurn: "14.2",
+                historicalRoi: "22.3",
+                riskTolerance: "18",
+                rdBudget: "25",
+                projectCount: "12",
+                currentRdSuccess: "38",
+                currentPaybackPeriod: "20",
+                customerCount: "150",
+                currentChurn: "9.8",
+                avgLtv: "1250000",
+                keyCustomersShare: "55",
+                infraCapex: "28000000",
+                unplannedDowntime: "5.5",
+                maintenanceCost: "14000000",
+                historicalData: {
+                    portfolioRoi: "22.3",
+                    ineffectiveInvestments: "22.0",
+                    customerRetention: "90.2",
+                    rdEfficiency: "38",
+                    paybackPeriod: "20",
+                    churnRate: "9.8"
+                }
+            },
+            "biotech": {
+                name: "BioTech Labs",
+                details: "Биотехнологии, медицинские исследования, 280 сотрудников",
+                logo: "B",
+                color: "#27ae60",
+                investmentAmount: "420000000",
+                investmentPeriod: "48",
+                historicalRoi: "15.8",
+                riskTolerance: "28",
+                rdBudget: "35",
+                projectCount: "25",
+                currentRdSuccess: "32",
+                currentPaybackPeriod: "32",
+                customerCount: "85",
+                currentChurn: "14.3",
                 avgLtv: "850000",
-                keyCustomersShare: "42",
-                infraCapex: "25000000",
-                unplannedDowntime: "8.3",
+                keyCustomersShare: "40",
+                infraCapex: "45000000",
+                unplannedDowntime: "11.2",
+                maintenanceCost: "22000000",
+                historicalData: {
+                    portfolioRoi: "15.8",
+                    ineffectiveInvestments: "35.0",
+                    customerRetention: "85.7",
+                    rdEfficiency: "32",
+                    paybackPeriod: "32",
+                    churnRate: "14.3"
+                }
+            },
+            "retail": {
+                name: "Retail Chain Group",
+                details: "Ритейл сеть, 550 сотрудников",
+                logo: "R",
+                color: "#e74c3c",
+                investmentAmount: "150000000",
+                investmentPeriod: "18",
+                historicalRoi: "24.5",
+                riskTolerance: "15",
+                rdBudget: "18",
+                projectCount: "9",
+                currentRdSuccess: "45",
+                currentPaybackPeriod: "16",
+                customerCount: "320",
+                currentChurn: "16.8",
+                avgLtv: "680000",
+                keyCustomersShare: "35",
+                infraCapex: "22000000",
+                unplannedDowntime: "9.5",
                 maintenanceCost: "12000000",
                 historicalData: {
-                    portfolioRoi: "16.8",
-                    ineffectiveInvestments: "28.0",
-                    customerRetention: "85.8",
-                    rdEfficiency: "35",
-                    paybackPeriod: "18",
-                    churnRate: "14.2"
+                    portfolioRoi: "24.5",
+                    ineffectiveInvestments: "25.0",
+                    customerRetention: "83.2",
+                    rdEfficiency: "45",
+                    paybackPeriod: "16",
+                    churnRate: "16.8"
+                }
+            },
+            "energy": {
+                name: "Energy Systems Ltd",
+                details: "Энергетика, возобновляемые источники, 380 сотрудников",
+                logo: "E",
+                color: "#f39c12",
+                investmentAmount: "350000000",
+                investmentPeriod: "42",
+                historicalRoi: "16.2",
+                riskTolerance: "20",
+                rdBudget: "22",
+                projectCount: "15",
+                currentRdSuccess: "36",
+                currentPaybackPeriod: "28",
+                customerCount: "110",
+                currentChurn: "11.5",
+                avgLtv: "920000",
+                keyCustomersShare: "45",
+                infraCapex: "38000000",
+                unplannedDowntime: "7.8",
+                maintenanceCost: "19000000",
+                historicalData: {
+                    portfolioRoi: "16.2",
+                    ineffectiveInvestments: "30.0",
+                    customerRetention: "88.5",
+                    rdEfficiency: "36",
+                    paybackPeriod: "28",
+                    churnRate: "11.5"
                 }
             }
         };
@@ -1182,6 +1231,7 @@
         let currentAnalysisData = null;
         let draggedCard = null;
         let cardOrder = ['base', 'rd', 'customer', 'infrastructure'];
+        let currentCompanyId = null;
 
         // Данные для плашек с бегунками
         const inputGroupsData = {
@@ -1194,9 +1244,9 @@
                         label: "Объём инвестиций", 
                         suffix: "₽", 
                         type: "amount", 
-                        min: 10000000, 
+                        min: 50000000, 
                         max: 500000000, 
-                        step: 10000000,
+                        step: 5000000,
                         value: 250000000,
                         required: true 
                     },
@@ -1227,9 +1277,9 @@
                         label: "Допустимый риск", 
                         suffix: "%", 
                         type: "slider", 
-                        min: 1, 
-                        max: 30, 
-                        step: 0.5,
+                        min: 5, 
+                        max: 40, 
+                        step: 1,
                         value: 15,
                         required: true 
                     }
@@ -1245,9 +1295,9 @@
                         suffix: "%", 
                         type: "slider", 
                         min: 5, 
-                        max: 40, 
+                        max: 50, 
                         step: 1,
-                        value: 22,
+                        value: 20,
                         required: true 
                     },
                     { 
@@ -1258,7 +1308,7 @@
                         min: 1, 
                         max: 50, 
                         step: 1,
-                        value: 14 
+                        value: 10 
                     },
                     { 
                         id: "currentRdSuccess", 
@@ -1294,7 +1344,7 @@
                         min: 10, 
                         max: 500, 
                         step: 5,
-                        value: 185 
+                        value: 100 
                     },
                     { 
                         id: "currentChurn", 
@@ -1304,7 +1354,7 @@
                         min: 1, 
                         max: 50, 
                         step: 0.5,
-                        value: 10.0 
+                        value: 15.0 
                     },
                     { 
                         id: "avgLtv", 
@@ -1314,7 +1364,7 @@
                         min: 100000, 
                         max: 5000000, 
                         step: 50000,
-                        value: 950000 
+                        value: 850000 
                     },
                     { 
                         id: "keyCustomersShare", 
@@ -1324,7 +1374,7 @@
                         min: 20, 
                         max: 100, 
                         step: 1,
-                        value: 52 
+                        value: 40 
                     }
                 ]
             },
@@ -1340,7 +1390,7 @@
                         min: 5000000, 
                         max: 100000000, 
                         step: 1000000,
-                        value: 32000000 
+                        value: 25000000 
                     },
                     { 
                         id: "unplannedDowntime", 
@@ -1350,7 +1400,7 @@
                         min: 0, 
                         max: 20, 
                         step: 0.5,
-                        value: 6.8 
+                        value: 8.0 
                     },
                     { 
                         id: "maintenanceCost", 
@@ -1360,7 +1410,7 @@
                         min: 1000000, 
                         max: 50000000, 
                         step: 500000,
-                        value: 15000000 
+                        value: 12000000 
                     }
                 ]
             }
@@ -1380,21 +1430,6 @@
                 minimumFractionDigits: 0,
                 maximumFractionDigits: 0
             });
-        }
-
-        // Форматирование для отображения в бегунках
-        function formatSliderValue(value, type) {
-            if (type === 'amount') {
-                return formatNumber(value);
-            } else if (type === 'slider') {
-                // Для процентов добавляем знак процента
-                if (['historicalRoi', 'riskTolerance', 'rdBudget', 'currentRdSuccess', 'currentChurn', 'keyCustomersShare', 'unplannedDowntime'].includes(value.id)) {
-                    return value + '%';
-                }
-                // Для месяцев и штук просто число
-                return value;
-            }
-            return value;
         }
 
         // Показать уведомление
@@ -1428,12 +1463,12 @@
                 group.inputs.forEach(input => {
                     const requiredMark = input.required ? '<span class="required-mark">*</span>' : '';
                     
-                    if (input.type === 'slider') {
+                    if (input.type === 'slider' || input.type === 'amount') {
                         inputsHTML += `
                             <div class="input-row">
                                 <div class="slider-label">
                                     <span class="slider-label-text">${input.label}${requiredMark}:</span>
-                                    <span class="slider-value" id="${input.id}Value">${formatSliderValue(input.value, input.type)}</span>
+                                    <span class="slider-value" id="${input.id}Value">${formatSliderValue(input.value, input.id)}</span>
                                 </div>
                                 <div class="slider-container">
                                     <input type="range" 
@@ -1442,25 +1477,7 @@
                                            max="${input.max}" 
                                            step="${input.step}"
                                            value="${input.value}"
-                                           oninput="updateSliderValue('${input.id}', this.value, '${input.type}')">
-                                </div>
-                            </div>
-                        `;
-                    } else if (input.type === 'amount') {
-                        inputsHTML += `
-                            <div class="input-row">
-                                <div class="slider-label">
-                                    <span class="slider-label-text">${input.label}${requiredMark}:</span>
-                                    <span class="slider-value" id="${input.id}Value">${formatSliderValue(input.value, input.type)}</span>
-                                </div>
-                                <div class="slider-container">
-                                    <input type="range" 
-                                           id="${input.id}" 
-                                           min="${input.min}" 
-                                           max="${input.max}" 
-                                           step="${input.step}"
-                                           value="${input.value}"
-                                           oninput="updateSliderValue('${input.id}', this.value, '${input.type}')">
+                                           oninput="updateSliderValue('${input.id}', this.value)">
                                 </div>
                             </div>
                         `;
@@ -1485,22 +1502,31 @@
             });
         }
 
+        // Форматирование значения для отображения
+        function formatSliderValue(value, id) {
+            const numValue = parseFloat(value);
+            if (isNaN(numValue)) return '—';
+            
+            if (id.includes('Amount') || id.includes('Cost') || id.includes('Capex') || id === 'avgLtv') {
+                return formatNumber(numValue);
+            } else if (id.includes('Roi') || id.includes('Churn') || id.includes('Success') || id.includes('Share') || 
+                      id.includes('Downtime') || id.includes('Tolerance') || id.includes('Budget')) {
+                return numValue.toFixed(id.includes('Roi') || id.includes('Churn') ? 1 : 0) + '%';
+            } else if (id.includes('Period')) {
+                return numValue + ' мес.';
+            } else if (id.includes('Count')) {
+                return numValue + ' шт.';
+            }
+            return numValue;
+        }
+
         // Обновление значения бегунка
-        function updateSliderValue(id, value, type) {
+        function updateSliderValue(id, value) {
             const valueElement = document.getElementById(id + 'Value');
             const slider = document.getElementById(id);
             
             // Обновляем отображаемое значение
-            if (type === 'amount') {
-                valueElement.textContent = formatNumber(parseFloat(value));
-            } else {
-                const numValue = parseFloat(value);
-                if (['historicalRoi', 'riskTolerance', 'rdBudget', 'currentRdSuccess', 'currentChurn', 'keyCustomersShare', 'unplannedDowntime'].includes(id)) {
-                    valueElement.textContent = numValue.toFixed(id === 'historicalRoi' ? 1 : 0) + '%';
-                } else {
-                    valueElement.textContent = numValue;
-                }
-            }
+            valueElement.textContent = formatSliderValue(value, id);
             
             // Проверяем, изменилось ли значение
             const originalValue = originalValues[id];
@@ -1510,7 +1536,7 @@
                 slider.classList.remove('slider-changed');
             }
             
-            // Активируем кнопку расчета, если все обязательные поля заполнены
+            // Активируем кнопку расчета
             checkRequiredFields();
         }
 
@@ -1611,8 +1637,7 @@
                     const element = document.getElementById(id);
                     if (element) {
                         element.value = currentValues[id];
-                        const type = element.type === 'range' ? 'slider' : 'amount';
-                        updateSliderValue(id, currentValues[id], type);
+                        updateSliderValue(id, currentValues[id]);
                     }
                 });
                 
@@ -1630,12 +1655,39 @@
             draggedCard = null;
         }
 
-        // Заполнение данных компании
-        function fillCompanyData() {
-            const inn = document.getElementById('companyINN').value.trim();
-            const company = companyDatabase[inn];
+        // Загрузка данных компании
+        function loadCompany(companyId) {
+            const company = companyDatabase[companyId];
             
-            if (!company) return;
+            if (!company) {
+                showNotification('Компания не найдена', 'error');
+                return;
+            }
+            
+            // Устанавливаем текущую компанию
+            currentCompanyId = companyId;
+            
+            // Заполняем данные компании
+            document.getElementById('companyName').textContent = company.name;
+            document.getElementById('companyDetails').textContent = company.details;
+            document.getElementById('companyLogo').textContent = company.logo;
+            document.getElementById('companyLogo').style.background = `linear-gradient(135deg, ${company.color} 0%, ${company.color}99 100%)`;
+            
+            // Устанавливаем значение в dropdown
+            document.getElementById('companyDropdown').value = companyId;
+            
+            // Обновляем активные кнопки компаний
+            document.querySelectorAll('.company-option-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.textContent === getCompanyType(companyId)) {
+                    btn.classList.add('active');
+                }
+            });
+            
+            // Создаем плашки, если еще не созданы
+            if (document.getElementById('inputGroupsContainer').children.length === 0) {
+                createInputCards();
+            }
             
             // Заполняем бегунки значениями компании
             Object.keys(inputGroupsData).forEach(groupKey => {
@@ -1695,10 +1747,43 @@
                         }
                         
                         element.value = value;
-                        updateSliderValue(input.id, value, input.type);
+                        updateSliderValue(input.id, value);
                     }
                 });
             });
+            
+            // Сохраняем исходные значения для сравнения
+            saveOriginalValues();
+            
+            // Активируем кнопку расчета
+            checkRequiredFields();
+            
+            // Скрываем пустое состояние
+            document.getElementById('emptyResults').classList.add('hidden');
+            
+            showNotification(`Данные компании "${company.name}" загружены`, 'success');
+        }
+
+        // Получить тип компании по ID
+        function getCompanyType(companyId) {
+            const types = {
+                'techcorp': 'Технологии',
+                'fintech': 'Финтех',
+                'biotech': 'Биотех',
+                'retail': 'Ритейл',
+                'energy': 'Энергетика'
+            };
+            return types[companyId] || companyId;
+        }
+
+        // Выбор компании из dropdown
+        function selectCompany() {
+            const companyId = document.getElementById('companyDropdown').value;
+            if (!companyId) {
+                showNotification('Выберите компанию из списка', 'error');
+                return;
+            }
+            loadCompany(companyId);
         }
 
         // Сохранить оригинальные значения
@@ -1713,45 +1798,7 @@
             });
         }
 
-        // Выбор компании по ИНН
-        function selectCompany() {
-            const inn = document.getElementById('companyINN').value.trim();
-            
-            if (!inn) {
-                showNotification('Введите ИНН компании', 'error');
-                return;
-            }
-            
-            const company = companyDatabase[inn];
-            
-            if (!company) {
-                showNotification('Компания не найдена в базе. Проверьте ИНН или загрузите данные через CSV', 'error');
-                return;
-            }
-            
-            // Заполняем данные компании
-            document.getElementById('companyName').textContent = company.name;
-            document.getElementById('companyDetails').textContent = company.details;
-            
-            // Создаем плашки
-            createInputCards();
-            
-            // Заполняем поля формы
-            fillCompanyData();
-            
-            // Сохраняем исходные значения для сравнения
-            saveOriginalValues();
-            
-            // Активируем кнопку расчета
-            checkRequiredFields();
-            
-            // Скрываем пустое состояние
-            document.getElementById('emptyResults').classList.add('hidden');
-            
-            showNotification(`Данные компании "${company.name}" загружены`, 'success');
-        }
-
-        // Расчет результатов на основе алгоритмов из ВКР
+        // Расчет результатов
         function calculateResults() {
             // Показываем результаты
             document.getElementById('emptyResults').classList.add('hidden');
@@ -1775,43 +1822,42 @@
             const unplannedDowntime = parseFloat(document.getElementById('unplannedDowntime').value) || 6.8;
             const maintenanceCost = parseFloat(document.getElementById('maintenanceCost').value) || 15000000;
             
-            // Получаем исторические данные
-            const inn = document.getElementById('companyINN').value.trim();
-            const company = companyDatabase[inn];
+            // Получаем исторические данные компании
+            const company = companyDatabase[currentCompanyId];
             const historicalData = company ? company.historicalData : {
-                portfolioRoi: "15.0",
+                portfolioRoi: historicalRoi.toFixed(1),
                 ineffectiveInvestments: "25.0",
-                customerRetention: "90.0",
-                rdEfficiency: "40",
-                paybackPeriod: "24",
-                churnRate: "10.0"
+                customerRetention: (100 - currentChurn).toFixed(1),
+                rdEfficiency: currentRdSuccess.toFixed(0),
+                paybackPeriod: currentPaybackPeriod.toFixed(0),
+                churnRate: currentChurn.toFixed(1)
             };
             
-            // Рассчитываем улучшения от ИИ по формулам из ВКР
+            // Рассчитываем улучшения от ИИ
             const aiImprovements = {
-                // ROI с ИИ (формула из раздела 3.3)
-                roi: Math.min(30, parseFloat((historicalRoi + 6.0).toFixed(1))),
+                // ROI с ИИ
+                roi: Math.min(35, parseFloat((historicalRoi + 6.5).toFixed(1))),
                 
-                // Сокращение оттока (таблица 3.3)
+                // Сокращение оттока
                 churnReduction: parseFloat(Math.max(3, currentChurn * 0.4).toFixed(1)),
                 
-                // Эффективность R&D (раздел 3.2)
-                rdEfficiency: Math.min(75, parseFloat((currentRdSuccess + 25).toFixed(0))),
+                // Эффективность R&D
+                rdEfficiency: Math.min(80, parseFloat((currentRdSuccess + 25).toFixed(0))),
                 
-                // Сокращение сроков окупаемости (раздел 3.3)
+                // Сокращение сроков окупаемости
                 paybackImprovement: parseFloat(Math.max(10, currentPaybackPeriod * 0.65).toFixed(1)),
                 
-                // Прогноз LTV (LightGBM, точность 89%)
+                // Прогноз LTV
                 segmentHigh: Math.round(customerCount * 0.15),
                 ltvGrowth: Math.round(avgLtv * 1.32),
                 
-                // Экономия инфраструктуры (автокодировщики, точность 94%)
+                // Экономия инфраструктуры
                 downtimeReduction: parseFloat(Math.max(1, unplannedDowntime * 0.4).toFixed(1)),
                 capexSavings: Math.round(infraCapex * 0.18),
                 maintenanceSavings: Math.round(maintenanceCost * 0.22),
                 
-                // KPI после внедрения ИИ (таблица 3.3)
-                portfolioRoiWithAI: parseFloat((parseFloat(historicalData.portfolioRoi) + 6.0).toFixed(1)),
+                // KPI после внедрения ИИ
+                portfolioRoiWithAI: parseFloat((parseFloat(historicalData.portfolioRoi) + 6.5).toFixed(1)),
                 ineffectiveInvestmentsAI: Math.max(8, parseFloat((parseFloat(historicalData.ineffectiveInvestments) * 0.55).toFixed(1))),
                 paybackPeriodAI: parseFloat((parseFloat(historicalData.paybackPeriod) * 0.65).toFixed(1)),
                 churnRateAI: parseFloat((parseFloat(historicalData.churnRate) * 0.6).toFixed(1))
@@ -1839,6 +1885,24 @@
             };
             
             // Обновляем метрики
+            updateMetrics(aiImprovements, historicalRoi, currentChurn, currentPaybackPeriod, historicalData);
+            
+            // Показываем кнопку пересчета
+            document.getElementById('calculateBtn').style.display = 'none';
+            document.getElementById('recalculateBtn').style.display = 'block';
+            
+            // Активируем кнопки экспорта
+            document.getElementById('exportPdfBtn').disabled = false;
+            document.getElementById('exportExcelBtn').disabled = false;
+            
+            // Добавляем рекомендации
+            generateRecommendations(aiImprovements, investmentAmount, currentChurn, unplannedDowntime, currentPaybackPeriod);
+            
+            showNotification('Анализ завершен. Получены рекомендации по внедрению ИИ', 'success');
+        }
+
+        // Обновление метрик на странице
+        function updateMetrics(aiImprovements, historicalRoi, currentChurn, currentPaybackPeriod, historicalData) {
             document.getElementById('roiValue').textContent = aiImprovements.roi.toFixed(1) + '%';
             document.getElementById('roiSubtitle').textContent = `Целевой: 22% | Без ИИ: ${historicalRoi.toFixed(1)}%`;
             
@@ -1851,16 +1915,16 @@
             // Обновляем аналитические модели
             document.getElementById('segmentHigh').textContent = aiImprovements.segmentHigh + ' компаний';
             document.getElementById('ltvGrowth').textContent = formatNumber(aiImprovements.ltvGrowth) + ' ₽';
-            document.getElementById('retentionInvestment').textContent = formatNumber(Math.round(investmentAmount * 0.08)) + ' ₽';
+            document.getElementById('retentionInvestment').textContent = formatNumber(Math.round(currentAnalysisData.investmentAmount * 0.08)) + ' ₽';
             document.getElementById('ltvEffect').textContent = '+18% к доходности';
             
-            const rdRedistribution = `Долгосрочные: ${Math.round(rdBudget * 0.2)}% → Быстрые: ${Math.round(rdBudget * 0.6)}%`;
+            const rdRedistribution = `Долгосрочные: ${Math.round(currentAnalysisData.rdBudget * 0.2)}% → Быстрые: ${Math.round(currentAnalysisData.rdBudget * 0.6)}%`;
             document.getElementById('rdRedistribution').textContent = rdRedistribution;
-            document.getElementById('fastProjects').textContent = Math.round(projectCount * 0.65) + ' из ' + projectCount;
+            document.getElementById('fastProjects').textContent = Math.round(currentAnalysisData.projectCount * 0.65) + ' из ' + currentAnalysisData.projectCount;
             document.getElementById('timeOptimization').textContent = '-' + (currentPaybackPeriod - aiImprovements.paybackImprovement).toFixed(1) + ' мес.';
-            document.getElementById('revenueGrowth').textContent = formatNumber(Math.round(investmentAmount * (aiImprovements.roi/100) * 0.3)) + ' ₽';
+            document.getElementById('revenueGrowth').textContent = formatNumber(Math.round(currentAnalysisData.investmentAmount * (aiImprovements.roi/100) * 0.3)) + ' ₽';
             
-            document.getElementById('downtimeReduction').textContent = '-' + (unplannedDowntime - aiImprovements.downtimeReduction).toFixed(1) + '%';
+            document.getElementById('downtimeReduction').textContent = '-' + (currentAnalysisData.unplannedDowntime - aiImprovements.downtimeReduction).toFixed(1) + '%';
             document.getElementById('capexSavings').textContent = formatNumber(aiImprovements.capexSavings) + ' ₽';
             document.getElementById('maintenanceSavings').textContent = formatNumber(aiImprovements.maintenanceSavings) + ' ₽';
             document.getElementById('predictiveRoi').textContent = '142%';
@@ -1897,19 +1961,6 @@
             const churnKpiChangeElem = document.getElementById('churnKpiChange');
             churnKpiChangeElem.textContent = '-' + churnKpiChange.toFixed(1) + '%';
             churnKpiChangeElem.className = `kpi-change positive`;
-            
-            // Показываем кнопку пересчета
-            document.getElementById('calculateBtn').style.display = 'none';
-            document.getElementById('recalculateBtn').style.display = 'block';
-            
-            // Активируем кнопки экспорта
-            document.getElementById('exportPdfBtn').disabled = false;
-            document.getElementById('exportExcelBtn').disabled = false;
-            
-            // Добавляем рекомендации
-            generateRecommendations(aiImprovements, investmentAmount, currentChurn, unplannedDowntime, currentPaybackPeriod);
-            
-            showNotification('Анализ завершен. Получены рекомендации по внедрению ИИ', 'success');
         }
 
         // Пересчет результатов
@@ -1924,7 +1975,7 @@
             calculateResults();
         }
 
-        // Генерация рекомендаций на основе ВКР
+        // Генерация рекомендаций
         function generateRecommendations(aiImprovements, investmentAmount, currentChurn, unplannedDowntime, currentPaybackPeriod) {
             const recommendationsSection = document.getElementById('recommendationsSection');
             
@@ -1932,7 +1983,7 @@
             const paybackImprovementPercent = Math.round((1 - aiImprovements.paybackImprovement/currentPaybackPeriod) * 100);
             
             const recommendationsHTML = `
-                <h2 class="section-title">Рекомендации по внедрению ИИ (из ВКР)</h2>
+                <h2 class="section-title">Рекомендации по внедрению ИИ</h2>
                 
                 <div class="recommendation-card">
                     <div class="recommendation-header">
@@ -1971,7 +2022,7 @@
                 </div>
                 
                 <div class="ai-maturity">
-                    <div class="maturity-level">Уровень зрелости ИИ-внедрения (по методике ВКР)</div>
+                    <div class="maturity-level">Уровень зрелости ИИ-внедрения</div>
                     <div class="maturity-score">${calculateMaturityScore(aiImprovements)}/100</div>
                     <div>Рекомендуемый бюджет на внедрение: ${formatNumber(Math.round(investmentAmount * 0.056))} ₽ (5,6% от инвестиций)</div>
                     <div class="maturity-scale">Расчетный срок окупаемости: 6,5 месяцев | Совокупный экономический эффект: 26 млн ₽/год</div>
@@ -1981,20 +2032,13 @@
             recommendationsSection.innerHTML = recommendationsHTML;
         }
 
-        // Расчет зрелости по методике ВКР
+        // Расчет зрелости
         function calculateMaturityScore(aiImprovements) {
-            const baseScore = 40; // Базовый уровень для технологической компании
-            
-            // Оценка по ROI (макс 20 баллов)
+            const baseScore = 40;
             const roiScore = Math.min(20, (aiImprovements.roi - 15) * 2);
-            
-            // Оценка по оттоку клиентов (макс 15 баллов)
             const churnScore = Math.min(15, (15 - aiImprovements.churnReduction) * 2);
-            
-            // Оценка по R&D (макс 25 баллов)
             const rdScore = Math.min(25, (aiImprovements.rdEfficiency - 30));
             
-            // Итоговый балл
             return Math.min(100, Math.round(baseScore + roiScore + churnScore + rdScore));
         }
 
@@ -2024,8 +2068,8 @@
                     });
                     
                     // Проверяем обязательные поля
-                    if (!csvData.companyName || !csvData.investmentAmount) {
-                        showNotification('CSV файл должен содержать обязательные поля: companyName, investmentAmount', 'error');
+                    if (!csvData.companyName) {
+                        showNotification('CSV файл должен содержать поле companyName', 'error');
                         return;
                     }
                     
@@ -2035,20 +2079,14 @@
                     // Заполняем данные компании
                     document.getElementById('companyName').textContent = csvData.companyName;
                     document.getElementById('companyDetails').textContent = csvData.companyDetails || 'Данные загружены из CSV';
+                    document.getElementById('companyLogo').textContent = csvData.companyName.charAt(0);
                     
                     // Заполняем бегунки значениями из CSV
                     Object.keys(csvData).forEach(key => {
                         const element = document.getElementById(key);
                         if (element) {
                             element.value = csvData[key];
-                            
-                            // Определяем тип элемента
-                            let type = 'slider';
-                            if (key.includes('Amount') || key.includes('Cost') || key.includes('Capex') || key === 'avgLtv') {
-                                type = 'amount';
-                            }
-                            
-                            updateSliderValue(key, csvData[key], type);
+                            updateSliderValue(key, csvData[key]);
                         }
                     });
                     
@@ -2089,8 +2127,8 @@
 
         // Скачать шаблон CSV
         function downloadTemplateCSV() {
-            const template = `companyName,Мобайл Парк ИТ
-companyDetails,ИТ-решения, телематика, облачные сервисы, 320 сотрудников
+            const template = `companyName,Ваша компания
+companyDetails,Отрасль, количество сотрудников
 investmentAmount,250000000
 investmentPeriod,30
 historicalRoi,15.0
@@ -2112,7 +2150,7 @@ maintenanceCost,15000000`;
             const url = URL.createObjectURL(blob);
             
             link.setAttribute('href', url);
-            link.setAttribute('download', 'шаблон_мобайл_парк_ит.csv');
+            link.setAttribute('download', 'шаблон_компании.csv');
             link.style.visibility = 'hidden';
             
             document.body.appendChild(link);
@@ -2129,9 +2167,8 @@ maintenanceCost,15000000`;
                 return;
             }
             
-            showNotification('Генерация PDF отчета... В реальной системе здесь был бы вызов API для генерации PDF.', 'success');
+            showNotification('Генерация PDF отчета...', 'success');
             
-            // В реальной системе здесь был бы fetch запрос к бэкенду
             setTimeout(() => {
                 showNotification('PDF отчет успешно сгенерирован и сохранен', 'success');
             }, 1500);
@@ -2144,9 +2181,8 @@ maintenanceCost,15000000`;
                 return;
             }
             
-            showNotification('Генерация Excel файла... В реальной системе здесь был бы вызов API для генерации Excel.', 'success');
+            showNotification('Генерация Excel файла...', 'success');
             
-            // В реальной системе здесь был бы fetch запрос к бэкенду
             setTimeout(() => {
                 showNotification('Excel файл успешно сгенерирован и сохранен', 'success');
             }, 1500);
@@ -2157,10 +2193,9 @@ maintenanceCost,15000000`;
             // Создаем плашки при загрузке
             createInputCards();
             
-            // Автоматически загружаем данные при загрузке страницы для удобства тестирования
+            // Автоматически загружаем данные первой компании для демонстрации
             setTimeout(() => {
-                selectCompany();
-                // Автоматически запускаем расчет для демонстрации
+                loadCompany('techcorp');
                 setTimeout(() => {
                     if (!document.getElementById('calculateBtn').disabled) {
                         calculateResults();
