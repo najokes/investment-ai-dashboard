@@ -1,4 +1,4 @@
-# Система анализа инвестиций МПИТ с трёхконтурной ИИ-архитектурой
+# ИИ-платформа управления инвестициями МПИТ
 
 ```html
 <!DOCTYPE html>
@@ -81,28 +81,29 @@
         }
         
         .input-group {
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
         
         .input-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
         
         label {
             font-weight: 500;
             color: #333;
             flex: 1;
+            font-size: 0.95rem;
         }
         
         input, select {
-            padding: 10px 15px;
+            padding: 8px 12px;
             border: 2px solid #ddd;
             border-radius: 6px;
-            width: 150px;
-            font-size: 1rem;
+            width: 140px;
+            font-size: 0.95rem;
             transition: border-color 0.3s;
         }
         
@@ -113,20 +114,35 @@
         
         input[type="number"] {
             text-align: right;
+            padding-right: 25px;
+            position: relative;
         }
         
-        .currency {
+        .currency-suffix {
             position: relative;
             display: inline-block;
         }
         
-        .currency::after {
+        .currency-suffix::after {
             content: "₽";
             position: absolute;
-            right: 10px;
+            right: 12px;
             top: 50%;
             transform: translateY(-50%);
             color: #666;
+            font-size: 0.9rem;
+            z-index: 1;
+        }
+        
+        .percent-suffix::after {
+            content: "%";
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #666;
+            font-size: 0.9rem;
+            z-index: 1;
         }
         
         .calculate-btn {
@@ -169,38 +185,6 @@
         .export-btn:hover {
             background: #283593;
             color: white;
-        }
-        
-        .architecture-diagram {
-            background: #f8f9ff;
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 30px;
-        }
-        
-        .architecture-levels {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 20px;
-        }
-        
-        .level {
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            width: 32%;
-            text-align: center;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-        }
-        
-        .level h4 {
-            color: #283593;
-            margin-bottom: 10px;
-        }
-        
-        .level p {
-            font-size: 0.9rem;
-            color: #666;
         }
         
         .results-container {
@@ -408,6 +392,12 @@
             opacity: 0.9;
         }
         
+        .maturity-scale {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-top: 10px;
+        }
+        
         .hidden {
             display: none;
         }
@@ -417,89 +407,176 @@
             padding: 40px;
             color: #666;
         }
+        
+        .required-mark {
+            color: #e53935;
+            margin-left: 2px;
+        }
+        
+        .input-container {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .suffix {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #666;
+            pointer-events: none;
+            font-size: 0.9rem;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>Трёхконтурная ИИ-платформа управления инвестициями</h1>
-            <p class="subtitle">Синергия человеческого и искусственного интеллекта для технологических компаний</p>
+            <h1>ИИ-платформа управления инвестициями</h1>
+            <p class="subtitle">Трёхконтурная архитектура для data-driven решений</p>
         </header>
         
         <div class="main-content">
             <div class="input-section">
-                <h2 class="section-title">Параметры инвестиций</h2>
+                <h2 class="section-title">Параметры для анализа</h2>
                 
                 <div class="input-group">
+                    <h3 style="color: #1a237e; margin-bottom: 15px; font-size: 1.1rem;">Финансовые показатели</h3>
                     <div class="input-row">
-                        <label>Объём инвестиций:</label>
-                        <input type="number" id="investmentAmount" min="100000" max="1000000000" step="100000" value="150000000">
+                        <label>Объём инвестиций (₽)<span class="required-mark">*</span>:</label>
+                        <div class="input-container">
+                            <input type="text" id="investmentAmount" value="150,000,000" onblur="formatNumber(this)" onfocus="clearFormat(this)" data-original="150000000">
+                            <span class="suffix">₽</span>
+                        </div>
                     </div>
                     
                     <div class="input-row">
-                        <label>Срок инвестиций (мес.):</label>
-                        <input type="number" id="investmentPeriod" min="3" max="60" value="24">
+                        <label>Срок инвестиций (мес.)<span class="required-mark">*</span>:</label>
+                        <div class="input-container">
+                            <input type="number" id="investmentPeriod" min="3" max="60" value="24">
+                            <span class="suffix">мес.</span>
+                        </div>
                     </div>
                     
                     <div class="input-row">
-                        <label>Ожидаемая доходность (%):</label>
-                        <input type="number" id="expectedReturn" min="5" max="50" step="0.5" value="15">
+                        <label>Ожидаемая доходность<span class="required-mark">*</span>:</label>
+                        <div class="input-container">
+                            <input type="number" id="expectedReturn" min="5" max="50" step="0.5" value="15">
+                            <span class="suffix">%</span>
+                        </div>
                     </div>
                     
                     <div class="input-row">
-                        <label>Допустимый риск (%):</label>
-                        <input type="number" id="riskTolerance" min="1" max="30" step="0.5" value="10">
+                        <label>Допустимый риск<span class="required-mark">*</span>:</label>
+                        <div class="input-container">
+                            <input type="number" id="riskTolerance" min="1" max="30" step="0.5" value="10">
+                            <span class="suffix">%</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="input-group">
+                    <h3 style="color: #1a237e; margin-bottom: 15px; font-size: 1.1rem;">R&D и проекты</h3>
+                    <div class="input-row">
+                        <label>Бюджет R&D<span class="required-mark">*</span>:</label>
+                        <div class="input-container">
+                            <input type="number" id="rdBudget" min="5" max="40" step="1" value="25">
+                            <span class="suffix">%</span>
+                        </div>
                     </div>
                     
                     <div class="input-row">
-                        <label>Бюджет R&D (%):</label>
-                        <input type="number" id="rdBudget" min="5" max="40" step="1" value="25">
+                        <label>Кол-во проектов в портфеле:</label>
+                        <div class="input-container">
+                            <input type="number" id="projectCount" min="1" max="100" value="10">
+                            <span class="suffix">шт.</span>
+                        </div>
                     </div>
                     
                     <div class="input-row">
-                        <label>Кол-во клиентов:</label>
-                        <input type="number" id="customerCount" min="10" max="10000" value="500">
+                        <label>Доля долгосрочных проектов:</label>
+                        <div class="input-container">
+                            <input type="number" id="longTermProjects" min="0" max="100" value="40">
+                            <span class="suffix">%</span>
+                        </div>
                     </div>
                     
                     <div class="input-row">
-                        <label>Средний LTV (тыс. ₽):</label>
-                        <input type="number" id="avgLtv" min="10" max="10000" step="10" value="1500">
+                        <label>Историческая окупаемость:</label>
+                        <div class="input-container">
+                            <input type="number" id="historicalRdSuccess" min="10" max="100" value="40">
+                            <span class="suffix">%</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="input-group">
+                    <h3 style="color: #1a237e; margin-bottom: 15px; font-size: 1.1rem;">Клиентская база</h3>
+                    <div class="input-row">
+                        <label>Кол-во корпоративных клиентов:</label>
+                        <div class="input-container">
+                            <input type="text" id="customerCount" value="500" onblur="formatNumber(this)" onfocus="clearFormat(this)" data-original="500">
+                            <span class="suffix">компаний</span>
+                        </div>
                     </div>
                     
                     <div class="input-row">
-                        <label>Текущий отток (%):</label>
-                        <input type="number" id="currentChurn" min="1" max="50" step="0.5" value="10">
+                        <label>Средний годовой LTV:</label>
+                        <div class="input-container">
+                            <input type="text" id="avgLtv" value="1,500,000" onblur="formatNumber(this)" onfocus="clearFormat(this)" data-original="1500000">
+                            <span class="suffix">₽</span>
+                        </div>
                     </div>
                     
                     <div class="input-row">
-                        <label>Инфраструктурные затраты (тыс. ₽):</label>
-                        <input type="number" id="infraCost" min="100" max="100000" step="100" value="15000">
+                        <label>Текущий отток клиентов:</label>
+                        <div class="input-container">
+                            <input type="number" id="currentChurn" min="1" max="50" step="0.5" value="10">
+                            <span class="suffix">%</span>
+                        </div>
+                    </div>
+                    
+                    <div class="input-row">
+                        <label>Доля выручки от топ-20%:</label>
+                        <div class="input-container">
+                            <input type="number" id="revenueConcentration" min="20" max="100" value="80">
+                            <span class="suffix">%</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="input-group">
+                    <h3 style="color: #1a237e; margin-bottom: 15px; font-size: 1.1rem;">Инфраструктура</h3>
+                    <div class="input-row">
+                        <label>Годовые затраты на инфраструктуру:</label>
+                        <div class="input-container">
+                            <input type="text" id="infraCost" value="15,000,000" onblur="formatNumber(this)" onfocus="clearFormat(this)" data-original="15000000">
+                            <span class="suffix">₽</span>
+                        </div>
+                    </div>
+                    
+                    <div class="input-row">
+                        <label>Уровень незапланированных простоев:</label>
+                        <div class="input-container">
+                            <input type="number" id="unplannedDowntime" min="0" max="20" step="0.5" value="5">
+                            <span class="suffix">%</span>
+                        </div>
+                    </div>
+                    
+                    <div class="input-row">
+                        <label>Доля расходов на поддержку:</label>
+                        <div class="input-container">
+                            <input type="number" id="maintenanceCost" min="10" max="60" value="30">
+                            <span class="suffix">%</span>
+                        </div>
                     </div>
                 </div>
                 
                 <button class="calculate-btn" onclick="calculateResults()">Рассчитать показатели</button>
                 
                 <div class="export-buttons">
-                    <button class="export-btn" onclick="exportPDF()">Выгрузить PDF-отчёт</button>
-                    <button class="export-btn" onclick="exportExcel()">Выгрузить Excel-данные</button>
-                </div>
-                
-                <div class="architecture-diagram">
-                    <h2 class="section-title">Трёхконтурная архитектура</h2>
-                    <div class="architecture-levels">
-                        <div class="level">
-                            <h4>Стратегический</h4>
-                            <p>Целеполагание и контроль</p>
-                        </div>
-                        <div class="level">
-                            <h4>Тактический</h4>
-                            <p>Аналитика и оптимизация</p>
-                        </div>
-                        <div class="level">
-                            <h4>Операционный</h4>
-                            <p>Исполнение и мониторинг</p>
-                        </div>
-                    </div>
+                    <button class="export-btn" onclick="exportPDF()">PDF отчёт</button>
+                    <button class="export-btn" onclick="exportExcel()">Excel данные</button>
                 </div>
             </div>
             
@@ -516,7 +593,7 @@
                             <div class="metric-subtitle">Целевой: 22%</div>
                         </div>
                         <div class="metric-card">
-                            <div class="metric-title">Прогноз оттока</div>
+                            <div class="metric-title">Прогноз оттока клиентов</div>
                             <div class="metric-value" id="churnValue">7%</div>
                             <div class="metric-subtitle">Целевой: <6%</div>
                         </div>
@@ -528,11 +605,11 @@
                     </div>
                     
                     <div class="algorithm-results">
-                        <h2 class="section-title">Алгоритмы машинного обучения</h2>
+                        <h2 class="section-title">Аналитические модели ИИ</h2>
                         
                         <div class="algorithm-card">
                             <div class="algorithm-header">
-                                <div class="algorithm-name">Прогнозирование LTV (LightGBM)</div>
+                                <div class="algorithm-name">Прогнозирование клиентской ценности (LTV)</div>
                                 <div class="algorithm-accuracy">Точность: 89%</div>
                             </div>
                             <div class="algorithm-details">
@@ -557,20 +634,20 @@
                         
                         <div class="algorithm-card">
                             <div class="algorithm-header">
-                                <div class="algorithm-name">Оптимизация R&D портфеля (Q-learning)</div>
+                                <div class="algorithm-name">Оптимизация портфеля R&D проектов</div>
                                 <div class="algorithm-accuracy">Точность: 85%</div>
                             </div>
                             <div class="algorithm-details">
                                 <div class="detail-item">
-                                    <span>Рек. перераспределение:</span>
-                                    <strong id="rdRedistribution">20% бюджета</strong>
+                                    <span>Рек. перераспределение бюджета:</span>
+                                    <strong id="rdRedistribution">20%</strong>
                                 </div>
                                 <div class="detail-item">
                                     <span>Проекты с быстрой окупаемостью:</span>
                                     <strong id="fastProjects">65%</strong>
                                 </div>
                                 <div class="detail-item">
-                                    <span>Оптимизация сроков:</span>
+                                    <span>Оптимизация сроков окупаемости:</span>
                                     <strong class="positive" id="timeOptimization">-5 месяцев</strong>
                                 </div>
                                 <div class="detail-item">
@@ -582,7 +659,7 @@
                         
                         <div class="algorithm-card">
                             <div class="algorithm-header">
-                                <div class="algorithm-name">Предиктивное обслуживание (Автокодировщики)</div>
+                                <div class="algorithm-name">Предиктивное обслуживание инфраструктуры</div>
                                 <div class="algorithm-accuracy">Точность: 94%</div>
                             </div>
                             <div class="algorithm-details">
@@ -681,6 +758,7 @@
                         <h3>Индекс "ИИ-зрелости" управленческой команды</h3>
                         <div class="maturity-score" id="aiMaturityScore">4.2</div>
                         <div class="maturity-level">Высокий уровень</div>
+                        <div class="maturity-scale">Оценка по шкале от 1 до 5</div>
                         <p style="margin-top: 10px; opacity: 0.9; font-size: 0.9rem;">
                             Основано на использовании data-driven подходов, понимании ИИ-инструментов и скорости принятия решений
                         </p>
@@ -691,65 +769,141 @@
     </div>
 
     <script>
+        // Форматирование чисел с разделителями тысяч
+        function formatNumber(input) {
+            if (!input.value) return;
+            
+            // Сохраняем оригинальное значение
+            let value = input.value.replace(/\s/g, '').replace(/,/g, '');
+            
+            // Проверяем, что это число
+            if (!isNaN(value) && value !== '') {
+                let num = parseInt(value);
+                input.setAttribute('data-original', num);
+                
+                // Форматируем с разделителями тысяч
+                let formatted = num.toLocaleString('ru-RU');
+                input.value = formatted;
+            }
+        }
+        
+        // Очистка форматирования при фокусе
+        function clearFormat(input) {
+            let original = input.getAttribute('data-original');
+            if (original) {
+                input.value = original;
+            }
+        }
+        
+        // Получение числового значения из форматированного поля
+        function getNumericValue(inputId) {
+            const input = document.getElementById(inputId);
+            let value = input.value.replace(/\s/g, '').replace(/,/g, '');
+            return parseInt(value) || 0;
+        }
+        
         function calculateResults() {
             // Показать загрузку
             document.getElementById('loadingIndicator').classList.add('hidden');
             document.getElementById('resultsContainer').classList.remove('hidden');
             
             // Получение значений из формы
-            const investmentAmount = parseInt(document.getElementById('investmentAmount').value);
-            const investmentPeriod = parseInt(document.getElementById('investmentPeriod').value);
-            const expectedReturn = parseFloat(document.getElementById('expectedReturn').value);
-            const riskTolerance = parseFloat(document.getElementById('riskTolerance').value);
-            const rdBudget = parseInt(document.getElementById('rdBudget').value);
-            const customerCount = parseInt(document.getElementById('customerCount').value);
-            const avgLtv = parseInt(document.getElementById('avgLtv').value);
-            const currentChurn = parseFloat(document.getElementById('currentChurn').value);
-            const infraCost = parseInt(document.getElementById('infraCost').value);
+            const investmentAmount = getNumericValue('investmentAmount');
+            const investmentPeriod = parseInt(document.getElementById('investmentPeriod').value) || 24;
+            const expectedReturn = parseFloat(document.getElementById('expectedReturn').value) || 15;
+            const riskTolerance = parseFloat(document.getElementById('riskTolerance').value) || 10;
+            const rdBudget = parseInt(document.getElementById('rdBudget').value) || 25;
+            const projectCount = parseInt(document.getElementById('projectCount').value) || 10;
+            const longTermProjects = parseInt(document.getElementById('longTermProjects').value) || 40;
+            const historicalRdSuccess = parseInt(document.getElementById('historicalRdSuccess').value) || 40;
+            const customerCount = getNumericValue('customerCount');
+            const avgLtv = getNumericValue('avgLtv');
+            const currentChurn = parseFloat(document.getElementById('currentChurn').value) || 10;
+            const revenueConcentration = parseInt(document.getElementById('revenueConcentration').value) || 80;
+            const infraCost = getNumericValue('infraCost');
+            const unplannedDowntime = parseFloat(document.getElementById('unplannedDowntime').value) || 5;
+            const maintenanceCost = parseInt(document.getElementById('maintenanceCost').value) || 30;
             
-            // Расчеты на основе параметров (упрощенная модель)
+            // Расчеты на основе параметров
             
             // ROI расчет
             let baseRoi = expectedReturn;
             let roiModifier = 1;
             
-            if (riskTolerance < 5) {
-                roiModifier -= 0.03;
-            } else if (riskTolerance > 15) {
-                roiModifier += 0.04;
+            // Влияние объема инвестиций на ROI
+            if (investmentAmount > 500000000) {
+                roiModifier += 0.02; // Эффект масштаба
+            } else if (investmentAmount < 50000000) {
+                roiModifier -= 0.03; // Меньший объем - выше риски
             }
             
+            // Влияние риск-аппетита
+            if (riskTolerance < 5) {
+                roiModifier -= 0.03; // Консервативный подход
+            } else if (riskTolerance > 15) {
+                roiModifier += 0.04; // Агрессивный подход
+            }
+            
+            // Влияние горизонта инвестиций
             if (investmentPeriod > 36) {
-                roiModifier += 0.02;
+                roiModifier += 0.02; // Долгосрочные инвестиции
+            } else if (investmentPeriod < 12) {
+                roiModifier -= 0.02; // Краткосрочные инвестиции
             }
             
             const finalRoi = Math.round((baseRoi * roiModifier) * 10) / 10;
             
-            // Прогноз оттока
+            // Прогноз оттока клиентов
             let churnReduction = 0;
+            
+            // Влияние инвестиций в удержание
             if (investmentAmount > 100000000) churnReduction += 1;
-            if (rdBudget > 20) churnReduction += 0.5;
+            if (rdBudget > 20) churnReduction += 0.5; // R&D улучшает продукт
+            
+            // Влияние концентрации выручки
+            if (revenueConcentration > 70) {
+                churnReduction -= 0.5; // Высокая концентрация - выше риски
+            }
             
             const predictedChurn = Math.max(2, Math.round((currentChurn - churnReduction) * 10) / 10);
             
             // Эффективность R&D
-            let rdEfficiency = 40 + (rdBudget * 0.5) + (investmentPeriod / 12);
+            let rdEfficiency = historicalRdSuccess;
+            
+            // Влияние структуры портфеля
+            if (longTermProjects < 30) {
+                rdEfficiency += 5; // Меньше долгосрочных - быстрее окупаемость
+            } else if (longTermProjects > 60) {
+                rdEfficiency -= 8; // Много долгосрочных - медленнее окупаемость
+            }
+            
+            // Влияние бюджета
+            if (rdBudget > 30) {
+                rdEfficiency += 3; // Достаточное финансирование
+            } else if (rdBudget < 15) {
+                rdEfficiency -= 5; // Недостаточное финансирование
+            }
+            
             rdEfficiency = Math.min(85, Math.max(30, Math.round(rdEfficiency)));
             
             // Расчеты для алгоритмов
-            const segmentHigh = Math.round((customerCount * 0.32) / customerCount * 100);
+            
+            // LTV модель
+            const segmentHigh = customerCount > 0 ? Math.round((customerCount * 0.32) / customerCount * 100) : 32;
             const ltvGrowth = Math.round((investmentAmount / 10000000) * 0.5 + 5);
             const retentionInvestment = Math.min(30, Math.round(currentChurn * 2.5));
             const ltvEffect = Math.round(ltvGrowth * 1.5);
             
+            // R&D оптимизация
             const rdRedistribution = Math.min(30, Math.round((30 - rdBudget) * 0.8 + 15));
             const fastProjects = rdEfficiency;
             const timeOptimization = Math.round((100 - rdEfficiency) / 10);
             const revenueGrowth = Math.round(rdEfficiency * 0.23);
             
-            const downtimeReduction = Math.round(infraCost / 10000 * 0.4 + 30);
-            const capexSavings = Math.round(infraCost / 10000 * 0.15 + 10);
-            const infraOptimization = Math.round(infraCost / 10000 * 0.18 + 12);
+            // Предиктивное обслуживание
+            const downtimeReduction = Math.round(unplannedDowntime * 0.6 + 30);
+            const capexSavings = Math.round(maintenanceCost * 0.3 + 10);
+            const infraOptimization = Math.round(infraCost / 1000000 * 0.1 + 12);
             const predictiveRoi = Math.round((downtimeReduction + capexSavings) * 3);
             
             // KPI
@@ -761,12 +915,13 @@
             const factorsCount = Math.min(150, Math.round(10 + (investmentAmount / 10000000) * 0.4));
             const factorsChange = `+${factorsCount - 10}`;
             
-            // ИИ-зрелость
+            // ИИ-зрелость (от 1 до 5)
             let maturityScore = 3.0;
-            if (investmentAmount > 50000000) maturityScore += 0.5;
+            if (investmentAmount > 100000000) maturityScore += 0.5;
             if (rdBudget > 20) maturityScore += 0.3;
             if (expectedReturn > 12) maturityScore += 0.2;
             if (riskTolerance > 8) maturityScore += 0.2;
+            if (customerCount > 200) maturityScore += 0.2;
             maturityScore = Math.min(5.0, Math.round(maturityScore * 10) / 10);
             
             // Обновление UI
@@ -812,14 +967,13 @@
             changes.forEach(change => {
                 const text = change.textContent;
                 if (text.includes('+') || parseInt(text) > 50) {
-                    change.className = text.includes('+') ? 
-                        'kpi-change positive' : 
-                        (change.classList.contains('algorithm-accuracy') ? 'algorithm-accuracy' : 'rec-impact');
                     if (!change.classList.contains('algorithm-accuracy') && !change.classList.contains('rec-impact')) {
-                        change.classList.add('positive');
+                        change.className = 'kpi-change positive';
                     }
                 } else if (text.includes('-')) {
-                    change.className = 'kpi-change negative';
+                    if (!change.classList.contains('algorithm-accuracy') && !change.classList.contains('rec-impact')) {
+                        change.className = 'kpi-change negative';
+                    }
                 }
             });
         }
@@ -874,14 +1028,25 @@
         
         // Инициализация при загрузке
         document.addEventListener('DOMContentLoaded', function() {
-            // Устанавливаем форматирование для больших чисел
-            const numberInputs = document.querySelectorAll('input[type="number"]');
+            // Форматируем все числовые поля при загрузке
+            const numberInputs = document.querySelectorAll('input[type="text"][onblur]');
             numberInputs.forEach(input => {
-                input.addEventListener('blur', function() {
-                    if (this.value > 1000) {
-                        this.value = parseInt(this.value).toLocaleString('ru-RU');
-                    }
-                });
+                if (input.value) {
+                    formatNumber(input);
+                }
+            });
+            
+            // Автоматический расчет при изменении ключевых полей
+            const autoCalculateInputs = ['investmentAmount', 'expectedReturn', 'riskTolerance', 'rdBudget'];
+            autoCalculateInputs.forEach(id => {
+                const input = document.getElementById(id);
+                if (input) {
+                    input.addEventListener('change', function() {
+                        if (document.getElementById('resultsContainer').classList.contains('hidden')) {
+                            calculateResults();
+                        }
+                    });
+                }
             });
         });
     </script>
