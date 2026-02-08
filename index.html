@@ -746,13 +746,28 @@
             height: 100%;
             color: #777;
             text-align: center;
+            padding: 50px 20px;
         }
         
         .empty-results-icon {
-            font-size: 3.5rem;
+            font-size: 4rem;
             color: #e94560;
-            margin-bottom: 20px;
-            opacity: 0.5;
+            margin-bottom: 25px;
+            opacity: 0.3;
+        }
+        
+        .empty-results h3 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+        
+        .empty-results p {
+            color: #666;
+            max-width: 400px;
+            margin: 0 auto 30px;
+            line-height: 1.5;
+            font-size: 1rem;
         }
         
         .drag-instructions {
@@ -799,7 +814,7 @@
             box-shadow: 0 0 12px rgba(233, 69, 96, 0.3);
         }
         
-        .demo-report {
+        .demo-hint {
             background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
             border-radius: 10px;
             padding: 20px;
@@ -808,20 +823,20 @@
             text-align: center;
         }
         
-        .demo-report h3 {
+        .demo-hint h3 {
             color: #e94560;
             margin-bottom: 15px;
             font-size: 1.2rem;
         }
         
-        .demo-report p {
+        .demo-hint p {
             color: #666;
             margin-bottom: 15px;
             font-size: 0.95rem;
             line-height: 1.5;
         }
         
-        .show-report-btn {
+        .demo-btn {
             background: #e94560;
             color: white;
             border: none;
@@ -833,7 +848,7 @@
             font-weight: 500;
         }
         
-        .show-report-btn:hover {
+        .demo-btn:hover {
             background: #ff5573;
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(233, 69, 96, 0.2);
@@ -854,7 +869,7 @@
                     <div class="company-logo" id="companyLogo">?</div>
                     <div class="company-details">
                         <h3 id="companyName">Введите ИНН компании</h3>
-                        <p id="companyDetails">Для демонстрации введите ИНН: 7707049388</p>
+                        <p id="companyDetails">Начните ввод ИНН для поиска компании</p>
                     </div>
                 </div>
                 
@@ -863,16 +878,14 @@
                            class="inn-input" 
                            id="innInput" 
                            placeholder="Введите ИНН компании"
-                           maxlength="12"
-                           value="7707049388">
+                           maxlength="12">
                 </div>
                 
                 <button class="search-by-inn-btn" onclick="searchByINN()">🔍 Найти по ИНН</button>
                 
-                <div class="demo-report">
-                    <h3>📊 Демонстрационный отчет</h3>
-                    <p>Для просмотра готового отчета по ООО "Мобайл Парк ИТ" нажмите кнопку ниже</p>
-                    <button class="show-report-btn" onclick="loadDemoReport()">Показать демо-отчет</button>
+                <div class="demo-hint">
+                    <h3>📊 Демонстрация</h3>
+                    <p>Для просмотра отчета по ООО "Мобайл Парк ИТ" введите ИНН: <strong>7707049388</strong></p>
                 </div>
             </div>
             
@@ -895,7 +908,18 @@
         </div>
         
         <div class="results-section">
-            <div class="results-container" id="resultsContainer">
+            <div class="empty-results" id="emptyResults">
+                <div class="empty-results-icon">📈</div>
+                <h3>AI-платформа управления инвестициями</h3>
+                <p>Введите ИНН компании в поле слева для получения подробного анализа и рекомендаций по внедрению ИИ</p>
+                <div style="display: flex; gap: 10px; margin-top: 20px;">
+                    <button class="demo-btn" onclick="document.getElementById('innInput').value='7707049388'; searchByINN();">
+                        Загрузить демо-данные (ООО "Мобайл Парк ИТ")
+                    </button>
+                </div>
+            </div>
+            
+            <div class="results-container hidden" id="resultsContainer">
                 <!-- Результаты будут вставлены сюда -->
             </div>
         </div>
@@ -1509,17 +1533,6 @@
             });
         }
 
-        // Загрузка демо-отчета
-        function loadDemoReport() {
-            // Автоматически загружаем данные МПИТ
-            loadCompany('mobit');
-            
-            // Автоматически запускаем расчет
-            setTimeout(() => {
-                calculateResults();
-            }, 500);
-        }
-
         // Расчет результатов
         function calculateResults() {
             // Получаем значения из бегунков
@@ -1640,6 +1653,10 @@
             // Активируем кнопки экспорта
             document.getElementById('exportPdfBtn').disabled = false;
             document.getElementById('exportExcelBtn').disabled = false;
+            
+            // Скрываем пустое состояние и показываем результаты
+            document.getElementById('emptyResults').classList.add('hidden');
+            document.getElementById('resultsContainer').classList.remove('hidden');
             
             showNotification('Анализ завершен. Получены рекомендации по внедрению ИИ', 'success');
         }
@@ -1792,21 +1809,6 @@
                     
                     <div class="recommendation-card">
                         <div class="recommendation-header">
-                            <div class="rec-title">Трёхконтурная модель управления инвестициями для ООО "Мобайл Парк ИТ"</div>
-                            <div class="rec-impact">Внедрено успешно</div>
-                        </div>
-                        <div class="rec-details">
-                            На основе анализа деятельности ООО "Мобайл Парк ИТ" разработана трёхконтурная архитектура:
-                            <br>1. <strong>Стратегический контур</strong>: Целеполагание и контроль
-                            <br>2. <strong>Тактический контур</strong>: Аналитика и прогнозирование
-                            <br>3. <strong>Операционный контур</strong>: Автоматизация процессов
-                            <br>Модель обеспечивает синергию человеческого и искусственного интеллекта.
-                            <span class="risk-indicator low-risk">Подтверждённая эффективность | ROI: 142%</span>
-                        </div>
-                    </div>
-                    
-                    <div class="recommendation-card">
-                        <div class="recommendation-header">
                             <div class="rec-title">Приоритет #1: Внедрение LightGBM для прогнозирования LTV</div>
                             <div class="rec-impact">Точность: 89%</div>
                         </div>
@@ -1907,9 +1909,6 @@
         document.addEventListener('DOMContentLoaded', function() {
             // Создаем плашки при загрузке
             createInputCards();
-            
-            // Автоматически загружаем демо-отчет
-            loadDemoReport();
             
             // Добавляем обработчик Enter на поле ИНН
             document.getElementById('innInput').addEventListener('keypress', function(e) {
