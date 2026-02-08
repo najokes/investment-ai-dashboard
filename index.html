@@ -291,65 +291,113 @@
         
         .input-row {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 12px;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 15px;
         }
         
-        label {
+        .slider-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .slider-label {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+        
+        .slider-label-text {
             font-weight: 500;
             color: #495057;
-            flex: 1;
             font-size: 0.95rem;
         }
         
-        input, select {
+        .slider-value {
+            min-width: 50px;
+            text-align: right;
+            font-weight: 600;
+            color: #dc3545;
+            font-size: 0.95rem;
+        }
+        
+        input[type="range"] {
+            width: 100%;
+            height: 6px;
+            -webkit-appearance: none;
+            background: #e9ecef;
+            border-radius: 3px;
+            outline: none;
+        }
+        
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            background: #dc3545;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        input[type="range"]::-webkit-slider-thumb:hover {
+            background: #c82333;
+            transform: scale(1.1);
+        }
+        
+        input[type="range"]::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            background: #dc3545;
+            border-radius: 50%;
+            cursor: pointer;
+            border: none;
+        }
+        
+        .suffix {
+            margin-left: 5px;
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+        
+        .amount-input {
             padding: 10px 12px;
             border: 2px solid #ced4da;
             border-radius: 6px;
-            width: 140px;
             font-size: 0.95rem;
             transition: border-color 0.3s;
             background-color: #f8f9fa;
-            color: #6c757d;
+            color: #495057;
             cursor: not-allowed;
+            width: 100%;
         }
         
-        input.editable, select.editable {
+        .amount-input.editable {
             background-color: white;
             color: #495057;
             cursor: text;
             border-color: #ced4da;
         }
         
-        input.editable:focus, select.editable:focus {
+        .amount-input.editable:focus {
             outline: none;
             border-color: #dc3545;
             box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.1);
         }
         
-        input[type="number"] {
-            text-align: right;
-            padding-right: 25px;
-        }
-        
-        .input-container {
+        .amount-container {
             position: relative;
-            display: inline-block;
+            display: flex;
+            align-items: center;
         }
         
-        .suffix {
+        .amount-suffix {
             position: absolute;
             right: 12px;
-            top: 50%;
-            transform: translateY(-50%);
             color: #6c757d;
             pointer-events: none;
-            font-size: 0.9rem;
-        }
-        
-        .suffix.editable {
-            color: #495057;
         }
         
         .calculate-btn {
@@ -769,8 +817,8 @@
         }
         
         .input-changed {
-            background-color: #fff3cd !important;
             border-color: #ffc107 !important;
+            background-color: #fff3cd !important;
         }
         
         .empty-state {
@@ -832,6 +880,18 @@
             margin-bottom: 20px;
             opacity: 0.5;
         }
+        
+        .slider-changed {
+            background: #ffc107 !important;
+        }
+        
+        .slider-changed::-webkit-slider-thumb {
+            background: #ffc107 !important;
+        }
+        
+        .slider-changed::-moz-range-thumb {
+            background: #ffc107 !important;
+        }
     </style>
 </head>
 <body>
@@ -879,7 +939,7 @@
             </div>
             
             <h2 class="section-title">Параметры для анализа</h2>
-            <p class="editable-note">Перетаскивайте плашки для изменения порядка. Все поля можно редактировать.</p>
+            <p class="editable-note">Перетаскивайте плашки для изменения порядка. Регулируйте бегунки для изменения параметров.</p>
             
             <div class="drag-instructions">↕️ Перетаскивайте плашки, меняя их порядок</div>
             
@@ -1123,45 +1183,185 @@
         let draggedCard = null;
         let cardOrder = ['base', 'rd', 'customer', 'infrastructure'];
 
-        // Данные для плашек (все параметры из ВКР)
+        // Данные для плашек с бегунками
         const inputGroupsData = {
             base: {
                 title: "Базовые показатели",
                 icon: "📊",
                 inputs: [
-                    { id: "investmentAmount", label: "Объём инвестиций", suffix: "₽", type: "text", required: true },
-                    { id: "investmentPeriod", label: "Срок инвестиций", suffix: "мес.", type: "number", min: 3, max: 60, required: true },
-                    { id: "historicalRoi", label: "Исторический ROI", suffix: "%", type: "number", min: 5, max: 50, step: 0.5, required: true },
-                    { id: "riskTolerance", label: "Допустимый риск", suffix: "%", type: "number", min: 1, max: 30, step: 0.5, required: true }
+                    { 
+                        id: "investmentAmount", 
+                        label: "Объём инвестиций", 
+                        suffix: "₽", 
+                        type: "amount", 
+                        min: 10000000, 
+                        max: 500000000, 
+                        step: 10000000,
+                        value: 250000000,
+                        required: true 
+                    },
+                    { 
+                        id: "investmentPeriod", 
+                        label: "Срок инвестиций", 
+                        suffix: "мес.", 
+                        type: "slider", 
+                        min: 6, 
+                        max: 60, 
+                        step: 1,
+                        value: 30,
+                        required: true 
+                    },
+                    { 
+                        id: "historicalRoi", 
+                        label: "Исторический ROI", 
+                        suffix: "%", 
+                        type: "slider", 
+                        min: 5, 
+                        max: 50, 
+                        step: 0.5,
+                        value: 15.0,
+                        required: true 
+                    },
+                    { 
+                        id: "riskTolerance", 
+                        label: "Допустимый риск", 
+                        suffix: "%", 
+                        type: "slider", 
+                        min: 1, 
+                        max: 30, 
+                        step: 0.5,
+                        value: 15,
+                        required: true 
+                    }
                 ]
             },
             rd: {
                 title: "R&D проекты",
                 icon: "🔬",
                 inputs: [
-                    { id: "rdBudget", label: "Бюджет R&D (% от инвест.)", suffix: "%", type: "number", min: 5, max: 40, step: 1, required: true },
-                    { id: "projectCount", label: "Кол-во активных R&D проектов", suffix: "шт.", type: "number", min: 1, max: 100 },
-                    { id: "currentRdSuccess", label: "Доля окупающихся проектов", suffix: "%", type: "number", min: 10, max: 100 },
-                    { id: "currentPaybackPeriod", label: "Средний срок окупаемости", suffix: "мес.", type: "number", min: 6, max: 60 }
+                    { 
+                        id: "rdBudget", 
+                        label: "Бюджет R&D (% от инвест.)", 
+                        suffix: "%", 
+                        type: "slider", 
+                        min: 5, 
+                        max: 40, 
+                        step: 1,
+                        value: 22,
+                        required: true 
+                    },
+                    { 
+                        id: "projectCount", 
+                        label: "Кол-во активных R&D проектов", 
+                        suffix: "шт.", 
+                        type: "slider", 
+                        min: 1, 
+                        max: 50, 
+                        step: 1,
+                        value: 14 
+                    },
+                    { 
+                        id: "currentRdSuccess", 
+                        label: "Доля окупающихся проектов", 
+                        suffix: "%", 
+                        type: "slider", 
+                        min: 10, 
+                        max: 100, 
+                        step: 1,
+                        value: 40 
+                    },
+                    { 
+                        id: "currentPaybackPeriod", 
+                        label: "Средний срок окупаемости", 
+                        suffix: "мес.", 
+                        type: "slider", 
+                        min: 6, 
+                        max: 60, 
+                        step: 1,
+                        value: 24 
+                    }
                 ]
             },
             customer: {
                 title: "Клиентская база",
                 icon: "👥",
                 inputs: [
-                    { id: "customerCount", label: "Кол-во корпоративных клиентов", suffix: "компаний", type: "text" },
-                    { id: "currentChurn", label: "Отток клиентов (Churn Rate)", suffix: "%", type: "number", min: 1, max: 50, step: 0.5 },
-                    { id: "avgLtv", label: "Средний годовой LTV клиента", suffix: "₽", type: "text" },
-                    { id: "keyCustomersShare", label: "Доля ключевых (TOP 20%) клиентов", suffix: "%", type: "number", min: 20, max: 100 }
+                    { 
+                        id: "customerCount", 
+                        label: "Кол-во корпоративных клиентов", 
+                        suffix: "компаний", 
+                        type: "slider", 
+                        min: 10, 
+                        max: 500, 
+                        step: 5,
+                        value: 185 
+                    },
+                    { 
+                        id: "currentChurn", 
+                        label: "Отток клиентов (Churn Rate)", 
+                        suffix: "%", 
+                        type: "slider", 
+                        min: 1, 
+                        max: 50, 
+                        step: 0.5,
+                        value: 10.0 
+                    },
+                    { 
+                        id: "avgLtv", 
+                        label: "Средний годовой LTV клиента", 
+                        suffix: "₽", 
+                        type: "amount", 
+                        min: 100000, 
+                        max: 5000000, 
+                        step: 50000,
+                        value: 950000 
+                    },
+                    { 
+                        id: "keyCustomersShare", 
+                        label: "Доля ключевых (TOP 20%) клиентов", 
+                        suffix: "%", 
+                        type: "slider", 
+                        min: 20, 
+                        max: 100, 
+                        step: 1,
+                        value: 52 
+                    }
                 ]
             },
             infrastructure: {
                 title: "Инфраструктура",
                 icon: "🏗️",
                 inputs: [
-                    { id: "infraCapex", label: "Годовой CAPEX на инфраструктуру", suffix: "₽", type: "text" },
-                    { id: "unplannedDowntime", label: "Уровень незапланированных простоев", suffix: "%", type: "number", min: 0, max: 20, step: 0.5 },
-                    { id: "maintenanceCost", label: "Затраты на техническую поддержку", suffix: "₽", type: "text" }
+                    { 
+                        id: "infraCapex", 
+                        label: "Годовой CAPEX на инфраструктуру", 
+                        suffix: "₽", 
+                        type: "amount", 
+                        min: 5000000, 
+                        max: 100000000, 
+                        step: 1000000,
+                        value: 32000000 
+                    },
+                    { 
+                        id: "unplannedDowntime", 
+                        label: "Уровень незапланированных простоев", 
+                        suffix: "%", 
+                        type: "slider", 
+                        min: 0, 
+                        max: 20, 
+                        step: 0.5,
+                        value: 6.8 
+                    },
+                    { 
+                        id: "maintenanceCost", 
+                        label: "Затраты на техническую поддержку", 
+                        suffix: "₽", 
+                        type: "amount", 
+                        min: 1000000, 
+                        max: 50000000, 
+                        step: 500000,
+                        value: 15000000 
+                    }
                 ]
             }
         };
@@ -1169,7 +1369,7 @@
         // Форматирование чисел
         function formatNumber(num) {
             if (!num && num !== 0) return '—';
-            const numValue = typeof num === 'string' ? parseFloat(num.replace(/\s/g, '').replace('₽', '')) : num;
+            const numValue = typeof num === 'string' ? parseFloat(num.replace(/\s/g, '').replace('₽', '').replace('млн', '').replace(',', '.')) : num;
             if (isNaN(numValue)) return '—';
             
             if (numValue >= 1000000) {
@@ -1180,6 +1380,21 @@
                 minimumFractionDigits: 0,
                 maximumFractionDigits: 0
             });
+        }
+
+        // Форматирование для отображения в бегунках
+        function formatSliderValue(value, type) {
+            if (type === 'amount') {
+                return formatNumber(value);
+            } else if (type === 'slider') {
+                // Для процентов добавляем знак процента
+                if (['historicalRoi', 'riskTolerance', 'rdBudget', 'currentRdSuccess', 'currentChurn', 'keyCustomersShare', 'unplannedDowntime'].includes(value.id)) {
+                    return value + '%';
+                }
+                // Для месяцев и штук просто число
+                return value;
+            }
+            return value;
         }
 
         // Показать уведомление
@@ -1195,7 +1410,7 @@
             }, 3000);
         }
 
-        // Создание перемещаемых плашек
+        // Создание перемещаемых плашек с бегунками
         function createInputCards() {
             const container = document.getElementById('inputGroupsContainer');
             container.innerHTML = '';
@@ -1212,21 +1427,44 @@
                 let inputsHTML = '';
                 group.inputs.forEach(input => {
                     const requiredMark = input.required ? '<span class="required-mark">*</span>' : '';
-                    inputsHTML += `
-                        <div class="input-row">
-                            <label>${input.label}${requiredMark}:</label>
-                            <div class="input-container">
-                                <input type="${input.type}" 
-                                       id="${input.id}" 
-                                       ${input.min ? `min="${input.min}"` : ''}
-                                       ${input.max ? `max="${input.max}"` : ''}
-                                       ${input.step ? `step="${input.step}"` : ''}
-                                       placeholder="—" 
-                                       readonly>
-                                <span class="suffix">${input.suffix}</span>
+                    
+                    if (input.type === 'slider') {
+                        inputsHTML += `
+                            <div class="input-row">
+                                <div class="slider-label">
+                                    <span class="slider-label-text">${input.label}${requiredMark}:</span>
+                                    <span class="slider-value" id="${input.id}Value">${formatSliderValue(input.value, input.type)}</span>
+                                </div>
+                                <div class="slider-container">
+                                    <input type="range" 
+                                           id="${input.id}" 
+                                           min="${input.min}" 
+                                           max="${input.max}" 
+                                           step="${input.step}"
+                                           value="${input.value}"
+                                           oninput="updateSliderValue('${input.id}', this.value, '${input.type}')">
+                                </div>
                             </div>
-                        </div>
-                    `;
+                        `;
+                    } else if (input.type === 'amount') {
+                        inputsHTML += `
+                            <div class="input-row">
+                                <div class="slider-label">
+                                    <span class="slider-label-text">${input.label}${requiredMark}:</span>
+                                    <span class="slider-value" id="${input.id}Value">${formatSliderValue(input.value, input.type)}</span>
+                                </div>
+                                <div class="slider-container">
+                                    <input type="range" 
+                                           id="${input.id}" 
+                                           min="${input.min}" 
+                                           max="${input.max}" 
+                                           step="${input.step}"
+                                           value="${input.value}"
+                                           oninput="updateSliderValue('${input.id}', this.value, '${input.type}')">
+                                </div>
+                            </div>
+                        `;
+                    }
                 });
                 
                 card.innerHTML = `
@@ -1245,6 +1483,55 @@
                 // Добавляем обработчики перетаскивания
                 addDragAndDropHandlers(card);
             });
+        }
+
+        // Обновление значения бегунка
+        function updateSliderValue(id, value, type) {
+            const valueElement = document.getElementById(id + 'Value');
+            const slider = document.getElementById(id);
+            
+            // Обновляем отображаемое значение
+            if (type === 'amount') {
+                valueElement.textContent = formatNumber(parseFloat(value));
+            } else {
+                const numValue = parseFloat(value);
+                if (['historicalRoi', 'riskTolerance', 'rdBudget', 'currentRdSuccess', 'currentChurn', 'keyCustomersShare', 'unplannedDowntime'].includes(id)) {
+                    valueElement.textContent = numValue.toFixed(id === 'historicalRoi' ? 1 : 0) + '%';
+                } else {
+                    valueElement.textContent = numValue;
+                }
+            }
+            
+            // Проверяем, изменилось ли значение
+            const originalValue = originalValues[id];
+            if (originalValue && parseFloat(value) !== parseFloat(originalValue)) {
+                slider.classList.add('slider-changed');
+            } else {
+                slider.classList.remove('slider-changed');
+            }
+            
+            // Активируем кнопку расчета, если все обязательные поля заполнены
+            checkRequiredFields();
+        }
+
+        // Проверка обязательных полей
+        function checkRequiredFields() {
+            let allFilled = true;
+            
+            // Проверяем все обязательные поля
+            Object.values(inputGroupsData).forEach(group => {
+                group.inputs.forEach(input => {
+                    if (input.required) {
+                        const element = document.getElementById(input.id);
+                        if (!element || !element.value) {
+                            allFilled = false;
+                        }
+                    }
+                });
+            });
+            
+            document.getElementById('calculateBtn').disabled = !allFilled;
+            return allFilled;
         }
 
         // Добавление обработчиков перетаскивания
@@ -1300,6 +1587,17 @@
                 const draggedIndex = cards.indexOf(draggedCard);
                 const dropIndex = cards.indexOf(this);
                 
+                // Сохраняем текущие значения
+                const currentValues = {};
+                Object.keys(inputGroupsData).forEach(groupKey => {
+                    inputGroupsData[groupKey].inputs.forEach(input => {
+                        const element = document.getElementById(input.id);
+                        if (element) {
+                            currentValues[input.id] = element.value;
+                        }
+                    });
+                });
+                
                 // Обновляем порядок в массиве
                 const draggedGroup = cardOrder[draggedIndex];
                 cardOrder.splice(draggedIndex, 1);
@@ -1307,7 +1605,16 @@
                 
                 // Перерисовываем плашки
                 createInputCards();
-                fillCompanyData(); // Восстанавливаем данные
+                
+                // Восстанавливаем значения
+                Object.keys(currentValues).forEach(id => {
+                    const element = document.getElementById(id);
+                    if (element) {
+                        element.value = currentValues[id];
+                        const type = element.type === 'range' ? 'slider' : 'amount';
+                        updateSliderValue(id, currentValues[id], type);
+                    }
+                });
                 
                 showNotification('Порядок плашек изменен', 'success');
             }
@@ -1330,58 +1637,79 @@
             
             if (!company) return;
             
-            // Заполняем поля формы
-            document.getElementById('investmentAmount').value = formatNumber(company.investmentAmount);
-            document.getElementById('investmentPeriod').value = company.investmentPeriod;
-            document.getElementById('historicalRoi').value = company.historicalRoi;
-            document.getElementById('riskTolerance').value = company.riskTolerance;
-            document.getElementById('rdBudget').value = company.rdBudget;
-            document.getElementById('projectCount').value = company.projectCount;
-            document.getElementById('currentRdSuccess').value = company.currentRdSuccess;
-            document.getElementById('currentPaybackPeriod').value = company.currentPaybackPeriod;
-            document.getElementById('customerCount').value = formatNumber(company.customerCount);
-            document.getElementById('currentChurn').value = company.currentChurn;
-            document.getElementById('avgLtv').value = formatNumber(company.avgLtv);
-            document.getElementById('keyCustomersShare').value = company.keyCustomersShare;
-            document.getElementById('infraCapex').value = formatNumber(company.infraCapex);
-            document.getElementById('unplannedDowntime').value = company.unplannedDowntime;
-            document.getElementById('maintenanceCost').value = formatNumber(company.maintenanceCost);
-        }
-
-        // Сделать поля редактируемыми
-        function makeAllFieldsEditable() {
-            const inputs = document.querySelectorAll('.input-section input');
-            inputs.forEach(input => {
-                if (input.id) {
-                    input.classList.add('editable');
-                    input.readOnly = false;
-                    
-                    // Добавляем слушатель для подсветки изменений
-                    input.addEventListener('input', function() {
-                        const originalValue = originalValues[this.id];
-                        if (originalValue && this.value !== originalValue) {
-                            this.classList.add('input-changed');
-                        } else {
-                            this.classList.remove('input-changed');
+            // Заполняем бегунки значениями компании
+            Object.keys(inputGroupsData).forEach(groupKey => {
+                inputGroupsData[groupKey].inputs.forEach(input => {
+                    const element = document.getElementById(input.id);
+                    if (element) {
+                        let value;
+                        
+                        switch(input.id) {
+                            case 'investmentAmount':
+                                value = company.investmentAmount;
+                                break;
+                            case 'investmentPeriod':
+                                value = company.investmentPeriod;
+                                break;
+                            case 'historicalRoi':
+                                value = company.historicalRoi;
+                                break;
+                            case 'riskTolerance':
+                                value = company.riskTolerance;
+                                break;
+                            case 'rdBudget':
+                                value = company.rdBudget;
+                                break;
+                            case 'projectCount':
+                                value = company.projectCount;
+                                break;
+                            case 'currentRdSuccess':
+                                value = company.currentRdSuccess;
+                                break;
+                            case 'currentPaybackPeriod':
+                                value = company.currentPaybackPeriod;
+                                break;
+                            case 'customerCount':
+                                value = company.customerCount;
+                                break;
+                            case 'currentChurn':
+                                value = company.currentChurn;
+                                break;
+                            case 'avgLtv':
+                                value = company.avgLtv;
+                                break;
+                            case 'keyCustomersShare':
+                                value = company.keyCustomersShare;
+                                break;
+                            case 'infraCapex':
+                                value = company.infraCapex;
+                                break;
+                            case 'unplannedDowntime':
+                                value = company.unplannedDowntime;
+                                break;
+                            case 'maintenanceCost':
+                                value = company.maintenanceCost;
+                                break;
+                            default:
+                                value = input.value;
                         }
-                    });
-                    
-                    // Обновляем суффикс
-                    const suffix = input.nextElementSibling;
-                    if (suffix && suffix.classList.contains('suffix')) {
-                        suffix.classList.add('editable');
+                        
+                        element.value = value;
+                        updateSliderValue(input.id, value, input.type);
                     }
-                }
+                });
             });
         }
 
         // Сохранить оригинальные значения
         function saveOriginalValues() {
-            const inputs = document.querySelectorAll('.input-section input');
-            inputs.forEach(input => {
-                if (input.id) {
-                    originalValues[input.id] = input.value;
-                }
+            Object.keys(inputGroupsData).forEach(groupKey => {
+                inputGroupsData[groupKey].inputs.forEach(input => {
+                    const element = document.getElementById(input.id);
+                    if (element) {
+                        originalValues[input.id] = element.value;
+                    }
+                });
             });
         }
 
@@ -1411,14 +1739,11 @@
             // Заполняем поля формы
             fillCompanyData();
             
-            // Делаем все поля редактируемыми
-            makeAllFieldsEditable();
-            
             // Сохраняем исходные значения для сравнения
             saveOriginalValues();
             
             // Активируем кнопку расчета
-            document.getElementById('calculateBtn').disabled = false;
+            checkRequiredFields();
             
             // Скрываем пустое состояние
             document.getElementById('emptyResults').classList.add('hidden');
@@ -1433,22 +1758,22 @@
             const resultsContainer = document.getElementById('resultsContainer');
             resultsContainer.classList.remove('hidden');
             
-            // Получаем значения из формы
-            const investmentAmount = parseFloat(document.getElementById('investmentAmount').value.replace(/\s/g, '').replace('млн', '').replace(',', '.')) * 1000000 || 250000000;
-            const investmentPeriod = parseInt(document.getElementById('investmentPeriod').value) || 30;
+            // Получаем значения из бегунков
+            const investmentAmount = parseFloat(document.getElementById('investmentAmount').value) || 250000000;
+            const investmentPeriod = parseFloat(document.getElementById('investmentPeriod').value) || 30;
             const historicalRoi = parseFloat(document.getElementById('historicalRoi').value) || 15.0;
             const riskTolerance = parseFloat(document.getElementById('riskTolerance').value) || 15;
             const rdBudget = parseFloat(document.getElementById('rdBudget').value) || 22;
-            const projectCount = parseInt(document.getElementById('projectCount').value) || 14;
+            const projectCount = parseFloat(document.getElementById('projectCount').value) || 14;
             const currentRdSuccess = parseFloat(document.getElementById('currentRdSuccess').value) || 40;
             const currentPaybackPeriod = parseFloat(document.getElementById('currentPaybackPeriod').value) || 24;
-            const customerCount = parseInt(document.getElementById('customerCount').value.replace(/\s/g, '')) || 185;
+            const customerCount = parseFloat(document.getElementById('customerCount').value) || 185;
             const currentChurn = parseFloat(document.getElementById('currentChurn').value) || 10.0;
-            const avgLtv = parseFloat(document.getElementById('avgLtv').value.replace(/\s/g, '').replace('млн', '').replace(',', '.')) * 1000000 || 950000;
+            const avgLtv = parseFloat(document.getElementById('avgLtv').value) || 950000;
             const keyCustomersShare = parseFloat(document.getElementById('keyCustomersShare').value) || 52;
-            const infraCapex = parseFloat(document.getElementById('infraCapex').value.replace(/\s/g, '').replace('млн', '').replace(',', '.')) * 1000000 || 32000000;
+            const infraCapex = parseFloat(document.getElementById('infraCapex').value) || 32000000;
             const unplannedDowntime = parseFloat(document.getElementById('unplannedDowntime').value) || 6.8;
-            const maintenanceCost = parseFloat(document.getElementById('maintenanceCost').value.replace(/\s/g, '').replace('млн', '').replace(',', '.')) * 1000000 || 15000000;
+            const maintenanceCost = parseFloat(document.getElementById('maintenanceCost').value) || 15000000;
             
             // Получаем исторические данные
             const inn = document.getElementById('companyINN').value.trim();
@@ -1590,10 +1915,10 @@
         // Пересчет результатов
         function recalculateResults() {
             // Сброс измененной подсветки
-            const changedInputs = document.querySelectorAll('.input-changed');
-            changedInputs.forEach(input => {
-                input.classList.remove('input-changed');
-                originalValues[input.id] = input.value;
+            const changedSliders = document.querySelectorAll('.slider-changed');
+            changedSliders.forEach(slider => {
+                slider.classList.remove('slider-changed');
+                originalValues[slider.id] = slider.value;
             });
             
             calculateResults();
@@ -1711,25 +2036,23 @@
                     document.getElementById('companyName').textContent = csvData.companyName;
                     document.getElementById('companyDetails').textContent = csvData.companyDetails || 'Данные загружены из CSV';
                     
-                    // Заполняем поля формы
-                    if (csvData.investmentAmount) document.getElementById('investmentAmount').value = formatNumber(csvData.investmentAmount);
-                    if (csvData.investmentPeriod) document.getElementById('investmentPeriod').value = csvData.investmentPeriod;
-                    if (csvData.historicalRoi) document.getElementById('historicalRoi').value = csvData.historicalRoi;
-                    if (csvData.riskTolerance) document.getElementById('riskTolerance').value = csvData.riskTolerance;
-                    if (csvData.rdBudget) document.getElementById('rdBudget').value = csvData.rdBudget;
-                    if (csvData.projectCount) document.getElementById('projectCount').value = csvData.projectCount;
-                    if (csvData.currentRdSuccess) document.getElementById('currentRdSuccess').value = csvData.currentRdSuccess;
-                    if (csvData.currentPaybackPeriod) document.getElementById('currentPaybackPeriod').value = csvData.currentPaybackPeriod;
-                    if (csvData.customerCount) document.getElementById('customerCount').value = formatNumber(csvData.customerCount);
-                    if (csvData.currentChurn) document.getElementById('currentChurn').value = csvData.currentChurn;
-                    if (csvData.avgLtv) document.getElementById('avgLtv').value = formatNumber(csvData.avgLtv);
-                    if (csvData.keyCustomersShare) document.getElementById('keyCustomersShare').value = csvData.keyCustomersShare;
-                    if (csvData.infraCapex) document.getElementById('infraCapex').value = formatNumber(csvData.infraCapex);
-                    if (csvData.unplannedDowntime) document.getElementById('unplannedDowntime').value = csvData.unplannedDowntime;
-                    if (csvData.maintenanceCost) document.getElementById('maintenanceCost').value = formatNumber(csvData.maintenanceCost);
+                    // Заполняем бегунки значениями из CSV
+                    Object.keys(csvData).forEach(key => {
+                        const element = document.getElementById(key);
+                        if (element) {
+                            element.value = csvData[key];
+                            
+                            // Определяем тип элемента
+                            let type = 'slider';
+                            if (key.includes('Amount') || key.includes('Cost') || key.includes('Capex') || key === 'avgLtv') {
+                                type = 'amount';
+                            }
+                            
+                            updateSliderValue(key, csvData[key], type);
+                        }
+                    });
                     
-                    // Делаем поля редактируемыми
-                    makeAllFieldsEditable();
+                    // Сохраняем исходные значения
                     saveOriginalValues();
                     
                     // Показываем предпросмотр
@@ -1746,7 +2069,7 @@
                     preview.classList.remove('hidden');
                     
                     // Активируем кнопку расчета
-                    document.getElementById('calculateBtn').disabled = false;
+                    checkRequiredFields();
                     
                     // Скрываем пустое состояние
                     document.getElementById('emptyResults').classList.add('hidden');
