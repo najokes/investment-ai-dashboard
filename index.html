@@ -505,6 +505,12 @@
             color: #999;
             font-style: italic;
         }
+        
+        .disabled-field {
+            background-color: #f5f5f5;
+            color: #999;
+            cursor: not-allowed;
+        }
     </style>
 </head>
 <body>
@@ -525,7 +531,7 @@
                             <p id="companyDetails">Введите ИНН для загрузки данных</p>
                         </div>
                     </div>
-                    <input type="text" class="inn-input" id="companyINN" placeholder="Введите ИНН компании (например: 7701234567)">
+                    <input type="text" class="inn-input" id="companyINN" placeholder="Введите ИНН компании">
                     <button class="select-company-btn" onclick="selectCompany()">Загрузить данные компании</button>
                 </div>
                 
@@ -536,7 +542,7 @@
                     <div class="input-row">
                         <label>Объём инвестиций (₽)<span class="required-mark">*</span>:</label>
                         <div class="input-container">
-                            <input type="text" id="investmentAmount" placeholder="Введите сумму" disabled>
+                            <input type="text" id="investmentAmount" placeholder="—" class="disabled-field" disabled>
                             <span class="suffix">₽</span>
                         </div>
                     </div>
@@ -544,7 +550,7 @@
                     <div class="input-row">
                         <label>Срок инвестиций (мес.)<span class="required-mark">*</span>:</label>
                         <div class="input-container">
-                            <input type="number" id="investmentPeriod" min="3" max="60" placeholder="24" disabled>
+                            <input type="number" id="investmentPeriod" min="3" max="60" placeholder="—" class="disabled-field" disabled>
                             <span class="suffix">мес.</span>
                         </div>
                     </div>
@@ -552,7 +558,7 @@
                     <div class="input-row">
                         <label>Исторический ROI (%):</label>
                         <div class="input-container">
-                            <input type="number" id="historicalRoi" min="5" max="50" step="0.5" placeholder="15" disabled>
+                            <input type="number" id="historicalRoi" min="5" max="50" step="0.5" placeholder="—" class="disabled-field" disabled>
                             <span class="suffix">%</span>
                         </div>
                     </div>
@@ -560,7 +566,7 @@
                     <div class="input-row">
                         <label>Допустимый риск<span class="required-mark">*</span>:</label>
                         <div class="input-container">
-                            <input type="number" id="riskTolerance" min="1" max="30" step="0.5" placeholder="10" disabled>
+                            <input type="number" id="riskTolerance" min="1" max="30" step="0.5" placeholder="—" class="disabled-field" disabled>
                             <span class="suffix">%</span>
                         </div>
                     </div>
@@ -571,7 +577,7 @@
                     <div class="input-row">
                         <label>Бюджет R&D (% от инвест.)<span class="required-mark">*</span>:</label>
                         <div class="input-container">
-                            <input type="number" id="rdBudget" min="5" max="40" step="1" placeholder="25" disabled>
+                            <input type="number" id="rdBudget" min="5" max="40" step="1" placeholder="—" class="disabled-field" disabled>
                             <span class="suffix">%</span>
                         </div>
                     </div>
@@ -579,7 +585,7 @@
                     <div class="input-row">
                         <label>Кол-во активных R&D проектов:</label>
                         <div class="input-container">
-                            <input type="number" id="projectCount" min="1" max="100" placeholder="45" disabled>
+                            <input type="number" id="projectCount" min="1" max="100" placeholder="—" class="disabled-field" disabled>
                             <span class="suffix">шт.</span>
                         </div>
                     </div>
@@ -587,7 +593,7 @@
                     <div class="input-row">
                         <label>Текущая доля окупающихся проектов:</label>
                         <div class="input-container">
-                            <input type="number" id="currentRdSuccess" min="10" max="100" placeholder="40" disabled>
+                            <input type="number" id="currentRdSuccess" min="10" max="100" placeholder="—" class="disabled-field" disabled>
                             <span class="suffix">%</span>
                         </div>
                     </div>
@@ -595,7 +601,7 @@
                     <div class="input-row">
                         <label>Средний срок окупаемости:</label>
                         <div class="input-container">
-                            <input type="number" id="currentPaybackPeriod" min="6" max="60" placeholder="24" disabled>
+                            <input type="number" id="currentPaybackPeriod" min="6" max="60" placeholder="—" class="disabled-field" disabled>
                             <span class="suffix">мес.</span>
                         </div>
                     </div>
@@ -606,7 +612,7 @@
                     <div class="input-row">
                         <label>Кол-во корпоративных клиентов:</label>
                         <div class="input-container">
-                            <input type="text" id="customerCount" placeholder="500" disabled>
+                            <input type="text" id="customerCount" placeholder="—" class="disabled-field" disabled>
                             <span class="suffix">компаний</span>
                         </div>
                     </div>
@@ -614,7 +620,7 @@
                     <div class="input-row">
                         <label>Текущий отток клиентов (Churn Rate):</label>
                         <div class="input-container">
-                            <input type="number" id="currentChurn" min="1" max="50" step="0.5" placeholder="10" disabled>
+                            <input type="number" id="currentChurn" min="1" max="50" step="0.5" placeholder="—" class="disabled-field" disabled>
                             <span class="suffix">%</span>
                         </div>
                     </div>
@@ -622,7 +628,7 @@
                     <div class="input-row">
                         <label>Средний годовой LTV клиента:</label>
                         <div class="input-container">
-                            <input type="text" id="avgLtv" placeholder="1,500,000" disabled>
+                            <input type="text" id="avgLtv" placeholder="—" class="disabled-field" disabled>
                             <span class="suffix">₽</span>
                         </div>
                     </div>
@@ -630,7 +636,7 @@
                     <div class="input-row">
                         <label>Доля ключевых (TOP 20%) клиентов:</label>
                         <div class="input-container">
-                            <input type="number" id="keyCustomersShare" min="20" max="100" placeholder="32" disabled>
+                            <input type="number" id="keyCustomersShare" min="20" max="100" placeholder="—" class="disabled-field" disabled>
                             <span class="suffix">%</span>
                         </div>
                     </div>
@@ -641,7 +647,7 @@
                     <div class="input-row">
                         <label>Годовой CAPEX на инфраструктуру:</label>
                         <div class="input-container">
-                            <input type="text" id="infraCapex" placeholder="15,000,000" disabled>
+                            <input type="text" id="infraCapex" placeholder="—" class="disabled-field" disabled>
                             <span class="suffix">₽</span>
                         </div>
                     </div>
@@ -649,7 +655,7 @@
                     <div class="input-row">
                         <label>Уровень незапланированных простоев:</label>
                         <div class="input-container">
-                            <input type="number" id="unplannedDowntime" min="0" max="20" step="0.5" placeholder="5" disabled>
+                            <input type="number" id="unplannedDowntime" min="0" max="20" step="0.5" placeholder="—" class="disabled-field" disabled>
                             <span class="suffix">%</span>
                         </div>
                     </div>
@@ -657,7 +663,7 @@
                     <div class="input-row">
                         <label>Затраты на техническую поддержку:</label>
                         <div class="input-container">
-                            <input type="text" id="maintenanceCost" placeholder="4,500,000" disabled>
+                            <input type="text" id="maintenanceCost" placeholder="—" class="disabled-field" disabled>
                             <span class="suffix">₽</span>
                         </div>
                     </div>
@@ -673,10 +679,9 @@
             
             <div class="results-section">
                 <div class="loading" id="loadingIndicator">
-                    <p>Введите ИНН компании для загрузки данных и расчета показателей</p>
-                    <p style="margin-top: 20px; font-size: 0.9rem; color: #888;">
-                        Пример ИНН для теста: <strong>7701234567</strong> (ООО "Мобайл Парк ИТ")
-                    </p>
+                    <p>Введите ИНН компании для загрузки данных</p>
+                    <p>Нажмите "Загрузить данные компании"</p>
+                    <p>Затем нажмите "Рассчитать показатели"</p>
                 </div>
                 
                 <div class="results-container hidden" id="resultsContainer">
@@ -818,7 +823,7 @@
                     <div class="recommendations">
                         <h2 class="section-title">Рекомендации системы</h2>
                         <div id="recommendationsPlaceholder" class="loading" style="padding: 20px;">
-                            <p>Загрузите данные компании для получения рекомендаций</p>
+                            <p>Загрузите данные компании и нажмите "Рассчитать показатели" для получения рекомендаций</p>
                         </div>
                         <div id="recommendationsContent" class="hidden">
                             <!-- Рекомендации будут здесь -->
@@ -867,20 +872,15 @@
             }
         };
         
-        // Активировать поле ввода при фокусе
-        function activateField(input) {
-            input.disabled = false;
-            input.style.borderColor = '#283593';
-            input.style.backgroundColor = 'white';
-        }
-        
         // Включить все поля формы
         function enableFormFields() {
             const inputs = document.querySelectorAll('#input-section input:not(#companyINN)');
             inputs.forEach(input => {
                 input.disabled = false;
-                input.style.borderColor = '#ddd';
+                input.classList.remove('disabled-field');
                 input.style.backgroundColor = 'white';
+                input.style.color = '#333';
+                input.style.cursor = 'text';
             });
             
             document.getElementById('calculateBtn').disabled = false;
@@ -941,9 +941,6 @@
                 
                 showNotification(`Данные компании "${company.name}" успешно загружены`, 'success');
                 
-                // Автоматически запускаем расчет
-                setTimeout(calculateResults, 1000);
-                
             } else {
                 showNotification('Компания с таким ИНН не найдена', 'error');
                 document.getElementById('companyName').textContent = 'Компания не найдена';
@@ -993,6 +990,13 @@
                 return;
             }
             
+            // Проверяем, что поля заполнены
+            const investmentAmount = getNumericValue('investmentAmount');
+            if (investmentAmount === 0) {
+                showNotification('Сначала загрузите данные компании', 'error');
+                return;
+            }
+            
             // Показать результаты
             document.getElementById('loadingIndicator').classList.add('hidden');
             document.getElementById('resultsContainer').classList.remove('hidden');
@@ -1000,6 +1004,13 @@
             document.getElementById('recommendationsContent').classList.remove('hidden');
             
             // === РАСЧЕТЫ ПО МОДЕЛИ ИЗ ВКР (фиксированные результаты для МПИТ) ===
+            
+            // Получение базовых значений
+            const historicalRoi = parseFloat(document.getElementById('historicalRoi').value) || 15;
+            const currentChurn = parseFloat(document.getElementById('currentChurn').value) || 10;
+            const currentRdSuccess = parseInt(document.getElementById('currentRdSuccess').value) || 40;
+            const currentPaybackPeriod = parseInt(document.getElementById('currentPaybackPeriod').value) || 24;
+            const keyCustomersShare = parseInt(document.getElementById('keyCustomersShare').value) || 32;
             
             // Результаты из ВКР для МПИТ
             const results = {
@@ -1009,7 +1020,7 @@
                 paybackPeriod: 19,      // Было 24 мес., стало 19 мес.
                 
                 // LTV модель
-                segmentHigh: 32,        // Доля высокопотенциальных клиентов
+                segmentHigh: keyCustomersShare, // Используем значение из формы
                 ltvGrowth: 8,           // Рост LTV
                 retentionInvestment: 25, // Инвестиции в удержание
                 ltvEffect: 15,          // Эффект на доходность
@@ -1034,13 +1045,6 @@
                 maturityScore: 4.2,
                 maturityLevel: 'Высокий уровень'
             };
-            
-            // Получение базовых значений
-            const historicalRoi = parseFloat(document.getElementById('historicalRoi').value) || 15;
-            const currentChurn = parseFloat(document.getElementById('currentChurn').value) || 10;
-            const currentRdSuccess = parseInt(document.getElementById('currentRdSuccess').value) || 40;
-            const currentPaybackPeriod = parseInt(document.getElementById('currentPaybackPeriod').value) || 24;
-            const keyCustomersShare = parseInt(document.getElementById('keyCustomersShare').value) || 32;
             
             // Расчет изменений
             const roiChange = results.roiWithAI - historicalRoi;
@@ -1072,13 +1076,13 @@
             
             // Обновление KPI
             document.getElementById('portfolioRoi').textContent = results.roiWithAI + '%';
-            document.getElementById('roiChange').textContent = formatChange(roiChange, '%', true);
+            updateKPIChange('roiChange', roiChange, '%', true);
             document.getElementById('ineffectiveInvestments').textContent = results.ineffectiveInvestments + '%';
-            document.getElementById('ineffectiveChange').textContent = formatChange(ineffectiveChange, '%', false);
+            updateKPIChange('ineffectiveChange', ineffectiveChange, '%', false);
             document.getElementById('paybackPeriod').textContent = results.paybackPeriod + ' мес.';
-            document.getElementById('paybackChange').textContent = formatChange(paybackChange, 'мес.', true);
+            updateKPIChange('paybackChange', paybackChange, 'мес.', true);
             document.getElementById('decisionTime').textContent = results.decisionTime + ' дней';
-            document.getElementById('decisionTimeChange').textContent = formatChange(decisionTimeChange, 'дней', true);
+            updateKPIChange('decisionTimeChange', decisionTimeChange, 'дней', true);
             
             // ИИ-зрелость
             document.getElementById('aiMaturityScore').textContent = results.maturityScore;
@@ -1096,26 +1100,37 @@
             document.querySelectorAll('.kpi-item div')[3].innerHTML = `До внедрения: 28 дней`;
             
             // Генерация рекомендаций
-            generateRecommendations(results);
+            generateRecommendations(results, companyName);
             
-            // Обновление классов для цветовых индикаторов
-            updateChangeIndicators();
-            
-            showNotification('Расчёт выполнен по данным из ВКР МПИТ', 'success');
+            showNotification('Анализ выполнен по данным из ВКР МПИТ', 'success');
         }
         
-        // Форматирование изменений
-        function formatChange(value, unit, isPositiveWhenNegative = false) {
-            if (value === 0) return '0 ' + unit;
+        // Обновление KPI изменений
+        function updateKPIChange(elementId, value, unit, isPositiveWhenNegative = false) {
+            const element = document.getElementById(elementId);
+            
+            if (value === 0) {
+                element.textContent = '0 ' + unit;
+                element.className = 'kpi-change';
+                return;
+            }
             
             let formatted = value > 0 ? '+' + value : value.toString();
             formatted += ' ' + unit;
+            element.textContent = formatted;
             
-            return formatted;
+            // Определяем класс в зависимости от знака и типа изменения
+            if ((value > 0 && !isPositiveWhenNegative) || (value < 0 && isPositiveWhenNegative)) {
+                element.className = 'kpi-change positive';
+            } else if ((value < 0 && !isPositiveWhenNegative) || (value > 0 && isPositiveWhenNegative)) {
+                element.className = 'kpi-change negative';
+            } else {
+                element.className = 'kpi-change';
+            }
         }
         
         // Генерация рекомендаций
-        function generateRecommendations(results) {
+        function generateRecommendations(results, companyName) {
             const recommendationsHTML = `
                 <div class="recommendation-card">
                     <div class="recommendation-header">
@@ -1154,36 +1169,13 @@
             document.getElementById('recommendationsContent').innerHTML = recommendationsHTML;
         }
         
-        // Обновление индикаторов изменений
-        function updateChangeIndicators() {
-            const changes = document.querySelectorAll('.kpi-change, .rec-impact');
-            changes.forEach(change => {
-                const text = change.textContent;
-                if (text.includes('+') || (text.includes('-') && !text.includes('-'))) {
-                    change.classList.add('positive');
-                    change.classList.remove('negative');
-                } else if (text.includes('-')) {
-                    change.classList.add('negative');
-                    change.classList.remove('positive');
-                }
-            });
-            
-            // Для LTV роста и других позитивных показателей
-            const positiveIndicators = document.querySelectorAll('#ltvGrowth, #ltvEffect, #revenueGrowth, #predictiveRoi');
-            positiveIndicators.forEach(indicator => {
-                if (indicator.textContent.includes('+') || parseInt(indicator.textContent) > 0) {
-                    indicator.classList.add('positive');
-                }
-            });
-        }
-        
         // Экспорт PDF
         function exportPDF() {
             if (document.getElementById('companyName').textContent === 'Компания не выбрана') {
                 showNotification('Сначала выберите компанию', 'error');
                 return;
             }
-            showNotification('PDF-отчёт формируется... Готовность через 10 секунд', 'success');
+            showNotification('PDF-отчёт формируется...', 'success');
         }
         
         // Экспорт Excel
@@ -1210,19 +1202,6 @@
         
         // Инициализация при загрузке
         document.addEventListener('DOMContentLoaded', function() {
-            // Устанавливаем пример ИНН в placeholder
-            document.getElementById('companyINN').placeholder = 'Введите ИНН компании (например: 7701234567)';
-            
-            // Делаем поля ввода чувствительными к фокусу
-            const inputs = document.querySelectorAll('#input-section input');
-            inputs.forEach(input => {
-                input.addEventListener('focus', function() {
-                    if (document.getElementById('companyName').textContent !== 'Компания не выбрана') {
-                        activateField(this);
-                    }
-                });
-            });
-            
             // Разрешаем ввод ИНН по Enter
             document.getElementById('companyINN').addEventListener('keypress', function(e) {
                 if (e.key === 'Enter') {
