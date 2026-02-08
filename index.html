@@ -1,6 +1,3 @@
-# ИИ-платформа управления инвестициями МПИТ
-
-```html
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -174,6 +171,16 @@
             width: 140px;
             font-size: 0.95rem;
             transition: border-color 0.3s;
+            background-color: #f5f5f5;
+            color: #999;
+            cursor: not-allowed;
+        }
+        
+        input.editable, select.editable {
+            background-color: white;
+            color: #333;
+            cursor: text;
+            border-color: #ddd;
         }
         
         input:focus, select:focus {
@@ -221,6 +228,13 @@
             box-shadow: 0 8px 20px rgba(40, 53, 147, 0.3);
         }
         
+        .calculate-btn:disabled {
+            background: #cccccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
         .recalculate-btn {
             background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
             color: white;
@@ -261,6 +275,13 @@
         .export-btn:hover {
             background: #283593;
             color: white;
+        }
+        
+        .export-btn:disabled {
+            background: #f5f5f5;
+            border-color: #ccc;
+            color: #999;
+            cursor: not-allowed;
         }
         
         .results-container {
@@ -530,18 +551,6 @@
             to { transform: translateX(100%); opacity: 0; }
         }
         
-        .disabled-field {
-            background-color: #f5f5f5;
-            color: #999;
-            cursor: not-allowed;
-        }
-        
-        .active-field {
-            background-color: white;
-            color: #333;
-            cursor: text;
-        }
-        
         .editable-note {
             font-size: 0.85rem;
             color: #666;
@@ -580,7 +589,7 @@
                     <div class="input-row">
                         <label>Объём инвестиций (₽)<span class="required-mark">*</span>:</label>
                         <div class="input-container">
-                            <input type="text" id="investmentAmount" placeholder="—" class="disabled-field" disabled>
+                            <input type="text" id="investmentAmount" placeholder="—" readonly>
                             <span class="suffix">₽</span>
                         </div>
                     </div>
@@ -588,7 +597,7 @@
                     <div class="input-row">
                         <label>Срок инвестиций (мес.)<span class="required-mark">*</span>:</label>
                         <div class="input-container">
-                            <input type="number" id="investmentPeriod" min="3" max="60" placeholder="—" class="disabled-field" disabled>
+                            <input type="number" id="investmentPeriod" min="3" max="60" placeholder="—" readonly>
                             <span class="suffix">мес.</span>
                         </div>
                     </div>
@@ -596,7 +605,7 @@
                     <div class="input-row">
                         <label>Исторический ROI (%):</label>
                         <div class="input-container">
-                            <input type="number" id="historicalRoi" min="5" max="50" step="0.5" placeholder="—" class="disabled-field" disabled>
+                            <input type="number" id="historicalRoi" min="5" max="50" step="0.5" placeholder="—" readonly>
                             <span class="suffix">%</span>
                         </div>
                     </div>
@@ -604,7 +613,7 @@
                     <div class="input-row">
                         <label>Допустимый риск<span class="required-mark">*</span>:</label>
                         <div class="input-container">
-                            <input type="number" id="riskTolerance" min="1" max="30" step="0.5" placeholder="—" class="disabled-field" disabled>
+                            <input type="number" id="riskTolerance" min="1" max="30" step="0.5" placeholder="—" readonly>
                             <span class="suffix">%</span>
                         </div>
                     </div>
@@ -615,7 +624,7 @@
                     <div class="input-row">
                         <label>Бюджет R&D (% от инвест.)<span class="required-mark">*</span>:</label>
                         <div class="input-container">
-                            <input type="number" id="rdBudget" min="5" max="40" step="1" placeholder="—" class="disabled-field" disabled>
+                            <input type="number" id="rdBudget" min="5" max="40" step="1" placeholder="—" readonly>
                             <span class="suffix">%</span>
                         </div>
                     </div>
@@ -623,7 +632,7 @@
                     <div class="input-row">
                         <label>Кол-во активных R&D проектов:</label>
                         <div class="input-container">
-                            <input type="number" id="projectCount" min="1" max="100" placeholder="—" class="disabled-field" disabled>
+                            <input type="number" id="projectCount" min="1" max="100" placeholder="—" readonly>
                             <span class="suffix">шт.</span>
                         </div>
                     </div>
@@ -631,7 +640,7 @@
                     <div class="input-row">
                         <label>Текущая доля окупающихся проектов:</label>
                         <div class="input-container">
-                            <input type="number" id="currentRdSuccess" min="10" max="100" placeholder="—" class="disabled-field" disabled>
+                            <input type="number" id="currentRdSuccess" min="10" max="100" placeholder="—" readonly>
                             <span class="suffix">%</span>
                         </div>
                     </div>
@@ -639,7 +648,7 @@
                     <div class="input-row">
                         <label>Средний срок окупаемости:</label>
                         <div class="input-container">
-                            <input type="number" id="currentPaybackPeriod" min="6" max="60" placeholder="—" class="disabled-field" disabled>
+                            <input type="number" id="currentPaybackPeriod" min="6" max="60" placeholder="—" readonly>
                             <span class="suffix">мес.</span>
                         </div>
                     </div>
@@ -650,7 +659,7 @@
                     <div class="input-row">
                         <label>Кол-во корпоративных клиентов:</label>
                         <div class="input-container">
-                            <input type="text" id="customerCount" placeholder="—" class="disabled-field" disabled>
+                            <input type="text" id="customerCount" placeholder="—" readonly>
                             <span class="suffix">компаний</span>
                         </div>
                     </div>
@@ -658,7 +667,7 @@
                     <div class="input-row">
                         <label>Текущий отток клиентов (Churn Rate):</label>
                         <div class="input-container">
-                            <input type="number" id="currentChurn" min="1" max="50" step="0.5" placeholder="—" class="disabled-field" disabled>
+                            <input type="number" id="currentChurn" min="1" max="50" step="0.5" placeholder="—" readonly>
                             <span class="suffix">%</span>
                         </div>
                     </div>
@@ -666,7 +675,7 @@
                     <div class="input-row">
                         <label>Средний годовой LTV клиента:</label>
                         <div class="input-container">
-                            <input type="text" id="avgLtv" placeholder="—" class="disabled-field" disabled>
+                            <input type="text" id="avgLtv" placeholder="—" readonly>
                             <span class="suffix">₽</span>
                         </div>
                     </div>
@@ -674,7 +683,7 @@
                     <div class="input-row">
                         <label>Доля ключевых (TOP 20%) клиентов:</label>
                         <div class="input-container">
-                            <input type="number" id="keyCustomersShare" min="20" max="100" placeholder="—" class="disabled-field" disabled>
+                            <input type="number" id="keyCustomersShare" min="20" max="100" placeholder="—" readonly>
                             <span class="suffix">%</span>
                         </div>
                     </div>
@@ -685,7 +694,7 @@
                     <div class="input-row">
                         <label>Годовой CAPEX на инфраструктуру:</label>
                         <div class="input-container">
-                            <input type="text" id="infraCapex" placeholder="—" class="disabled-field" disabled>
+                            <input type="text" id="infraCapex" placeholder="—" readonly>
                             <span class="suffix">₽</span>
                         </div>
                     </div>
@@ -693,7 +702,7 @@
                     <div class="input-row">
                         <label>Уровень незапланированных простоев:</label>
                         <div class="input-container">
-                            <input type="number" id="unplannedDowntime" min="0" max="20" step="0.5" placeholder="—" class="disabled-field" disabled>
+                            <input type="number" id="unplannedDowntime" min="0" max="20" step="0.5" placeholder="—" readonly>
                             <span class="suffix">%</span>
                         </div>
                     </div>
@@ -701,7 +710,7 @@
                     <div class="input-row">
                         <label>Затраты на техническую поддержку:</label>
                         <div class="input-container">
-                            <input type="text" id="maintenanceCost" placeholder="—" class="disabled-field" disabled>
+                            <input type="text" id="maintenanceCost" placeholder="—" readonly>
                             <span class="suffix">₽</span>
                         </div>
                     </div>
@@ -932,6 +941,29 @@
                     unplannedDowntime: 3,
                     maintenanceCost: 2400000
                 }
+            },
+            'test': {
+                name: 'Тестовая компания',
+                type: 'Технологический стартап',
+                description: 'Разработка инновационных решений',
+                logoText: 'ТЕ',
+                data: {
+                    investmentAmount: 50000000,
+                    investmentPeriod: 18,
+                    historicalRoi: 12,
+                    riskTolerance: 8,
+                    rdBudget: 20,
+                    projectCount: 15,
+                    currentRdSuccess: 30,
+                    currentPaybackPeriod: 30,
+                    customerCount: 80,
+                    currentChurn: 15,
+                    avgLtv: 800000,
+                    keyCustomersShare: 25,
+                    infraCapex: 5000000,
+                    unplannedDowntime: 8,
+                    maintenanceCost: 2000000
+                }
             }
         };
         
@@ -941,12 +973,10 @@
         
         // Включить все поля формы
         function enableFormFields() {
-            const inputs = document.querySelectorAll('#input-section input:not(#companyINN)');
+            const inputs = document.querySelectorAll('.input-section input:not(#companyINN)');
             inputs.forEach(input => {
-                input.disabled = false;
-                input.classList.remove('disabled-field');
-                input.classList.add('active-field');
-                input.style.cursor = 'text';
+                input.removeAttribute('readonly');
+                input.classList.add('editable');
             });
             
             document.getElementById('calculateBtn').disabled = false;
@@ -998,8 +1028,9 @@
                 return;
             }
             
-            if (companies[inn]) {
-                currentCompany = companies[inn];
+            // Проверка для тестовой компании
+            if (inn === 'test' || companies[inn]) {
+                currentCompany = companies[inn] || companies['test'];
                 
                 // Обновляем информацию о компании
                 document.getElementById('companyName').textContent = currentCompany.name;
@@ -1020,7 +1051,9 @@
                 // Сбрасываем состояние расчета
                 isCalculated = false;
                 
-                showNotification(`Данные компании "${currentCompany.name}" успешно загружены`, 'success');
+                // Скрываем результаты если они были показаны
+                document.getElementById('resultsContainer').classList.add('hidden');
+                document.getElementById('loadingIndicator').classList.remove('hidden');
                 
             } else {
                 showNotification('Компания с таким ИНН не найдена в базе', 'error');
@@ -1105,8 +1138,6 @@
             
             // Выполняем расчет
             performCalculation();
-            
-            showNotification('Анализ выполнен успешно', 'success');
         }
         
         // Пересчет результатов
@@ -1429,13 +1460,28 @@
             
             // Автоматическое форматирование чисел при вводе
             document.addEventListener('input', function(e) {
-                if (e.target.type === 'text' && e.target.id !== 'companyINN') {
+                if (e.target.type === 'text' && e.target.id !== 'companyINN' && e.target.classList.contains('editable')) {
                     // Позволяем вводить только цифры и запятые
                     e.target.value = e.target.value.replace(/[^\d,]/g, '');
                 }
+            });
+            
+            // Валидация числовых полей
+            const numberInputs = document.querySelectorAll('input[type="number"]');
+            numberInputs.forEach(input => {
+                input.addEventListener('input', function(e) {
+                    if (this.classList.contains('editable')) {
+                        const value = parseFloat(this.value);
+                        if (this.min && value < parseFloat(this.min)) {
+                            this.value = this.min;
+                        }
+                        if (this.max && value > parseFloat(this.max)) {
+                            this.value = this.max;
+                        }
+                    }
+                });
             });
         });
     </script>
 </body>
 </html>
-```
