@@ -13,7 +13,7 @@
         }
         
         body {
-            background: linear-gradient(135deg, #1a0000 0%, #330000 100%);
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
             min-height: 100vh;
             padding: 20px;
         }
@@ -21,25 +21,23 @@
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            background: #0a0a0a;
+            background: white;
             border-radius: 15px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             overflow: hidden;
-            border: 1px solid #333;
         }
         
         header {
-            background: linear-gradient(135deg, #8B0000 0%, #B22222 100%);
+            background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
             color: white;
             padding: 30px;
             text-align: center;
-            border-bottom: 3px solid #ff3333;
+            border-bottom: 3px solid #bd2130;
         }
         
         h1 {
             font-size: 2.2rem;
             margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         }
         
         .subtitle {
@@ -62,33 +60,33 @@
         }
         
         .input-section {
-            background: #1a1a1a;
+            background: #f8f9fa;
             border-radius: 10px;
             padding: 25px;
-            border: 1px solid #333;
+            border: 1px solid #e9ecef;
         }
         
         .results-section {
-            background: #0f0f0f;
+            background: white;
             border-radius: 10px;
-            border: 1px solid #333;
+            border: 1px solid #e9ecef;
         }
         
         .section-title {
-            color: #ff3333;
+            color: #dc3545;
             margin-bottom: 25px;
             padding-bottom: 10px;
-            border-bottom: 2px solid #333;
+            border-bottom: 2px solid #e9ecef;
             font-size: 1.3rem;
             font-weight: 600;
         }
         
         .company-selector {
-            background: #1a1a1a;
+            background: white;
             border-radius: 8px;
             padding: 20px;
             margin-bottom: 25px;
-            border: 2px solid #444;
+            border: 2px solid #e9ecef;
         }
         
         .company-info {
@@ -101,7 +99,7 @@
         .company-logo {
             width: 50px;
             height: 50px;
-            background: linear-gradient(135deg, #8B0000 0%, #B22222 100%);
+            background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
             color: white;
             border-radius: 50%;
             display: flex;
@@ -109,63 +107,65 @@
             justify-content: center;
             font-weight: bold;
             font-size: 1.2rem;
-            border: 2px solid #ff3333;
         }
         
         .company-details h3 {
-            color: #ff3333;
+            color: #343a40;
             margin-bottom: 5px;
         }
         
         .company-details p {
-            color: #aaa;
+            color: #6c757d;
             font-size: 0.9rem;
         }
         
         .inn-input {
             width: 100%;
-            padding: 10px 15px;
-            border: 2px solid #444;
+            padding: 12px 15px;
+            border: 2px solid #ced4da;
             border-radius: 6px;
             font-size: 1rem;
             transition: border-color 0.3s;
-            background: #111;
-            color: white;
+            background: white;
+            color: #495057;
         }
         
         .inn-input:focus {
             outline: none;
-            border-color: #ff3333;
+            border-color: #dc3545;
+            box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
         }
         
         .select-company-btn {
-            background: linear-gradient(135deg, #8B0000 0%, #B22222 100%);
+            background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
             color: white;
             border: none;
-            padding: 10px 15px;
+            padding: 12px 15px;
             border-radius: 6px;
-            font-size: 0.95rem;
+            font-size: 1rem;
             cursor: pointer;
             width: 100%;
             margin-top: 10px;
-            transition: background-color 0.3s;
+            transition: all 0.3s;
         }
         
         .select-company-btn:hover {
-            background: linear-gradient(135deg, #B22222 0%, #8B0000 100%);
+            background: linear-gradient(135deg, #c82333 0%, #bd2130 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(220, 53, 69, 0.3);
         }
         
         .csv-upload-section {
             margin-top: 20px;
             padding: 15px;
-            background: #222;
+            background: #f8f9fa;
             border-radius: 8px;
-            border: 2px dashed #ff3333;
+            border: 2px dashed #dc3545;
         }
         
         .csv-upload-title {
             font-size: 1rem;
-            color: #ff3333;
+            color: #dc3545;
             margin-bottom: 10px;
             font-weight: 500;
         }
@@ -174,43 +174,47 @@
             width: 100%;
             padding: 10px;
             margin-bottom: 10px;
-            border: 2px solid #444;
+            border: 2px solid #ced4da;
             border-radius: 6px;
-            background: #111;
-            color: white;
+            background: white;
+            color: #495057;
         }
         
         .csv-upload-btn {
-            background: #228B22;
+            background: #28a745;
             color: white;
             border: none;
-            padding: 10px 15px;
+            padding: 12px 15px;
             border-radius: 6px;
-            font-size: 0.95rem;
+            font-size: 1rem;
             cursor: pointer;
             width: 100%;
-            transition: background-color 0.3s;
+            transition: all 0.3s;
         }
         
         .csv-upload-btn:hover {
-            background: #32CD32;
+            background: #218838;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.3);
         }
         
         .csv-download-btn {
-            background: #1E90FF;
+            background: #007bff;
             color: white;
             border: none;
-            padding: 10px 15px;
+            padding: 12px 15px;
             border-radius: 6px;
-            font-size: 0.95rem;
+            font-size: 1rem;
             cursor: pointer;
             width: 100%;
             margin-top: 10px;
-            transition: background-color 0.3s;
+            transition: all 0.3s;
         }
         
         .csv-download-btn:hover {
-            background: #4169E1;
+            background: #0056b3;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 123, 255, 0.3);
         }
         
         .input-group {
@@ -226,34 +230,34 @@
         
         label {
             font-weight: 500;
-            color: #ddd;
+            color: #495057;
             flex: 1;
             font-size: 0.95rem;
         }
         
         input, select {
-            padding: 8px 12px;
-            border: 2px solid #444;
+            padding: 10px 12px;
+            border: 2px solid #ced4da;
             border-radius: 6px;
             width: 140px;
             font-size: 0.95rem;
             transition: border-color 0.3s;
-            background-color: #111;
-            color: #999;
+            background-color: #f8f9fa;
+            color: #6c757d;
             cursor: not-allowed;
         }
         
         input.editable, select.editable {
-            background-color: #222;
-            color: white;
+            background-color: white;
+            color: #495057;
             cursor: text;
-            border-color: #666;
+            border-color: #ced4da;
         }
         
         input.editable:focus, select.editable:focus {
             outline: none;
-            border-color: #ff3333;
-            box-shadow: 0 0 0 2px rgba(255, 51, 51, 0.1);
+            border-color: #dc3545;
+            box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.1);
         }
         
         input[type="number"] {
@@ -268,39 +272,39 @@
         
         .suffix {
             position: absolute;
-            right: 10px;
+            right: 12px;
             top: 50%;
             transform: translateY(-50%);
-            color: #666;
+            color: #6c757d;
             pointer-events: none;
             font-size: 0.9rem;
         }
         
         .suffix.editable {
-            color: #aaa;
+            color: #495057;
         }
         
         .calculate-btn {
-            background: linear-gradient(135deg, #8B0000 0%, #B22222 100%);
+            background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
             color: white;
             border: none;
-            padding: 15px 30px;
+            padding: 16px 30px;
             border-radius: 8px;
             font-size: 1.1rem;
             font-weight: 600;
             cursor: pointer;
             width: 100%;
             margin-top: 20px;
-            transition: transform 0.2s, box-shadow 0.2s;
+            transition: all 0.3s;
         }
         
         .calculate-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(255, 51, 51, 0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(220, 53, 69, 0.3);
         }
         
         .calculate-btn:disabled {
-            background: #444;
+            background: #6c757d;
             cursor: not-allowed;
             transform: none;
             box-shadow: none;
@@ -308,22 +312,22 @@
         }
         
         .recalculate-btn {
-            background: linear-gradient(135deg, #228B22 0%, #32CD32 100%);
+            background: linear-gradient(135deg, #28a745 0%, #218838 100%);
             color: white;
             border: none;
-            padding: 12px 20px;
+            padding: 14px 20px;
             border-radius: 6px;
             font-size: 1rem;
             font-weight: 500;
             cursor: pointer;
             width: 100%;
             margin-top: 10px;
-            transition: transform 0.2s, box-shadow 0.2s;
+            transition: all 0.3s;
         }
         
         .recalculate-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(34, 139, 34, 0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(40, 167, 69, 0.3);
         }
         
         .export-buttons {
@@ -334,10 +338,10 @@
         }
         
         .export-btn {
-            background: #222;
-            border: 2px solid #ff3333;
-            color: #ff3333;
-            padding: 12px;
+            background: white;
+            border: 2px solid #dc3545;
+            color: #dc3545;
+            padding: 14px;
             border-radius: 6px;
             font-weight: 500;
             cursor: pointer;
@@ -345,15 +349,17 @@
         }
         
         .export-btn:hover {
-            background: #ff3333;
+            background: #dc3545;
             color: white;
+            transform: translateY(-2px);
         }
         
         .export-btn:disabled {
-            background: #333;
-            border-color: #666;
-            color: #666;
+            background: #f8f9fa;
+            border-color: #ced4da;
+            color: #6c757d;
             cursor: not-allowed;
+            transform: none;
         }
         
         .results-container {
@@ -368,45 +374,47 @@
         }
         
         .metric-card {
-            background: #1a1a1a;
+            background: white;
             border-radius: 10px;
             padding: 20px;
             text-align: center;
-            border: 1px solid #333;
+            border: 1px solid #e9ecef;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
         }
         
         .metric-title {
             font-size: 0.9rem;
-            color: #aaa;
+            color: #6c757d;
             margin-bottom: 10px;
         }
         
         .metric-value {
             font-size: 2rem;
             font-weight: 700;
-            color: #ff3333;
+            color: #dc3545;
         }
         
         .metric-subtitle {
             font-size: 0.85rem;
-            color: #888;
+            color: #adb5bd;
             margin-top: 5px;
         }
         
         .algorithm-results {
-            background: #1a1a1a;
+            background: #f8f9fa;
             border-radius: 10px;
             padding: 25px;
             margin-bottom: 30px;
-            border: 1px solid #333;
+            border: 1px solid #e9ecef;
         }
         
         .algorithm-card {
-            background: #222;
+            background: white;
             border-radius: 8px;
             padding: 20px;
             margin-bottom: 15px;
-            border: 1px solid #444;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            border-left: 4px solid #dc3545;
         }
         
         .algorithm-header {
@@ -418,12 +426,12 @@
         
         .algorithm-name {
             font-weight: 600;
-            color: #ff3333;
+            color: #343a40;
         }
         
         .algorithm-accuracy {
-            background: #223322;
-            color: #32CD32;
+            background: #d4edda;
+            color: #155724;
             padding: 5px 10px;
             border-radius: 12px;
             font-size: 0.9rem;
@@ -439,14 +447,14 @@
             display: flex;
             justify-content: space-between;
             padding: 8px 0;
-            border-bottom: 1px dashed #444;
+            border-bottom: 1px dashed #e9ecef;
         }
         
         .kpi-section {
-            background: #1a1a1a;
+            background: #f8f9fa;
             border-radius: 10px;
             padding: 25px;
-            border: 1px solid #333;
+            border: 1px solid #e9ecef;
         }
         
         .kpi-grid {
@@ -457,10 +465,10 @@
         }
         
         .kpi-item {
-            background: #222;
-            padding: 15px;
+            background: white;
+            padding: 20px;
             border-radius: 8px;
-            border: 1px solid #444;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
         }
         
         .kpi-header {
@@ -472,28 +480,29 @@
         .kpi-value {
             font-size: 1.5rem;
             font-weight: 600;
-            color: #ff3333;
+            color: #dc3545;
         }
         
         .kpi-change {
             font-size: 0.9rem;
-            padding: 3px 8px;
+            padding: 5px 10px;
             border-radius: 10px;
+            font-weight: 500;
         }
         
         .positive {
-            background: #223322;
-            color: #32CD32;
+            background: #d4edda;
+            color: #155724;
         }
         
         .negative {
-            background: #442222;
-            color: #ff5555;
+            background: #f8d7da;
+            color: #721c24;
         }
         
         .neutral {
-            background: #222244;
-            color: #8888ff;
+            background: #e2f0fd;
+            color: #004085;
         }
         
         .recommendations {
@@ -501,12 +510,12 @@
         }
         
         .recommendation-card {
-            background: #222222;
-            border-left: 4px solid #ff3333;
+            background: white;
+            border-left: 4px solid #28a745;
             padding: 20px;
             border-radius: 0 8px 8px 0;
             margin-bottom: 15px;
-            border: 1px solid #444;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
         }
         
         .recommendation-header {
@@ -517,65 +526,67 @@
         
         .rec-title {
             font-weight: 600;
-            color: #ff3333;
+            color: #343a40;
         }
         
         .rec-impact {
-            background: #111;
-            color: #ff3333;
-            padding: 3px 10px;
+            background: #f8f9fa;
+            color: #28a745;
+            padding: 5px 12px;
             border-radius: 12px;
             font-size: 0.9rem;
+            font-weight: 500;
         }
         
         .rec-details {
-            color: #ccc;
+            color: #495057;
             font-size: 0.95rem;
+            line-height: 1.5;
         }
         
         .risk-indicator {
             display: inline-block;
             margin-top: 10px;
-            padding: 3px 10px;
+            padding: 5px 12px;
             border-radius: 12px;
             font-size: 0.85rem;
+            font-weight: 500;
         }
         
         .low-risk {
-            background: #223322;
-            color: #32CD32;
+            background: #d4edda;
+            color: #155724;
         }
         
         .medium-risk {
-            background: #443311;
-            color: #ffaa00;
+            background: #fff3cd;
+            color: #856404;
         }
         
         .high-risk {
-            background: #442222;
-            color: #ff5555;
+            background: #f8d7da;
+            color: #721c24;
         }
         
         .ai-maturity {
-            background: linear-gradient(135deg, #8B0000 0%, #B22222 100%);
+            background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
             color: white;
-            padding: 20px;
+            padding: 25px;
             border-radius: 10px;
             margin-top: 30px;
             text-align: center;
-            border: 1px solid #ff3333;
         }
         
         .maturity-score {
             font-size: 3rem;
             font-weight: 700;
             margin: 10px 0;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         }
         
         .maturity-level {
             font-size: 1.2rem;
             opacity: 0.9;
+            margin-bottom: 5px;
         }
         
         .maturity-scale {
@@ -591,11 +602,11 @@
         .loading {
             text-align: center;
             padding: 40px;
-            color: #666;
+            color: #6c757d;
         }
         
         .required-mark {
-            color: #ff5555;
+            color: #dc3545;
             margin-left: 2px;
         }
         
@@ -605,19 +616,18 @@
             right: 20px;
             padding: 15px 25px;
             border-radius: 8px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
             z-index: 1000;
             animation: slideIn 0.3s ease;
-            border: 1px solid #444;
         }
         
         .success {
-            background: #228B22;
+            background: #28a745;
             color: white;
         }
         
         .error {
-            background: #8B0000;
+            background: #dc3545;
             color: white;
         }
         
@@ -633,28 +643,28 @@
         
         .editable-note {
             font-size: 0.85rem;
-            color: #aaa;
+            color: #6c757d;
             margin-top: 5px;
             font-style: italic;
         }
         
         .empty-field {
-            color: #666 !important;
+            color: #adb5bd !important;
         }
         
         .csv-data-preview {
             margin-top: 15px;
-            background: #111;
+            background: white;
             border-radius: 8px;
             padding: 15px;
-            border: 1px solid #444;
+            border: 1px solid #e9ecef;
             max-height: 200px;
             overflow-y: auto;
         }
         
         .csv-preview-title {
             font-size: 0.9rem;
-            color: #ff3333;
+            color: #dc3545;
             margin-bottom: 10px;
             font-weight: 500;
         }
@@ -666,44 +676,32 @@
         }
         
         .csv-preview-table th {
-            background: #222;
-            color: #ff3333;
+            background: #f8f9fa;
+            color: #dc3545;
             padding: 8px;
             text-align: left;
-            border: 1px solid #444;
+            border: 1px solid #e9ecef;
         }
         
         .csv-preview-table td {
             padding: 6px 8px;
-            border: 1px solid #444;
-            color: #ccc;
+            border: 1px solid #e9ecef;
+            color: #495057;
         }
         
         .storage-indicator {
             font-size: 0.85rem;
-            color: #32CD32;
+            color: #28a745;
             margin-top: 10px;
-            padding: 8px;
-            background: #222;
+            padding: 10px;
+            background: #d4edda;
             border-radius: 6px;
-            border-left: 4px solid #32CD32;
+            border-left: 4px solid #28a745;
         }
         
         .input-changed {
-            background-color: #332211 !important;
-            border-color: #ffaa00 !important;
-        }
-        
-        .company-logo.csv-logo {
-            background: linear-gradient(135deg, #228B22 0%, #32CD32 100%);
-        }
-        
-        .company-logo.test-logo {
-            background: linear-gradient(135deg, #1E90FF 0%, #4169E1 100%);
-        }
-        
-        .company-logo.error-logo {
-            background: linear-gradient(135deg, #8B0000 0%, #B22222 100%);
+            background-color: #fff3cd !important;
+            border-color: #ffc107 !important;
         }
     </style>
 </head>
@@ -756,7 +754,7 @@
                 <p class="editable-note">Все поля можно редактировать перед расчетом. Измененные поля подсвечиваются.</p>
                 
                 <div class="input-group">
-                    <h3 style="color: #ff3333; margin-bottom: 15px; font-size: 1.1rem;">Базовые показатели</h3>
+                    <h3 style="color: #dc3545; margin-bottom: 15px; font-size: 1.1rem;">Базовые показатели</h3>
                     <div class="input-row">
                         <label>Объём инвестиций (₽)<span class="required-mark">*</span>:</label>
                         <div class="input-container">
@@ -791,7 +789,7 @@
                 </div>
                 
                 <div class="input-group">
-                    <h3 style="color: #ff3333; margin-bottom: 15px; font-size: 1.1rem;">R&D проекты</h3>
+                    <h3 style="color: #dc3545; margin-bottom: 15px; font-size: 1.1rem;">R&D проекты</h3>
                     <div class="input-row">
                         <label>Бюджет R&D (% от инвест.)<span class="required-mark">*</span>:</label>
                         <div class="input-container">
@@ -826,7 +824,7 @@
                 </div>
                 
                 <div class="input-group">
-                    <h3 style="color: #ff3333; margin-bottom: 15px; font-size: 1.1rem;">Клиентская база</h3>
+                    <h3 style="color: #dc3545; margin-bottom: 15px; font-size: 1.1rem;">Клиентская база</h3>
                     <div class="input-row">
                         <label>Кол-во корпоративных клиентов:</label>
                         <div class="input-container">
@@ -861,7 +859,7 @@
                 </div>
                 
                 <div class="input-group">
-                    <h3 style="color: #ff3333; margin-bottom: 15px; font-size: 1.1rem;">Инфраструктура</h3>
+                    <h3 style="color: #dc3545; margin-bottom: 15px; font-size: 1.1rem;">Инфраструктура</h3>
                     <div class="input-row">
                         <label>Годовой CAPEX на инфраструктуру:</label>
                         <div class="input-container">
@@ -1005,7 +1003,7 @@
                                     <span class="kpi-change neutral" id="roiChange">—</span>
                                 </div>
                                 <div class="kpi-value" id="portfolioRoi">—</div>
-                                <div style="font-size: 0.85rem; color: #aaa; margin-top: 5px;" id="portfolioBefore">До внедрения: —</div>
+                                <div style="font-size: 0.85rem; color: #6c757d; margin-top: 5px;" id="portfolioBefore">До внедрения: —</div>
                             </div>
                             <div class="kpi-item">
                                 <div class="kpi-header">
@@ -1013,7 +1011,7 @@
                                     <span class="kpi-change neutral" id="ineffectiveChange">—</span>
                                 </div>
                                 <div class="kpi-value" id="ineffectiveInvestments">—</div>
-                                <div style="font-size: 0.85rem; color: #aaa; margin-top: 5px;" id="ineffectiveBefore">До внедрения: —</div>
+                                <div style="font-size: 0.85rem; color: #6c757d; margin-top: 5px;" id="ineffectiveBefore">До внедрения: —</div>
                             </div>
                             <div class="kpi-item">
                                 <div class="kpi-header">
@@ -1021,7 +1019,7 @@
                                     <span class="kpi-change neutral" id="paybackChange">—</span>
                                 </div>
                                 <div class="kpi-value" id="paybackPeriod">—</div>
-                                <div style="font-size: 0.85rem; color: #aaa; margin-top: 5px;" id="paybackBefore">До внедрения: —</div>
+                                <div style="font-size: 0.85rem; color: #6c757d; margin-top: 5px;" id="paybackBefore">До внедрения: —</div>
                             </div>
                             <div class="kpi-item">
                                 <div class="kpi-header">
@@ -1029,7 +1027,7 @@
                                     <span class="kpi-change neutral" id="decisionTimeChange">—</span>
                                 </div>
                                 <div class="kpi-value" id="decisionTime">—</div>
-                                <div style="font-size: 0.85rem; color: #aaa; margin-top: 5px;" id="decisionBefore">До внедрения: —</div>
+                                <div style="font-size: 0.85rem; color: #6c757d; margin-top: 5px;" id="decisionBefore">До внедрения: —</div>
                             </div>
                         </div>
                     </div>
@@ -1059,9 +1057,8 @@
     </div>
 
     <script>
-        // Хранилище данных - симуляция базы данных в браузере
-        const dataStorage = {
-            // Начальные данные для компаний
+        // База данных компаний
+        const companies = {
             '5047154189': {
                 name: 'ООО "Мобайл Парк ИТ"',
                 type: 'Технологическая компания B2B',
@@ -1136,6 +1133,7 @@
         // Переменная для отслеживания состояния
         let isCalculated = false;
         let currentCompany = null;
+        let previousValues = {};
         let uploadedCompanyData = null;
         let storageUpdated = false;
         
@@ -1148,7 +1146,6 @@
                 input.classList.remove('editable');
                 input.classList.add('empty-field');
                 input.classList.remove('input-changed');
-                input.removeAttribute('data-original');
             });
             
             // Сбросить суффиксы
@@ -1201,7 +1198,7 @@
         
         // Форматирование чисел с разделителями тысяч при вводе
         function formatNumberOnBlur(input) {
-            if (!input.value || input.value === '—' || input.value.trim() === '') return;
+            if (!input.value || input.value === '—') return;
             
             let value = input.value.replace(/\s/g, '').replace(/,/g, '');
             
@@ -1221,7 +1218,7 @@
             let original = input.getAttribute('data-original');
             if (original) {
                 input.value = original;
-            } else if (input.value === '—' || input.value.trim() === '') {
+            } else if (input.value === '—' || input.value === '') {
                 input.value = '';
             }
         }
@@ -1229,7 +1226,7 @@
         // Получение числового значения из форматированного поля
         function getNumericValue(inputId) {
             const input = document.getElementById(inputId);
-            if (!input.value || input.value === '—' || input.value.trim() === '') return 0;
+            if (!input.value || input.value === '—') return 0;
             
             let value = input.value.replace(/\s/g, '').replace(/,/g, '');
             return parseInt(value) || 0;
@@ -1238,7 +1235,7 @@
         // Получение значения с плавающей точкой
         function getFloatValue(inputId) {
             const input = document.getElementById(inputId);
-            if (!input.value || input.value === '—' || input.value.trim() === '') return 0;
+            if (!input.value || input.value === '—') return 0;
             
             let value = input.value.replace(/\s/g, '').replace(/,/g, '');
             return parseFloat(value) || 0;
@@ -1253,27 +1250,27 @@
                 return;
             }
             
-            // Проверяем есть ли компания в хранилище (включая загруженные из CSV данные)
-            if (dataStorage[inn] || inn === 'test') {
-                currentCompany = dataStorage[inn] || dataStorage['test'];
+            // Проверка для тестовой компании
+            if (inn === 'test' || companies[inn]) {
+                currentCompany = companies[inn] || companies['test'];
                 uploadedCompanyData = null;
                 
                 // Обновляем информацию о компании
                 document.getElementById('companyName').textContent = currentCompany.name;
                 document.getElementById('companyDetails').textContent = currentCompany.type + ' | ' + currentCompany.description;
+                document.querySelector('.company-logo').textContent = currentCompany.logoText;
+                document.querySelector('.company-logo').style.background = 'linear-gradient(135deg, #dc3545 0%, #c82333 100%)';
                 
-                // Устанавливаем логотип и цвет в зависимости от компании
-                const logoElement = document.querySelector('.company-logo');
-                logoElement.textContent = currentCompany.logoText;
-                logoElement.style.background = 'linear-gradient(135deg, #8B0000 0%, #B22222 100%)';
-                logoElement.classList.remove('csv-logo', 'test-logo', 'error-logo');
-                
+                // Особое сообщение если это Мобайл Парк ИТ и данные обновлены
                 if (inn === '5047154189' && storageUpdated) {
                     document.getElementById('companyDetails').textContent = '✓ Данные обновлены из CSV файла | ' + currentCompany.description;
                     showNotification('Используются данные из CSV файла для Мобайл Парк ИТ', 'success');
                 }
                 
-                // Заполняем данные компании из хранилища
+                // Сохраняем предыдущие значения для сравнения
+                saveCurrentValues();
+                
+                // Заполняем данные компании
                 fillCompanyData(currentCompany);
                 
                 // Включаем поля формы
@@ -1297,15 +1294,35 @@
                 showNotification('Компания с таким ИНН не найдена в базе', 'error');
                 document.getElementById('companyName').textContent = 'Компания не найдена';
                 document.getElementById('companyDetails').textContent = 'Проверьте правильность ИНН';
-                const logoElement = document.querySelector('.company-logo');
-                logoElement.textContent = '!';
-                logoElement.classList.add('error-logo');
+                document.querySelector('.company-logo').textContent = '!';
+                document.querySelector('.company-logo').style.background = 'linear-gradient(135deg, #6c757d 0%, #495057 100%)';
                 currentCompany = null;
                 uploadedCompanyData = null;
                 
                 // Сбрасываем поля формы
                 resetFormFields();
             }
+        }
+        
+        // Сохранить текущие значения для сравнения
+        function saveCurrentValues() {
+            previousValues = {
+                investmentAmount: getNumericValue('investmentAmount'),
+                investmentPeriod: getFloatValue('investmentPeriod'),
+                historicalRoi: getFloatValue('historicalRoi'),
+                riskTolerance: getFloatValue('riskTolerance'),
+                rdBudget: getFloatValue('rdBudget'),
+                projectCount: getFloatValue('projectCount'),
+                currentRdSuccess: getFloatValue('currentRdSuccess'),
+                currentPaybackPeriod: getFloatValue('currentPaybackPeriod'),
+                customerCount: getNumericValue('customerCount'),
+                currentChurn: getFloatValue('currentChurn'),
+                avgLtv: getNumericValue('avgLtv'),
+                keyCustomersShare: getFloatValue('keyCustomersShare'),
+                infraCapex: getNumericValue('infraCapex'),
+                unplannedDowntime: getFloatValue('unplannedDowntime'),
+                maintenanceCost: getNumericValue('maintenanceCost')
+            };
         }
         
         // Заполнение данных компании
@@ -1358,20 +1375,19 @@
             document.getElementById('maintenanceCost').value = data.maintenanceCost.toLocaleString('ru-RU');
             document.getElementById('maintenanceCost').setAttribute('data-original', data.maintenanceCost);
             
+            // Сохраняем новые значения
+            saveCurrentValues();
+            
             // Добавляем обработчики для форматирования
             const numberInputs = document.querySelectorAll('input[type="text"]:not(#companyINN)');
             numberInputs.forEach(input => {
-                // Удаляем старые обработчики
-                const newInput = input.cloneNode(true);
-                input.parentNode.replaceChild(newInput, input);
-                
-                newInput.addEventListener('blur', function() {
+                input.addEventListener('blur', function() {
                     formatNumberOnBlur(this);
                 });
-                newInput.addEventListener('focus', function() {
+                input.addEventListener('focus', function() {
                     clearFormatting(this);
                 });
-                newInput.addEventListener('input', function() {
+                input.addEventListener('input', function() {
                     markAsChanged(this);
                 });
             });
@@ -1441,26 +1457,19 @@
             // Устанавливаем флаг обновления хранилища
             storageUpdated = true;
             
-            // Обновляем хранилище данных
-            if (dataStorage['5047154189']) {
+            // Обновляем данные для Мобайл Парк ИТ
+            if (companies['5047154189']) {
                 // Обновляем данные для Мобайл Парк ИТ из CSV
-                Object.assign(dataStorage['5047154189'].data, csvData);
+                Object.assign(companies['5047154189'].data, csvData);
                 
                 // Обновляем название если оно есть в CSV
                 if (csvData.name) {
-                    dataStorage['5047154189'].name = csvData.name;
+                    companies['5047154189'].name = csvData.name;
                 }
+                
+                // Показываем сообщение о том, что данные обновлены
+                showNotification('Данные для Мобайл Парк ИТ обновлены из CSV файла', 'success');
             }
-            
-            // Также создаем отдельную запись для загруженных данных
-            const csvCompanyId = 'csv_' + Date.now();
-            dataStorage[csvCompanyId] = {
-                name: csvData.name || 'Загруженная из CSV компания',
-                type: csvData.type || 'Данные из CSV файла',
-                description: 'Данные загружены из CSV файла',
-                logoText: 'CSV',
-                data: csvData
-            };
             
             // Через 5 секунд скрываем индикатор
             setTimeout(() => {
@@ -1627,27 +1636,8 @@
             const riskTolerance = getFloatValue('riskTolerance');
             const rdBudget = getFloatValue('rdBudget');
             
-            if (investmentAmount === 0) {
-                showNotification('Заполните объем инвестиций', 'error');
-                document.getElementById('investmentAmount').focus();
-                return;
-            }
-            
-            if (investmentPeriod === 0) {
-                showNotification('Заполните срок инвестиций', 'error');
-                document.getElementById('investmentPeriod').focus();
-                return;
-            }
-            
-            if (riskTolerance === 0) {
-                showNotification('Заполните допустимый риск', 'error');
-                document.getElementById('riskTolerance').focus();
-                return;
-            }
-            
-            if (rdBudget === 0) {
-                showNotification('Заполните бюджет R&D', 'error');
-                document.getElementById('rdBudget').focus();
+            if (investmentAmount === 0 || investmentPeriod === 0 || riskTolerance === 0 || rdBudget === 0) {
+                showNotification('Заполните все обязательные поля (отмечены *)', 'error');
                 return;
             }
             
@@ -1677,6 +1667,9 @@
                 return;
             }
             
+            // Сохраняем текущие значения
+            saveCurrentValues();
+            
             // Выполняем расчет с ОБНОВЛЕННЫМИ значениями из формы
             performCalculation();
             
@@ -1686,14 +1679,6 @@
             const changedInputs = document.querySelectorAll('.input-changed');
             changedInputs.forEach(input => {
                 input.classList.remove('input-changed');
-                // Обновляем оригинальное значение
-                if (input.type === 'text') {
-                    const value = getNumericValue(input.id);
-                    input.setAttribute('data-original', value);
-                } else {
-                    const value = getFloatValue(input.id) || 0;
-                    input.setAttribute('data-original', value);
-                }
             });
         }
         
