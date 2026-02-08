@@ -1,1230 +1,396 @@
+# Интегрированная трёхконтурная модель автоматизации управления инвестициями (ООО «Мобайл Парк ИТ»)
+
+```html
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quantum Investment AI | Enterprise Investment Platform</title>
-    
-    <!-- Bootstrap 5 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    
-    <!-- Font Awesome 6 -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    
-    <!-- Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    
+    <title>Интегрированная трёхконтурная модель автоматизации управления инвестициями</title>
     <style>
-        :root {
-            --primary: #1a237e;
-            --secondary: #0d47a1;
-            --accent: #2962ff;
-            --success: #00c853;
-            --warning: #ffab00;
-            --danger: #ff1744;
-            --dark: #0a0e17;
-            --light: #f8fafc;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
-            background: linear-gradient(135deg, #0a0e17 0%, #1a237e 100%);
-            color: #e2e8f0;
-            min-height: 100vh;
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
         }
-        
-        /* Энтерпрайз навигация */
-        .enterprise-nav {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 1rem 0;
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
         }
-        
-        .nav-logo {
-            font-weight: 700;
-            font-size: 1.5rem;
+        header {
+            background: linear-gradient(135deg, #1a237e 0%, #283593 100%);
             color: white;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        /* Панель управления */
-        .dashboard-panel {
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 30px;
-            margin-bottom: 30px;
-            transition: all 0.3s ease;
-        }
-        
-        .dashboard-panel:hover {
-            border-color: var(--accent);
-            box-shadow: 0 10px 40px rgba(41, 98, 255, 0.1);
-        }
-        
-        /* KPI метрики */
-        .kpi-metric {
-            background: linear-gradient(135deg, rgba(26, 35, 126, 0.3), rgba(13, 71, 161, 0.3));
-            border-radius: 16px;
-            padding: 25px;
+            padding: 40px 0;
             text-align: center;
-            position: relative;
-            overflow: hidden;
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
         }
-        
-        .kpi-metric::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary), var(--accent));
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
         }
-        
-        .kpi-value {
-            font-size: 3rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, #fff, var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin: 10px 0;
+        .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto 20px;
         }
-        
-        /* Кнопки */
-        .btn-ai {
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            border: none;
-            color: white;
-            padding: 12px 28px;
+        .last-update {
+            background-color: rgba(255, 255, 255, 0.1);
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-top: 10px;
+        }
+        .model-overview {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+        .model-card {
+            background: white;
             border-radius: 12px;
-            font-weight: 600;
-            transition: all 0.3s;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .btn-ai:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(41, 98, 255, 0.3);
-            color: white;
-        }
-        
-        /* Модели ИИ */
-        .ai-model {
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 16px;
             padding: 25px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s;
-            height: 100%;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
         }
-        
-        .ai-model:hover {
-            background: rgba(255, 255, 255, 0.06);
-            border-color: var(--accent);
+        .model-card:hover {
+            transform: translateY(-5px);
         }
-        
-        .model-icon {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
+        .model-card h3 {
+            color: #1a237e;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e8eaf6;
+        }
+        .contour-card {
+            background: white;
             border-radius: 12px;
+            padding: 25px;
+            margin: 30px 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border-left: 5px solid #283593;
+        }
+        .algorithm-section {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 30px 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        .algorithm-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .algorithm-card {
+            background: #f5f7ff;
+            border-radius: 10px;
+            padding: 20px;
+            border: 1px solid #e8eaf6;
+        }
+        .algorithm-card h4 {
+            color: #283593;
+            margin-bottom: 10px;
+        }
+        .tech-stack {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 30px 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .tech-item {
+            background: #e8eaf6;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 500;
+        }
+        .architecture-diagram {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 30px 0;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        .architecture-img {
+            max-width: 100%;
+            border-radius: 8px;
+            margin: 20px 0;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+        .implementation-steps {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 30px 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        .step {
+            display: flex;
+            align-items: flex-start;
+            margin: 20px 0;
+            padding: 15px;
+            background: #f5f7ff;
+            border-radius: 8px;
+        }
+        .step-number {
+            background: #283593;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
-            font-size: 1.5rem;
-            margin-bottom: 20px;
+            margin-right: 15px;
+            flex-shrink: 0;
         }
-        
-        /* Графики */
-        .chart-container {
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 16px;
-            padding: 25px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 40px;
+            border-top: 1px solid #e0e0e0;
+            color: #666;
         }
-        
-        /* Слайдеры */
-        .range-slider {
-            -webkit-appearance: none;
-            width: 100%;
-            height: 8px;
-            background: linear-gradient(90deg, var(--primary), var(--accent));
-            border-radius: 4px;
-            outline: none;
-        }
-        
-        .range-slider::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            background: white;
-            cursor: pointer;
-            border: 3px solid var(--accent);
-            box-shadow: 0 0 15px rgba(41, 98, 255, 0.5);
-        }
-        
-        /* Таблицы */
-        .data-table {
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 12px;
-            overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .data-table th {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 15px;
-            font-weight: 600;
-            color: var(--accent);
-            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .data-table td {
-            padding: 15px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
-        
-        /* Статусы */
-        .status-badge {
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 500;
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-        }
-        
-        .status-active { background: rgba(0, 200, 83, 0.1); color: var(--success); }
-        .status-warning { background: rgba(255, 171, 0, 0.1); color: var(--warning); }
-        .status-critical { background: rgba(255, 23, 68, 0.1); color: var(--danger); }
-        
-        /* Анимации */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .fade-in {
-            animation: fadeIn 0.5s ease-out;
-        }
-        
-        /* Футер */
-        .enterprise-footer {
-            background: rgba(10, 14, 23, 0.95);
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 40px 0;
-            margin-top: 60px;
-        }
-        
-        /* Утилиты */
-        .text-gradient {
-            background: linear-gradient(135deg, var(--accent), var(--success));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        
-        .border-gradient {
-            border: 2px solid transparent;
-            background: linear-gradient(45deg, var(--primary), var(--accent)) border-box;
-            border-radius: 16px;
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            h1 {
+                font-size: 2rem;
+            }
+            .model-overview {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Навигация -->
-    <nav class="navbar enterprise-nav">
+    <header>
         <div class="container">
-            <div class="nav-logo">
-                <i class="fas fa-brain"></i>
-                <span>Quantum Investment AI</span>
+            <h1>Интегрированная трёхконтурная модель автоматизации управления инвестициями</h1>
+            <p class="subtitle">Комплексная система на основе технологий искусственного интеллекта для управления большими данными в сфере инвестиций</p>
+            <div class="last-update">Последнее обновление: 31.01.2026</div>
+        </div>
+    </header>
+
+    <div class="container">
+        <section class="model-overview">
+            <div class="model-card">
+                <h3>Цель модели</h3>
+                <p>Повышение эффективности и оптимизация процессов управления большими данными в сфере инвестиций посредством разработки и внедрения комплексной системы на основе технологий искусственного интеллекта.</p>
+            </div>
+            <div class="model-card">
+                <h3>Область применения</h3>
+                <p>Технологические компании среднего размера с диверсифицированными инвестиционными портфелями, работающими в условиях цифровой экономики (B2B, PaaS, IoT-сектор).</p>
+            </div>
+            <div class="model-card">
+                <h3>Ключевая особенность</h3>
+                <p>Трехуровневая архитектура, обеспечивающая синергию между человеческим и искусственным интеллектом, перераспределяя функции в системе принятия решений.</p>
+            </div>
+        </section>
+
+        <section class="contour-card">
+            <h3>Трёхконтурная архитектура</h3>
+            <p>Модель построена на трёх взаимосвязанных контурах управления, каждый из которых выполняет специфические функции:</p>
+            
+            <div class="algorithm-grid">
+                <div class="algorithm-card">
+                    <h4>Стратегический контур</h4>
+                    <p><strong>Функции:</strong> Формулировка инвестиционных целей, утверждение риск-аппетита, контроль этических аспектов, принятие финальных решений по крупным инвестициям.</p>
+                    <p><strong>Роль ИИ:</strong> Предоставление аналитических отчетов, моделирование долгосрочных сценариев, визуализация стратегических KPI.</p>
+                </div>
+                <div class="algorithm-card">
+                    <h4>Тактический контур</h4>
+                    <p><strong>Функции:</strong> Формирование инвестиционного портфеля, распределение ресурсов, оценка эффективности проектов, управление рисками.</p>
+                    <p><strong>Роль ИИ:</strong> Оптимизация портфеля, предиктивная аналитика, генерация рекомендаций, сценарный анализ.</p>
+                </div>
+                <div class="algorithm-card">
+                    <h4>Операционный контур</h4>
+                    <p><strong>Функции:</strong> Мониторинг рынка, сбор и обработка данных, исполнение решений, техническая поддержка инвестиционных процессов.</p>
+                    <p><strong>Роль ИИ:</strong> Автоматическая обработка больших данных, прогнозирование LTV, предиктивное обслуживание, алгоритмическая аналитика.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="architecture-diagram">
+            <h3>Архитектурная схема модели</h3>
+            <p>Интегрированная модель автоматизации управления инвестициями обеспечивает сквозной data-driven подход</p>
+            <div class="architecture-img" style="background: #e8eaf6; padding: 30px; border-radius: 8px;">
+                <div style="margin-bottom: 20px; padding: 15px; background: #bbdefb; border-radius: 6px;">
+                    <strong>Входные данные:</strong> Структурированные и неструктурированные данные из внутренних и внешних источников
+                </div>
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 15px;">
+                    <div style="background: #c8e6c9; padding: 15px; border-radius: 6px;">Модуль сбора и агрегации данных</div>
+                    <div style="background: #fff9c4; padding: 15px; border-radius: 6px;">Модуль анализа и прогнозирования</div>
+                    <div style="background: #f8bbd0; padding: 15px; border-radius: 6px;">Модуль симуляции и принятия решений</div>
+                </div>
+                <div style="margin-bottom: 15px; padding: 15px; background: #d1c4e9; border-radius: 6px;">
+                    <strong>Три контура управления:</strong> Стратегический → Тактический → Операционный
+                </div>
+                <div style="padding: 15px; background: #b3e5fc; border-radius: 6px;">
+                    <strong>Выход:</strong> Оптимизированные инвестиционные решения, KPI-дашборды, автоматизированные отчеты
+                </div>
+            </div>
+        </section>
+
+        <section class="algorithm-section">
+            <h3>Алгоритмическое ядро модели</h3>
+            <p>Специализированные алгоритмы машинного обучения для ключевых инвестиционных процессов:</p>
+            
+            <div class="algorithm-grid">
+                <div class="algorithm-card">
+                    <h4>Прогнозирование LTV клиента</h4>
+                    <p><strong>Алгоритм:</strong> Градиентный бустинг (LightGBM)</p>
+                    <p><strong>Назначение:</strong> Прогноз совокупной прибыли от клиента за время сотрудничества</p>
+                    <p><strong>Входные данные:</strong> Историческая выручка, операционные метрики, поведенческие паттерны</p>
+                </div>
+                <div class="algorithm-card">
+                    <h4>Оптимизация R&D-портфеля</h4>
+                    <p><strong>Алгоритм:</strong> Обучение с подкреплением (Q-learning)</p>
+                    <p><strong>Назначение:</strong> Динамическое распределение бюджета между проектами</p>
+                    <p><strong>Входные данные:</strong> Состояние портфеля, рыночные условия, ресурсные ограничения</p>
+                </div>
+                <div class="algorithm-card">
+                    <h4>Предиктивное обслуживание</h4>
+                    <p><strong>Алгоритм:</strong> Разреженные автокодировщики</p>
+                    <p><strong>Назначение:</strong> Прогнозирование сбоев оборудования и инфраструктуры</p>
+                    <p><strong>Входные данные:</strong> Телеметрия, показания датчиков, логи систем</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="tech-stack">
+            <h3>Технологический стек</h3>
+            <div class="tech-grid">
+                <div class="tech-item">Apache Kafka</div>
+                <div class="tech-item">Apache Spark</div>
+                <div class="tech-item">PostgreSQL</div>
+                <div class="tech-item">Python</div>
+                <div class="tech-item">LightGBM</div>
+                <div class="tech-item">TensorFlow</div>
+                <div class="tech-item">Scikit-learn</div>
+                <div class="tech-item">Apache Airflow</div>
+                <div class="tech-item">Dash/Plotly</div>
+                <div class="tech-item">ClickHouse</div>
+                <div class="tech-item">REST API</div>
+                <div class="tech-item">MLOps</div>
+            </div>
+        </section>
+
+        <section class="implementation-steps">
+            <h3>Процесс внедрения модели</h3>
+            
+            <div class="step">
+                <div class="step-number">1</div>
+                <div>
+                    <h4>Сбор требований и анализ предметной области</h4>
+                    <p>Интервью с ключевыми стейкхолдерами, выявление "болевых точек", формирование технических требований к системе.</p>
+                </div>
             </div>
             
-            <div class="navbar-nav ms-auto flex-row gap-4">
-                <a class="nav-link" href="#dashboard">Дашборд</a>
-                <a class="nav-link" href="#models">Модели</a>
-                <a class="nav-link" href="#analytics">Аналитика</a>
-                <a class="nav-link" href="#settings">Настройки</a>
-                
-                <div class="dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-                        <i class="fas fa-user-circle"></i>
-                        <span class="ms-2">Администратор</span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i>Настройки профиля</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt me-2"></i>Выйти</a></li>
+            <div class="step">
+                <div class="step-number">2</div>
+                <div>
+                    <h4>Проектирование архитектуры и выбор технологического стека</h4>
+                    <p>Разработка трехконтурной архитектуры, определение интерфейсов взаимодействия, выбор инструментов реализации.</p>
+                </div>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">3</div>
+                <div>
+                    <h4>Создание и валидация прототипа</h4>
+                    <p>Реализация упрощенной версии системы на исторических данных, проверка принципиальной работоспособности.</p>
+                </div>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">4</div>
+                <div>
+                    <h4>Нагрузочное тестирование и доработка</h4>
+                    <p>Тестирование системы под пиковой нагрузкой, оптимизация производительности, устранение узких мест.</p>
+                </div>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">5</div>
+                <div>
+                    <h4>Пилотное внедрение и сбор обратной связи</h4>
+                    <p>Развертывание системы в изолированном контуре, тестирование на реальных данных, корректировка по результатам обратной связи.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="algorithm-section">
+            <h3>Система KPI и мониторинга</h3>
+            <div class="algorithm-grid">
+                <div class="algorithm-card">
+                    <h4>Финансовые показатели</h4>
+                    <ul style="padding-left: 20px; margin-top: 10px;">
+                        <li>Рентабельность инвестиционного портфеля (ROI)</li>
+                        <li>Доля неэффективных инвестиций</li>
+                        <li>Срок окупаемости R&D проектов</li>
+                    </ul>
+                </div>
+                <div class="algorithm-card">
+                    <h4>Клиентские показатели</h4>
+                    <ul style="padding-left: 20px; margin-top: 10px;">
+                        <li>Уровень оттока ключевых клиентов</li>
+                        <li>Доля выручки от AI-driven продуктов</li>
+                        <li>Прогнозируемый LTV по сегментам</li>
+                    </ul>
+                </div>
+                <div class="algorithm-card">
+                    <h4>Процессные показатели</h4>
+                    <ul style="padding-left: 20px; margin-top: 10px;">
+                        <li>Время принятия инвестиционного решения</li>
+                        <li>Количество учитываемых факторов</li>
+                        <li>Снижение незапланированных затрат</li>
                     </ul>
                 </div>
             </div>
-        </div>
-    </nav>
+        </section>
 
-    <!-- Основной контент -->
-    <div class="container py-5">
-        <!-- Панель KPI -->
-        <div class="row mb-5" id="dashboard">
-            <div class="col-lg-3 col-md-6 mb-4 fade-in">
-                <div class="kpi-metric">
-                    <div class="text-muted mb-2">ROI портфеля</div>
-                    <div class="kpi-value">24.8%</div>
-                    <div class="text-success small">
-                        <i class="fas fa-arrow-up me-1"></i>+3.2% за месяц
-                    </div>
-                </div>
-            </div>
-            
-            <div class="col-lg-3 col-md-6 mb-4 fade-in" style="animation-delay: 0.1s">
-                <div class="kpi-metric">
-                    <div class="text-muted mb-2">Активные клиенты</div>
-                    <div class="kpi-value">1,247</div>
-                    <div class="text-success small">
-                        <i class="fas fa-user-plus me-1"></i>+42 новых
-                    </div>
-                </div>
-            </div>
-            
-            <div class="col-lg-3 col-md-6 mb-4 fade-in" style="animation-delay: 0.2s">
-                <div class="kpi-metric">
-                    <div class="text-muted mb-2">Средний LTV</div>
-                    <div class="kpi-value">₽2.1M</div>
-                    <div class="text-success small">
-                        <i class="fas fa-chart-line me-1"></i>+18% рост
-                    </div>
-                </div>
-            </div>
-            
-            <div class="col-lg-3 col-md-6 mb-4 fade-in" style="animation-delay: 0.3s">
-                <div class="kpi-metric">
-                    <div class="text-muted mb-2">Экономия инфраструктуры</div>
-                    <div class="kpi-value">18.5%</div>
-                    <div class="text-success small">
-                        <i class="fas fa-money-bill-wave me-1"></i>₽3.8M сэкономлено
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Модели ИИ -->
-        <div class="row mb-5" id="models">
-            <div class="col-12 mb-4">
-                <h2 class="fw-bold mb-0">Модели искусственного интеллекта</h2>
-                <p class="text-muted">Работающие системы машинного обучения в реальном времени</p>
-            </div>
-            
-            <!-- Модель 1: LTV Predictor -->
-            <div class="col-lg-4 mb-4 fade-in">
-                <div class="ai-model">
-                    <div class="model-icon">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                    
-                    <div class="d-flex justify-content-between align-items-start mb-3">
-                        <div>
-                            <h4 class="fw-bold mb-1">LTV Predictor</h4>
-                            <span class="badge bg-success bg-opacity-20 text-success">Production v3.2</span>
-                        </div>
-                        <div class="text-end">
-                            <div class="h5 mb-0 text-success">96.3%</div>
-                            <div class="small text-muted">Точность</div>
-                        </div>
-                    </div>
-                    
-                    <p class="text-muted mb-4">
-                        Глубокое обучение для прогнозирования пожизненной ценности клиентов. Анализ 150+ факторов в реальном времени.
-                    </p>
-                    
-                    <div class="mb-4">
-                        <label class="form-label small text-uppercase mb-2">Доход клиента (тыс. ₽)</label>
-                        <input type="range" class="range-slider" id="clientRevenue" min="50" max="500" value="250">
-                        <div class="text-center mt-2">
-                            <span id="revenueValue" class="h5">250</span> тыс. ₽/мес
-                        </div>
-                    </div>
-                    
-                    <div class="mb-4">
-                        <label class="form-label small text-uppercase mb-2">Уровень активности</label>
-                        <select class="form-select bg-dark text-light border-dark" id="activityLevel">
-                            <option value="low">Низкая (1-20%)</option>
-                            <option value="medium" selected>Средняя (21-60%)</option>
-                            <option value="high">Высокая (61-80%)</option>
-                            <option value="very-high">Очень высокая (81-100%)</option>
-                        </select>
-                    </div>
-                    
-                    <button class="btn-ai w-100" onclick="runLTVPrediction()">
-                        <i class="fas fa-bolt"></i>
-                        Рассчитать прогноз
-                    </button>
-                    
-                    <div id="ltvResult" class="mt-3"></div>
-                </div>
-            </div>
-            
-            <!-- Модель 2: Portfolio Optimizer -->
-            <div class="col-lg-4 mb-4 fade-in" style="animation-delay: 0.2s">
-                <div class="ai-model">
-                    <div class="model-icon">
-                        <i class="fas fa-project-diagram"></i>
-                    </div>
-                    
-                    <div class="d-flex justify-content-between align-items-start mb-3">
-                        <div>
-                            <h4 class="fw-bold mb-1">Portfolio Optimizer</h4>
-                            <span class="badge bg-primary bg-opacity-20 text-primary">AI Agent v2.8</span>
-                        </div>
-                        <div class="text-end">
-                            <div class="h5 mb-0 text-warning">+31%</div>
-                            <div class="small text-muted">ROI улучшение</div>
-                        </div>
-                    </div>
-                    
-                    <p class="text-muted mb-4">
-                        Обучение с подкреплением для оптимизации инвестиционного портфеля. Автоматическое распределение ресурсов.
-                    </p>
-                    
-                    <div class="mb-4">
-                        <label class="form-label small text-uppercase mb-2">Бюджет R&D (млн ₽)</label>
-                        <input type="range" class="range-slider" id="rdBudget" min="1" max="20" value="8">
-                        <div class="text-center mt-2">
-                            <span id="budgetValue" class="h5">8</span> млн ₽
-                        </div>
-                    </div>
-                    
-                    <div class="mb-4">
-                        <label class="form-label small text-uppercase mb-2">Стратегия инвестирования</label>
-                        <select class="form-select bg-dark text-light border-dark" id="investmentStrategy">
-                            <option value="conservative">Консервативная</option>
-                            <option value="balanced" selected>Сбалансированная</option>
-                            <option value="aggressive">Агрессивная</option>
-                        </select>
-                    </div>
-                    
-                    <button class="btn-ai w-100" onclick="runPortfolioOptimization()">
-                        <i class="fas fa-robot"></i>
-                        Оптимизировать портфель
-                    </button>
-                    
-                    <div id="portfolioResult" class="mt-3"></div>
-                </div>
-            </div>
-            
-            <!-- Модель 3: Predictive Maintenance -->
-            <div class="col-lg-4 mb-4 fade-in" style="animation-delay: 0.4s">
-                <div class="ai-model">
-                    <div class="model-icon">
-                        <i class="fas fa-server"></i>
-                    </div>
-                    
-                    <div class="d-flex justify-content-between align-items-start mb-3">
-                        <div>
-                            <h4 class="fw-bold mb-1">Predictive Maintenance</h4>
-                            <span class="badge bg-info bg-opacity-20 text-info">IoT Edge v4.1</span>
-                        </div>
-                        <div class="text-end">
-                            <div class="h5 mb-0 text-info">98.1%</div>
-                            <div class="small text-muted">Точность</div>
-                        </div>
-                    </div>
-                    
-                    <p class="text-muted mb-4">
-                        Графовые нейросети для предсказания отказов оборудования. Анализ временных рядов и аномалий.
-                    </p>
-                    
-                    <div class="mb-4">
-                        <label class="form-label small text-uppercase mb-2">Выберите оборудование</label>
-                        <select class="form-select bg-dark text-light border-dark" id="equipmentSelect">
-                            <option>Серверный кластер DB-01</option>
-                            <option>Вычислительный узел GPU-12</option>
-                            <option>Сеть хранения данных</option>
-                            <option>Маршрутизатор ядра</option>
-                        </select>
-                    </div>
-                    
-                    <div class="mb-4">
-                        <label class="form-label small text-uppercase mb-2">Температура оборудования</label>
-                        <input type="range" class="range-slider" id="equipmentTemp" min="30" max="90" value="45">
-                        <div class="text-center mt-2">
-                            <span id="tempValue" class="h5">45</span> °C
-                        </div>
-                    </div>
-                    
-                    <button class="btn-ai w-100" onclick="runMaintenanceAnalysis()">
-                        <i class="fas fa-stethoscope"></i>
-                        Анализировать состояние
-                    </button>
-                    
-                    <div id="maintenanceResult" class="mt-3"></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Живая аналитика -->
-        <div class="row mb-5" id="analytics">
-            <div class="col-12 mb-4">
-                <h2 class="fw-bold mb-0">Живая аналитика</h2>
-                <p class="text-muted">Данные обновляются в реальном времени</p>
-            </div>
-            
-            <div class="col-lg-8 mb-4">
-                <div class="chart-container">
-                    <div class="d-flex justify-content-between align-items-center mb-4">
-                        <h5 class="fw-bold mb-0">Динамика инвестиционного портфеля</h5>
-                        <span class="badge bg-success bg-opacity-20 text-success">
-                            <i class="fas fa-circle me-1"></i>LIVE
-                        </span>
-                    </div>
-                    <canvas id="portfolioChart"></canvas>
-                </div>
-            </div>
-            
-            <div class="col-lg-4 mb-4">
-                <div class="chart-container">
-                    <h5 class="fw-bold mb-4">Распределение активов</h5>
-                    <canvas id="assetsChart"></canvas>
-                </div>
-            </div>
-            
-            <div class="col-lg-6 mb-4">
-                <div class="chart-container">
-                    <h5 class="fw-bold mb-4">Мониторинг инфраструктуры</h5>
-                    <canvas id="infrastructureChart"></canvas>
-                </div>
-            </div>
-            
-            <div class="col-lg-6 mb-4">
-                <div class="dashboard-panel">
-                    <h5 class="fw-bold mb-4">Топ клиентов по LTV</h5>
-                    <div class="data-table">
-                        <table class="table table-borderless mb-0">
-                            <thead>
-                                <tr>
-                                    <th>Клиент</th>
-                                    <th class="text-end">LTV</th>
-                                    <th class="text-end">Тренд</th>
-                                </tr>
-                            </thead>
-                            <tbody id="topClients">
-                                <!-- Заполнится через JS -->
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="text-center mt-3">
-                        <button class="btn btn-outline-light btn-sm" onclick="refreshClientData()">
-                            <i class="fas fa-sync-alt me-1"></i>Обновить данные
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Проекты R&D -->
-        <div class="row mb-5">
-            <div class="col-12 mb-4">
-                <h2 class="fw-bold mb-0">Активные R&D проекты</h2>
-                <p class="text-muted">Управляемые искусственным интеллектом</p>
-            </div>
-            
-            <div class="col-12">
-                <div class="dashboard-panel">
-                    <div class="d-flex justify-content-between align-items-center mb-4">
-                        <h5 class="fw-bold mb-0">Портфель проектов</h5>
-                        <div>
-                            <button class="btn-ai me-2" onclick="addNewProject()">
-                                <i class="fas fa-plus"></i>Новый проект
-                            </button>
-                            <button class="btn btn-outline-light" onclick="optimizeAllProjects()">
-                                <i class="fas fa-robot"></i>Автооптимизация
-                            </button>
-                        </div>
-                    </div>
-                    
-                    <div class="data-table">
-                        <table class="table table-borderless">
-                            <thead>
-                                <tr>
-                                    <th>Проект</th>
-                                    <th>Бюджет</th>
-                                    <th>ROI</th>
-                                    <th>Срок</th>
-                                    <th>Приоритет ИИ</th>
-                                    <th>Статус</th>
-                                    <th>Действия</th>
-                                </tr>
-                            </thead>
-                            <tbody id="projectsTable">
-                                <!-- Заполнится через JS -->
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <section class="model-card">
+            <h3>Особенности модели для технологических компаний</h3>
+            <p>Модель адаптирована для специфики технологических компаний среднего размера (типа ООО «Мобайл Парк ИТ») и учитывает:</p>
+            <ul style="padding-left: 20px; margin-top: 15px;">
+                <li>Работу с гибридными данными (телеметрия, финансовые показатели, рыночные данные)</li>
+                <li>Интеграцию с существующей ИТ-инфраструктурой (CRM, ERP, системы мониторинга)</li>
+                <li>Поддержку микросервисной архитектуры для гибкости и масштабируемости</li>
+                <li>Реализацию практик MLOps для промышленной эксплуатации моделей</li>
+                <li>Механизмы обратной связи для непрерывного обучения системы</li>
+            </ul>
+        </section>
     </div>
 
-    <!-- Футер -->
-    <footer class="enterprise-footer">
+    <footer>
         <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-6">
-                    <h4 class="fw-bold mb-3">
-                        <i class="fas fa-brain me-2"></i>Quantum Investment AI
-                    </h4>
-                    <p class="text-muted mb-0">
-                        Корпоративная платформа искусственного интеллекта для управления инвестициями.
-                        Система работает в режиме 24/7 с 2024 года.
-                    </p>
-                </div>
-                <div class="col-lg-6 text-lg-end mt-4 mt-lg-0">
-                    <div class="mb-3">
-                        <span class="status-badge status-active me-2">
-                            <i class="fas fa-circle"></i>Все системы активны
-                        </span>
-                        <span class="badge bg-primary bg-opacity-20 text-primary">
-                            v3.2.1 • 2026
-                        </span>
-                    </div>
-                    <div class="text-muted">
-                        <i class="fas fa-satellite-dish me-1"></i>Данные обновляются каждые 500мс
-                    </div>
-                </div>
-            </div>
+            <p>Интегрированная трёхконтурная модель автоматизации управления инвестициями на основе технологий искусственного интеллекта</p>
+            <p>Разработана на основе исследований и практического опыта внедрения в технологических компаниях</p>
+            <p style="margin-top: 20px; font-size: 0.9rem;">© 2026 | Модель актуальна по состоянию на 31.01.2026</p>
         </div>
     </footer>
-
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Основной JavaScript -->
-    <script>
-        // Инициализация при загрузке
-        document.addEventListener('DOMContentLoaded', function() {
-            initCharts();
-            loadTopClients();
-            loadProjectsTable();
-            setupSliders();
-            startLiveUpdates();
-            simulateRealTimeData();
-        });
-        
-        // Данные проектов
-        const projects = [
-            {
-                id: 1,
-                name: "Квантовые вычисления для финансов",
-                budget: 2.5,
-                roi: 2.8,
-                duration: 18,
-                priority: 0.95,
-                status: "active",
-                description: "Разработка квантовых алгоритмов для оптимизации портфеля"
-            },
-            {
-                id: 2,
-                name: "ИИ-аналитика больших данных",
-                budget: 1.8,
-                roi: 2.2,
-                duration: 12,
-                priority: 0.88,
-                status: "active",
-                description: "Нейросети для анализа рыночных тенденций"
-            },
-            {
-                id: 3,
-                name: "Блокчейн для управления активами",
-                budget: 3.2,
-                roi: 1.9,
-                duration: 24,
-                priority: 0.72,
-                status: "planned",
-                description: "Распределенный реестр для учета активов"
-            },
-            {
-                id: 4,
-                name: "Автономные торговые агенты",
-                budget: 1.5,
-                roi: 3.1,
-                duration: 10,
-                priority: 0.91,
-                status: "active",
-                description: "ИИ-агенты для алгоритмической торговли"
-            }
-        ];
-        
-        // Инициализация графиков
-        function initCharts() {
-            // График портфеля
-            const portfolioCtx = document.getElementById('portfolioChart').getContext('2d');
-            new Chart(portfolioCtx, {
-                type: 'line',
-                data: {
-                    labels: ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл'],
-                    datasets: [{
-                        label: 'ROI портфеля (%)',
-                        data: [18.5, 20.1, 21.8, 22.5, 23.2, 24.1, 24.8],
-                        borderColor: '#00c853',
-                        backgroundColor: 'rgba(0, 200, 83, 0.1)',
-                        borderWidth: 3,
-                        tension: 0.4,
-                        fill: true
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    plugins: {
-                        legend: {
-                            display: false
-                        }
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: false,
-                            grid: {
-                                color: 'rgba(255,255,255,0.05)'
-                            },
-                            ticks: {
-                                color: 'rgba(255,255,255,0.7)'
-                            }
-                        },
-                        x: {
-                            grid: {
-                                color: 'rgba(255,255,255,0.05)'
-                            },
-                            ticks: {
-                                color: 'rgba(255,255,255,0.7)'
-                            }
-                        }
-                    }
-                }
-            });
-            
-            // График активов
-            const assetsCtx = document.getElementById('assetsChart').getContext('2d');
-            new Chart(assetsCtx, {
-                type: 'doughnut',
-                data: {
-                    labels: ['Акции', 'Облигации', 'Недвижимость', 'Крипто', 'Венчурные'],
-                    datasets: [{
-                        data: [35, 25, 20, 12, 8],
-                        backgroundColor: [
-                            '#2962ff',
-                            '#00c853',
-                            '#ffab00',
-                            '#7b1fa2',
-                            '#ff1744'
-                        ]
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    plugins: {
-                        legend: {
-                            position: 'right',
-                            labels: {
-                                color: 'rgba(255,255,255,0.8)'
-                            }
-                        }
-                    }
-                }
-            });
-            
-            // График инфраструктуры
-            const infraCtx = document.getElementById('infrastructureChart').getContext('2d');
-            new Chart(infraCtx, {
-                type: 'bar',
-                data: {
-                    labels: ['CPU', 'RAM', 'Хранилище', 'Сеть', 'GPU'],
-                    datasets: [{
-                        label: 'Использование (%)',
-                        data: [78, 65, 45, 32, 88],
-                        backgroundColor: '#2962ff'
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            max: 100,
-                            grid: {
-                                color: 'rgba(255,255,255,0.05)'
-                            },
-                            ticks: {
-                                color: 'rgba(255,255,255,0.7)'
-                            }
-                        },
-                        x: {
-                            grid: {
-                                display: false
-                            },
-                            ticks: {
-                                color: 'rgba(255,255,255,0.7)'
-                            }
-                        }
-                    },
-                    plugins: {
-                        legend: {
-                            display: false
-                        }
-                    }
-                }
-            });
-        }
-        
-        // Загрузка топ клиентов
-        function loadTopClients() {
-            const clients = [
-                { name: 'Корпорация "ТехноИнвест"', ltv: 8.2, trend: '+12.5%' },
-                { name: 'Фонд "Квантовый капитал"', ltv: 7.5, trend: '+8.2%' },
-                { name: 'Холдинг "ФинансГрупп"', ltv: 6.8, trend: '+15.1%' },
-                { name: 'Компания "ИнвестАналитика"', ltv: 5.9, trend: '+3.8%' },
-                { name: 'Банк "Современные технологии"', ltv: 5.3, trend: '+9.7%' }
-            ];
-            
-            const table = document.getElementById('topClients');
-            table.innerHTML = '';
-            
-            clients.forEach(client => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>
-                        <div class="fw-bold">${client.name}</div>
-                        <div class="small text-muted">Корпоративный сегмент</div>
-                    </td>
-                    <td class="text-end">
-                        <div class="fw-bold">${client.ltv}M ₽</div>
-                    </td>
-                    <td class="text-end">
-                        <span class="text-success">${client.trend}</span>
-                    </td>
-                `;
-                table.appendChild(row);
-            });
-        }
-        
-        // Загрузка таблицы проектов
-        function loadProjectsTable() {
-            const table = document.getElementById('projectsTable');
-            table.innerHTML = '';
-            
-            projects.forEach(project => {
-                const statusBadge = project.status === 'active' 
-                    ? '<span class="status-badge status-active"><i class="fas fa-play"></i> Активный</span>'
-                    : '<span class="status-badge status-warning"><i class="fas fa-clock"></i> Запланирован</span>';
-                
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>
-                        <div class="fw-bold">${project.name}</div>
-                        <div class="small text-muted">${project.description}</div>
-                    </td>
-                    <td>${project.budget}M ₽</td>
-                    <td>
-                        <span class="fw-bold ${project.roi > 2.5 ? 'text-success' : project.roi > 2.0 ? 'text-warning' : 'text-danger'}">
-                            ${(project.roi * 100).toFixed(0)}%
-                        </span>
-                    </td>
-                    <td>${project.duration} мес</td>
-                    <td>
-                        <div class="progress" style="height: 8px; background: rgba(255,255,255,0.1)">
-                            <div class="progress-bar bg-primary" style="width: ${project.priority * 100}%"></div>
-                        </div>
-                        <div class="small text-center">${(project.priority * 100).toFixed(0)}%</div>
-                    </td>
-                    <td>${statusBadge}</td>
-                    <td>
-                        <button class="btn btn-sm btn-outline-light" onclick="showProjectDetails(${project.id})">
-                            <i class="fas fa-eye"></i>
-                        </button>
-                    </td>
-                `;
-                table.appendChild(row);
-            });
-        }
-        
-        // Настройка слайдеров
-        function setupSliders() {
-            const sliders = [
-                { id: 'clientRevenue', valueId: 'revenueValue', suffix: ' тыс. ₽/мес' },
-                { id: 'rdBudget', valueId: 'budgetValue', suffix: ' млн ₽' },
-                { id: 'equipmentTemp', valueId: 'tempValue', suffix: ' °C' }
-            ];
-            
-            sliders.forEach(({id, valueId, suffix}) => {
-                const slider = document.getElementById(id);
-                const valueElement = document.getElementById(valueId);
-                
-                if (slider && valueElement) {
-                    // Установить начальное значение
-                    valueElement.textContent = slider.value + suffix;
-                    
-                    // Добавить обработчик изменения
-                    slider.addEventListener('input', function() {
-                        valueElement.textContent = this.value + suffix;
-                        valueElement.style.transform = 'scale(1.1)';
-                        setTimeout(() => {
-                            valueElement.style.transform = 'scale(1)';
-                        }, 200);
-                    });
-                }
-            });
-        }
-        
-        // Запуск LTV предсказания
-        function runLTVPrediction() {
-            const revenue = parseInt(document.getElementById('clientRevenue').value);
-            const activity = document.getElementById('activityLevel').value;
-            
-            // Показать загрузку
-            const resultDiv = document.getElementById('ltvResult');
-            resultDiv.innerHTML = `
-                <div class="text-center p-3">
-                    <div class="spinner-border spinner-border-sm text-primary me-2"></div>
-                    <span>Анализ 150+ факторов...</span>
-                </div>
-            `;
-            
-            // Имитация вычислений
-            setTimeout(() => {
-                // Расчет предсказания
-                const baseMultiplier = { low: 0.8, medium: 1.2, high: 1.5, 'very-high': 1.8 }[activity];
-                const predictedLTV = revenue * 24 * baseMultiplier; // 24 месяца
-                
-                // Генерация деталей
-                const confidence = 0.85 + Math.random() * 0.1;
-                const factorsAnalyzed = Math.floor(Math.random() * 50) + 150;
-                
-                resultDiv.innerHTML = `
-                    <div class="border-gradient p-4">
-                        <div class="text-center mb-3">
-                            <div class="small text-uppercase text-muted mb-2">Прогнозируемый LTV</div>
-                            <div class="display-5 fw-bold text-gradient mb-2">${(predictedLTV / 1000).toFixed(1)}M ₽</div>
-                            <div class="small text-muted">За 24 месяца сотрудничества</div>
-                        </div>
-                        
-                        <div class="row text-center">
-                            <div class="col-6">
-                                <div class="small text-muted">Уверенность</div>
-                                <div class="fw-bold">${(confidence * 100).toFixed(1)}%</div>
-                            </div>
-                            <div class="col-6">
-                                <div class="small text-muted">Факторов</div>
-                                <div class="fw-bold">${factorsAnalyzed}</div>
-                            </div>
-                        </div>
-                        
-                        <div class="mt-3 small text-muted">
-                            <i class="fas fa-brain me-1"></i>
-                            Модель: Gradient Boosting + Neural Networks
-                        </div>
-                    </div>
-                `;
-                
-                // Показать уведомление
-                showNotification('Прогноз LTV успешно рассчитан', 'success');
-            }, 1500);
-        }
-        
-        // Оптимизация портфеля
-        function runPortfolioOptimization() {
-            const budget = parseInt(document.getElementById('rdBudget').value);
-            const strategy = document.getElementById('investmentStrategy').value;
-            
-            const resultDiv = document.getElementById('portfolioResult');
-            resultDiv.innerHTML = `
-                <div class="text-center p-3">
-                    <div class="spinner-border spinner-border-sm text-primary me-2"></div>
-                    <span>Обучение с подкреплением...</span>
-                </div>
-            `;
-            
-            setTimeout(() => {
-                // Генерация рекомендаций
-                const recommendations = [
-                    { name: 'Квантовые алгоритмы', allocation: budget * 0.35, roi: 2.8 },
-                    { name: 'ИИ-инфраструктура', allocation: budget * 0.25, roi: 2.2 },
-                    { name: 'Блокчейн решения', allocation: budget * 0.20, roi: 1.9 },
-                    { name: 'Интернет вещей', allocation: budget * 0.12, roi: 1.5 },
-                    { name: 'AR/VR технологии', allocation: budget * 0.08, roi: 1.8 }
-                ];
-                
-                let resultHTML = `
-                    <div class="border-gradient p-4">
-                        <h6 class="fw-bold mb-3">Рекомендации ИИ</h6>
-                        <div class="small text-muted mb-3">Оптимизация для ${strategy === 'conservative' ? 'консервативной' : strategy === 'aggressive' ? 'агрессивной' : 'сбалансированной'} стратегии</div>
-                `;
-                
-                recommendations.forEach(rec => {
-                    resultHTML += `
-                        <div class="mb-3">
-                            <div class="d-flex justify-content-between mb-1">
-                                <span class="small">${rec.name}</span>
-                                <span class="small text-success">ROI: ${(rec.roi * 100).toFixed(0)}%</span>
-                            </div>
-                            <div class="progress" style="height: 6px; background: rgba(255,255,255,0.1)">
-                                <div class="progress-bar bg-warning" style="width: ${(rec.allocation / budget) * 100}%"></div>
-                            </div>
-                            <div class="small text-end mt-1 text-muted">
-                                ${rec.allocation.toFixed(2)} млн ₽
-                            </div>
-                        </div>
-                    `;
-                });
-                
-                const totalROI = recommendations.reduce((sum, rec) => sum + (rec.roi * rec.allocation), 0) / budget;
-                
-                resultHTML += `
-                        <div class="mt-4 pt-3 border-top border-dark">
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="small text-muted">Ожидаемый ROI</div>
-                                    <div class="h4 text-success">${(totalROI * 100).toFixed(1)}%</div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="small text-muted">Обучений</div>
-                                    <div class="h4">10,240</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                `;
-                
-                resultDiv.innerHTML = resultHTML;
-                showNotification('Портфель оптимизирован', 'success');
-            }, 2000);
-        }
-        
-        // Анализ технического состояния
-        function runMaintenanceAnalysis() {
-            const equipment = document.getElementById('equipmentSelect').value;
-            const temperature = parseInt(document.getElementById('equipmentTemp').value);
-            
-            const resultDiv = document.getElementById('maintenanceResult');
-            resultDiv.innerHTML = `
-                <div class="text-center p-3">
-                    <div class="spinner-border spinner-border-sm text-primary me-2"></div>
-                    <span>Анализ временных рядов...</span>
-                </div>
-            `;
-            
-            setTimeout(() => {
-                // Расчет вероятности отказа
-                let failureProbability;
-                let status;
-                let statusColor;
-                
-                if (temperature < 50) {
-                    failureProbability = 0.05 + Math.random() * 0.1;
-                    status = 'Оптимальное';
-                    statusColor = 'success';
-                } else if (temperature < 70) {
-                    failureProbability = 0.15 + Math.random() * 0.2;
-                    status = 'Требует внимания';
-                    statusColor = 'warning';
-                } else {
-                    failureProbability = 0.4 + Math.random() * 0.3;
-                    status = 'Критическое';
-                    statusColor = 'danger';
-                }
-                
-                const timeToFailure = Math.max(24, Math.floor(168 * (1 - failureProbability)));
-                
-                resultDiv.innerHTML = `
-                    <div class="border-gradient p-4">
-                        <h6 class="fw-bold mb-3">Диагностика оборудования</h6>
-                        
-                        <div class="mb-4">
-                            <div class="d-flex justify-content-between align-items-center mb-2">
-                                <span class="small">Вероятность отказа</span>
-                                <span class="h4 text-${statusColor}">${(failureProbability * 100).toFixed(1)}%</span>
-                            </div>
-                            <div class="progress" style="height: 10px; background: rgba(255,255,255,0.1)">
-                                <div class="progress-bar bg-${statusColor}" style="width: ${failureProbability * 100}%"></div>
-                            </div>
-                        </div>
-                        
-                        <div class="row mb-4">
-                            <div class="col-6">
-                                <div class="small text-muted">Состояние</div>
-                                <div class="fw-bold text-${statusColor}">${status}</div>
-                            </div>
-                            <div class="col-6">
-                                <div class="small text-muted">Температура</div>
-                                <div class="fw-bold">${temperature}°C</div>
-                            </div>
-                        </div>
-                        
-                        <div class="alert bg-${statusColor} bg-opacity-10 border-${statusColor}">
-                            <div class="d-flex align-items-center">
-                                <i class="fas fa-${statusColor === 'success' ? 'check-circle' : statusColor === 'warning' ? 'exclamation-triangle' : 'exclamation-circle'} me-2 text-${statusColor}"></i>
-                                <div>
-                                    <strong>Прогноз:</strong> Отказ возможен через ${timeToFailure} часов
-                                    <div class="small mt-1">На основе анализа 2.1M метрик</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                `;
-                
-                showNotification('Анализ завершен', statusColor);
-            }, 1800);
-        }
-        
-        // Обновление данных клиентов
-        function refreshClientData() {
-            const button = event.target;
-            button.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i>Обновление...';
-            button.disabled = true;
-            
-            setTimeout(() => {
-                loadTopClients();
-                button.innerHTML = '<i class="fas fa-sync-alt me-1"></i>Обновить данные';
-                button.disabled = false;
-                showNotification('Данные клиентов обновлены', 'success');
-            }, 1000);
-        }
-        
-        // Добавление нового проекта
-        function addNewProject() {
-            const projectName = prompt('Введите название нового R&D проекта:');
-            if (projectName) {
-                const newProject = {
-                    id: projects.length + 1,
-                    name: projectName,
-                    budget: (Math.random() * 3 + 1).toFixed(1),
-                    roi: (Math.random() * 1.5 + 1.5).toFixed(1),
-                    duration: Math.floor(Math.random() * 18) + 6,
-                    priority: Math.random().toFixed(2),
-                    status: 'planned',
-                    description: 'Новый проект, добавленный в портфель'
-                };
-                
-                projects.push(newProject);
-                loadProjectsTable();
-                showNotification(`Проект "${projectName}" добавлен`, 'success');
-            }
-        }
-        
-        // Оптимизация всех проектов
-        function optimizeAllProjects() {
-            showNotification('Запущена автооптимизация всех проектов', 'info');
-            
-            setTimeout(() => {
-                // Обновление приоритетов
-                projects.forEach(project => {
-                    project.priority = Math.min(0.99, project.priority + (Math.random() * 0.1));
-                });
-                
-                loadProjectsTable();
-                showNotification('Все проекты оптимизированы', 'success');
-            }, 2000);
-        }
-        
-        // Показать детали проекта
-        function showProjectDetails(projectId) {
-            const project = projects.find(p => p.id === projectId);
-            if (project) {
-                alert(`Детали проекта #${project.id}\n\n` +
-                      `Название: ${project.name}\n` +
-                      `Описание: ${project.description}\n` +
-                      `Бюджет: ${project.budget} млн ₽\n` +
-                      `Ожидаемый ROI: ${(project.roi * 100).toFixed(0)}%\n` +
-                      `Срок: ${project.duration} месяцев\n` +
-                      `Приоритет: ${(project.priority * 100).toFixed(0)}%\n` +
-                      `Статус: ${project.status === 'active' ? 'Активный' : 'Запланированный'}`);
-            }
-        }
-        
-        // Уведомления
-        function showNotification(message, type) {
-            const alertClass = {
-                'success': 'alert-success',
-                'info': 'alert-info',
-                'warning': 'alert-warning',
-                'danger': 'alert-danger'
-            }[type] || 'alert-info';
-            
-            const notification = document.createElement('div');
-            notification.className = `position-fixed top-0 end-0 m-4 alert ${alertClass} alert-dismissible fade show`;
-            notification.style.cssText = 'z-index: 9999; max-width: 350px; backdrop-filter: blur(10px);';
-            notification.innerHTML = `
-                <div class="d-flex align-items-center">
-                    <i class="fas fa-${type === 'success' ? 'check-circle' : 'info-circle'} me-2"></i>
-                    <div>${message}</div>
-                </div>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"></button>
-            `;
-            
-            document.body.appendChild(notification);
-            
-            setTimeout(() => {
-                notification.remove();
-            }, 4000);
-        }
-        
-        // Живые обновления
-        function startLiveUpdates() {
-            // Обновление KPI каждые 20 секунд
-            setInterval(() => {
-                updateLiveMetrics();
-            }, 20000);
-        }
-        
-        function updateLiveMetrics() {
-            // Случайные небольшие изменения для реалистичности
-            const kpis = document.querySelectorAll('.kpi-value');
-            kpis.forEach(kpi => {
-                const current = parseFloat(kpi.textContent.replace('₽', '').replace('M', '').trim());
-                if (!isNaN(current)) {
-                    const change = (Math.random() - 0.5) * 0.1;
-                    const newValue = Math.max(0, current + change);
-                    
-                    if (kpi.textContent.includes('₽')) {
-                        kpi.textContent = '₽' + newValue.toFixed(1) + 'M';
-                    } else if (kpi.textContent.includes('%')) {
-                        kpi.textContent = newValue.toFixed(1) + '%';
-                    } else {
-                        kpi.textContent = Math.round(newValue).toString();
-                    }
-                    
-                    // Анимация
-                    kpi.style.transform = 'scale(1.1)';
-                    setTimeout(() => {
-                        kpi.style.transform = 'scale(1)';
-                    }, 300);
-                }
-            });
-        }
-        
-        // Симуляция реальных данных
-        function simulateRealTimeData() {
-            setInterval(() => {
-                // Случайное обновление статусов
-                if (Math.random() > 0.7) {
-                    const statuses = document.querySelectorAll('.status-badge');
-                    if (statuses.length > 0) {
-                        const randomStatus = statuses[Math.floor(Math.random() * statuses.length)];
-                        
-                        if (randomStatus.classList.contains('status-active')) {
-                            randomStatus.classList.replace('status-active', 'status-warning');
-                            randomStatus.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Внимание';
-                        } else if (randomStatus.classList.contains('status-warning')) {
-                            randomStatus.classList.replace('status-warning', 'status-active');
-                            randomStatus.innerHTML = '<i class="fas fa-check-circle"></i> Активно';
-                        }
-                    }
-                }
-            }, 10000);
-        }
-    </script>
 </body>
 </html>
+```
