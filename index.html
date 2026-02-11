@@ -189,6 +189,44 @@
             box-shadow: 0 5px 15px rgba(139, 0, 0, 0.3);
         }
         
+        .export-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .export-btn {
+            flex: 1;
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .export-btn:hover {
+            background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(44, 62, 80, 0.3);
+        }
+        
+        .export-btn.pdf {
+            background: linear-gradient(135deg, #c0392b 0%, #e74c3c 100%);
+        }
+        
+        .export-btn.excel {
+            background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+        }
+        
         .parameter-control {
             margin-bottom: 15px;
         }
@@ -598,8 +636,71 @@
             margin: 20px 0;
             border-top: 1px dashed #ccc;
         }
+        
+        .export-footer {
+            grid-column: 1 / -1;
+            background: #f8f9fa;
+            padding: 20px 40px;
+            border-top: 2px solid #8B0000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .export-footer-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .footer-btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+        }
+        
+        .footer-btn.pdf {
+            background: linear-gradient(135deg, #c0392b 0%, #e74c3c 100%);
+        }
+        
+        .footer-btn.excel {
+            background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+        }
+        
+        .footer-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .footer-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .footer-info {
+            color: #333;
+            font-size: 0.9rem;
+        }
+        
+        .footer-info strong {
+            color: #8B0000;
+        }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </head>
 <body>
     <div class="loading" id="loading">
@@ -641,6 +742,15 @@
                             🔍 Найти и проанализировать
                         </button>
                     </div>
+                    
+                    <div class="export-buttons" id="exportButtons">
+                        <button class="export-btn pdf" onclick="exportToPDF()" disabled id="exportPdfBtn">
+                            📄 PDF отчет
+                        </button>
+                        <button class="export-btn excel" onclick="exportToExcel()" disabled id="exportExcelBtn">
+                            📊 Excel отчет
+                        </button>
+                    </div>
                 </div>
             </div>
             
@@ -675,7 +785,7 @@
                     
                     <!-- Два графика в ряд: KPI (проценты) и Время решений (дни) -->
                     <div class="charts-row">
-                        <div class="chart-container">
+                        <div class="chart-container" id="chart1">
                             <div class="chart-header">
                                 <h3 class="chart-title">📈 Ключевые показатели эффективности (KPI), %</h3>
                             </div>
@@ -688,7 +798,7 @@
                             </div>
                         </div>
                         
-                        <div class="chart-container">
+                        <div class="chart-container" id="chart2">
                             <div class="chart-header">
                                 <h3 class="chart-title">⏱️ Время принятия решений (дни)</h3>
                             </div>
@@ -702,7 +812,7 @@
                         </div>
                     </div>
                     
-                    <div class="chart-container">
+                    <div class="chart-container" id="chart3">
                         <div class="chart-header">
                             <h3 class="chart-title">🎯 Прогноз пожизненной ценности клиентов (LTV)</h3>
                         </div>
@@ -769,7 +879,7 @@
                     </div>
                 </div>
                 
-                <div class="chart-container">
+                <div class="chart-container" id="chart4">
                     <div class="chart-header">
                         <h3 class="chart-title">🔄 Алгоритм Q-learning для оптимизации R&D портфеля</h3>
                     </div>
@@ -796,7 +906,7 @@
                 <div id="resultsInfo" class="hidden">
                     <!-- Два графика: сравнение процентов и сравнение времени -->
                     <div class="charts-row">
-                        <div class="chart-container">
+                        <div class="chart-container" id="chart5">
                             <div class="chart-header">
                                 <h3 class="chart-title">📊 Сравнение процентных показателей</h3>
                             </div>
@@ -808,7 +918,7 @@
                             </div>
                         </div>
                         
-                        <div class="chart-container">
+                        <div class="chart-container" id="chart6">
                             <div class="chart-header">
                                 <h3 class="chart-title">⏱️ Сравнение времени принятия решений</h3>
                             </div>
@@ -849,7 +959,7 @@
                         </div>
                     </div>
                     
-                    <div class="chart-container">
+                    <div class="chart-container" id="chart7">
                         <div class="chart-header">
                             <h3 class="chart-title">💰 Экономический эффект от внедрения</h3>
                         </div>
@@ -876,7 +986,7 @@
                 </div>
                 
                 <div id="algorithmsInfo" class="hidden">
-                    <div class="chart-container">
+                    <div class="chart-container" id="chart8">
                         <div class="chart-header">
                             <h3 class="chart-title">🎯 Детализация модели LightGBM для прогноза LTV</h3>
                         </div>
@@ -889,7 +999,7 @@
                         </div>
                     </div>
                     
-                    <div class="chart-container">
+                    <div class="chart-container" id="chart9">
                         <div class="chart-header">
                             <h3 class="chart-title">🤖 Нейросеть-автокодировщик для предиктивного обслуживания</h3>
                         </div>
@@ -935,6 +1045,21 @@
                 </div>
             </div>
         </div>
+        
+        <!-- Footer с экспортом -->
+        <div class="export-footer">
+            <div class="footer-info">
+                <span id="exportCompanyInfo">🔍 Выполните поиск компании для выгрузки отчета</span>
+            </div>
+            <div class="export-footer-buttons">
+                <button class="footer-btn pdf" onclick="exportToPDF()" id="footerExportPdfBtn" disabled>
+                    📄 Скачать PDF отчет
+                </button>
+                <button class="footer-btn excel" onclick="exportToExcel()" id="footerExportExcelBtn" disabled>
+                    📊 Скачать Excel отчет
+                </button>
+            </div>
+        </div>
     </div>
     
     <script>
@@ -942,6 +1067,7 @@
         const companyDatabase = {
             "5047154189": {
                 name: "ООО 'Мобайл Парк ИТ'",
+                inn: "5047154189",
                 description: "Технологическая компания, специализирующаяся на IoT решениях и телематических системах",
                 parameters: {
                     annualRevenue: { value: 2800, min: 0, max: 10000, step: 100, unit: "млн ₽" },
@@ -956,6 +1082,7 @@
             },
             "1234567890": {
                 name: "ТехноИнвест Корпорейшн",
+                inn: "1234567890",
                 description: "Инвестиционная компания в сфере высоких технологий",
                 parameters: {
                     annualRevenue: { value: 5000, min: 0, max: 50000, step: 100, unit: "млн ₽" },
@@ -986,8 +1113,12 @@
             document.getElementById('emptyResultsState').classList.remove('hidden');
             document.getElementById('emptyAlgorithmsState').classList.remove('hidden');
             
-            // Кнопка обновления неактивна
+            // Кнопки экспорта и обновления неактивны
             document.getElementById('updateBtn').disabled = true;
+            document.getElementById('exportPdfBtn').disabled = true;
+            document.getElementById('exportExcelBtn').disabled = true;
+            document.getElementById('footerExportPdfBtn').disabled = true;
+            document.getElementById('footerExportExcelBtn').disabled = true;
             
             // Очищаем индикаторы
             document.getElementById('currentIndicators').innerHTML = '';
@@ -1023,6 +1154,7 @@
                     // Генерируем тестовые данные для неизвестного ИНН
                     companyData = {
                         name: `Компания ИНН ${inn}`,
+                        inn: inn,
                         description: "Компания из внешней базы данных",
                         parameters: {
                             annualRevenue: { value: 1000, min: 0, max: 20000, step: 100, unit: "млн ₽" },
@@ -1043,13 +1175,20 @@
         }
         
         function initializeAnalysis() {
-            // Активируем кнопку обновления
+            // Активируем кнопки
             document.getElementById('updateBtn').disabled = false;
+            document.getElementById('exportPdfBtn').disabled = false;
+            document.getElementById('exportExcelBtn').disabled = false;
+            document.getElementById('footerExportPdfBtn').disabled = false;
+            document.getElementById('footerExportExcelBtn').disabled = false;
             
             // Обновляем информацию о компании
             document.getElementById('companyName').textContent = companyData.name;
             document.getElementById('companyDetails').textContent = companyData.description;
             document.getElementById('companyLogo').textContent = companyData.name.charAt(0);
+            
+            // Обновляем информацию в футере
+            document.getElementById('exportCompanyInfo').innerHTML = `📊 Отчет по компании: <strong>${companyData.name}</strong> (ИНН: ${companyData.inn || 'не указан'})`;
             
             // Создаем элементы управления параметрами
             createParameterControls();
@@ -1195,7 +1334,8 @@
                     current: avgLtv,
                     forecast: forecastLtv,
                     improvement: ((forecastLtv - avgLtv) / avgLtv * 100).toFixed(1)
-                }
+                },
+                parameters: params
             };
         }
         
@@ -1828,38 +1968,6 @@
                             grid: { display: false },
                             title: { display: true, text: 'Время, часы' }
                         }
-                    },
-                    plugins: {
-                        annotation: {
-                            annotations: {
-                                anomaly: {
-                                    type: 'box',
-                                    xMin: 70,
-                                    xMax: 85,
-                                    backgroundColor: 'rgba(255, 152, 0, 0.2)',
-                                    borderColor: 'rgba(255, 152, 0, 0.5)',
-                                    borderWidth: 1,
-                                    label: {
-                                        content: 'Обнаруженная аномалия',
-                                        enabled: true,
-                                        position: 'end'
-                                    }
-                                },
-                                threshold: {
-                                    type: 'line',
-                                    yMin: 1.2,
-                                    yMax: 1.2,
-                                    borderColor: '#ff0000',
-                                    borderWidth: 2,
-                                    borderDash: [5, 5],
-                                    label: {
-                                        content: 'Порог аномалии',
-                                        enabled: true,
-                                        position: 'end'
-                                    }
-                                }
-                            }
-                        }
                     }
                 }
             });
@@ -1960,6 +2068,230 @@
         
         function showLoading(show) {
             document.getElementById('loading').classList.toggle('active', show);
+        }
+        
+        // Функция экспорта в Excel
+        function exportToExcel() {
+            if (!companyData || !calculatedResults) {
+                alert('Сначала выполните анализ компании');
+                return;
+            }
+            
+            showLoading(true);
+            
+            try {
+                const wb = XLSX.utils.book_new();
+                
+                // Лист 1: Общая информация
+                const infoData = [
+                    ['Отчет по анализу компании', ''],
+                    ['Дата', new Date().toLocaleDateString('ru-RU')],
+                    ['Название компании', companyData.name],
+                    ['ИНН', companyData.inn || 'Не указан'],
+                    ['Описание', companyData.description],
+                    [],
+                    ['Параметры компании', ''],
+                    ['Параметр', 'Значение', 'Единица измерения'],
+                    ['Годовая выручка', companyData.parameters.annualRevenue.value, 'млн ₽'],
+                    ['Бюджет R&D', companyData.parameters.rdBudget.value, 'млн ₽'],
+                    ['Ключевые клиенты', companyData.parameters.keyClients.value, 'шт'],
+                    ['R&D проекты', companyData.parameters.rdProjects.value, 'шт'],
+                    ['Сотрудники', companyData.parameters.employees.value, 'чел'],
+                    ['Срок жизни клиента', companyData.parameters.customerLifetime.value, 'лет'],
+                    ['Средний бюджет проекта', companyData.parameters.avgProjectBudget.value, 'млн ₽'],
+                    ['Простой инфраструктуры', companyData.parameters.infrastructureDowntime.value, 'ч/мес']
+                ];
+                
+                const ws1 = XLSX.utils.aoa_to_sheet(infoData);
+                XLSX.utils.book_append_sheet(wb, ws1, 'Общая информация');
+                
+                // Лист 2: Текущие и прогнозные показатели
+                const current = calculatedResults.current;
+                const improved = calculatedResults.improved;
+                
+                const metricsData = [
+                    ['Сравнение показателей', 'До внедрения', 'После внедрения', 'Изменение', 'Ед. изм.'],
+                    ['ROI', current.roi, improved.roi, `${(improved.roi - current.roi).toFixed(1)}%`, '%'],
+                    ['Отток клиентов', current.churn, improved.churn, `-${(current.churn - improved.churn).toFixed(1)}%`, '%'],
+                    ['Успешность R&D', current.rdSuccess, improved.rdSuccess, `+${(improved.rdSuccess - current.rdSuccess).toFixed(1)}%`, '%'],
+                    ['Время принятия решений', current.decisionTime, improved.decisionTime, `-${(current.decisionTime - improved.decisionTime)}`, 'дней'],
+                    ['Средний LTV', current.avgLtv, improved.avgLtv, `+${calculatedResults.ltvData.improvement}%`, 'млн ₽']
+                ];
+                
+                const ws2 = XLSX.utils.aoa_to_sheet(metricsData);
+                XLSX.utils.book_append_sheet(wb, ws2, 'Ключевые показатели');
+                
+                // Лист 3: Экономический эффект
+                const eco = calculatedResults.economic;
+                
+                const economicData = [
+                    ['Экономический эффект от внедрения', ''],
+                    ['Показатель', 'Значение', 'Ед. изм.'],
+                    ['Рост доходов', eco.revenueIncrease, 'млн ₽/год'],
+                    ['Снижение затрат', eco.costReduction, 'млн ₽/год'],
+                    ['Снижение простоев', eco.downtimeReduction, 'млн ₽/год'],
+                    ['Общий эффект', eco.totalEffect, 'млн ₽/год'],
+                    ['Стоимость внедрения', eco.implementationCost, 'млн ₽'],
+                    ['Окупаемость', eco.paybackMonths, 'месяцев']
+                ];
+                
+                const ws3 = XLSX.utils.aoa_to_sheet(economicData);
+                XLSX.utils.book_append_sheet(wb, ws3, 'Экономический эффект');
+                
+                // Лист 4: Рекомендации
+                const recommendations = document.querySelectorAll('#recommendationsList .recommendation-item');
+                const recData = [
+                    ['Рекомендации', 'Описание', 'Потенциальный эффект', 'Приоритет']
+                ];
+                
+                recommendations.forEach(rec => {
+                    const title = rec.querySelector('h4')?.textContent || '';
+                    const desc = rec.querySelector('p')?.textContent || '';
+                    const impactSpan = rec.querySelector('span[style*="font-weight: 600"]')?.textContent || '';
+                    const prioritySpan = rec.querySelector('span[style*="padding: 2px 8px"]')?.textContent || '';
+                    recData.push([title, desc, impactSpan, prioritySpan.replace('Приоритет: ', '')]);
+                });
+                
+                const ws4 = XLSX.utils.aoa_to_sheet(recData);
+                XLSX.utils.book_append_sheet(wb, ws4, 'Рекомендации');
+                
+                // Сохраняем файл
+                const fileName = `AI_Report_${companyData.name.replace(/[^a-zа-яё0-9]/gi, '_')}_${new Date().toISOString().split('T')[0]}.xlsx`;
+                XLSX.writeFile(wb, fileName);
+                
+                showLoading(false);
+            } catch (error) {
+                console.error('Ошибка при экспорте в Excel:', error);
+                alert('Ошибка при создании Excel файла');
+                showLoading(false);
+            }
+        }
+        
+        // Функция экспорта в PDF
+        async function exportToPDF() {
+            if (!companyData || !calculatedResults) {
+                alert('Сначала выполните анализ компании');
+                return;
+            }
+            
+            showLoading(true);
+            
+            try {
+                const { jsPDF } = window.jspdf;
+                const pdf = new jsPDF('p', 'pt', 'a4');
+                
+                // Заголовок
+                pdf.setFontSize(18);
+                pdf.setTextColor(139, 0, 0);
+                pdf.text('Отчет AI-системы управления инвестициями', 40, 40);
+                
+                pdf.setFontSize(12);
+                pdf.setTextColor(0, 0, 0);
+                pdf.text(`Компания: ${companyData.name}`, 40, 80);
+                pdf.text(`ИНН: ${companyData.inn || 'Не указан'}`, 40, 100);
+                pdf.text(`Дата: ${new Date().toLocaleDateString('ru-RU')}`, 40, 120);
+                
+                let yPos = 160;
+                
+                // Основные показатели
+                pdf.setFontSize(14);
+                pdf.setTextColor(139, 0, 0);
+                pdf.text('Ключевые показатели', 40, yPos);
+                yPos += 30;
+                
+                pdf.setFontSize(11);
+                pdf.setTextColor(0, 0, 0);
+                
+                const current = calculatedResults.current;
+                const improved = calculatedResults.improved;
+                
+                pdf.text(`ROI: ${current.roi}% → ${improved.roi}% (+${(improved.roi - current.roi).toFixed(1)}%)`, 40, yPos);
+                yPos += 20;
+                pdf.text(`Отток клиентов: ${current.churn}% → ${improved.churn}% (-${(current.churn - improved.churn).toFixed(1)}%)`, 40, yPos);
+                yPos += 20;
+                pdf.text(`Успешность R&D: ${current.rdSuccess}% → ${improved.rdSuccess}% (+${(improved.rdSuccess - current.rdSuccess).toFixed(1)}%)`, 40, yPos);
+                yPos += 20;
+                pdf.text(`Время решений: ${current.decisionTime} дней → ${improved.decisionTime} дней (-${(current.decisionTime - improved.decisionTime)} дней)`, 40, yPos);
+                yPos += 20;
+                pdf.text(`Средний LTV: ${current.avgLtv} млн ₽ → ${improved.avgLtv} млн ₽ (+${calculatedResults.ltvData.improvement}%)`, 40, yPos);
+                
+                yPos += 40;
+                
+                // Экономический эффект
+                if (yPos > 600) {
+                    pdf.addPage();
+                    yPos = 40;
+                }
+                
+                pdf.setFontSize(14);
+                pdf.setTextColor(139, 0, 0);
+                pdf.text('Экономический эффект', 40, yPos);
+                yPos += 30;
+                
+                pdf.setFontSize(11);
+                pdf.setTextColor(0, 0, 0);
+                
+                const eco = calculatedResults.economic;
+                pdf.text(`Общий эффект: ${parseFloat(eco.totalEffect).toLocaleString('ru-RU')} млн ₽/год`, 40, yPos);
+                yPos += 20;
+                pdf.text(`Стоимость внедрения: ${parseFloat(eco.implementationCost).toLocaleString('ru-RU')} млн ₽`, 40, yPos);
+                yPos += 20;
+                pdf.text(`Окупаемость: ${eco.paybackMonths} месяцев`, 40, yPos);
+                
+                yPos += 40;
+                
+                // Рекомендации
+                if (yPos > 700) {
+                    pdf.addPage();
+                    yPos = 40;
+                }
+                
+                pdf.setFontSize(14);
+                pdf.setTextColor(139, 0, 0);
+                pdf.text('Ключевые рекомендации', 40, yPos);
+                yPos += 30;
+                
+                pdf.setFontSize(10);
+                pdf.setTextColor(0, 0, 0);
+                
+                const recommendations = document.querySelectorAll('#recommendationsList .recommendation-item');
+                let recCount = 0;
+                
+                recommendations.forEach((rec, index) => {
+                    if (index < 5) { // Ограничиваем до 5 рекомендаций
+                        const title = rec.querySelector('h4')?.textContent || '';
+                        const desc = rec.querySelector('p')?.textContent || '';
+                        
+                        if (yPos > 750) {
+                            pdf.addPage();
+                            yPos = 40;
+                        }
+                        
+                        pdf.setFontSize(11);
+                        pdf.setTextColor(139, 0, 0);
+                        pdf.text(`${index + 1}. ${title}`, 40, yPos);
+                        yPos += 20;
+                        
+                        pdf.setFontSize(9);
+                        pdf.setTextColor(80, 80, 80);
+                        
+                        const splitDesc = pdf.splitTextToSize(desc, 500);
+                        pdf.text(splitDesc, 40, yPos);
+                        yPos += splitDesc.length * 15 + 10;
+                        recCount++;
+                    }
+                });
+                
+                // Сохраняем PDF
+                const fileName = `AI_Report_${companyData.name.replace(/[^a-zа-яё0-9]/gi, '_')}_${new Date().toISOString().split('T')[0]}.pdf`;
+                pdf.save(fileName);
+                
+                showLoading(false);
+            } catch (error) {
+                console.error('Ошибка при экспорте в PDF:', error);
+                alert('Ошибка при создании PDF файла');
+                showLoading(false);
+            }
         }
     </script>
 </body>
