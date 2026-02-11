@@ -227,6 +227,92 @@
             background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
         }
         
+        .parameter-control {
+            margin-bottom: 15px;
+        }
+        
+        .parameter-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+        
+        .parameter-name {
+            color: #333;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        .parameter-value-display {
+            color: #8B0000;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        
+        .parameter-slider {
+            width: 100%;
+            height: 6px;
+            background: #e0e0e0;
+            border-radius: 3px;
+            outline: none;
+            -webkit-appearance: none;
+        }
+        
+        .parameter-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 18px;
+            height: 18px;
+            background: #8B0000;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        
+        .parameter-input {
+            width: 100%;
+            padding: 8px 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            background: white;
+            color: #333;
+            margin-top: 8px;
+        }
+        
+        .parameter-input:focus {
+            outline: none;
+            border-color: #8B0000;
+        }
+        
+        .update-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #006400 0%, #008000 100%);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .update-btn:hover:not(:disabled) {
+            background: linear-gradient(135deg, #008000 0%, #006400 100%);
+            transform: translateY(-2px);
+        }
+        
+        .update-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
         .recommendation-card {
             background: white;
             border-radius: 12px;
@@ -690,6 +776,13 @@
             font-size: 0.8rem;
             color: #495057;
         }
+
+        .params-hint {
+            font-size: 0.8rem;
+            color: #8B0000;
+            margin-top: 5px;
+            font-style: italic;
+        }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
@@ -713,7 +806,7 @@
             </div>
         </header>
         
-        <!-- Левая панель - Поиск компании -->
+        <!-- Левая панель - Поиск компании и параметры -->
         <div class="left-panel">
             <div class="panel-section">
                 <h2 class="section-title">🔍 Поиск компании</h2>
@@ -764,6 +857,19 @@
             <div class="panel-section" id="forecastPanel" style="display: none;">
                 <h2 class="section-title">📈 Прогноз после внедрения</h2>
                 <div class="indicators-grid" id="forecastIndicators"></div>
+            </div>
+            
+            <!-- БЛОК ПАРАМЕТРОВ - ВОЗВРАЩАЕМ! -->
+            <div class="panel-section" id="paramsPanel" style="display: none;">
+                <h2 class="section-title">⚙️ Параметры компании</h2>
+                <p style="color: #666; font-size: 0.85rem; margin-bottom: 15px;">Измените параметры и нажмите "Обновить прогноз"</p>
+                
+                <div id="parameterControls"></div>
+                
+                <button class="update-btn" onclick="updateAnalysis()" id="updateBtn">
+                    🔄 Обновить прогноз
+                </button>
+                <div class="params-hint">✓ После изменения параметров прогноз и рекомендации пересчитаются</div>
             </div>
         </div>
         
@@ -977,7 +1083,9 @@
                     rdProjects: 15,
                     customerLifetime: 3.2,
                     customerSatisfaction: 82,
-                    infrastructureDowntime: 48
+                    infrastructureDowntime: 48,
+                    employeeTurnover: 15,
+                    innovationIndex: 68
                 }
             }
         };
@@ -1006,6 +1114,7 @@
             document.getElementById('currentIndicatorsPanel').style.display = 'none';
             document.getElementById('techStackPanel').style.display = 'none';
             document.getElementById('forecastPanel').style.display = 'none';
+            document.getElementById('paramsPanel').style.display = 'none';
             document.getElementById('quickRecsPanel').style.display = 'none';
             document.getElementById('aiMaturityPanel').style.display = 'none';
             
@@ -1055,6 +1164,7 @@
             document.getElementById('currentIndicatorsPanel').style.display = 'block';
             document.getElementById('techStackPanel').style.display = 'block';
             document.getElementById('forecastPanel').style.display = 'block';
+            document.getElementById('paramsPanel').style.display = 'block';
             document.getElementById('quickRecsPanel').style.display = 'block';
             document.getElementById('aiMaturityPanel').style.display = 'block';
             
@@ -1063,6 +1173,10 @@
             document.getElementById('footerExportPdfBtn').disabled = false;
             document.getElementById('footerExportExcelBtn').disabled = false;
             
+            // Создаем параметры для редактирования
+            createParameterControls();
+            
+            // Первичный расчет
             calculateMetrics();
             generateRecommendations();
             updateDisplay();
@@ -1079,9 +1193,113 @@
             switchTab('analysis');
         }
 
+        // ========== ПАРАМЕТРЫ ДЛЯ РЕДАКТИРОВАНИЯ ==========
+        function createParameterControls() {
+            const container = document.getElementById('parameterControls');
+            container.innerHTML = '';
+            
+            const params = [
+                { key: 'annualRevenue', name: 'Годовая выручка', unit: 'млн ₽', min: 500, max: 10000, step: 100 },
+                { key: 'rdBudget', name: 'Бюджет R&D', unit: 'млн ₽', min: 100, max: 5000, step: 50 },
+                { key: 'keyClients', name: 'Ключевые клиенты', unit: 'шт', min: 10, max: 500, step: 5 },
+                { key: 'rdProjects', name: 'R&D проекты', unit: 'шт', min: 5, max: 100, step: 1 },
+                { key: 'customerLifetime', name: 'Срок жизни клиента', unit: 'лет', min: 1, max: 10, step: 0.1 },
+                { key: 'customerSatisfaction', name: 'Удовлетворенность', unit: '%', min: 50, max: 100, step: 1 },
+                { key: 'infrastructureDowntime', name: 'Простои', unit: 'ч/мес', min: 10, max: 500, step: 5 }
+            ];
+            
+            params.forEach(p => {
+                const value = currentCompany.parameters[p.key];
+                const control = document.createElement('div');
+                control.className = 'parameter-control';
+                control.innerHTML = `
+                    <div class="parameter-label">
+                        <span class="parameter-name">${p.name}</span>
+                        <span class="parameter-value-display" id="${p.key}Value">${value} ${p.unit}</span>
+                    </div>
+                    <input type="range" 
+                           class="parameter-slider" 
+                           id="${p.key}Slider"
+                           min="${p.min}" 
+                           max="${p.max}" 
+                           step="${p.step}" 
+                           value="${value}"
+                           oninput="updateParameter('${p.key}', this.value, '${p.unit}')">
+                    <input type="number" 
+                           class="parameter-input" 
+                           id="${p.key}Input"
+                           value="${value}"
+                           min="${p.min}"
+                           max="${p.max}"
+                           step="${p.step}"
+                           onchange="updateParameter('${p.key}', this.value, '${p.unit}')">
+                `;
+                container.appendChild(control);
+            });
+        }
+
+        // Обновление параметра
+        function updateParameter(key, value, unit) {
+            const numValue = parseFloat(value);
+            currentCompany.parameters[key] = numValue;
+            
+            document.getElementById(`${key}Value`).textContent = `${numValue} ${unit}`;
+            document.getElementById(`${key}Slider`).value = numValue;
+            document.getElementById(`${key}Input`).value = numValue;
+        }
+
+        // ========== ПЕРЕСЧЕТ ПРОГНОЗА ==========
+        function updateAnalysis() {
+            showLoading(true);
+            
+            setTimeout(() => {
+                // Пересчитываем метрики с новыми параметрами
+                calculateMetrics();
+                generateRecommendations();
+                updateDisplay();
+                updateCharts();
+                displayRecommendations();
+                
+                showLoading(false);
+            }, 600);
+        }
+
+        function updateCharts() {
+            Object.values(charts).forEach(chart => {
+                if (chart && typeof chart.destroy === 'function') chart.destroy();
+            });
+            charts = {};
+            initializeCharts();
+        }
+
+        // ========== РАСЧЕТ МЕТРИК ==========
         function calculateMetrics() {
             const params = currentCompany.parameters;
+            
+            // ROI зависит от бюджета R&D и выручки
+            const baseRoi = 12 + (params.rdBudget / params.annualRevenue * 15);
+            const baseChurn = 15 - (params.customerSatisfaction / 12) + (params.rdProjects / 30);
+            const baseRdSuccess = 35 + (params.rdBudget / params.annualRevenue * 20) - (params.rdProjects / 5);
+            const baseDecisionTime = 25 + (params.rdProjects / 2) - (params.customerSatisfaction / 10);
+            
+            // Ограничиваем значения в реалистичных пределах
+            const currentRoi = Math.min(Math.max(baseRoi, 8), 22).toFixed(1);
+            const currentChurn = Math.min(Math.max(baseChurn, 6), 18).toFixed(1);
+            const currentRdSuccess = Math.min(Math.max(baseRdSuccess, 30), 55).toFixed(1);
+            const currentDecisionTime = Math.min(Math.max(baseDecisionTime, 20), 45).toFixed(0);
+            
+            // Прогноз с улучшениями
+            const improvedRoi = Math.min(parseFloat(currentRoi) * 1.4, 28).toFixed(1);
+            const improvedChurn = Math.max(parseFloat(currentChurn) * 0.7, 5).toFixed(1);
+            const improvedRdSuccess = Math.min(parseFloat(currentRdSuccess) * 1.6, 75).toFixed(1);
+            const improvedDecisionTime = Math.max(parseFloat(currentDecisionTime) * 0.35, 8).toFixed(0);
+            
+            // LTV
             const avgLtv = (params.annualRevenue * 0.4 * params.customerLifetime * (params.customerSatisfaction/100)) / (Math.max(params.keyClients, 1) * 10);
+            const forecastLtv = avgLtv * 1.27;
+            
+            // Экономический эффект (масштабируется под выручку)
+            const scale = params.annualRevenue / 2800;
             
             window.results = {
                 company: {
@@ -1090,42 +1308,48 @@
                     industry: currentCompany.industry
                 },
                 current: {
-                    roi: 15.0,
-                    churn: 10.0,
-                    rdSuccess: 40.0,
-                    decisionTime: 28.0,
+                    roi: currentRoi,
+                    churn: currentChurn,
+                    rdSuccess: currentRdSuccess,
+                    decisionTime: currentDecisionTime,
                     avgLtv: avgLtv.toFixed(1)
                 },
                 improved: {
-                    roi: 21.0,
-                    churn: 7.0,
-                    rdSuccess: 65.0,
-                    decisionTime: 10.0,
-                    avgLtv: (avgLtv * 1.27).toFixed(1)
+                    roi: improvedRoi,
+                    churn: improvedChurn,
+                    rdSuccess: improvedRdSuccess,
+                    decisionTime: improvedDecisionTime,
+                    avgLtv: forecastLtv.toFixed(1)
                 },
                 economic: {
-                    totalEffect: 26.0,
-                    implementationCost: 14.0,
+                    totalEffect: (26 * scale).toFixed(1),
+                    implementationCost: (14 * scale).toFixed(1),
                     paybackMonths: 6.5,
-                    revenueIncrease: 11.7,
-                    costReduction: 6.5,
-                    downtimeReduction: 4.7,
-                    hrSavings: 3.1
+                    revenueIncrease: (11.7 * scale).toFixed(1),
+                    costReduction: (6.5 * scale).toFixed(1),
+                    downtimeReduction: (4.7 * scale).toFixed(1),
+                    hrSavings: (3.1 * scale).toFixed(1)
                 }
             };
         }
 
+        // ========== ГЕНЕРАЦИЯ РЕКОМЕНДАЦИЙ ==========
         function generateRecommendations() {
+            if (!window.results) return;
+            
+            const r = window.results;
+            const params = currentCompany.parameters;
+            
             recommendations = [
                 {
                     id: 1,
                     title: "📌 Перераспределите бюджет на проекты",
                     priority: "high",
                     priorityText: "Срочно",
-                    impact: "+6% доходность",
-                    investment: "117 млн ₽",
+                    impact: `+${(r.improved.roi - r.current.roi).toFixed(1)}% доходность`,
+                    investment: `${(params.rdBudget * 0.15).toFixed(0)} млн ₽`,
                     payback: "4-6 мес",
-                    description: "Сейчас 60% бюджета уходит в проекты с низкой отдачей. Система проанализировала прошлые проекты и определила, какие направления приносят реальную прибыль.",
+                    description: `Сейчас бюджет распределен неэффективно. Система проанализировала прошлые проекты и определила, какие направления приносят реальную прибыль.`,
                     steps: [
                         "Сократите финансирование 3 проектов с низкой маржинальностью",
                         "Увеличьте бюджет на 2 перспективных направления",
@@ -1137,10 +1361,10 @@
                     title: "🤝 Удержите ключевых клиентов",
                     priority: "high",
                     priorityText: "Срочно",
-                    impact: "-3% отток",
-                    investment: "140 млн ₽",
+                    impact: `-${(r.current.churn - r.improved.churn).toFixed(1)}% отток`,
+                    investment: `${(params.annualRevenue * 0.05).toFixed(0)} млн ₽`,
                     payback: "3-5 мес",
-                    description: "Каждый год компания теряет 10% ключевых клиентов. Система определила, кто собирается уйти в ближайшие 3 месяца.",
+                    description: `Каждый год компания теряет ${r.current.churn}% ключевых клиентов. Система определила, кто собирается уйти в ближайшие 3 месяца.`,
                     steps: [
                         "Свяжитесь с 5 клиентами в зоне высокого риска",
                         "Предоставьте индивидуальные скидки топ-10 клиентам",
@@ -1152,10 +1376,10 @@
                     title: "🧪 Повысьте успешность новых проектов",
                     priority: "medium",
                     priorityText: "Важно",
-                    impact: "+25% успешность",
-                    investment: "94 млн ₽",
+                    impact: `+${(r.improved.rdSuccess - r.current.rdSuccess).toFixed(1)}% успешность`,
+                    investment: `${(params.rdBudget * 0.12).toFixed(0)} млн ₽`,
                     payback: "7-9 мес",
-                    description: "Только 40% новых продуктов доходят до рынка. Система нашла общие закономерности успешных проектов.",
+                    description: `Только ${r.current.rdSuccess}% новых продуктов доходят до рынка. Система нашла общие закономерности успешных проектов.`,
                     steps: [
                         "Используйте чек-лист успешных проектов при запуске",
                         "Проводите быстрый анализ рынка до старта разработки",
@@ -1168,9 +1392,9 @@
                     priority: "high",
                     priorityText: "Срочно",
                     impact: "-60% простоев",
-                    investment: "384 млн ₽",
+                    investment: `${(params.infrastructureDowntime * 8).toFixed(0)} млн ₽`,
                     payback: "5-7 мес",
-                    description: "Оборудование простаивает 48 часов в месяц. Система замечает аномалии за 4-5 часов до отказа.",
+                    description: `Оборудование простаивает ${params.infrastructureDowntime} часов в месяц. Система замечает аномалии за 4-5 часов до отказа.`,
                     steps: [
                         "Подключите мониторинг критических узлов",
                         "Настройте автоматические оповещения",
@@ -1180,6 +1404,7 @@
             ];
         }
 
+        // ========== ОТОБРАЖЕНИЕ РЕКОМЕНДАЦИЙ ==========
         function displayRecommendations() {
             const container = document.getElementById('aiRecommendationsContainer');
             const quickContainer = document.getElementById('quickRecommendationsList');
@@ -1233,6 +1458,7 @@
             });
         }
 
+        // ========== ОБНОВЛЕНИЕ ИНТЕРФЕЙСА ==========
         function updateDisplay() {
             if (!window.results) return;
             
@@ -1315,6 +1541,7 @@
             `;
         }
 
+        // ========== ГРАФИКИ ==========
         function initializeCharts() {
             Object.values(charts).forEach(chart => {
                 if (chart && typeof chart.destroy === 'function') chart.destroy();
@@ -1334,7 +1561,7 @@
                         labels: ['Доходность', 'Отток', 'Успешность'],
                         datasets: [{
                             label: '%',
-                            data: [15, 10, 40],
+                            data: [parseFloat(r.current.roi), parseFloat(r.current.churn), parseFloat(r.current.rdSuccess)],
                             backgroundColor: ['#8B0000', '#A52A2A', '#B22222']
                         }]
                     },
@@ -1355,7 +1582,7 @@
                         labels: ['Дни'],
                         datasets: [{
                             label: 'Сейчас',
-                            data: [28],
+                            data: [parseFloat(r.current.decisionTime)],
                             backgroundColor: '#8B0000'
                         }]
                     },
@@ -1370,6 +1597,7 @@
             // График 3: LTV
             const ctx3 = document.getElementById('ltvChart')?.getContext('2d');
             if (ctx3) {
+                const baseLtv = parseFloat(r.current.avgLtv);
                 charts.ctx3 = new Chart(ctx3, {
                     type: 'line',
                     data: {
@@ -1377,13 +1605,13 @@
                         datasets: [
                             {
                                 label: 'Сейчас',
-                                data: [2.1, 2.8, 1.9, 3.2, 2.4],
+                                data: [baseLtv*0.85, baseLtv*1.1, baseLtv*0.8, baseLtv*1.3, baseLtv*0.95],
                                 borderColor: '#8B0000',
                                 tension: 0.3
                             },
                             {
                                 label: 'Прогноз',
-                                data: [2.7, 3.5, 2.4, 4.1, 3.0],
+                                data: [baseLtv*1.1, baseLtv*1.4, baseLtv*1.0, baseLtv*1.65, baseLtv*1.2],
                                 borderColor: '#008000',
                                 tension: 0.3
                             }
@@ -1401,8 +1629,8 @@
                     data: {
                         labels: ['Доходность', 'Отток', 'Успешность'],
                         datasets: [
-                            { label: 'Сейчас', data: [15, 10, 40], backgroundColor: '#8B0000' },
-                            { label: 'Прогноз', data: [21, 7, 65], backgroundColor: '#008000' }
+                            { label: 'Сейчас', data: [parseFloat(r.current.roi), parseFloat(r.current.churn), parseFloat(r.current.rdSuccess)], backgroundColor: '#8B0000' },
+                            { label: 'Прогноз', data: [parseFloat(r.improved.roi), parseFloat(r.improved.churn), parseFloat(r.improved.rdSuccess)], backgroundColor: '#008000' }
                         ]
                     },
                     options: { responsive: true, maintainAspectRatio: false }
@@ -1417,8 +1645,8 @@
                     data: {
                         labels: ['Время решений'],
                         datasets: [
-                            { label: 'Сейчас', data: [28], backgroundColor: '#8B0000' },
-                            { label: 'Прогноз', data: [10], backgroundColor: '#008000' }
+                            { label: 'Сейчас', data: [parseFloat(r.current.decisionTime)], backgroundColor: '#8B0000' },
+                            { label: 'Прогноз', data: [parseFloat(r.improved.decisionTime)], backgroundColor: '#008000' }
                         ]
                     },
                     options: { responsive: true, maintainAspectRatio: false }
@@ -1433,7 +1661,12 @@
                     data: {
                         labels: ['Рост доходов', 'Снижение затрат', 'Снижение простоев', 'HR'],
                         datasets: [{
-                            data: [11.7, 6.5, 4.7, 3.1],
+                            data: [
+                                parseFloat(r.economic.revenueIncrease),
+                                parseFloat(r.economic.costReduction),
+                                parseFloat(r.economic.downtimeReduction),
+                                parseFloat(r.economic.hrSavings)
+                            ],
                             backgroundColor: ['#008000', '#ff9800', '#2196F3', '#9c27b0']
                         }]
                     },
@@ -1457,7 +1690,7 @@
             document.getElementById('loading').classList.toggle('active', show);
         }
 
-        // ========== ЭКСПОРТ В PDF С ПОЛНЫМИ ДАННЫМИ ==========
+        // ========== ЭКСПОРТ В PDF ==========
         async function exportToPDF() {
             if (!currentCompany || !window.results) {
                 alert('Сначала загрузите данные компании');
@@ -1471,12 +1704,10 @@
                 const pdf = new jsPDF('p', 'pt', 'a4');
                 const r = window.results;
                 
-                // Заголовок
                 pdf.setFontSize(20);
                 pdf.setTextColor(139, 0, 0);
                 pdf.text('AI-система управления инвестициями', 40, 40);
                 
-                // Информация о компании
                 pdf.setFontSize(14);
                 pdf.setTextColor(0, 0, 0);
                 pdf.text(`Компания: ${currentCompany.name}`, 40, 80);
@@ -1484,7 +1715,6 @@
                 pdf.text(`Отрасль: ${currentCompany.industry}`, 40, 120);
                 pdf.text(`Дата отчета: ${new Date().toLocaleDateString('ru-RU')}`, 40, 140);
                 
-                // Ключевые показатели
                 pdf.setFontSize(16);
                 pdf.setTextColor(139, 0, 0);
                 pdf.text('Ключевые показатели', 40, 180);
@@ -1497,7 +1727,6 @@
                 pdf.text(`Время принятия решений: ${r.current.decisionTime} дней → ${r.improved.decisionTime} дней`, 40, 270);
                 pdf.text(`Средний LTV: ${r.current.avgLtv} млн ₽ → ${r.improved.avgLtv} млн ₽ (+27%)`, 40, 290);
                 
-                // Экономический эффект
                 pdf.setFontSize(16);
                 pdf.setTextColor(139, 0, 0);
                 pdf.text('Экономический эффект', 40, 330);
@@ -1513,7 +1742,6 @@
                 pdf.text(`• Сокращение простоев: ${r.economic.downtimeReduction} млн ₽`, 50, 490);
                 pdf.text(`• HR-оптимизация: ${r.economic.hrSavings} млн ₽`, 50, 510);
                 
-                // Рекомендации
                 pdf.setFontSize(16);
                 pdf.setTextColor(139, 0, 0);
                 pdf.text('Рекомендации системы', 40, 550);
@@ -1541,12 +1769,10 @@
                     yPos += 25;
                 });
                 
-                // Сохраняем PDF
                 const fileName = `AI_Report_${currentCompany.name.replace(/[^a-zа-яё0-9]/gi, '_')}_${new Date().toISOString().split('T')[0]}.pdf`;
                 pdf.save(fileName);
                 
                 showLoading(false);
-                alert('PDF-отчет успешно сформирован');
                 
             } catch (error) {
                 console.error('Ошибка при создании PDF:', error);
@@ -1555,7 +1781,7 @@
             }
         }
 
-        // ========== ЭКСПОРТ В EXCEL С ПОЛНЫМИ ДАННЫМИ ==========
+        // ========== ЭКСПОРТ В EXCEL ==========
         function exportToExcel() {
             if (!currentCompany || !window.results) {
                 alert('Сначала загрузите данные компании');
@@ -1567,10 +1793,8 @@
             try {
                 const r = window.results;
                 
-                // Создаем рабочую книгу Excel
                 const wb = XLSX.utils.book_new();
                 
-                // Лист 1: Общая информация
                 const infoData = [
                     ['AI-система управления инвестициями', ''],
                     ['Дата отчета', new Date().toLocaleDateString('ru-RU')],
@@ -1590,7 +1814,6 @@
                 const ws1 = XLSX.utils.aoa_to_sheet(infoData);
                 XLSX.utils.book_append_sheet(wb, ws1, 'Общая информация');
                 
-                // Лист 2: Экономический эффект
                 const ecoData = [
                     ['ЭКОНОМИЧЕСКИЙ ЭФФЕКТ', ''],
                     ['Показатель', 'Значение'],
@@ -1608,7 +1831,6 @@
                 const ws2 = XLSX.utils.aoa_to_sheet(ecoData);
                 XLSX.utils.book_append_sheet(wb, ws2, 'Экономический эффект');
                 
-                // Лист 3: Рекомендации
                 const recData = [
                     ['РЕКОМЕНДАЦИИ СИСТЕМЫ', '', '', ''],
                     ['Приоритет', 'Рекомендация', 'Эффект', 'Инвестиции', 'Окупаемость', 'Описание']
@@ -1628,7 +1850,6 @@
                 const ws3 = XLSX.utils.aoa_to_sheet(recData);
                 XLSX.utils.book_append_sheet(wb, ws3, 'Рекомендации');
                 
-                // Лист 4: Детальные шаги по рекомендациям
                 const stepsData = [
                     ['ДЕТАЛЬНЫЙ ПЛАН ВНЕДРЕНИЯ', '', ''],
                     ['Рекомендация', 'Шаг', '']
@@ -1644,12 +1865,10 @@
                 const ws4 = XLSX.utils.aoa_to_sheet(stepsData);
                 XLSX.utils.book_append_sheet(wb, ws4, 'План внедрения');
                 
-                // Сохраняем файл
                 const fileName = `AI_Report_${currentCompany.name.replace(/[^a-zа-яё0-9]/gi, '_')}_${new Date().toISOString().split('T')[0]}.xlsx`;
                 XLSX.writeFile(wb, fileName);
                 
                 showLoading(false);
-                alert('Excel-отчет успешно сформирован');
                 
             } catch (error) {
                 console.error('Ошибка при создании Excel:', error);
