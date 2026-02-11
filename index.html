@@ -13,23 +13,23 @@
         }
         
         body {
-            background: #8B0000;
+            background: linear-gradient(135deg, #8B0000 0%, #600000 100%);
             min-height: 100vh;
             padding: 20px;
-            color: #fff;
+            color: white;
         }
         
         .container {
             max-width: 1600px;
             margin: 0 auto;
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(255, 255, 255, 0.95);
             border-radius: 15px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
             overflow: hidden;
             display: grid;
             grid-template-columns: 350px 1fr;
             min-height: 95vh;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(139, 0, 0, 0.2);
         }
         
         @media (max-width: 1200px) {
@@ -40,7 +40,7 @@
         
         header {
             grid-column: 1 / -1;
-            background: linear-gradient(135deg, #600000 0%, #8B0000 100%);
+            background: linear-gradient(135deg, #8B0000 0%, #600000 100%);
             color: white;
             padding: 25px 40px;
             border-bottom: 2px solid rgba(255, 255, 255, 0.1);
@@ -81,27 +81,27 @@
         }
         
         .left-panel {
-            background: rgba(30, 0, 0, 0.9);
+            background: #f8f9fa;
             padding: 25px;
-            border-right: 1px solid rgba(255, 100, 100, 0.3);
+            border-right: 1px solid #dee2e6;
             height: 100%;
             overflow-y: auto;
         }
         
         .panel-section {
-            background: rgba(50, 0, 0, 0.7);
+            background: white;
             border-radius: 12px;
             padding: 20px;
             margin-bottom: 20px;
-            border: 1px solid rgba(255, 100, 100, 0.2);
-            box-shadow: 0 5px 15px rgba(139, 0, 0, 0.3);
+            border: 1px solid #e0e0e0;
+            box-shadow: 0 5px 15px rgba(139, 0, 0, 0.1);
         }
         
         .section-title {
-            color: #ff6666;
+            color: #8B0000;
             margin-bottom: 15px;
             padding-bottom: 10px;
-            border-bottom: 2px solid #ff3333;
+            border-bottom: 2px solid #8B0000;
             font-size: 1.2rem;
             font-weight: 600;
             display: flex;
@@ -133,7 +133,8 @@
             justify-content: center;
             font-weight: bold;
             font-size: 1.2rem;
-            border: 2px solid rgba(255, 255, 255, 0.2);
+            border: 2px solid white;
+            box-shadow: 0 5px 15px rgba(139, 0, 0, 0.2);
         }
         
         .inn-input-container {
@@ -145,17 +146,18 @@
         .inn-input {
             width: 100%;
             padding: 12px 15px;
-            border: 2px solid rgba(255, 100, 100, 0.5);
+            border: 2px solid #e0e0e0;
             border-radius: 8px;
             font-size: 0.95rem;
-            background: rgba(0, 0, 0, 0.5);
-            color: white;
+            background: white;
+            color: #333;
+            transition: all 0.3s;
         }
         
         .inn-input:focus {
             outline: none;
-            border-color: #ff3333;
-            box-shadow: 0 0 0 3px rgba(255, 51, 51, 0.1);
+            border-color: #8B0000;
+            box-shadow: 0 0 0 3px rgba(139, 0, 0, 0.1);
         }
         
         .search-btn {
@@ -177,14 +179,22 @@
         .search-btn:hover {
             background: linear-gradient(135deg, #600000 0%, #8B0000 100%);
             transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(139, 0, 0, 0.3);
         }
         
         .parameter-group {
-            background: rgba(0, 0, 0, 0.3);
+            background: #f8f9fa;
             border-radius: 8px;
             padding: 15px;
             margin-bottom: 15px;
-            border: 1px solid rgba(255, 100, 100, 0.3);
+            border: 1px solid #e0e0e0;
+        }
+        
+        .parameter-group-title {
+            color: #8B0000;
+            margin-bottom: 10px;
+            font-weight: 600;
+            font-size: 0.9rem;
         }
         
         .parameter-row {
@@ -198,37 +208,37 @@
         }
         
         .parameter-name {
-            color: #ffcccb;
+            color: #666;
             font-size: 0.9rem;
         }
         
         .parameter-value {
             font-weight: 600;
-            color: #ff6666;
+            color: #8B0000;
             font-size: 1rem;
         }
         
         .main-content {
             padding: 25px;
             overflow-y: auto;
-            background: rgba(20, 0, 0, 0.9);
+            background: white;
         }
         
         .content-tabs {
             display: flex;
             gap: 5px;
             margin-bottom: 25px;
-            border-bottom: 2px solid rgba(255, 100, 100, 0.3);
+            border-bottom: 2px solid #e0e0e0;
             padding-bottom: 5px;
             flex-wrap: wrap;
         }
         
         .tab {
             padding: 10px 20px;
-            background: rgba(50, 0, 0, 0.7);
+            background: #f8f9fa;
             border: 1px solid transparent;
             border-radius: 8px 8px 0 0;
-            color: #ff9999;
+            color: #666;
             cursor: pointer;
             transition: all 0.3s;
             font-weight: 500;
@@ -236,18 +246,19 @@
         }
         
         .tab:hover {
-            background: rgba(139, 0, 0, 0.5);
-            color: white;
+            background: #e9ecef;
+            color: #8B0000;
         }
         
         .tab.active {
             background: #8B0000;
             color: white;
-            border-color: #ff3333;
+            border-color: #8B0000;
         }
         
         .tab-content {
             display: none;
+            color: #333;
         }
         
         .tab-content.active {
@@ -268,17 +279,19 @@
         }
         
         .indicator-card {
-            background: rgba(50, 0, 0, 0.7);
+            background: white;
             border-radius: 12px;
             padding: 20px;
-            border: 2px solid rgba(255, 100, 100, 0.3);
+            border: 2px solid #e0e0e0;
             text-align: center;
             transition: transform 0.3s;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
         }
         
         .indicator-card:hover {
             transform: translateY(-3px);
-            border-color: #ff3333;
+            border-color: #8B0000;
+            box-shadow: 0 5px 15px rgba(139, 0, 0, 0.1);
         }
         
         .indicator-value {
@@ -288,7 +301,7 @@
         }
         
         .indicator-label {
-            color: #ff9999;
+            color: #666;
             font-size: 0.9rem;
         }
         
@@ -301,13 +314,13 @@
         }
         
         .positive {
-            background: rgba(0, 100, 0, 0.3);
-            color: #90ee90;
+            background: rgba(0, 128, 0, 0.1);
+            color: #008000;
         }
         
         .negative {
-            background: rgba(139, 0, 0, 0.3);
-            color: #ff6666;
+            background: rgba(139, 0, 0, 0.1);
+            color: #8B0000;
         }
         
         .three-contour-model {
@@ -324,12 +337,13 @@
         }
         
         .contour-card {
-            background: rgba(40, 0, 0, 0.8);
+            background: white;
             border-radius: 12px;
             padding: 20px;
             border: 2px solid;
             position: relative;
             overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
         }
         
         .contour-1 {
@@ -354,7 +368,7 @@
         .contour-icon {
             width: 40px;
             height: 40px;
-            background: rgba(255, 255, 255, 0.1);
+            background: white;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -365,25 +379,37 @@
         }
         
         .contour-1 .contour-icon {
+            background: #8B0000;
+            color: white;
             border-color: #8B0000;
         }
         
         .contour-2 .contour-icon {
+            background: #A52A2A;
+            color: white;
             border-color: #A52A2A;
         }
         
         .contour-3 .contour-icon {
+            background: #B22222;
+            color: white;
             border-color: #B22222;
         }
         
         .contour-title {
             font-size: 1.1rem;
             font-weight: 600;
-            color: #ff6666;
+            color: #8B0000;
+        }
+        
+        .contour-subtitle {
+            color: #666;
+            font-size: 0.85rem;
+            margin-top: 2px;
         }
         
         .contour-content {
-            color: #ffcccb;
+            color: #555;
             line-height: 1.5;
             margin-bottom: 15px;
             font-size: 0.9rem;
@@ -396,18 +422,18 @@
         
         .contour-features li {
             padding: 8px 0;
-            border-bottom: 1px dashed rgba(255, 100, 100, 0.3);
+            border-bottom: 1px dashed #eee;
             display: flex;
             align-items: center;
             gap: 8px;
             font-size: 0.85rem;
-            color: #ffcccb;
+            color: #555;
         }
         
         .contour-features li:before {
-            content: "▶";
-            color: #ff3333;
-            font-size: 0.7rem;
+            content: "✓";
+            color: #8B0000;
+            font-weight: bold;
         }
         
         .results-grid {
@@ -418,14 +444,15 @@
         }
         
         .result-item {
-            background: rgba(50, 0, 0, 0.7);
+            background: white;
             border-radius: 12px;
             padding: 20px;
-            border: 2px solid rgba(255, 100, 100, 0.3);
+            border: 2px solid #e0e0e0;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
         }
         
         .result-title {
-            color: #ff6666;
+            color: #8B0000;
             margin-bottom: 15px;
             font-size: 1rem;
             font-weight: 600;
@@ -441,33 +468,37 @@
         }
         
         .result-description {
-            color: #ff9999;
+            color: #666;
             line-height: 1.5;
             font-size: 0.85rem;
         }
         
         .chart-container {
-            background: rgba(50, 0, 0, 0.7);
+            background: white;
             border-radius: 12px;
             padding: 20px;
             margin-bottom: 20px;
-            border: 2px solid rgba(255, 100, 100, 0.3);
+            border: 2px solid #e0e0e0;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
         }
         
         .chart-title {
-            color: #ff6666;
+            color: #8B0000;
             margin-bottom: 15px;
             font-size: 1rem;
             font-weight: 600;
         }
         
         .recommendation-item {
-            background: rgba(30, 0, 0, 0.7);
+            background: white;
             border-radius: 10px;
             padding: 15px;
             margin-bottom: 12px;
             border-left: 4px solid;
-            border-right: 1px solid rgba(255, 100, 100, 0.3);
+            border-right: 1px solid #e0e0e0;
+            border-top: 1px solid #e0e0e0;
+            border-bottom: 1px solid #e0e0e0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
         }
         
         .recommendation-contour-1 { border-left-color: #8B0000; }
@@ -485,15 +516,15 @@
         }
         
         .badge-primary {
-            background: rgba(139, 0, 0, 0.3);
-            color: #ff6666;
-            border: 1px solid rgba(255, 100, 100, 0.2);
+            background: rgba(139, 0, 0, 0.1);
+            color: #8B0000;
+            border: 1px solid rgba(139, 0, 0, 0.2);
         }
         
         .badge-success {
-            background: rgba(0, 100, 0, 0.3);
-            color: #90ee90;
-            border: 1px solid rgba(144, 238, 144, 0.2);
+            background: rgba(0, 128, 0, 0.1);
+            color: #008000;
+            border: 1px solid rgba(0, 128, 0, 0.2);
         }
         
         .loading {
@@ -503,7 +534,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.9);
+            background: rgba(0, 0, 0, 0.8);
             z-index: 9999;
             align-items: center;
             justify-content: center;
@@ -518,8 +549,8 @@
         .spinner {
             width: 50px;
             height: 50px;
-            border: 4px solid rgba(255, 100, 100, 0.3);
-            border-top: 4px solid #ff3333;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top: 4px solid white;
             border-radius: 50%;
             animation: spin 1s linear infinite;
         }
@@ -535,7 +566,7 @@
             align-items: center;
             justify-content: center;
             min-height: 400px;
-            color: #ff9999;
+            color: #666;
             text-align: center;
             padding: 30px;
         }
@@ -543,8 +574,14 @@
         .empty-icon {
             font-size: 80px;
             color: #8B0000;
-            opacity: 0.5;
+            opacity: 0.2;
             margin-bottom: 20px;
+        }
+        
+        .empty-title {
+            color: #8B0000;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
         }
         
         .hidden {
@@ -553,9 +590,9 @@
         
         .mt-20 { margin-top: 20px; }
         .mt-30 { margin-top: 30px; }
-        .text-success { color: #90ee90; }
-        .text-danger { color: #ff6666; }
-        .text-warning { color: #ffcc00; }
+        .text-success { color: #008000; }
+        .text-danger { color: #8B0000; }
+        .text-warning { color: #ff9800; }
         
         canvas {
             max-height: 300px;
@@ -566,7 +603,7 @@
 <body>
     <div class="loading" id="loading">
         <div class="spinner"></div>
-        <div style="color: #ff6666; font-size: 1.1rem;">Анализ данных компании...</div>
+        <div style="color: white; font-size: 1.1rem;">Анализ данных компании...</div>
     </div>
     
     <div class="container">
@@ -582,52 +619,33 @@
         
         <div class="left-panel">
             <div class="panel-section">
-                <h2 class="section-title">📊 Ввод данных компании</h2>
+                <h2 class="section-title">🔍 Поиск по ИНН</h2>
                 <div class="company-info">
                     <div class="company-header">
                         <div class="company-logo" id="companyLogo">?</div>
                         <div>
-                            <h3 style="color: #ff6666; margin-bottom: 5px;" id="companyName">Компания</h3>
-                            <p style="color: #ff9999; font-size: 0.85rem;" id="companyDetails">Введите данные для анализа</p>
+                            <h3 style="color: #8B0000; margin-bottom: 5px;" id="companyName">Введите ИНН компании</h3>
+                            <p style="color: #666; font-size: 0.85rem;" id="companyDetails">Для анализа введите ИНН компании</p>
                         </div>
                     </div>
                     
                     <div class="inn-input-container">
                         <input type="text" 
                                class="inn-input" 
-                               id="companyNameInput" 
-                               placeholder="Название компании"
-                               value="Технологическая компания">
-                        <input type="number" 
-                               class="inn-input" 
-                               id="annualRevenue" 
-                               placeholder="Годовая выручка (млн руб)"
-                               value="2800">
-                        <input type="number" 
-                               class="inn-input" 
-                               id="rdBudget" 
-                               placeholder="Бюджет R&D (млн руб)"
-                               value="784">
-                        <input type="number" 
-                               class="inn-input" 
-                               id="keyClients" 
-                               placeholder="Количество ключевых клиентов"
-                               value="45">
-                        <input type="number" 
-                               class="inn-input" 
-                               id="rdProjects" 
-                               placeholder="Количество R&D проектов"
-                               value="15">
-                        <button class="search-btn" onclick="analyzeCompany()">
-                            ▶ Запустить анализ
+                               id="innInput" 
+                               placeholder="Введите ИНН компании"
+                               value="5047154189">
+                        <button class="search-btn" onclick="searchByINN()">
+                            🔍 Найти и проанализировать
                         </button>
                     </div>
                 </div>
             </div>
             
             <div class="panel-section">
-                <h2 class="section-title">⚙️ Текущие параметры</h2>
+                <h2 class="section-title">📊 Параметры компании</h2>
                 <div class="parameter-group">
+                    <div class="parameter-group-title">Основные показатели</div>
                     <div class="parameter-row">
                         <div class="parameter-label">
                             <span class="parameter-name">Выручка</span>
@@ -662,6 +680,7 @@
                 <div class="tab" onclick="switchTab('contours')">🏛️ Трехконтурная система</div>
                 <div class="tab" onclick="switchTab('results')">📊 Результаты</div>
                 <div class="tab" onclick="switchTab('recommendations')">💡 Рекомендации</div>
+                <div class="tab" onclick="switchTab('algorithms')">🧮 Алгоритмы ИИ</div>
             </div>
             
             <div class="tab-content active" id="analysisTab">
@@ -669,8 +688,12 @@
                     <div class="empty-icon">📊</div>
                     <h2 class="empty-title">Анализ эффективности компании</h2>
                     <p class="empty-description">
-                        Введите данные компании для запуска анализа трехконтурной системой
+                        Введите ИНН компании для запуска анализа трехконтурной системой
                     </p>
+                    <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-top: 20px; text-align: left;">
+                        <p style="color: #8B0000; font-weight: 600;">Демонстрация:</p>
+                        <p>Для ООО "Мобайл Парк ИТ" введите ИНН: <strong>5047154189</strong></p>
+                    </div>
                 </div>
                 
                 <div id="analysisInfo" class="hidden">
@@ -785,7 +808,7 @@
                     <div style="position: relative; height: 200px;">
                         <canvas id="qlearningChart"></canvas>
                     </div>
-                    <div style="color: #ff9999; font-size: 0.85rem; margin-top: 10px;">
+                    <div style="color: #666; font-size: 0.85rem; margin-top: 10px;">
                         Композитное вознаграждение: 70% финансовая отдача, 20% патентный потенциал, 10% рост компетенций
                     </div>
                 </div>
@@ -921,50 +944,176 @@
                     </div>
                 </div>
             </div>
+            
+            <div class="tab-content" id="algorithmsTab">
+                <h2 class="section-title">🧮 Алгоритмы искусственного интеллекта системы</h2>
+                
+                <div class="empty-state" id="emptyAlgorithmsState">
+                    <div class="empty-icon">🤖</div>
+                    <h2 class="empty-title">Алгоритмы машинного обучения</h2>
+                    <p class="empty-description">
+                        Запустите анализ компании для работы алгоритмов
+                    </p>
+                </div>
+                
+                <div id="algorithmsInfo" class="hidden">
+                    <div class="chart-container">
+                        <h3 class="chart-title">🎯 LightGBM + Optuna для прогноза LTV</h3>
+                        <div style="position: relative; height: 200px;">
+                            <canvas id="lightgbmChart"></canvas>
+                        </div>
+                        <div style="color: #666; font-size: 0.85rem; margin-top: 10px;">
+                            Градиентный бустинг с автоматической оптимизацией гиперпараметров, точность R² = 0.89
+                        </div>
+                    </div>
+                    
+                    <div class="chart-container mt-30">
+                        <h3 class="chart-title">🤖 Нейросеть-автокодировщик для предиктивного обслуживания</h3>
+                        <div style="position: relative; height: 200px;">
+                            <canvas id="autoencoderChart"></canvas>
+                        </div>
+                        <div style="color: #666; font-size: 0.85rem; margin-top: 10px;">
+                            Обнаружение аномалий в работе инфраструктуры за 48-72 часа до сбоя
+                        </div>
+                    </div>
+                    
+                    <div class="results-grid mt-30">
+                        <div class="result-item">
+                            <div class="result-title">⚡ Apache Spark + Kafka</div>
+                            <div class="result-value">> 99.9%</div>
+                            <div class="result-description">
+                                Обработка потоковых данных в реальном времени, доступность системы
+                            </div>
+                        </div>
+                        
+                        <div class="result-item">
+                            <div class="result-title">🔧 MLOps (Airflow + MLflow)</div>
+                            <div class="result-value">> 95%</div>
+                            <div class="result-description">
+                                Автоматизация переобучения моделей и мониторинга дрейфа данных
+                            </div>
+                        </div>
+                        
+                        <div class="result-item">
+                            <div class="result-title">📊 SHAP-анализ</div>
+                            <div class="result-value">100%</div>
+                            <div class="result-description">
+                                Объяснимость прогнозов ИИ для прозрачности принятия решений
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     
     <script>
+        const companyDatabase = {
+            "5047154189": {
+                name: "ООО 'Мобайл Парк ИТ'",
+                description: "Технологическая компания, специализирующаяся на IoT решениях и телематических системах",
+                baseData: {
+                    annualRevenue: 2800,
+                    rdBudget: 784,
+                    keyClients: 45,
+                    rdProjects: 15,
+                    employees: 250,
+                    totalClients: 520
+                }
+            },
+            "1234567890": {
+                name: "ТехноИнвест Корпорейшн",
+                description: "Инвестиционная компания в сфере высоких технологий",
+                baseData: {
+                    annualRevenue: 5000,
+                    rdBudget: 1200,
+                    keyClients: 80,
+                    rdProjects: 25,
+                    employees: 450,
+                    totalClients: 1200
+                }
+            },
+            "9876543210": {
+                name: "Диджитал Солюшнс",
+                description: "Разработчик программного обеспечения и AI-решений",
+                baseData: {
+                    annualRevenue: 1500,
+                    rdBudget: 450,
+                    keyClients: 30,
+                    rdProjects: 10,
+                    employees: 120,
+                    totalClients: 300
+                }
+            }
+        };
+        
         let companyData = null;
         let calculatedResults = null;
         let charts = {};
         
-        function analyzeCompany() {
+        function searchByINN() {
+            const inn = document.getElementById('innInput').value.trim();
+            
+            if (!inn) {
+                alert('Введите ИНН компании');
+                return;
+            }
+            
             showLoading(true);
             
-            const companyName = document.getElementById('companyNameInput').value;
-            const annualRevenue = parseFloat(document.getElementById('annualRevenue').value) || 2800;
-            const rdBudget = parseFloat(document.getElementById('rdBudget').value) || 784;
-            const keyClients = parseInt(document.getElementById('keyClients').value) || 45;
-            const rdProjects = parseInt(document.getElementById('rdProjects').value) || 15;
-            
-            companyData = {
-                name: companyName,
-                annualRevenue: annualRevenue,
-                rdBudget: rdBudget,
-                keyClients: keyClients,
-                rdProjects: rdProjects,
-                employees: Math.round(annualRevenue / 11.2),
-                totalClients: Math.round(keyClients * 11.5)
-            };
-            
             setTimeout(() => {
-                calculateMetrics();
-                updateParameters();
-                createCharts();
-                generateRecommendations();
-                showLoading(false);
-                switchTab('analysis');
+                if (companyDatabase[inn]) {
+                    companyData = companyDatabase[inn];
+                    
+                    document.getElementById('companyName').textContent = companyData.name;
+                    document.getElementById('companyDetails').textContent = companyData.description;
+                    document.getElementById('companyLogo').textContent = companyData.name.charAt(0);
+                    
+                    calculateMetrics();
+                    updateParameters();
+                    createCharts();
+                    generateRecommendations();
+                    
+                    showLoading(false);
+                    switchTab('analysis');
+                } else {
+                    // Если компания не найдена в базе, создаем на основе ИНН
+                    companyData = {
+                        name: `Компания ИНН ${inn}`,
+                        description: "Компания из внешней базы данных",
+                        baseData: {
+                            annualRevenue: 1000 + Math.random() * 4000,
+                            rdBudget: 300 + Math.random() * 900,
+                            keyClients: 20 + Math.floor(Math.random() * 80),
+                            rdProjects: 5 + Math.floor(Math.random() * 20),
+                            employees: 50 + Math.floor(Math.random() * 400),
+                            totalClients: 100 + Math.floor(Math.random() * 1000)
+                        }
+                    };
+                    
+                    document.getElementById('companyName').textContent = companyData.name;
+                    document.getElementById('companyDetails').textContent = companyData.description;
+                    document.getElementById('companyLogo').textContent = companyData.name.charAt(0);
+                    
+                    calculateMetrics();
+                    updateParameters();
+                    createCharts();
+                    generateRecommendations();
+                    
+                    showLoading(false);
+                    switchTab('analysis');
+                }
             }, 1500);
         }
         
         function calculateMetrics() {
             if (!companyData) return;
             
-            const revenue = companyData.annualRevenue;
-            const rdBudget = companyData.rdBudget;
-            const clients = companyData.keyClients;
-            const projects = companyData.rdProjects;
+            const base = companyData.baseData;
+            const revenue = base.annualRevenue;
+            const rdBudget = base.rdBudget;
+            const clients = base.keyClients;
+            const projects = base.rdProjects;
             
             // Расчет текущих показателей (до внедрения)
             const baseRoi = Math.min(10 + (revenue / 1000) * 0.5, 25);
@@ -973,10 +1122,10 @@
             const baseDecisionTime = Math.max(35 - (revenue / 1000) * 0.5, 20);
             
             // Расчет показателей после внедрения трехконтурной системы
-            const improvedRoi = baseRoi * 1.4;
-            const improvedChurn = baseChurn * 0.7;
-            const improvedRdSuccess = Math.min(baseRdSuccess * 1.625, 75);
-            const improvedDecisionTime = Math.max(baseDecisionTime * 0.357, 7);
+            const improvedRoi = Math.min(baseRoi * 1.4, 35);
+            const improvedChurn = Math.max(baseChurn * 0.7, 3);
+            const improvedRdSuccess = Math.min(baseRdSuccess * 1.625, 85);
+            const improvedDecisionTime = Math.max(baseDecisionTime * 0.357, 5);
             
             // Расчет экономического эффекта
             const revenueIncrease = revenue * 0.12;
@@ -1009,19 +1158,16 @@
                 }
             };
             
-            // Обновление отображения
             updateDisplay();
         }
         
         function updateParameters() {
             if (!companyData) return;
             
-            document.getElementById('paramRevenue').textContent = `${companyData.annualRevenue} млн ₽`;
-            document.getElementById('paramRdBudget').textContent = `${companyData.rdBudget} млн ₽`;
-            document.getElementById('paramKeyClients').textContent = companyData.keyClients;
-            document.getElementById('paramRdProjects').textContent = companyData.rdProjects;
-            document.getElementById('companyName').textContent = companyData.name;
-            document.getElementById('companyLogo').textContent = companyData.name.charAt(0);
+            document.getElementById('paramRevenue').textContent = `${companyData.baseData.annualRevenue} млн ₽`;
+            document.getElementById('paramRdBudget').textContent = `${companyData.baseData.rdBudget} млн ₽`;
+            document.getElementById('paramKeyClients').textContent = companyData.baseData.keyClients;
+            document.getElementById('paramRdProjects').textContent = companyData.baseData.rdProjects;
             
             document.getElementById('emptyAnalysisState').classList.add('hidden');
             document.getElementById('analysisInfo').classList.remove('hidden');
@@ -1032,6 +1178,9 @@
             
             document.getElementById('emptyRecommendationsState').classList.add('hidden');
             document.getElementById('recommendationsInfo').classList.remove('hidden');
+            
+            document.getElementById('emptyAlgorithmsState').classList.add('hidden');
+            document.getElementById('algorithmsInfo').classList.remove('hidden');
         }
         
         function updateDisplay() {
@@ -1041,19 +1190,16 @@
             const improved = calculatedResults.improved;
             const economic = calculatedResults.economic;
             
-            // Текущие показатели
             document.getElementById('currentRoi').textContent = `${current.roi}%`;
             document.getElementById('currentChurn').textContent = `${current.churn}%`;
             document.getElementById('currentRdSuccess').textContent = `${current.rdSuccess}%`;
             document.getElementById('currentDecisionTime').textContent = `${current.decisionTime}`;
             
-            // Результаты после внедрения
             document.getElementById('resultRoi').textContent = `${improved.roi}%`;
             document.getElementById('resultChurn').textContent = `${improved.churn}%`;
             document.getElementById('resultRdSuccess').textContent = `${improved.rdSuccess}%`;
             document.getElementById('resultDecisionTime').textContent = `${improved.decisionTime}`;
             
-            // Изменения
             const roiChange = (improved.roi - current.roi).toFixed(1);
             const churnChange = (current.churn - improved.churn).toFixed(1);
             const rdChange = (improved.rdSuccess - current.rdSuccess).toFixed(1);
@@ -1064,7 +1210,6 @@
             document.getElementById('rdChange').textContent = `+${rdChange}%`;
             document.getElementById('decisionChange').textContent = `-${decisionChange} дней`;
             
-            // Экономические показатели
             document.getElementById('economicEffect').textContent = `${economic.totalEffect} млн ₽`;
             document.getElementById('costReduction').textContent = `18%`;
             document.getElementById('paybackPeriod').textContent = `${economic.paybackMonths} мес.`;
@@ -1090,12 +1235,12 @@
                         label: 'Текущие показатели',
                         data: [current.roi, current.churn, current.rdSuccess, current.decisionTime],
                         backgroundColor: [
-                            'rgba(255, 100, 100, 0.7)',
-                            'rgba(255, 100, 100, 0.7)',
-                            'rgba(255, 100, 100, 0.7)',
-                            'rgba(255, 100, 100, 0.7)'
+                            'rgba(139, 0, 0, 0.7)',
+                            'rgba(139, 0, 0, 0.7)',
+                            'rgba(139, 0, 0, 0.7)',
+                            'rgba(139, 0, 0, 0.7)'
                         ],
-                        borderColor: '#ff3333',
+                        borderColor: '#8B0000',
                         borderWidth: 1
                     }]
                 },
@@ -1106,25 +1251,12 @@
                         y: {
                             beginAtZero: true,
                             grid: {
-                                color: 'rgba(255, 255, 255, 0.1)'
-                            },
-                            ticks: {
-                                color: '#ff9999'
+                                color: 'rgba(0, 0, 0, 0.1)'
                             }
                         },
                         x: {
                             grid: {
-                                color: 'rgba(255, 255, 255, 0.1)'
-                            },
-                            ticks: {
-                                color: '#ff9999'
-                            }
-                        }
-                    },
-                    plugins: {
-                        legend: {
-                            labels: {
-                                color: '#ff9999'
+                                display: false
                             }
                         }
                     }
@@ -1137,8 +1269,8 @@
             }
             
             const ctx2 = document.getElementById('ltvChart').getContext('2d');
-            const ltvData = Array.from({length: 10}, (_, i) => ({
-                client: `Клиент ${i+1}`,
+            const ltvData = Array.from({length: 8}, (_, i) => ({
+                client: `Кл. ${i+1}`,
                 current: 0.5 + Math.random() * 2,
                 predicted: 0.8 + Math.random() * 3
             }));
@@ -1151,16 +1283,16 @@
                         {
                             label: 'Текущий LTV',
                             data: ltvData.map(d => d.current),
-                            borderColor: '#ff3333',
-                            backgroundColor: 'rgba(255, 100, 100, 0.1)',
+                            borderColor: '#8B0000',
+                            backgroundColor: 'rgba(139, 0, 0, 0.1)',
                             borderWidth: 2,
                             tension: 0.3
                         },
                         {
                             label: 'Прогноз LightGBM',
                             data: ltvData.map(d => d.predicted),
-                            borderColor: '#90ee90',
-                            backgroundColor: 'rgba(144, 238, 144, 0.1)',
+                            borderColor: '#008000',
+                            backgroundColor: 'rgba(0, 128, 0, 0.1)',
                             borderWidth: 2,
                             tension: 0.3
                         }
@@ -1173,26 +1305,12 @@
                         y: {
                             beginAtZero: true,
                             grid: {
-                                color: 'rgba(255, 255, 255, 0.1)'
-                            },
-                            ticks: {
-                                color: '#ff9999'
+                                color: 'rgba(0, 0, 0, 0.1)'
                             }
                         },
                         x: {
                             grid: {
-                                color: 'rgba(255, 255, 255, 0.1)'
-                            },
-                            ticks: {
-                                color: '#ff9999',
-                                maxRotation: 45
-                            }
-                        }
-                    },
-                    plugins: {
-                        legend: {
-                            labels: {
-                                color: '#ff9999'
+                                display: false
                             }
                         }
                     }
@@ -1215,12 +1333,12 @@
             charts.qlearningChart = new Chart(ctx3, {
                 type: 'line',
                 data: {
-                    labels: episodes.map(e => `Эпизод ${e}`),
+                    labels: episodes.map(e => `Эп. ${e}`),
                     datasets: [{
                         label: 'Композитное вознаграждение',
                         data: rewards,
-                        borderColor: '#ffcc00',
-                        backgroundColor: 'rgba(255, 204, 0, 0.1)',
+                        borderColor: '#ff9800',
+                        backgroundColor: 'rgba(255, 152, 0, 0.1)',
                         borderWidth: 3,
                         tension: 0.4,
                         fill: true
@@ -1234,25 +1352,12 @@
                             beginAtZero: true,
                             max: 100,
                             grid: {
-                                color: 'rgba(255, 255, 255, 0.1)'
-                            },
-                            ticks: {
-                                color: '#ff9999'
+                                color: 'rgba(0, 0, 0, 0.1)'
                             }
                         },
                         x: {
                             grid: {
-                                color: 'rgba(255, 255, 255, 0.1)'
-                            },
-                            ticks: {
-                                color: '#ff9999'
-                            }
-                        }
-                    },
-                    plugins: {
-                        legend: {
-                            labels: {
-                                color: '#ff9999'
+                                display: false
                             }
                         }
                     }
@@ -1273,15 +1378,15 @@
                         {
                             label: 'До внедрения',
                             data: [current.roi, current.churn, current.rdSuccess, current.decisionTime],
-                            backgroundColor: 'rgba(255, 100, 100, 0.7)',
-                            borderColor: '#ff3333',
+                            backgroundColor: 'rgba(139, 0, 0, 0.7)',
+                            borderColor: '#8B0000',
                             borderWidth: 1
                         },
                         {
                             label: 'После внедрения',
                             data: [improved.roi, improved.churn, improved.rdSuccess, improved.decisionTime],
-                            backgroundColor: 'rgba(144, 238, 144, 0.7)',
-                            borderColor: '#90ee90',
+                            backgroundColor: 'rgba(0, 128, 0, 0.7)',
+                            borderColor: '#008000',
                             borderWidth: 1
                         }
                     ]
@@ -1293,25 +1398,12 @@
                         y: {
                             beginAtZero: true,
                             grid: {
-                                color: 'rgba(255, 255, 255, 0.1)'
-                            },
-                            ticks: {
-                                color: '#ff9999'
+                                color: 'rgba(0, 0, 0, 0.1)'
                             }
                         },
                         x: {
                             grid: {
-                                color: 'rgba(255, 255, 255, 0.1)'
-                            },
-                            ticks: {
-                                color: '#ff9999'
-                            }
-                        }
-                    },
-                    plugins: {
-                        legend: {
-                            labels: {
-                                color: '#ff9999'
+                                display: false
                             }
                         }
                     }
@@ -1337,8 +1429,8 @@
                     datasets: [{
                         label: 'ROI, %',
                         data: roiData,
-                        borderColor: '#ffcc00',
-                        backgroundColor: 'rgba(255, 204, 0, 0.1)',
+                        borderColor: '#ff9800',
+                        backgroundColor: 'rgba(255, 152, 0, 0.1)',
                         borderWidth: 3,
                         tension: 0.3,
                         fill: true
@@ -1351,25 +1443,145 @@
                         y: {
                             beginAtZero: false,
                             grid: {
-                                color: 'rgba(255, 255, 255, 0.1)'
-                            },
-                            ticks: {
-                                color: '#ff9999'
+                                color: 'rgba(0, 0, 0, 0.1)'
                             }
                         },
                         x: {
                             grid: {
-                                color: 'rgba(255, 255, 255, 0.1)'
+                                display: false
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // График LightGBM
+            if (charts.lightgbmChart) {
+                charts.lightgbmChart.destroy();
+            }
+            
+            const ctx6 = document.getElementById('lightgbmChart').getContext('2d');
+            charts.lightgbmChart = new Chart(ctx6, {
+                type: 'scatter',
+                data: {
+                    datasets: [{
+                        label: 'Фактический vs Прогноз',
+                        data: Array.from({length: 50}, (_, i) => ({
+                            x: 1 + Math.random() * 4,
+                            y: 1 + Math.random() * 4 + (Math.random() - 0.5) * 0.5
+                        })),
+                        backgroundColor: 'rgba(139, 0, 0, 0.5)',
+                        borderColor: '#8B0000',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Прогноз LTV'
                             },
-                            ticks: {
-                                color: '#ff9999'
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.1)'
+                            }
+                        },
+                        x: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Фактический LTV'
+                            },
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.1)'
                             }
                         }
                     },
                     plugins: {
-                        legend: {
-                            labels: {
-                                color: '#ff9999'
+                        annotation: {
+                            annotations: {
+                                line1: {
+                                    type: 'line',
+                                    borderColor: '#008000',
+                                    borderWidth: 2,
+                                    borderDash: [5, 5],
+                                    scaleID: 'y',
+                                    value: 0,
+                                    label: {
+                                        content: 'Идеальная линия',
+                                        enabled: true
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // График автокодировщика
+            if (charts.autoencoderChart) {
+                charts.autoencoderChart.destroy();
+            }
+            
+            const ctx7 = document.getElementById('autoencoderChart').getContext('2d');
+            const anomalyData = Array.from({length: 100}, (_, i) => {
+                const x = i / 10;
+                let y = Math.sin(x) + 0.1 * Math.sin(5 * x);
+                if (i > 70 && i < 85) {
+                    y += 0.5; // Аномалия
+                }
+                return y;
+            });
+            
+            charts.autoencoderChart = new Chart(ctx7, {
+                type: 'line',
+                data: {
+                    labels: Array.from({length: 100}, (_, i) => i),
+                    datasets: [{
+                        label: 'Работа системы',
+                        data: anomalyData,
+                        borderColor: '#8B0000',
+                        backgroundColor: 'rgba(139, 0, 0, 0.1)',
+                        borderWidth: 2,
+                        tension: 0.3,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: false,
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.1)'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            }
+                        }
+                    },
+                    plugins: {
+                        annotation: {
+                            annotations: {
+                                anomaly: {
+                                    type: 'box',
+                                    xMin: 70,
+                                    xMax: 85,
+                                    backgroundColor: 'rgba(255, 152, 0, 0.2)',
+                                    borderColor: 'rgba(255, 152, 0, 0.5)',
+                                    borderWidth: 1,
+                                    label: {
+                                        content: 'Обнаруженная аномалия',
+                                        enabled: true,
+                                        position: 'end'
+                                    }
+                                }
                             }
                         }
                     }
@@ -1385,44 +1597,33 @@
             
             const current = calculatedResults.current;
             
-            // Рекомендации для Контура 1
-            if (current.roi < 20) {
-                addRecommendation(
-                    'contour-1',
-                    'Внедрение системы сценарного моделирования',
-                    `Текущий ROI ${current.roi}% ниже оптимального. Рекомендуется внедрить алгоритмы прогнозирования для оптимизации инвестиционных решений.`,
-                    'Увеличение ROI на 6-8%'
-                );
-            }
+            addRecommendation(
+                'contour-1',
+                'Внедрение системы сценарного моделирования',
+                `Текущий ROI ${current.roi}% ниже оптимального. Рекомендуется внедрить алгоритмы прогнозирования для оптимизации инвестиционных решений.`,
+                'Увеличение ROI на 6-8%'
+            );
             
-            // Рекомендации для Контура 2
-            if (current.churn > 8) {
-                addRecommendation(
-                    'contour-2',
-                    'Внедрение системы прогнозирования LTV',
-                    `Высокий отток клиентов (${current.churn}%). Рекомендуется использовать LightGBM для прогноза пожизненной ценности клиентов и персонализированных retention-стратегий.`,
-                    'Снижение оттока на 3-5%'
-                );
-            }
+            addRecommendation(
+                'contour-2',
+                'Внедрение системы прогнозирования LTV',
+                `Высокий отток клиентов (${current.churn}%). Рекомендуется использовать LightGBM для прогноза пожизненной ценности клиентов и персонализированных retention-стратегий.`,
+                'Снижение оттока на 3-5%'
+            );
             
-            if (current.rdSuccess < 50) {
-                addRecommendation(
-                    'contour-2',
-                    'Оптимизация портфеля R&D проектов',
-                    `Низкая успешность R&D проектов (${current.rdSuccess}%). Рекомендуется внедрить Q-learning с композитным вознаграждением для объективного отбора проектов.`,
-                    'Увеличение успешности на 15-20%'
-                );
-            }
+            addRecommendation(
+                'contour-2',
+                'Оптимизация портфеля R&D проектов',
+                `Низкая успешность R&D проектов (${current.rdSuccess}%). Рекомендуется внедрить Q-learning с композитным вознаграждением для объективного отбора проектов.`,
+                'Увеличение успешности на 15-20%'
+            );
             
-            // Рекомендации для Контура 3
-            if (current.decisionTime > 20) {
-                addRecommendation(
-                    'contour-3',
-                    'Автоматизация процессов принятия решений',
-                    `Длительное время принятия решений (${current.decisionTime} дней). Рекомендуется автоматизировать сбор данных и подготовку аналитических отчетов.`,
-                    'Сокращение времени на 50-60%'
-                );
-            }
+            addRecommendation(
+                'contour-3',
+                'Автоматизация процессов принятия решений',
+                `Длительное время принятия решений (${current.decisionTime} дней). Рекомендуется автоматизировать сбор данных и подготовку аналитических отчетов.`,
+                'Сокращение времени на 50-60%'
+            );
             
             addRecommendation(
                 'contour-1',
@@ -1442,77 +1643,6 @@
             document.getElementById('expectedRoiGrowth').textContent = `+${(calculatedResults.improved.roi - calculatedResults.current.roi).toFixed(1)}%`;
             document.getElementById('expectedChurnReduction').textContent = `-${(calculatedResults.current.churn - calculatedResults.improved.churn).toFixed(1)}%`;
             document.getElementById('expectedProcessOptimization').textContent = '40-60%';
-            
-            // График рекомендаций
-            if (charts.recommendationsChart) {
-                charts.recommendationsChart.destroy();
-            }
-            
-            const ctx = document.getElementById('recommendationsChart').getContext('2d');
-            charts.recommendationsChart = new Chart(ctx, {
-                type: 'radar',
-                data: {
-                    labels: ['ROI', 'Отток клиентов', 'Успешность R&D', 'Время решений', 'Операционные затраты'],
-                    datasets: [
-                        {
-                            label: 'До внедрения',
-                            data: [
-                                parseFloat(current.roi) / 25 * 100,
-                                current.churn * 10,
-                                parseFloat(current.rdSuccess) * 1.33,
-                                100 - current.decisionTime * 2.5,
-                                80
-                            ],
-                            borderColor: '#ff3333',
-                            backgroundColor: 'rgba(255, 100, 100, 0.2)',
-                            borderWidth: 2
-                        },
-                        {
-                            label: 'После внедрения',
-                            data: [
-                                parseFloat(calculatedResults.improved.roi) / 25 * 100,
-                                calculatedResults.improved.churn * 10,
-                                parseFloat(calculatedResults.improved.rdSuccess) * 1.33,
-                                100 - calculatedResults.improved.decisionTime * 2.5,
-                                60
-                            ],
-                            borderColor: '#90ee90',
-                            backgroundColor: 'rgba(144, 238, 144, 0.2)',
-                            borderWidth: 2
-                        }
-                    ]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        r: {
-                            beginAtZero: true,
-                            max: 100,
-                            ticks: {
-                                color: '#ff9999',
-                                backdropColor: 'transparent'
-                            },
-                            grid: {
-                                color: 'rgba(255, 255, 255, 0.1)'
-                            },
-                            angleLines: {
-                                color: 'rgba(255, 255, 255, 0.1)'
-                            },
-                            pointLabels: {
-                                color: '#ff9999'
-                            }
-                        }
-                    },
-                    plugins: {
-                        legend: {
-                            labels: {
-                                color: '#ff9999'
-                            }
-                        }
-                    }
-                }
-            });
         }
         
         function addRecommendation(contourClass, title, description, expectedResult) {
@@ -1521,13 +1651,13 @@
             const recommendation = document.createElement('div');
             recommendation.className = `recommendation-item recommendation-${contourClass}`;
             recommendation.innerHTML = `
-                <h4 style="color: #ff6666; margin-bottom: 8px; font-size: 1rem;">${title}</h4>
-                <p style="color: #ffcccb; margin-bottom: 8px; line-height: 1.5; font-size: 0.9rem;">${description}</p>
+                <h4 style="color: #8B0000; margin-bottom: 8px; font-size: 1rem;">${title}</h4>
+                <p style="color: #555; margin-bottom: 8px; line-height: 1.5; font-size: 0.9rem;">${description}</p>
                 <div style="display: flex; justify-content: space-between; align-items: center;">
                     <span class="badge ${contourClass === 'contour-1' ? 'badge-primary' : contourClass === 'contour-2' ? 'badge-success' : 'badge-primary'}">
                         ${contourClass === 'contour-1' ? 'Стратегический' : contourClass === 'contour-2' ? 'Тактический' : 'Операционный'} контур
                     </span>
-                    <span style="font-weight: 600; color: #90ee90; font-size: 0.9rem;">Ожидаемый результат: ${expectedResult}</span>
+                    <span style="font-weight: 600; color: #008000; font-size: 0.9rem;">Ожидаемый результат: ${expectedResult}</span>
                 </div>
             `;
             
@@ -1546,12 +1676,18 @@
             document.getElementById('loading').classList.toggle('active', show);
         }
         
-        // Инициализация при загрузке
+        // Автозапуск при загрузке
         document.addEventListener('DOMContentLoaded', function() {
-            // Автозапуск анализа с демо-данными
+            document.getElementById('innInput').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    searchByINN();
+                }
+            });
+            
+            // Автозапуск анализа для Мобайл Парк ИТ
             setTimeout(() => {
-                analyzeCompany();
-            }, 1000);
+                searchByINN();
+            }, 500);
         });
     </script>
 </body>
