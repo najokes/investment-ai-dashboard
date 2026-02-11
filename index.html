@@ -27,7 +27,7 @@
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
             overflow: hidden;
             display: grid;
-            grid-template-columns: 400px 1fr 400px;
+            grid-template-columns: 450px 1fr 350px;
             min-height: 95vh;
             border: 1px solid rgba(139, 0, 0, 0.2);
         }
@@ -228,7 +228,7 @@
         }
         
         .parameter-control {
-            margin-bottom: 15px;
+            margin-bottom: 18px;
         }
         
         .parameter-label {
@@ -239,45 +239,46 @@
         
         .parameter-name {
             color: #333;
-            font-size: 0.9rem;
-            font-weight: 500;
+            font-size: 0.95rem;
+            font-weight: 600;
         }
         
         .parameter-value-display {
             color: #8B0000;
-            font-weight: 600;
-            font-size: 0.9rem;
+            font-weight: 700;
+            font-size: 0.95rem;
         }
         
         .parameter-slider {
             width: 100%;
-            height: 6px;
+            height: 8px;
             background: #e0e0e0;
-            border-radius: 3px;
+            border-radius: 4px;
             outline: none;
             -webkit-appearance: none;
         }
         
         .parameter-slider::-webkit-slider-thumb {
             -webkit-appearance: none;
-            width: 18px;
-            height: 18px;
+            width: 22px;
+            height: 22px;
             background: #8B0000;
             border-radius: 50%;
             cursor: pointer;
             border: 2px solid white;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
         }
         
         .parameter-input {
             width: 100%;
-            padding: 8px 12px;
+            padding: 10px 14px;
             border: 2px solid #e0e0e0;
-            border-radius: 6px;
-            font-size: 0.9rem;
+            border-radius: 8px;
+            font-size: 0.95rem;
             background: white;
             color: #333;
-            margin-top: 8px;
+            margin-top: 10px;
+            font-weight: 500;
         }
         
         .parameter-input:focus {
@@ -290,22 +291,24 @@
             background: linear-gradient(135deg, #006400 0%, #008000 100%);
             color: white;
             border: none;
-            padding: 12px;
+            padding: 14px;
             border-radius: 8px;
-            font-size: 0.95rem;
+            font-size: 1rem;
             cursor: pointer;
             transition: all 0.3s;
-            font-weight: 600;
+            font-weight: 700;
             margin-top: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
+            letter-spacing: 0.5px;
         }
         
         .update-btn:hover:not(:disabled) {
             background: linear-gradient(135deg, #008000 0%, #006400 100%);
             transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0,100,0,0.3);
         }
         
         .update-btn:disabled {
@@ -777,11 +780,46 @@
             color: #495057;
         }
 
-        .params-hint {
-            font-size: 0.8rem;
+        .contour-badge {
+            background: linear-gradient(135deg, #8B0000 0%, #600000 100%);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .contour-badge span {
+            font-weight: 700;
+        }
+        
+        .params-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            background: #f0f0f0;
+            padding: 12px 15px;
+            border-radius: 8px;
+            border-left: 6px solid #8B0000;
+        }
+        
+        .params-header-icon {
+            font-size: 1.5rem;
+        }
+        
+        .params-header-title {
+            font-weight: 700;
             color: #8B0000;
-            margin-top: 5px;
-            font-style: italic;
+            font-size: 1rem;
+        }
+        
+        .params-header-subtitle {
+            font-size: 0.85rem;
+            color: #666;
         }
         
         .comparison-table {
@@ -853,7 +891,7 @@
             </div>
         </header>
         
-        <!-- Левая панель - Только поиск компании и параметры -->
+        <!-- Левая панель - Поиск компании и стратегический контур параметров -->
         <div class="left-panel">
             <div class="panel-section">
                 <h2 class="section-title">🔍 Поиск компании</h2>
@@ -887,25 +925,40 @@
                 </div>
             </div>
             
-            <!-- БЛОК ПАРАМЕТРОВ -->
+            <!-- СТРАТЕГИЧЕСКИЙ КОНТУР УПРАВЛЕНИЯ - РАСШИРЕННЫЙ -->
             <div class="panel-section" id="paramsPanel" style="display: none;">
-                <h2 class="section-title">⚙️ Параметры компании</h2>
-                <p style="color: #666; font-size: 0.85rem; margin-bottom: 15px;">Измените параметры и нажмите "Обновить прогноз"</p>
+                <div class="contour-badge">
+                    <span style="font-size: 1.2rem;">🎯</span> 
+                    <span>КОНТУР 1: СТРАТЕГИЧЕСКИЙ · СЦЕНАРНОЕ МОДЕЛИРОВАНИЕ</span>
+                </div>
+                
+                <div class="params-header">
+                    <div class="params-header-icon">📊</div>
+                    <div>
+                        <div class="params-header-title">ПАРАМЕТРЫ ИНВЕСТИЦИОННОЙ СТРАТЕГИИ</div>
+                        <div class="params-header-subtitle">Изменяйте показатели для моделирования сценариев развития</div>
+                    </div>
+                </div>
                 
                 <div id="parameterControls"></div>
                 
                 <button class="update-btn" onclick="updateAnalysis()" id="updateBtn">
-                    🔄 Обновить прогноз
+                    🔄 ПЕРЕСЧИТАТЬ ПРОГНОЗ ПО СЦЕНАРИЮ
                 </button>
-                <div class="params-hint">✓ После изменения параметров прогноз и рекомендации пересчитаются</div>
             </div>
             
             <div class="panel-section" id="techStackPanel" style="display: none;">
-                <h2 class="section-title">🛠️ Модули системы</h2>
-                <div style="margin-bottom: 10px;">
-                    <span class="tech-badge-simple">💰 Прогноз прибыльности клиентов</span>
-                    <span class="tech-badge-simple">🎯 Выбор проектов для инвестиций</span>
-                    <span class="tech-badge-simple">🔧 Предсказание поломок</span>
+                <h2 class="section-title">🛠️ ТЕХНОЛОГИЧЕСКИЙ СТЕК</h2>
+                <div style="margin-bottom: 10px; display: flex; flex-wrap: wrap; gap: 6px;">
+                    <span class="tech-badge-simple">LightGBM</span>
+                    <span class="tech-badge-simple">Optuna</span>
+                    <span class="tech-badge-simple">SHAP</span>
+                    <span class="tech-badge-simple">Q-learning</span>
+                    <span class="tech-badge-simple">Автокодировщик</span>
+                    <span class="tech-badge-simple">FastAPI</span>
+                    <span class="tech-badge-simple">Kafka</span>
+                    <span class="tech-badge-simple">Spark</span>
+                    <span class="tech-badge-simple">MLflow</span>
                 </div>
             </div>
         </div>
@@ -1164,24 +1217,26 @@
             </div>
         </div>
         
-        <!-- Правая панель - Только использование ИИ (без рекомендаций) -->
+        <!-- Правая панель - Использование ИИ -->
         <div class="right-panel">
             <div class="panel-section" id="aiMaturityPanel" style="display: none;">
-                <h2 class="section-title">🧠 Использование ИИ</h2>
+                <h2 class="section-title">🧠 ИНДЕКС ЗРЕЛОСТИ ИИ</h2>
                 <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-                    <span style="color: #666;">Уровень команды:</span>
-                    <strong style="color: #28a745;">Высокий</strong>
+                    <span style="color: #666;">Управленческая команда:</span>
+                    <strong style="color: #28a745;">ВЫСОКИЙ</strong>
                 </div>
-                <div style="background: #e0e0e0; height: 8px; border-radius: 5px; margin-bottom: 15px;">
-                    <div style="width: 85%; background: #28a745; height: 8px; border-radius: 5px;"></div>
+                <div style="background: #e0e0e0; height: 10px; border-radius: 5px; margin-bottom: 15px;">
+                    <div style="width: 85%; background: #28a745; height: 10px; border-radius: 5px;"></div>
                 </div>
                 <p style="font-size: 0.85rem; color: #666;">
-                    Руководители анализируют прогнозы и принимают решения на основе данных
+                    Рост с «Начального» до «Высокого» за 12 месяцев.<br>
+                    Руководители самостоятельно анализируют SHAP-объяснения прогнозов.
                 </p>
             </div>
             
-            <!-- Пустой блок для сохранения симметрии, скрыт -->
-            <div id="quickRecsPanel" style="display: none;"></div>
+            <div class="panel-section" id="emptyRightPanel" style="display: none; min-height: 200px;">
+                <!-- Пустой блок для симметрии -->
+            </div>
         </div>
         
         <!-- Footer -->
@@ -1206,7 +1261,7 @@
             "5047154189": {
                 name: "ООО «Мобайл Парк ИТ»",
                 inn: "5047154189",
-                description: "Разработка IoT-решений",
+                description: "Разработка IoT-решений и телематических систем",
                 industry: "Информационные технологии",
                 logo: "МП",
                 parameters: {
@@ -1247,6 +1302,7 @@
             document.getElementById('paramsPanel').style.display = 'none';
             document.getElementById('techStackPanel').style.display = 'none';
             document.getElementById('aiMaturityPanel').style.display = 'none';
+            document.getElementById('emptyRightPanel').style.display = 'none';
             
             document.getElementById('analysisInfo').classList.add('hidden');
             document.getElementById('forecastInfo').classList.add('hidden');
@@ -1275,7 +1331,7 @@
                 } else {
                     currentCompany = JSON.parse(JSON.stringify(companyDatabase["5047154189"]));
                     currentCompany.inn = inn;
-                    currentCompany.name = `ООО «Компания»`;
+                    currentCompany.name = `ООО «Компания» (ИНН: ${inn})`;
                 }
                 
                 loadCompanyData();
@@ -1321,19 +1377,19 @@
             switchTab('analysis');
         }
 
-        // Параметры для редактирования
+        // Параметры для редактирования - СТРАТЕГИЧЕСКИЙ КОНТУР
         function createParameterControls() {
             const container = document.getElementById('parameterControls');
             container.innerHTML = '';
             
             const params = [
-                { key: 'annualRevenue', name: 'Годовая выручка', unit: 'млн ₽', min: 500, max: 10000, step: 100 },
-                { key: 'rdBudget', name: 'Бюджет R&D', unit: 'млн ₽', min: 100, max: 5000, step: 50 },
-                { key: 'keyClients', name: 'Ключевые клиенты', unit: 'шт', min: 10, max: 500, step: 5 },
-                { key: 'rdProjects', name: 'R&D проекты', unit: 'шт', min: 5, max: 100, step: 1 },
-                { key: 'customerLifetime', name: 'Срок жизни клиента', unit: 'лет', min: 1, max: 10, step: 0.1 },
-                { key: 'customerSatisfaction', name: 'Удовлетворенность', unit: '%', min: 50, max: 100, step: 1 },
-                { key: 'infrastructureDowntime', name: 'Простои', unit: 'ч/мес', min: 10, max: 500, step: 5 }
+                { key: 'annualRevenue', name: '💰 ГОДОВАЯ ВЫРУЧКА', unit: 'млн ₽', min: 500, max: 10000, step: 100 },
+                { key: 'rdBudget', name: '🔬 БЮДЖЕТ R&D', unit: 'млн ₽', min: 100, max: 5000, step: 50 },
+                { key: 'keyClients', name: '👥 КЛЮЧЕВЫЕ КЛИЕНТЫ', unit: 'шт', min: 10, max: 500, step: 5 },
+                { key: 'rdProjects', name: '🧪 АКТИВНЫЕ R&D ПРОЕКТЫ', unit: 'шт', min: 5, max: 100, step: 1 },
+                { key: 'customerLifetime', name: '⏳ СРОК ЖИЗНИ КЛИЕНТА', unit: 'лет', min: 1, max: 10, step: 0.1 },
+                { key: 'customerSatisfaction', name: '⭐ УДОВЛЕТВОРЕННОСТЬ', unit: '%', min: 50, max: 100, step: 1 },
+                { key: 'infrastructureDowntime', name: '⚠️ ПРОСТОИ', unit: 'ч/мес', min: 10, max: 500, step: 5 }
             ];
             
             params.forEach(p => {
@@ -1469,9 +1525,9 @@
             recommendations = [
                 {
                     id: 1,
-                    title: "📌 Перераспределите бюджет на проекты",
+                    title: "📌 ПЕРЕРАСПРЕДЕЛИТЕ БЮДЖЕТ НА ПРОЕКТЫ",
                     priority: "high",
-                    priorityText: "Срочно",
+                    priorityText: "СРОЧНО",
                     impact: `+${(r.improved.roi - r.current.roi).toFixed(1)}% доходность`,
                     investment: `${(params.rdBudget * 0.15).toFixed(0)} млн ₽`,
                     payback: "4-6 мес",
@@ -1484,9 +1540,9 @@
                 },
                 {
                     id: 2,
-                    title: "🤝 Удержите ключевых клиентов",
+                    title: "🤝 УДЕРЖИТЕ КЛЮЧЕВЫХ КЛИЕНТОВ",
                     priority: "high",
-                    priorityText: "Срочно",
+                    priorityText: "СРОЧНО",
                     impact: `-${(r.current.churn - r.improved.churn).toFixed(1)}% отток`,
                     investment: `${(params.annualRevenue * 0.05).toFixed(0)} млн ₽`,
                     payback: "3-5 мес",
@@ -1499,9 +1555,9 @@
                 },
                 {
                     id: 3,
-                    title: "🧪 Повысьте успешность новых проектов",
+                    title: "🧪 ПОВЫСЬТЕ УСПЕШНОСТЬ НОВЫХ ПРОЕКТОВ",
                     priority: "medium",
-                    priorityText: "Важно",
+                    priorityText: "ВАЖНО",
                     impact: `+${(r.improved.rdSuccess - r.current.rdSuccess).toFixed(1)}% успешность`,
                     investment: `${(params.rdBudget * 0.12).toFixed(0)} млн ₽`,
                     payback: "7-9 мес",
@@ -1514,9 +1570,9 @@
                 },
                 {
                     id: 4,
-                    title: "🔧 Предотвратите поломки оборудования",
+                    title: "🔧 ПРЕДОТВРАТИТЕ ПОЛОМКИ ОБОРУДОВАНИЯ",
                     priority: "high",
-                    priorityText: "Срочно",
+                    priorityText: "СРОЧНО",
                     impact: "-60% простоев",
                     investment: `${(params.infrastructureDowntime * 8).toFixed(0)} млн ₽`,
                     payback: "5-7 мес",
@@ -1552,7 +1608,7 @@
                     </div>
                     <div class="recommendation-description">${rec.description}</div>
                     <div class="implementation-steps">
-                        <h5>📋 Что делать:</h5>
+                        <h5>📋 ЧТО ДЕЛАТЬ:</h5>
                         <ul>${rec.steps.map(step => `<li>${step}</li>`).join('')}</ul>
                     </div>
                 `;
@@ -1575,7 +1631,7 @@
             document.getElementById('ecoPayback').textContent = `${r.economic.paybackMonths} мес`;
             
             document.getElementById('economicAnalysis').innerHTML = `
-                <h4>💰 Источники экономии</h4>
+                <h4>💰 ИСТОЧНИКИ ЭКОНОМИИ</h4>
                 <p>📈 Рост доходов: ${r.economic.revenueIncrease} млн ₽</p>
                 <p>📉 Снижение затрат: ${r.economic.costReduction} млн ₽</p>
                 <p>⚡ Меньше простоев: ${r.economic.downtimeReduction} млн ₽</p>
@@ -1588,7 +1644,6 @@
             
             const r = window.results;
             
-            // Сравнительная таблица
             document.getElementById('compCurrentRoi').textContent = `${r.current.roi}%`;
             document.getElementById('compCurrentChurn').textContent = `${r.current.churn}%`;
             document.getElementById('compCurrentRd').textContent = `${r.current.rdSuccess}%`;
@@ -1607,7 +1662,6 @@
             document.getElementById('compImprovementTime').textContent = `-${(r.current.decisionTime - r.improved.decisionTime)} дней`;
             document.getElementById('compImprovementLtv').textContent = `+27%`;
             
-            // Детальный анализ
             document.getElementById('detailCurrentRoi').textContent = `${r.current.roi}%`;
             document.getElementById('detailForecastRoi').textContent = `${r.improved.roi}%`;
             document.getElementById('detailRoiIncrease').textContent = (r.improved.roi - r.current.roi).toFixed(1);
@@ -1785,7 +1839,6 @@
             document.getElementById('loading').classList.toggle('active', show);
         }
 
-        // Экспорт в PDF
         async function exportToPDF() {
             if (!currentCompany || !window.results) {
                 alert('Сначала загрузите данные компании');
@@ -1876,7 +1929,6 @@
             }
         }
 
-        // Экспорт в Excel
         function exportToExcel() {
             if (!currentCompany || !window.results) {
                 alert('Сначала загрузите данные компании');
