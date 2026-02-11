@@ -1357,6 +1357,7 @@
             document.getElementById('footerExportExcelBtn').disabled = false;
             
             createParameterControls();
+            // Первичный расчет
             calculateMetrics();
             generateRecommendations();
             updateDisplay();
@@ -1383,17 +1384,19 @@
             container.innerHTML = '';
             
             const params = [
-                { key: 'annualRevenue', name: '💰 ГОДОВАЯ ВЫРУЧКА', unit: 'млн ₽', min: 500, max: 10000, step: 100 },
-                { key: 'rdBudget', name: '🔬 БЮДЖЕТ R&D', unit: 'млн ₽', min: 100, max: 5000, step: 50 },
-                { key: 'keyClients', name: '👥 КЛЮЧЕВЫЕ КЛИЕНТЫ', unit: 'шт', min: 10, max: 500, step: 5 },
-                { key: 'rdProjects', name: '🧪 АКТИВНЫЕ R&D ПРОЕКТЫ', unit: 'шт', min: 5, max: 100, step: 1 },
-                { key: 'customerLifetime', name: '⏳ СРОК ЖИЗНИ КЛИЕНТА', unit: 'лет', min: 1, max: 10, step: 0.1 },
-                { key: 'customerSatisfaction', name: '⭐ УДОВЛЕТВОРЕННОСТЬ', unit: '%', min: 50, max: 100, step: 1 },
-                { key: 'infrastructureDowntime', name: '⚠️ ПРОСТОИ', unit: 'ч/мес', min: 10, max: 500, step: 5 }
+                { key: 'annualRevenue', name: '💰 ГОДОВАЯ ВЫРУЧКА', unit: 'млн ₽', min: 500, max: 10000, step: 100, default: 2800 },
+                { key: 'rdBudget', name: '🔬 БЮДЖЕТ R&D', unit: 'млн ₽', min: 100, max: 5000, step: 50, default: 784 },
+                { key: 'keyClients', name: '👥 КЛЮЧЕВЫЕ КЛИЕНТЫ', unit: 'шт', min: 10, max: 500, step: 5, default: 45 },
+                { key: 'rdProjects', name: '🧪 АКТИВНЫЕ R&D ПРОЕКТЫ', unit: 'шт', min: 5, max: 100, step: 1, default: 15 },
+                { key: 'customerLifetime', name: '⏳ СРОК ЖИЗНИ КЛИЕНТА', unit: 'лет', min: 1, max: 10, step: 0.1, default: 3.2 },
+                { key: 'customerSatisfaction', name: '⭐ УДОВЛЕТВОРЕННОСТЬ', unit: '%', min: 50, max: 100, step: 1, default: 82 },
+                { key: 'infrastructureDowntime', name: '⚠️ ПРОСТОИ', unit: 'ч/мес', min: 10, max: 500, step: 5, default: 48 }
             ];
             
             params.forEach(p => {
-                const value = currentCompany.parameters[p.key];
+                // Используем текущее значение из компании или дефолтное
+                const value = currentCompany.parameters[p.key] !== undefined ? currentCompany.parameters[p.key] : p.default;
+                
                 const control = document.createElement('div');
                 control.className = 'parameter-control';
                 control.innerHTML = `
@@ -1429,12 +1432,16 @@
             document.getElementById(`${key}Value`).textContent = `${numValue} ${unit}`;
             document.getElementById(`${key}Slider`).value = numValue;
             document.getElementById(`${key}Input`).value = numValue;
+            
+            // АВТОМАТИЧЕСКИЙ ПЕРЕСЧЕТ ПРИ ИЗМЕНЕНИИ ПАРАМЕТРОВ
+            updateAnalysis();
         }
 
         function updateAnalysis() {
             showLoading(true);
             
             setTimeout(() => {
+                // Пересчитываем метрики с новыми параметрами
                 calculateMetrics();
                 generateRecommendations();
                 updateDisplay();
@@ -1464,24 +1471,32 @@
         function calculateMetrics() {
             const params = currentCompany.parameters;
             
-            const baseRoi = 12 + (params.rdBudget / params.annualRevenue * 15);
-            const baseChurn = 15 - (params.customerSatisfaction / 12) + (params.rdProjects / 30);
-            const baseRdSuccess = 35 + (params.rdBudget / params.annualRevenue * 20) - (params.rdProjects / 5);
-            const baseDecisionTime = 25 + (params.rdProjects / 2) - (params.customerSatisfaction / 10);
+            // ROI зависит от бюджета R&D и выручки
+            let baseRoi = 12 + (params.rdBudget / params.annualRevenue * 15);
+            // Отток зависит от удовлетворенности и количества проектов
+            let baseChurn = 15 - (params.customerSatisfaction / 12) + (params.rdProjects / 30);
+            // Успешность R&D зависит от бюджета и количества проектов
+            let baseRdSuccess = 35 + (params.rdBudget / params.annualRevenue * 20) - (params.rdProjects / 5);
+            // Время решений зависит от количества проектов и удовлетворенности
+            let baseDecisionTime = 25 + (params.rdProjects / 2) - (params.customerSatisfaction / 10);
             
+            // Ограничиваем значения в реалистичных пределах
             const currentRoi = Math.min(Math.max(baseRoi, 8), 22).toFixed(1);
             const currentChurn = Math.min(Math.max(baseChurn, 6), 18).toFixed(1);
             const currentRdSuccess = Math.min(Math.max(baseRdSuccess, 30), 55).toFixed(1);
             const currentDecisionTime = Math.min(Math.max(baseDecisionTime, 20), 45).toFixed(0);
             
+            // Прогноз с улучшениями
             const improvedRoi = Math.min(parseFloat(currentRoi) * 1.4, 28).toFixed(1);
             const improvedChurn = Math.max(parseFloat(currentChurn) * 0.7, 5).toFixed(1);
             const improvedRdSuccess = Math.min(parseFloat(currentRdSuccess) * 1.6, 75).toFixed(1);
             const improvedDecisionTime = Math.max(parseFloat(currentDecisionTime) * 0.35, 8).toFixed(0);
             
+            // LTV
             const avgLtv = (params.annualRevenue * 0.4 * params.customerLifetime * (params.customerSatisfaction/100)) / (Math.max(params.keyClients, 1) * 10);
             const forecastLtv = avgLtv * 1.27;
             
+            // Экономический эффект (масштабируется под выручку)
             const scale = params.annualRevenue / 2800;
             
             window.results = {
@@ -1621,15 +1636,18 @@
             
             const r = window.results;
             
+            // Обновляем крупные KPI на вкладке "Текущие показатели"
             document.getElementById('kpiRoiCurrent').textContent = `${r.current.roi}%`;
             document.getElementById('kpiChurnCurrent').textContent = `${r.current.churn}%`;
             document.getElementById('kpiRdCurrent').textContent = `${r.current.rdSuccess}%`;
             document.getElementById('kpiTimeCurrent').textContent = `${r.current.decisionTime}`;
             
+            // Обновляем экономические показатели
             document.getElementById('ecoEffect').textContent = `${r.economic.totalEffect} млн ₽`;
             document.getElementById('ecoInvestment').textContent = `${r.economic.implementationCost} млн ₽`;
             document.getElementById('ecoPayback').textContent = `${r.economic.paybackMonths} мес`;
             
+            // Обновляем анализ экономического эффекта
             document.getElementById('economicAnalysis').innerHTML = `
                 <h4>💰 ИСТОЧНИКИ ЭКОНОМИИ</h4>
                 <p>📈 Рост доходов: ${r.economic.revenueIncrease} млн ₽</p>
@@ -1644,6 +1662,7 @@
             
             const r = window.results;
             
+            // Сравнительная таблица на вкладке "Прогноз показателей"
             document.getElementById('compCurrentRoi').textContent = `${r.current.roi}%`;
             document.getElementById('compCurrentChurn').textContent = `${r.current.churn}%`;
             document.getElementById('compCurrentRd').textContent = `${r.current.rdSuccess}%`;
@@ -1662,6 +1681,7 @@
             document.getElementById('compImprovementTime').textContent = `-${(r.current.decisionTime - r.improved.decisionTime)} дней`;
             document.getElementById('compImprovementLtv').textContent = `+27%`;
             
+            // Детальный анализ прогноза
             document.getElementById('detailCurrentRoi').textContent = `${r.current.roi}%`;
             document.getElementById('detailForecastRoi').textContent = `${r.improved.roi}%`;
             document.getElementById('detailRoiIncrease').textContent = (r.improved.roi - r.current.roi).toFixed(1);
@@ -1693,6 +1713,7 @@
             
             const r = window.results;
             
+            // График 1: Текущие показатели
             const ctx1 = document.getElementById('currentMetricsChart')?.getContext('2d');
             if (ctx1) {
                 charts.ctx1 = new Chart(ctx1, {
@@ -1713,6 +1734,7 @@
                 });
             }
             
+            // График 2: Время решений
             const ctx2 = document.getElementById('decisionTimeChart')?.getContext('2d');
             if (ctx2) {
                 charts.ctx2 = new Chart(ctx2, {
@@ -1733,6 +1755,7 @@
                 });
             }
             
+            // График 3: LTV
             const ctx3 = document.getElementById('ltvChart')?.getContext('2d');
             if (ctx3) {
                 const baseLtv = parseFloat(r.current.avgLtv);
@@ -1759,6 +1782,7 @@
                 });
             }
             
+            // График 6: Экономика
             const ctx6 = document.getElementById('economicChart')?.getContext('2d');
             if (ctx6) {
                 charts.ctx6 = new Chart(ctx6, {
@@ -1785,6 +1809,7 @@
             
             const r = window.results;
             
+            // График 4: Сравнение показателей
             const ctx4 = document.getElementById('forecastComparisonChart')?.getContext('2d');
             if (ctx4) {
                 charts.forecastComparison = new Chart(ctx4, {
@@ -1804,6 +1829,7 @@
                 });
             }
             
+            // График 5: Сравнение времени
             const ctx5 = document.getElementById('forecastTimeChart')?.getContext('2d');
             if (ctx5) {
                 charts.forecastTime = new Chart(ctx5, {
