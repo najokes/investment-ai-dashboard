@@ -783,6 +783,53 @@
             margin-top: 5px;
             font-style: italic;
         }
+        
+        .comparison-table {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .comparison-col {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid #e0e0e0;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+        }
+        
+        .comparison-col h4 {
+            color: #8B0000;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            border-bottom: 1px solid #e0e0e0;
+            padding-bottom: 10px;
+        }
+        
+        .comparison-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            padding: 8px 0;
+            border-bottom: 1px dashed #f0f0f0;
+        }
+        
+        .comparison-label {
+            color: #666;
+            font-size: 0.95rem;
+        }
+        
+        .comparison-value {
+            font-weight: 700;
+            color: #333;
+        }
+        
+        .comparison-improvement {
+            color: #008000;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
@@ -854,12 +901,7 @@
                 </div>
             </div>
             
-            <div class="panel-section" id="forecastPanel" style="display: none;">
-                <h2 class="section-title">📈 Прогноз после внедрения</h2>
-                <div class="indicators-grid" id="forecastIndicators"></div>
-            </div>
-            
-            <!-- БЛОК ПАРАМЕТРОВ - ВОЗВРАЩАЕМ! -->
+            <!-- БЛОК ПАРАМЕТРОВ -->
             <div class="panel-section" id="paramsPanel" style="display: none;">
                 <h2 class="section-title">⚙️ Параметры компании</h2>
                 <p style="color: #666; font-size: 0.85rem; margin-bottom: 15px;">Измените параметры и нажмите "Обновить прогноз"</p>
@@ -876,16 +918,17 @@
         <!-- Центральная панель - Основные метрики и графики -->
         <div class="main-content">
             <div class="content-tabs">
-                <div class="tab active" onclick="switchTab('analysis')">📈 Показатели</div>
-                <div class="tab" onclick="switchTab('results')">📊 Экономический эффект</div>
+                <div class="tab active" onclick="switchTab('analysis')">📈 Текущие показатели</div>
+                <div class="tab" onclick="switchTab('forecast')">📊 Прогноз показателей</div>
+                <div class="tab" onclick="switchTab('results')">💰 Экономический эффект</div>
                 <div class="tab" onclick="switchTab('recommendations')">🎯 Рекомендации</div>
             </div>
             
-            <!-- Вкладка: Показатели -->
+            <!-- Вкладка: Текущие показатели -->
             <div class="tab-content active" id="analysisTab">
                 <div class="empty-state" id="emptyAnalysisState">
                     <div class="empty-icon">🔍</div>
-                    <h2 class="empty-title">Анализ эффективности инвестиций</h2>
+                    <h2 class="empty-title">Текущие показатели</h2>
                     <p class="empty-description">
                         Введите ИНН компании в левой панели для загрузки данных
                     </p>
@@ -897,22 +940,18 @@
                         <div class="kpi-box">
                             <div class="kpi-label">Доходность инвестиций (ROI)</div>
                             <div class="kpi-big" id="kpiRoiCurrent">15%</div>
-                            <div class="kpi-change" id="kpiRoiTarget">→ 21%</div>
                         </div>
                         <div class="kpi-box">
                             <div class="kpi-label">Отток клиентов</div>
                             <div class="kpi-big" id="kpiChurnCurrent">10%</div>
-                            <div class="kpi-change" id="kpiChurnTarget">→ 7%</div>
                         </div>
                         <div class="kpi-box">
                             <div class="kpi-label">Успешность R&D проектов</div>
                             <div class="kpi-big" id="kpiRdCurrent">40%</div>
-                            <div class="kpi-change" id="kpiRdTarget">→ 65%</div>
                         </div>
                         <div class="kpi-box">
                             <div class="kpi-label">Время решений</div>
                             <div class="kpi-big" id="kpiTimeCurrent">28</div>
-                            <div class="kpi-change" id="kpiTimeTarget">→ 10 дней</div>
                         </div>
                     </div>
                     
@@ -955,10 +994,131 @@
                 </div>
             </div>
             
+            <!-- НОВАЯ ВКЛАДКА: Прогноз показателей -->
+            <div class="tab-content" id="forecastTab">
+                <div class="empty-state" id="emptyForecastState">
+                    <div class="empty-icon">📊</div>
+                    <h2 class="empty-title">Прогноз показателей</h2>
+                    <p class="empty-description">Загрузите данные компании для просмотра прогноза</p>
+                </div>
+                
+                <div id="forecastInfo" class="hidden">
+                    <h2 class="section-title">📈 Прогноз после внедрения AI-системы</h2>
+                    
+                    <!-- Сравнительная таблица -->
+                    <div class="comparison-table">
+                        <div class="comparison-col">
+                            <h4>📉 Текущие значения</h4>
+                            <div class="comparison-item">
+                                <span class="comparison-label">Доходность (ROI)</span>
+                                <span class="comparison-value" id="compCurrentRoi">15%</span>
+                            </div>
+                            <div class="comparison-item">
+                                <span class="comparison-label">Отток клиентов</span>
+                                <span class="comparison-value" id="compCurrentChurn">10%</span>
+                            </div>
+                            <div class="comparison-item">
+                                <span class="comparison-label">Успешность R&D</span>
+                                <span class="comparison-value" id="compCurrentRd">40%</span>
+                            </div>
+                            <div class="comparison-item">
+                                <span class="comparison-label">Время решений</span>
+                                <span class="comparison-value" id="compCurrentTime">28 дней</span>
+                            </div>
+                            <div class="comparison-item">
+                                <span class="comparison-label">Средний LTV</span>
+                                <span class="comparison-value" id="compCurrentLtv">2.4 млн ₽</span>
+                            </div>
+                        </div>
+                        
+                        <div class="comparison-col">
+                            <h4>📈 Прогноз</h4>
+                            <div class="comparison-item">
+                                <span class="comparison-label">Доходность (ROI)</span>
+                                <span class="comparison-value" id="compForecastRoi">21%</span>
+                            </div>
+                            <div class="comparison-item">
+                                <span class="comparison-label">Отток клиентов</span>
+                                <span class="comparison-value" id="compForecastChurn">7%</span>
+                            </div>
+                            <div class="comparison-item">
+                                <span class="comparison-label">Успешность R&D</span>
+                                <span class="comparison-value" id="compForecastRd">65%</span>
+                            </div>
+                            <div class="comparison-item">
+                                <span class="comparison-label">Время решений</span>
+                                <span class="comparison-value" id="compForecastTime">10 дней</span>
+                            </div>
+                            <div class="comparison-item">
+                                <span class="comparison-label">Средний LTV</span>
+                                <span class="comparison-value" id="compForecastLtv">3.0 млн ₽</span>
+                            </div>
+                        </div>
+                        
+                        <div class="comparison-col">
+                            <h4>✅ Улучшение</h4>
+                            <div class="comparison-item">
+                                <span class="comparison-label">ROI</span>
+                                <span class="comparison-improvement" id="compImprovementRoi">+6%</span>
+                            </div>
+                            <div class="comparison-item">
+                                <span class="comparison-label">Отток</span>
+                                <span class="comparison-improvement" id="compImprovementChurn">-3%</span>
+                            </div>
+                            <div class="comparison-item">
+                                <span class="comparison-label">Успешность</span>
+                                <span class="comparison-improvement" id="compImprovementRd">+25%</span>
+                            </div>
+                            <div class="comparison-item">
+                                <span class="comparison-label">Время</span>
+                                <span class="comparison-improvement" id="compImprovementTime">-18 дней</span>
+                            </div>
+                            <div class="comparison-item">
+                                <span class="comparison-label">LTV</span>
+                                <span class="comparison-improvement" id="compImprovementLtv">+27%</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="simple-explanation" style="margin-top: 20px;">
+                        <strong>🎯 Что даст внедрение:</strong> Система позволит увеличить доходность инвестиций на 6%, снизить отток ключевых клиентов на 3%, повысить успешность R&D проектов на 25% и сократить время принятия решений в 2.8 раза.
+                    </div>
+                    
+                    <div class="charts-row">
+                        <div class="chart-container">
+                            <div class="chart-header">
+                                <h3 class="chart-title">📊 Сравнение: текущие значения vs прогноз</h3>
+                            </div>
+                            <div style="position: relative; height: 300px;">
+                                <canvas id="forecastComparisonChart"></canvas>
+                            </div>
+                        </div>
+                        
+                        <div class="chart-container">
+                            <div class="chart-header">
+                                <h3 class="chart-title">⏱️ Сокращение времени решений</h3>
+                            </div>
+                            <div style="position: relative; height: 300px;">
+                                <canvas id="forecastTimeChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="metric-analysis">
+                        <h4>📊 Детальный анализ прогноза</h4>
+                        <p><strong>Доходность инвестиций (ROI):</strong> вырастет с <span id="detailCurrentRoi">15%</span> до <span id="detailForecastRoi">21%</span> — дополнительные <span id="detailRoiIncrease">6</span> процентных пунктов</p>
+                        <p><strong>Отток ключевых клиентов:</strong> снизится с <span id="detailCurrentChurn">10%</span> до <span id="detailForecastChurn">7%</span> — сохранение <span id="detailChurnDecrease">3</span>% клиентской базы</p>
+                        <p><strong>Успешность R&D проектов:</strong> повысится с <span id="detailCurrentRd">40%</span> до <span id="detailForecastRd">65%</span> — дополнительно <span id="detailRdIncrease">25</span>% успешных проектов</p>
+                        <p><strong>Время принятия решений:</strong> сократится с <span id="detailCurrentTime">28</span> до <span id="detailForecastTime">10</span> дней — экономия <span id="detailTimeDecrease">18</span> дней на каждом решении</p>
+                        <p><strong>Средний LTV:</strong> увеличится с <span id="detailCurrentLtv">2.4</span> до <span id="detailForecastLtv">3.0</span> млн ₽ — рост на <span id="detailLtvIncrease">27</span>%</p>
+                    </div>
+                </div>
+            </div>
+            
             <!-- Вкладка: Экономический эффект -->
             <div class="tab-content" id="resultsTab">
                 <div class="empty-state" id="emptyResultsState">
-                    <div class="empty-icon">📈</div>
+                    <div class="empty-icon">💰</div>
                     <h2 class="empty-title">Экономический эффект</h2>
                     <p class="empty-description">Загрузите данные компании для расчета</p>
                 </div>
@@ -980,31 +1140,11 @@
                         </div>
                     </div>
                     
-                    <div class="charts-row">
-                        <div class="chart-container">
-                            <div class="chart-header">
-                                <h3 class="chart-title">📊 Сравнение: сейчас → прогноз</h3>
-                            </div>
-                            <div style="position: relative; height: 250px;">
-                                <canvas id="comparisonPercentageChart"></canvas>
-                            </div>
-                        </div>
-                        
-                        <div class="chart-container">
-                            <div class="chart-header">
-                                <h3 class="chart-title">⏱️ Скорость решений</h3>
-                            </div>
-                            <div style="position: relative; height: 250px;">
-                                <canvas id="comparisonTimeChart"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                    
                     <div class="chart-container">
                         <div class="chart-header">
                             <h3 class="chart-title">💰 Структура экономического эффекта</h3>
                         </div>
-                        <div style="position: relative; height: 250px;">
+                        <div style="position: relative; height: 300px;">
                             <canvas id="economicChart"></canvas>
                         </div>
                     </div>
@@ -1097,10 +1237,10 @@
         document.addEventListener('DOMContentLoaded', function() {
             hideAllDataBlocks();
             document.getElementById('emptyAnalysisState').classList.remove('hidden');
+            document.getElementById('emptyForecastState').classList.remove('hidden');
             document.getElementById('emptyResultsState').classList.remove('hidden');
             document.getElementById('emptyRecommendationsState').classList.remove('hidden');
             
-            // Очищаем поле ввода и ставим плейсхолдер
             const innInput = document.getElementById('innInput');
             innInput.value = '';
             innInput.placeholder = 'Введите ИНН';
@@ -1113,12 +1253,12 @@
         function hideAllDataBlocks() {
             document.getElementById('currentIndicatorsPanel').style.display = 'none';
             document.getElementById('techStackPanel').style.display = 'none';
-            document.getElementById('forecastPanel').style.display = 'none';
             document.getElementById('paramsPanel').style.display = 'none';
             document.getElementById('quickRecsPanel').style.display = 'none';
             document.getElementById('aiMaturityPanel').style.display = 'none';
             
             document.getElementById('analysisInfo').classList.add('hidden');
+            document.getElementById('forecastInfo').classList.add('hidden');
             document.getElementById('resultsInfo').classList.add('hidden');
             document.getElementById('recommendationsInfo').classList.add('hidden');
             
@@ -1142,7 +1282,6 @@
                 if (companyDatabase[inn]) {
                     currentCompany = JSON.parse(JSON.stringify(companyDatabase[inn]));
                 } else {
-                    // Для демонстрации показываем данные Мобайл Парк ИТ при любом ИНН
                     currentCompany = JSON.parse(JSON.stringify(companyDatabase["5047154189"]));
                     currentCompany.inn = inn;
                     currentCompany.name = `ООО «Компания»`;
@@ -1163,7 +1302,6 @@
             
             document.getElementById('currentIndicatorsPanel').style.display = 'block';
             document.getElementById('techStackPanel').style.display = 'block';
-            document.getElementById('forecastPanel').style.display = 'block';
             document.getElementById('paramsPanel').style.display = 'block';
             document.getElementById('quickRecsPanel').style.display = 'block';
             document.getElementById('aiMaturityPanel').style.display = 'block';
@@ -1173,18 +1311,19 @@
             document.getElementById('footerExportPdfBtn').disabled = false;
             document.getElementById('footerExportExcelBtn').disabled = false;
             
-            // Создаем параметры для редактирования
             createParameterControls();
-            
-            // Первичный расчет
             calculateMetrics();
             generateRecommendations();
             updateDisplay();
+            updateForecastDisplay();
             initializeCharts();
+            initializeForecastCharts();
             displayRecommendations();
             
             document.getElementById('emptyAnalysisState').classList.add('hidden');
             document.getElementById('analysisInfo').classList.remove('hidden');
+            document.getElementById('emptyForecastState').classList.add('hidden');
+            document.getElementById('forecastInfo').classList.remove('hidden');
             document.getElementById('emptyResultsState').classList.add('hidden');
             document.getElementById('resultsInfo').classList.remove('hidden');
             document.getElementById('emptyRecommendationsState').classList.add('hidden');
@@ -1193,7 +1332,7 @@
             switchTab('analysis');
         }
 
-        // ========== ПАРАМЕТРЫ ДЛЯ РЕДАКТИРОВАНИЯ ==========
+        // Параметры для редактирования
         function createParameterControls() {
             const container = document.getElementById('parameterControls');
             container.innerHTML = '';
@@ -1238,7 +1377,6 @@
             });
         }
 
-        // Обновление параметра
         function updateParameter(key, value, unit) {
             const numValue = parseFloat(value);
             currentCompany.parameters[key] = numValue;
@@ -1248,16 +1386,16 @@
             document.getElementById(`${key}Input`).value = numValue;
         }
 
-        // ========== ПЕРЕСЧЕТ ПРОГНОЗА ==========
         function updateAnalysis() {
             showLoading(true);
             
             setTimeout(() => {
-                // Пересчитываем метрики с новыми параметрами
                 calculateMetrics();
                 generateRecommendations();
                 updateDisplay();
+                updateForecastDisplay();
                 updateCharts();
+                updateForecastCharts();
                 displayRecommendations();
                 
                 showLoading(false);
@@ -1271,34 +1409,34 @@
             charts = {};
             initializeCharts();
         }
+        
+        function updateForecastCharts() {
+            if (charts.forecastComparison) charts.forecastComparison.destroy();
+            if (charts.forecastTime) charts.forecastTime.destroy();
+            initializeForecastCharts();
+        }
 
-        // ========== РАСЧЕТ МЕТРИК ==========
         function calculateMetrics() {
             const params = currentCompany.parameters;
             
-            // ROI зависит от бюджета R&D и выручки
             const baseRoi = 12 + (params.rdBudget / params.annualRevenue * 15);
             const baseChurn = 15 - (params.customerSatisfaction / 12) + (params.rdProjects / 30);
             const baseRdSuccess = 35 + (params.rdBudget / params.annualRevenue * 20) - (params.rdProjects / 5);
             const baseDecisionTime = 25 + (params.rdProjects / 2) - (params.customerSatisfaction / 10);
             
-            // Ограничиваем значения в реалистичных пределах
             const currentRoi = Math.min(Math.max(baseRoi, 8), 22).toFixed(1);
             const currentChurn = Math.min(Math.max(baseChurn, 6), 18).toFixed(1);
             const currentRdSuccess = Math.min(Math.max(baseRdSuccess, 30), 55).toFixed(1);
             const currentDecisionTime = Math.min(Math.max(baseDecisionTime, 20), 45).toFixed(0);
             
-            // Прогноз с улучшениями
             const improvedRoi = Math.min(parseFloat(currentRoi) * 1.4, 28).toFixed(1);
             const improvedChurn = Math.max(parseFloat(currentChurn) * 0.7, 5).toFixed(1);
             const improvedRdSuccess = Math.min(parseFloat(currentRdSuccess) * 1.6, 75).toFixed(1);
             const improvedDecisionTime = Math.max(parseFloat(currentDecisionTime) * 0.35, 8).toFixed(0);
             
-            // LTV
             const avgLtv = (params.annualRevenue * 0.4 * params.customerLifetime * (params.customerSatisfaction/100)) / (Math.max(params.keyClients, 1) * 10);
             const forecastLtv = avgLtv * 1.27;
             
-            // Экономический эффект (масштабируется под выручку)
             const scale = params.annualRevenue / 2800;
             
             window.results = {
@@ -1333,7 +1471,6 @@
             };
         }
 
-        // ========== ГЕНЕРАЦИЯ РЕКОМЕНДАЦИЙ ==========
         function generateRecommendations() {
             if (!window.results) return;
             
@@ -1404,7 +1541,6 @@
             ];
         }
 
-        // ========== ОТОБРАЖЕНИЕ РЕКОМЕНДАЦИЙ ==========
         function displayRecommendations() {
             const container = document.getElementById('aiRecommendationsContainer');
             const quickContainer = document.getElementById('quickRecommendationsList');
@@ -1458,28 +1594,20 @@
             });
         }
 
-        // ========== ОБНОВЛЕНИЕ ИНТЕРФЕЙСА ==========
         function updateDisplay() {
             if (!window.results) return;
             
             const r = window.results;
             
-            // Обновляем крупные KPI
             document.getElementById('kpiRoiCurrent').textContent = `${r.current.roi}%`;
-            document.getElementById('kpiRoiTarget').innerHTML = `→ ${r.improved.roi}%`;
             document.getElementById('kpiChurnCurrent').textContent = `${r.current.churn}%`;
-            document.getElementById('kpiChurnTarget').innerHTML = `→ ${r.improved.churn}%`;
             document.getElementById('kpiRdCurrent').textContent = `${r.current.rdSuccess}%`;
-            document.getElementById('kpiRdTarget').innerHTML = `→ ${r.improved.rdSuccess}%`;
             document.getElementById('kpiTimeCurrent').textContent = `${r.current.decisionTime}`;
-            document.getElementById('kpiTimeTarget').innerHTML = `→ ${r.improved.decisionTime} дней`;
             
-            // Экономика
             document.getElementById('ecoEffect').textContent = `${r.economic.totalEffect} млн ₽`;
             document.getElementById('ecoInvestment').textContent = `${r.economic.implementationCost} млн ₽`;
             document.getElementById('ecoPayback').textContent = `${r.economic.paybackMonths} мес`;
             
-            // Текущие показатели в левой панели
             document.getElementById('currentIndicators').innerHTML = `
                 <div class="indicator-card">
                     <div class="indicator-value">${r.current.roi}%</div>
@@ -1503,35 +1631,6 @@
                 </div>
             `;
             
-            // Прогноз в левой панели
-            document.getElementById('forecastIndicators').innerHTML = `
-                <div class="indicator-card">
-                    <div class="indicator-value text-success">${r.improved.roi}%</div>
-                    <div class="indicator-label">Доходность</div>
-                    <div class="indicator-change positive">+${(r.improved.roi - r.current.roi).toFixed(1)}%</div>
-                </div>
-                <div class="indicator-card">
-                    <div class="indicator-value text-success">${r.improved.churn}%</div>
-                    <div class="indicator-label">Отток</div>
-                    <div class="indicator-change positive">-${(r.current.churn - r.improved.churn).toFixed(1)}%</div>
-                </div>
-                <div class="indicator-card">
-                    <div class="indicator-value text-success">${r.improved.rdSuccess}%</div>
-                    <div class="indicator-label">Успешность</div>
-                    <div class="indicator-change positive">+${(r.improved.rdSuccess - r.current.rdSuccess).toFixed(1)}%</div>
-                </div>
-                <div class="indicator-card">
-                    <div class="indicator-value text-success">${r.improved.decisionTime}</div>
-                    <div class="indicator-label">Время решений</div>
-                    <div class="indicator-change positive">-${(r.current.decisionTime - r.improved.decisionTime)} д</div>
-                </div>
-                <div class="indicator-card">
-                    <div class="indicator-value text-success">${r.improved.avgLtv}</div>
-                    <div class="indicator-label">LTV, млн</div>
-                    <div class="indicator-change positive">+27%</div>
-                </div>
-            `;
-            
             document.getElementById('economicAnalysis').innerHTML = `
                 <h4>💰 Источники экономии</h4>
                 <p>📈 Рост доходов: ${r.economic.revenueIncrease} млн ₽</p>
@@ -1540,8 +1639,53 @@
                 <p>👥 Оптимизация: ${r.economic.hrSavings} млн ₽</p>
             `;
         }
+        
+        function updateForecastDisplay() {
+            if (!window.results) return;
+            
+            const r = window.results;
+            
+            // Сравнительная таблица
+            document.getElementById('compCurrentRoi').textContent = `${r.current.roi}%`;
+            document.getElementById('compCurrentChurn').textContent = `${r.current.churn}%`;
+            document.getElementById('compCurrentRd').textContent = `${r.current.rdSuccess}%`;
+            document.getElementById('compCurrentTime').textContent = `${r.current.decisionTime} дней`;
+            document.getElementById('compCurrentLtv').textContent = `${r.current.avgLtv} млн ₽`;
+            
+            document.getElementById('compForecastRoi').textContent = `${r.improved.roi}%`;
+            document.getElementById('compForecastChurn').textContent = `${r.improved.churn}%`;
+            document.getElementById('compForecastRd').textContent = `${r.improved.rdSuccess}%`;
+            document.getElementById('compForecastTime').textContent = `${r.improved.decisionTime} дней`;
+            document.getElementById('compForecastLtv').textContent = `${r.improved.avgLtv} млн ₽`;
+            
+            document.getElementById('compImprovementRoi').textContent = `+${(r.improved.roi - r.current.roi).toFixed(1)}%`;
+            document.getElementById('compImprovementChurn').textContent = `-${(r.current.churn - r.improved.churn).toFixed(1)}%`;
+            document.getElementById('compImprovementRd').textContent = `+${(r.improved.rdSuccess - r.current.rdSuccess).toFixed(1)}%`;
+            document.getElementById('compImprovementTime').textContent = `-${(r.current.decisionTime - r.improved.decisionTime)} дней`;
+            document.getElementById('compImprovementLtv').textContent = `+27%`;
+            
+            // Детальный анализ
+            document.getElementById('detailCurrentRoi').textContent = `${r.current.roi}%`;
+            document.getElementById('detailForecastRoi').textContent = `${r.improved.roi}%`;
+            document.getElementById('detailRoiIncrease').textContent = (r.improved.roi - r.current.roi).toFixed(1);
+            
+            document.getElementById('detailCurrentChurn').textContent = `${r.current.churn}%`;
+            document.getElementById('detailForecastChurn').textContent = `${r.improved.churn}%`;
+            document.getElementById('detailChurnDecrease').textContent = (r.current.churn - r.improved.churn).toFixed(1);
+            
+            document.getElementById('detailCurrentRd').textContent = `${r.current.rdSuccess}%`;
+            document.getElementById('detailForecastRd').textContent = `${r.improved.rdSuccess}%`;
+            document.getElementById('detailRdIncrease').textContent = (r.improved.rdSuccess - r.current.rdSuccess).toFixed(1);
+            
+            document.getElementById('detailCurrentTime').textContent = r.current.decisionTime;
+            document.getElementById('detailForecastTime').textContent = r.improved.decisionTime;
+            document.getElementById('detailTimeDecrease').textContent = (r.current.decisionTime - r.improved.decisionTime);
+            
+            document.getElementById('detailCurrentLtv').textContent = r.current.avgLtv;
+            document.getElementById('detailForecastLtv').textContent = r.improved.avgLtv;
+            document.getElementById('detailLtvIncrease').textContent = '27';
+        }
 
-        // ========== ГРАФИКИ ==========
         function initializeCharts() {
             Object.values(charts).forEach(chart => {
                 if (chart && typeof chart.destroy === 'function') chart.destroy();
@@ -1552,7 +1696,6 @@
             
             const r = window.results;
             
-            // График 1: Текущие показатели
             const ctx1 = document.getElementById('currentMetricsChart')?.getContext('2d');
             if (ctx1) {
                 charts.ctx1 = new Chart(ctx1, {
@@ -1573,7 +1716,6 @@
                 });
             }
             
-            // График 2: Время решений
             const ctx2 = document.getElementById('decisionTimeChart')?.getContext('2d');
             if (ctx2) {
                 charts.ctx2 = new Chart(ctx2, {
@@ -1594,7 +1736,6 @@
                 });
             }
             
-            // График 3: LTV
             const ctx3 = document.getElementById('ltvChart')?.getContext('2d');
             if (ctx3) {
                 const baseLtv = parseFloat(r.current.avgLtv);
@@ -1621,39 +1762,6 @@
                 });
             }
             
-            // График 4: Сравнение
-            const ctx4 = document.getElementById('comparisonPercentageChart')?.getContext('2d');
-            if (ctx4) {
-                charts.ctx4 = new Chart(ctx4, {
-                    type: 'bar',
-                    data: {
-                        labels: ['Доходность', 'Отток', 'Успешность'],
-                        datasets: [
-                            { label: 'Сейчас', data: [parseFloat(r.current.roi), parseFloat(r.current.churn), parseFloat(r.current.rdSuccess)], backgroundColor: '#8B0000' },
-                            { label: 'Прогноз', data: [parseFloat(r.improved.roi), parseFloat(r.improved.churn), parseFloat(r.improved.rdSuccess)], backgroundColor: '#008000' }
-                        ]
-                    },
-                    options: { responsive: true, maintainAspectRatio: false }
-                });
-            }
-            
-            // График 5: Сравнение времени
-            const ctx5 = document.getElementById('comparisonTimeChart')?.getContext('2d');
-            if (ctx5) {
-                charts.ctx5 = new Chart(ctx5, {
-                    type: 'bar',
-                    data: {
-                        labels: ['Время решений'],
-                        datasets: [
-                            { label: 'Сейчас', data: [parseFloat(r.current.decisionTime)], backgroundColor: '#8B0000' },
-                            { label: 'Прогноз', data: [parseFloat(r.improved.decisionTime)], backgroundColor: '#008000' }
-                        ]
-                    },
-                    options: { responsive: true, maintainAspectRatio: false }
-                });
-            }
-            
-            // График 6: Экономика
             const ctx6 = document.getElementById('economicChart')?.getContext('2d');
             if (ctx6) {
                 charts.ctx6 = new Chart(ctx6, {
@@ -1674,6 +1782,50 @@
                 });
             }
         }
+        
+        function initializeForecastCharts() {
+            if (!window.results) return;
+            
+            const r = window.results;
+            
+            const ctx4 = document.getElementById('forecastComparisonChart')?.getContext('2d');
+            if (ctx4) {
+                charts.forecastComparison = new Chart(ctx4, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Доходность', 'Отток', 'Успешность'],
+                        datasets: [
+                            { label: 'Сейчас', data: [parseFloat(r.current.roi), parseFloat(r.current.churn), parseFloat(r.current.rdSuccess)], backgroundColor: '#8B0000' },
+                            { label: 'Прогноз', data: [parseFloat(r.improved.roi), parseFloat(r.improved.churn), parseFloat(r.improved.rdSuccess)], backgroundColor: '#008000' }
+                        ]
+                    },
+                    options: { 
+                        responsive: true, 
+                        maintainAspectRatio: false,
+                        scales: { y: { beginAtZero: true } }
+                    }
+                });
+            }
+            
+            const ctx5 = document.getElementById('forecastTimeChart')?.getContext('2d');
+            if (ctx5) {
+                charts.forecastTime = new Chart(ctx5, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Время решений (дни)'],
+                        datasets: [
+                            { label: 'Сейчас', data: [parseFloat(r.current.decisionTime)], backgroundColor: '#8B0000' },
+                            { label: 'Прогноз', data: [parseFloat(r.improved.decisionTime)], backgroundColor: '#008000' }
+                        ]
+                    },
+                    options: { 
+                        responsive: true, 
+                        maintainAspectRatio: false,
+                        scales: { y: { beginAtZero: true } }
+                    }
+                });
+            }
+        }
 
         function switchTab(tabName) {
             document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
@@ -1690,7 +1842,7 @@
             document.getElementById('loading').classList.toggle('active', show);
         }
 
-        // ========== ЭКСПОРТ В PDF ==========
+        // Экспорт в PDF
         async function exportToPDF() {
             if (!currentCompany || !window.results) {
                 alert('Сначала загрузите данные компании');
@@ -1781,7 +1933,7 @@
             }
         }
 
-        // ========== ЭКСПОРТ В EXCEL ==========
+        // Экспорт в Excel
         function exportToExcel() {
             if (!currentCompany || !window.results) {
                 alert('Сначала загрузите данные компании');
