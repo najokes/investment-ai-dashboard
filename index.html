@@ -853,7 +853,7 @@
             </div>
         </header>
         
-        <!-- Левая панель - Поиск компании и параметры -->
+        <!-- Левая панель - Только поиск компании и параметры -->
         <div class="left-panel">
             <div class="panel-section">
                 <h2 class="section-title">🔍 Поиск компании</h2>
@@ -887,20 +887,6 @@
                 </div>
             </div>
             
-            <div class="panel-section" id="currentIndicatorsPanel" style="display: none;">
-                <h2 class="section-title">📊 Текущие показатели</h2>
-                <div class="indicators-grid" id="currentIndicators"></div>
-            </div>
-
-            <div class="panel-section" id="techStackPanel" style="display: none;">
-                <h2 class="section-title">🛠️ Модули системы</h2>
-                <div style="margin-bottom: 10px;">
-                    <span class="tech-badge-simple">💰 Прогноз прибыльности клиентов</span>
-                    <span class="tech-badge-simple">🎯 Выбор проектов для инвестиций</span>
-                    <span class="tech-badge-simple">🔧 Предсказание поломок</span>
-                </div>
-            </div>
-            
             <!-- БЛОК ПАРАМЕТРОВ -->
             <div class="panel-section" id="paramsPanel" style="display: none;">
                 <h2 class="section-title">⚙️ Параметры компании</h2>
@@ -912,6 +898,15 @@
                     🔄 Обновить прогноз
                 </button>
                 <div class="params-hint">✓ После изменения параметров прогноз и рекомендации пересчитаются</div>
+            </div>
+            
+            <div class="panel-section" id="techStackPanel" style="display: none;">
+                <h2 class="section-title">🛠️ Модули системы</h2>
+                <div style="margin-bottom: 10px;">
+                    <span class="tech-badge-simple">💰 Прогноз прибыльности клиентов</span>
+                    <span class="tech-badge-simple">🎯 Выбор проектов для инвестиций</span>
+                    <span class="tech-badge-simple">🔧 Предсказание поломок</span>
+                </div>
             </div>
         </div>
         
@@ -994,7 +989,7 @@
                 </div>
             </div>
             
-            <!-- НОВАЯ ВКЛАДКА: Прогноз показателей -->
+            <!-- Вкладка: Прогноз показателей -->
             <div class="tab-content" id="forecastTab">
                 <div class="empty-state" id="emptyForecastState">
                     <div class="empty-icon">📊</div>
@@ -1169,13 +1164,8 @@
             </div>
         </div>
         
-        <!-- Правая панель - Быстрые рекомендации -->
+        <!-- Правая панель - Только использование ИИ (без рекомендаций) -->
         <div class="right-panel">
-            <div class="panel-section" id="quickRecsPanel" style="display: none;">
-                <h2 class="section-title">⚡ Краткие рекомендации</h2>
-                <div id="quickRecommendationsList" style="max-height: 500px; overflow-y: auto;"></div>
-            </div>
-            
             <div class="panel-section" id="aiMaturityPanel" style="display: none;">
                 <h2 class="section-title">🧠 Использование ИИ</h2>
                 <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
@@ -1189,6 +1179,9 @@
                     Руководители анализируют прогнозы и принимают решения на основе данных
                 </p>
             </div>
+            
+            <!-- Пустой блок для сохранения симметрии, скрыт -->
+            <div id="quickRecsPanel" style="display: none;"></div>
         </div>
         
         <!-- Footer -->
@@ -1251,10 +1244,8 @@
         });
 
         function hideAllDataBlocks() {
-            document.getElementById('currentIndicatorsPanel').style.display = 'none';
-            document.getElementById('techStackPanel').style.display = 'none';
             document.getElementById('paramsPanel').style.display = 'none';
-            document.getElementById('quickRecsPanel').style.display = 'none';
+            document.getElementById('techStackPanel').style.display = 'none';
             document.getElementById('aiMaturityPanel').style.display = 'none';
             
             document.getElementById('analysisInfo').classList.add('hidden');
@@ -1300,10 +1291,8 @@
             document.getElementById('companyDetails').innerHTML = `${currentCompany.industry} · ИНН: ${currentCompany.inn}`;
             document.getElementById('exportCompanyInfo').innerHTML = `📊 ${currentCompany.name}`;
             
-            document.getElementById('currentIndicatorsPanel').style.display = 'block';
-            document.getElementById('techStackPanel').style.display = 'block';
             document.getElementById('paramsPanel').style.display = 'block';
-            document.getElementById('quickRecsPanel').style.display = 'block';
+            document.getElementById('techStackPanel').style.display = 'block';
             document.getElementById('aiMaturityPanel').style.display = 'block';
             
             document.getElementById('exportPdfBtn').disabled = false;
@@ -1543,12 +1532,10 @@
 
         function displayRecommendations() {
             const container = document.getElementById('aiRecommendationsContainer');
-            const quickContainer = document.getElementById('quickRecommendationsList');
             
-            if (!container || !quickContainer) return;
+            if (!container) return;
             
             container.innerHTML = '';
-            quickContainer.innerHTML = '';
             
             recommendations.forEach(rec => {
                 const recElement = document.createElement('div');
@@ -1570,27 +1557,6 @@
                     </div>
                 `;
                 container.appendChild(recElement);
-                
-                const quickElement = document.createElement('div');
-                quickElement.style.cssText = `
-                    background: white;
-                    border-radius: 8px;
-                    padding: 15px;
-                    margin-bottom: 12px;
-                    border-left: 4px solid ${rec.priority === 'high' ? '#c0392b' : '#e67e22'};
-                    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-                `;
-                quickElement.innerHTML = `
-                    <div style="margin-bottom: 8px;">
-                        <strong style="color: #2c3e50; font-size: 0.95rem;">${rec.title}</strong>
-                    </div>
-                    <div style="display: flex; gap: 12px; font-size: 0.85rem; color: #666;">
-                        <span style="color: #27ae60; font-weight: 600;">${rec.impact}</span>
-                        <span>💰 ${rec.investment}</span>
-                        <span>⏱️ ${rec.payback}</span>
-                    </div>
-                `;
-                quickContainer.appendChild(quickElement);
             });
         }
 
@@ -1607,29 +1573,6 @@
             document.getElementById('ecoEffect').textContent = `${r.economic.totalEffect} млн ₽`;
             document.getElementById('ecoInvestment').textContent = `${r.economic.implementationCost} млн ₽`;
             document.getElementById('ecoPayback').textContent = `${r.economic.paybackMonths} мес`;
-            
-            document.getElementById('currentIndicators').innerHTML = `
-                <div class="indicator-card">
-                    <div class="indicator-value">${r.current.roi}%</div>
-                    <div class="indicator-label">Доходность</div>
-                </div>
-                <div class="indicator-card">
-                    <div class="indicator-value">${r.current.churn}%</div>
-                    <div class="indicator-label">Отток</div>
-                </div>
-                <div class="indicator-card">
-                    <div class="indicator-value">${r.current.rdSuccess}%</div>
-                    <div class="indicator-label">Успешность</div>
-                </div>
-                <div class="indicator-card">
-                    <div class="indicator-value">${r.current.decisionTime}</div>
-                    <div class="indicator-label">Время решений</div>
-                </div>
-                <div class="indicator-card">
-                    <div class="indicator-value">${r.current.avgLtv}</div>
-                    <div class="indicator-label">LTV, млн</div>
-                </div>
-            `;
             
             document.getElementById('economicAnalysis').innerHTML = `
                 <h4>💰 Источники экономии</h4>
