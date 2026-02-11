@@ -974,7 +974,7 @@
                 
                 <div id="analysisInfo" class="hidden">
                     <div class="ai-analysis-summary" id="aiSummary">
-                        <!-- AI Summary будет добавлен динамически -->
+                        <!-- AI Summary будет добавлен динамически (только текстовое резюме, без показателей) -->
                     </div>
                     
                     <h2 class="section-title" id="analysisTitle">Анализ компании</h2>
@@ -1728,36 +1728,15 @@
                 quickContainer.appendChild(quickElement);
             });
             
-            // AI Summary
+            // AI Summary - ТОЛЬКО ТЕКСТОВОЕ РЕЗЮМЕ, БЕЗ ПОКАЗАТЕЛЕЙ (исправлено по запросу)
             const aiSummary = document.getElementById('aiSummary');
             if (aiSummary) {
-                const highPriorityCount = aiRecommendations.filter(r => r.priority === 'high').length;
-                const totalROI = (parseFloat(calculatedResults.improved.roi) - parseFloat(calculatedResults.current.roi)).toFixed(1);
-                const totalInvestment = aiRecommendations.reduce((sum, r) => sum + parseFloat(r.investment.replace(/[^0-9.-]+/g, '')), 0);
-                
                 aiSummary.innerHTML = `
                     <h3>🤖 AI-анализ компании ${companyData.name}</h3>
                     <p style="font-size: 1.1rem; margin-bottom: 10px;">
-                        <strong>Краткое резюме:</strong> Компания находится в стадии активного роста, но сталкивается с типичными для быстрорастущих технологических компаний вызовами.
+                        <strong>Краткое резюме:</strong> Компания находится в стадии активного роста, но сталкивается с типичными для быстрорастущих технологических компаний вызовами. 
+                        Рекомендуется сфокусироваться на оптимизации инвестиционного портфеля, снижении оттока клиентов и внедрении предиктивного обслуживания для повышения операционной эффективности.
                     </p>
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 15px;">
-                        <div style="background: rgba(255,255,255,0.1); padding: 12px; border-radius: 8px;">
-                            <div style="font-size: 1.4rem; font-weight: 700;">${highPriorityCount}</div>
-                            <div style="font-size: 0.9rem; opacity: 0.9;">Критических рекомендаций</div>
-                        </div>
-                        <div style="background: rgba(255,255,255,0.1); padding: 12px; border-radius: 8px;">
-                            <div style="font-size: 1.4rem; font-weight: 700;">+${totalROI}%</div>
-                            <div style="font-size: 0.9rem; opacity: 0.9;">Потенциал роста ROI</div>
-                        </div>
-                        <div style="background: rgba(255,255,255,0.1); padding: 12px; border-radius: 8px;">
-                            <div style="font-size: 1.4rem; font-weight: 700;">${totalInvestment.toFixed(0)} млн ₽</div>
-                            <div style="font-size: 0.9rem; opacity: 0.9;">Общие инвестиции</div>
-                        </div>
-                        <div style="background: rgba(255,255,255,0.1); padding: 12px; border-radius: 8px;">
-                            <div style="font-size: 1.4rem; font-weight: 700;">${calculatedResults.economic.paybackMonths}</div>
-                            <div style="font-size: 0.9rem; opacity: 0.9;">Средняя окупаемость (мес)</div>
-                        </div>
-                    </div>
                 `;
             }
         }
