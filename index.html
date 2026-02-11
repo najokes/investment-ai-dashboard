@@ -264,9 +264,14 @@
             gap: 8px;
         }
         
-        .update-btn:hover {
+        .update-btn:hover:not(:disabled) {
             background: linear-gradient(135deg, #008000 0%, #006400 100%);
             transform: translateY(-2px);
+        }
+        
+        .update-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
         }
         
         .main-content {
@@ -426,6 +431,19 @@
             color: #8B0000;
         }
         
+        .charts-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+        
+        @media (max-width: 1200px) {
+            .charts-row {
+                grid-template-columns: 1fr;
+            }
+        }
+        
         .three-contour-model {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -568,6 +586,18 @@
             border-radius: 0 4px 4px 0;
             font-size: 0.85rem;
         }
+        
+        .metrics-note {
+            font-size: 0.8rem;
+            color: #666;
+            margin-top: 5px;
+            font-style: italic;
+        }
+        
+        .separator {
+            margin: 20px 0;
+            border-top: 1px dashed #ccc;
+        }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
@@ -606,7 +636,7 @@
                                class="inn-input" 
                                id="innInput" 
                                placeholder="Введите ИНН компании"
-                               value="5047154189">
+                               value="">
                         <button class="search-btn" onclick="searchByINN()">
                             🔍 Найти и проанализировать
                         </button>
@@ -617,7 +647,7 @@
             <div class="panel-section">
                 <h2 class="section-title">📊 Текущие показатели</h2>
                 <div class="indicators-grid" id="currentIndicators">
-                    <!-- Текущие показатели будут здесь -->
+                    <!-- Пусто до анализа -->
                 </div>
             </div>
         </div>
@@ -643,20 +673,35 @@
                 <div id="analysisInfo" class="hidden">
                     <h2 class="section-title" id="analysisTitle">Анализ компании</h2>
                     
-                    <!-- График 1: Текущие показатели -->
-                    <div class="chart-container">
-                        <div class="chart-header">
-                            <h3 class="chart-title">📈 Ключевые показатели эффективности (KPI)</h3>
+                    <!-- Два графика в ряд: KPI (проценты) и Время решений (дни) -->
+                    <div class="charts-row">
+                        <div class="chart-container">
+                            <div class="chart-header">
+                                <h3 class="chart-title">📈 Ключевые показатели эффективности (KPI), %</h3>
+                            </div>
+                            <div style="position: relative; height: 300px;">
+                                <canvas id="currentMetricsChart"></canvas>
+                            </div>
+                            <div class="metrics-note">ROI, отток клиентов, успешность R&D — в процентах</div>
+                            <div class="chart-description">
+                                График отображает текущее состояние ключевых метрик компании. ROI инвестиций показывает эффективность использования капитала, отток клиентов - стабильность клиентской базы, успешность R&D - продуктивность инновационной деятельности.
+                            </div>
                         </div>
-                        <div style="position: relative; height: 300px;">
-                            <canvas id="currentMetricsChart"></canvas>
-                        </div>
-                        <div class="chart-description">
-                            График отображает текущее состояние ключевых метрик компании. ROI инвестиций показывает эффективность использования капитала, отток клиентов - стабильность клиентской базы, успешность R&D - продуктивность инновационной деятельности, время принятия решений - операционную эффективность. Метрики рассчитаны на основе данных компании с использованием многофакторной регрессионной модели относительно отраслевых бенчмарков.
+                        
+                        <div class="chart-container">
+                            <div class="chart-header">
+                                <h3 class="chart-title">⏱️ Время принятия решений (дни)</h3>
+                            </div>
+                            <div style="position: relative; height: 300px;">
+                                <canvas id="decisionTimeChart"></canvas>
+                            </div>
+                            <div class="metrics-note">Операционная эффективность — в днях</div>
+                            <div class="chart-description">
+                                Время принятия решений отражает операционную эффективность компании. Сокращение этого показателя позволяет быстрее реагировать на изменения рынка и ускорять реализацию проектов.
+                            </div>
                         </div>
                     </div>
                     
-                    <!-- График 2: Прогноз LTV -->
                     <div class="chart-container">
                         <div class="chart-header">
                             <h3 class="chart-title">🎯 Прогноз пожизненной ценности клиентов (LTV)</h3>
@@ -665,7 +710,7 @@
                             <canvas id="ltvChart"></canvas>
                         </div>
                         <div class="chart-description">
-                            Прогноз LTV позволяет оценивать долгосрочную ценность клиентских сегментов и оптимизировать маркетинговые бюджеты. Используется модель градиентного бустинга LightGBM с автоматической оптимизацией гиперпараметров. Входные признаки: частота покупок, средний чек, давность последней покупки, отраслевые характеристики клиента.
+                            Прогноз LTV позволяет оценивать долгосрочную ценность клиентских сегментов и оптимизировать маркетинговые бюджеты. Используется модель градиентного бустинга LightGBM.
                         </div>
                     </div>
                 </div>
@@ -724,7 +769,6 @@
                     </div>
                 </div>
                 
-                <!-- График 3: Q-learning -->
                 <div class="chart-container">
                     <div class="chart-header">
                         <h3 class="chart-title">🔄 Алгоритм Q-learning для оптимизации R&D портфеля</h3>
@@ -733,7 +777,7 @@
                         <canvas id="qlearningChart"></canvas>
                     </div>
                     <div class="chart-description">
-                        Алгоритм обучается выбирать R&D проекты, максимизируя композитное вознаграждение. Это позволяет автоматизировать процесс отбора проектов, учитывая не только финансовую отдачу, но и стратегические факторы: патентный потенциал и развитие компетенций команды. Используется глубокое обучение с подкреплением с композитной функцией вознаграждения.
+                        Алгоритм обучается выбирать R&D проекты, максимизируя композитное вознаграждение. Это позволяет автоматизировать процесс отбора проектов.
                     </div>
                 </div>
             </div>
@@ -750,21 +794,34 @@
                 </div>
                 
                 <div id="resultsInfo" class="hidden">
-                    <!-- График 4: Сравнение до/после -->
-                    <div class="chart-container">
-                        <div class="chart-header">
-                            <h3 class="chart-title">📊 Сравнение показателей до и после внедрения</h3>
+                    <!-- Два графика: сравнение процентов и сравнение времени -->
+                    <div class="charts-row">
+                        <div class="chart-container">
+                            <div class="chart-header">
+                                <h3 class="chart-title">📊 Сравнение процентных показателей</h3>
+                            </div>
+                            <div style="position: relative; height: 300px;">
+                                <canvas id="comparisonPercentageChart"></canvas>
+                            </div>
+                            <div class="chart-description">
+                                Сравнение ROI, оттока клиентов и успешности R&D до и после внедрения системы.
+                            </div>
                         </div>
-                        <div style="position: relative; height: 350px;">
-                            <canvas id="comparisonChart"></canvas>
-                        </div>
-                        <div class="metric-analysis" id="comparisonAnalysis">
-                            <!-- Анализ сравнения будет здесь -->
-                        </div>
-                        <div class="chart-description">
-                            Прогнозируемое улучшение ключевых показателей после внедрения трехконтурной системы. ROI увеличивается за счет оптимизации инвестиционных решений, отток клиентов снижается благодаря предиктивной аналитике, успешность R&D растет за счет алгоритмического отбора проектов, время принятия решений сокращается благодаря автоматизации. Прогнозы основаны на анализе аналогичных внедрений в технологических компаниях с учетом размера компании, отрасли и текущего уровня автоматизации.
+                        
+                        <div class="chart-container">
+                            <div class="chart-header">
+                                <h3 class="chart-title">⏱️ Сравнение времени принятия решений</h3>
+                            </div>
+                            <div style="position: relative; height: 300px;">
+                                <canvas id="comparisonTimeChart"></canvas>
+                            </div>
+                            <div class="chart-description">
+                                Сокращение времени принятия решений после внедрения автоматизации.
+                            </div>
                         </div>
                     </div>
+                    
+                    <div class="metric-analysis" id="comparisonAnalysis"></div>
                     
                     <div class="indicators-grid">
                         <div class="indicator-card">
@@ -792,7 +849,6 @@
                         </div>
                     </div>
                     
-                    <!-- График 5: Экономический эффект -->
                     <div class="chart-container">
                         <div class="chart-header">
                             <h3 class="chart-title">💰 Экономический эффект от внедрения</h3>
@@ -800,11 +856,9 @@
                         <div style="position: relative; height: 300px;">
                             <canvas id="economicChart"></canvas>
                         </div>
-                        <div class="metric-analysis" id="economicAnalysis">
-                            <!-- Анализ экономического эффекта будет здесь -->
-                        </div>
+                        <div class="metric-analysis" id="economicAnalysis"></div>
                         <div class="chart-description">
-                            Распределение экономического эффекта по компонентам. Рост доходов достигается за счет оптимизации портфеля проектов и снижения оттока клиентов. Снижение затрат происходит благодаря автоматизации и предиктивному обслуживанию. Эффективность R&D увеличивается за счет алгоритмического отбора проектов. Расчет выполнен с использованием дисконтированных денежных потоков с горизонтом прогнозирования 3 года.
+                            Распределение экономического эффекта по компонентам.
                         </div>
                     </div>
                 </div>
@@ -822,7 +876,6 @@
                 </div>
                 
                 <div id="algorithmsInfo" class="hidden">
-                    <!-- График 6: LightGBM детализация -->
                     <div class="chart-container">
                         <div class="chart-header">
                             <h3 class="chart-title">🎯 Детализация модели LightGBM для прогноза LTV</h3>
@@ -830,15 +883,12 @@
                         <div style="position: relative; height: 300px;">
                             <canvas id="lightgbmDetailChart"></canvas>
                         </div>
-                        <div class="metric-analysis" id="ltvAnalysis">
-                            <!-- Анализ LTV будет здесь -->
-                        </div>
+                        <div class="metric-analysis" id="ltvAnalysis"></div>
                         <div class="chart-description">
-                            Вклад различных факторов в прогноз пожизненной ценности клиента. Частота покупок и средний чек - наиболее значимые факторы. Это позволяет сосредоточить маркетинговые усилия на клиентах с высоким потенциалом LTV. Используется SHAP анализ для интерпретации модели и выявления наиболее информативных признаков.
+                            Вклад различных факторов в прогноз пожизненной ценности клиента.
                         </div>
                     </div>
                     
-                    <!-- График 7: Автокодировщик -->
                     <div class="chart-container">
                         <div class="chart-header">
                             <h3 class="chart-title">🤖 Нейросеть-автокодировщик для предиктивного обслуживания</h3>
@@ -847,7 +897,7 @@
                             <canvas id="autoencoderChart"></canvas>
                         </div>
                         <div class="chart-description">
-                            Обнаружение аномалий в работе инфраструктуры за 48-72 часа до сбоя. Это позволяет перейти от реактивного к предиктивному обслуживанию, сокращая простои и непредвиденные расходы. Используется вариационный автокодировщик, обученный на нормальных данных, аномалии определяются по высокому reconstruction error. Порог аномалии настроен на основе анализа исторических данных о сбоях.
+                            Обнаружение аномалий в работе инфраструктуры за 48-72 часа до сбоя.
                         </div>
                     </div>
                 </div>
@@ -859,14 +909,14 @@
             <div class="panel-section">
                 <h2 class="section-title">⚙️ Настройка параметров</h2>
                 <p style="color: #666; font-size: 0.9rem; margin-bottom: 15px;">
-                    Измените параметры компании и обновите анализ
+                    Сначала выполните поиск компании
                 </p>
                 
                 <div id="parameterControls">
-                    <!-- Параметры будут добавлены динамически -->
+                    <!-- Параметры будут добавлены после поиска -->
                 </div>
                 
-                <button class="update-btn" onclick="updateAnalysis()">
+                <button class="update-btn" onclick="updateAnalysis()" id="updateBtn" disabled>
                     🔄 Обновить анализ
                 </button>
             </div>
@@ -888,6 +938,7 @@
     </div>
     
     <script>
+        // База данных компаний
         const companyDatabase = {
             "5047154189": {
                 name: "ООО 'Мобайл Парк ИТ'",
@@ -923,6 +974,38 @@
         let calculatedResults = null;
         let charts = {};
         
+        // Инициализация: все блоки с данными скрыты, показ пустых состояний
+        document.addEventListener('DOMContentLoaded', function() {
+            // Убедимся, что все блоки с данными скрыты при загрузке
+            document.getElementById('analysisInfo').classList.add('hidden');
+            document.getElementById('resultsInfo').classList.add('hidden');
+            document.getElementById('algorithmsInfo').classList.add('hidden');
+            
+            // Пустые состояния видны
+            document.getElementById('emptyAnalysisState').classList.remove('hidden');
+            document.getElementById('emptyResultsState').classList.remove('hidden');
+            document.getElementById('emptyAlgorithmsState').classList.remove('hidden');
+            
+            // Кнопка обновления неактивна
+            document.getElementById('updateBtn').disabled = true;
+            
+            // Очищаем индикаторы
+            document.getElementById('currentIndicators').innerHTML = '';
+            document.getElementById('forecastIndicators').innerHTML = '';
+            document.getElementById('recommendationsList').innerHTML = '';
+            
+            // Очищаем параметры
+            document.getElementById('parameterControls').innerHTML = '';
+            
+            // Устанавливаем обработчик Enter
+            document.getElementById('innInput').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') searchByINN();
+            });
+            
+            // Убираем автоматический поиск при загрузке
+            // Ничего не делаем, ждем ввода пользователя
+        });
+        
         function searchByINN() {
             const inn = document.getElementById('innInput').value.trim();
             
@@ -936,8 +1019,8 @@
             setTimeout(() => {
                 if (companyDatabase[inn]) {
                     companyData = JSON.parse(JSON.stringify(companyDatabase[inn]));
-                    initializeAnalysis();
                 } else {
+                    // Генерируем тестовые данные для неизвестного ИНН
                     companyData = {
                         name: `Компания ИНН ${inn}`,
                         description: "Компания из внешней базы данных",
@@ -952,24 +1035,51 @@
                             infrastructureDowntime: { value: 72, min: 0, max: 720, step: 5, unit: "ч/мес" }
                         }
                     };
-                    initializeAnalysis();
                 }
+                
+                initializeAnalysis();
+                showLoading(false);
             }, 1000);
         }
         
         function initializeAnalysis() {
+            // Активируем кнопку обновления
+            document.getElementById('updateBtn').disabled = false;
+            
+            // Обновляем информацию о компании
             document.getElementById('companyName').textContent = companyData.name;
             document.getElementById('companyDetails').textContent = companyData.description;
             document.getElementById('companyLogo').textContent = companyData.name.charAt(0);
             
+            // Создаем элементы управления параметрами
             createParameterControls();
+            
+            // Рассчитываем метрики
             calculateMetrics();
+            
+            // Обновляем отображение
             updateDisplay();
+            
+            // Создаем графики
             createCharts();
+            
+            // Генерируем рекомендации
             generateRecommendations();
+            
+            // Обновляем текстовый анализ
             updateAnalysisTexts();
             
-            showLoading(false);
+            // Скрываем пустые состояния, показываем данные
+            document.getElementById('emptyAnalysisState').classList.add('hidden');
+            document.getElementById('analysisInfo').classList.remove('hidden');
+            
+            document.getElementById('emptyResultsState').classList.add('hidden');
+            document.getElementById('resultsInfo').classList.remove('hidden');
+            
+            document.getElementById('emptyAlgorithmsState').classList.add('hidden');
+            document.getElementById('algorithmsInfo').classList.remove('hidden');
+            
+            // Переключаемся на вкладку анализа
             switchTab('analysis');
         }
         
@@ -1252,18 +1362,20 @@
             
             // Анализ LTV
             const ltvAnalysis = document.getElementById('ltvAnalysis');
-            ltvAnalysis.innerHTML = `
-                <h4>🎯 Анализ прогноза LTV</h4>
-                <p><strong>Текущий средний LTV:</strong> ${current.avgLtv} млн ₽ на клиента</p>
-                <p><strong>Прогноз после внедрения:</strong> ${improved.avgLtv} млн ₽ на клиента</p>
-                <p><strong>Рост LTV:</strong> +${ltv.improvement}% за счет:</p>
-                <ul>
-                    <li>Увеличение частоты покупок на 25%</li>
-                    <li>Рост среднего чека на 18%</li>
-                    <li>Снижение оттока на ${(current.churn - improved.churn).toFixed(1)}%</li>
-                    <li>Увеличение срока жизни клиента на 20%</li>
-                </ul>
-            `;
+            if (ltvAnalysis) {
+                ltvAnalysis.innerHTML = `
+                    <h4>🎯 Анализ прогноза LTV</h4>
+                    <p><strong>Текущий средний LTV:</strong> ${current.avgLtv} млн ₽ на клиента</p>
+                    <p><strong>Прогноз после внедрения:</strong> ${improved.avgLtv} млн ₽ на клиента</p>
+                    <p><strong>Рост LTV:</strong> +${ltv.improvement}% за счет:</p>
+                    <ul>
+                        <li>Увеличение частоты покупок на 25%</li>
+                        <li>Рост среднего чека на 18%</li>
+                        <li>Снижение оттока на ${(current.churn - improved.churn).toFixed(1)}%</li>
+                        <li>Увеличение срока жизни клиента на 20%</li>
+                    </ul>
+                `;
+            }
         }
         
         function updateDisplay() {
@@ -1271,7 +1383,6 @@
             
             const current = calculatedResults.current;
             const improved = calculatedResults.improved;
-            const economic = calculatedResults.economic;
             
             // Обновление текущих показателей
             const currentIndicators = document.getElementById('currentIndicators');
@@ -1287,6 +1398,10 @@
                 <div class="indicator-card">
                     <div class="indicator-value text-danger">${current.rdSuccess}%</div>
                     <div class="indicator-label">Успешность R&D</div>
+                </div>
+                <div class="indicator-card">
+                    <div class="indicator-value text-danger">${current.decisionTime} дней</div>
+                    <div class="indicator-label">Время решений</div>
                 </div>
                 <div class="indicator-card">
                     <div class="indicator-value text-danger">${current.avgLtv} млн ₽</div>
@@ -1310,6 +1425,10 @@
                     <div class="indicator-label">Прогноз R&D</div>
                 </div>
                 <div class="indicator-card">
+                    <div class="indicator-value text-success">${improved.decisionTime} дней</div>
+                    <div class="indicator-label">Прогноз времени</div>
+                </div>
+                <div class="indicator-card">
                     <div class="indicator-value text-success">${improved.avgLtv} млн ₽</div>
                     <div class="indicator-label">Прогноз LTV</div>
                 </div>
@@ -1331,24 +1450,18 @@
             document.getElementById('rdChange').textContent = `+${rdChange}%`;
             document.getElementById('decisionChange').textContent = `-${decisionChange} дней`;
             
-            document.getElementById('emptyAnalysisState').classList.add('hidden');
-            document.getElementById('analysisInfo').classList.remove('hidden');
             document.getElementById('analysisTitle').textContent = `Анализ: ${companyData.name}`;
-            
-            document.getElementById('emptyResultsState').classList.add('hidden');
-            document.getElementById('resultsInfo').classList.remove('hidden');
-            
-            document.getElementById('emptyAlgorithmsState').classList.add('hidden');
-            document.getElementById('algorithmsInfo').classList.remove('hidden');
         }
         
         function createCharts() {
             if (!companyData || !calculatedResults) return;
             
             createCurrentMetricsChart();
+            createDecisionTimeChart();
             createLTVChart();
             createQlearningChart();
-            createComparisonChart();
+            createComparisonPercentageChart();
+            createComparisonTimeChart();
             createEconomicChart();
             createLightGBMDetailChart();
             createAutoencoderChart();
@@ -1360,6 +1473,7 @@
                     chart.destroy();
                 }
             });
+            charts = {};
             createCharts();
         }
         
@@ -1370,15 +1484,14 @@
             charts.currentMetricsChart = new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels: ['ROI инвестиций, %', 'Отток клиентов, %', 'Успешность R&D, %', 'Время решений, дней'],
+                    labels: ['ROI инвестиций', 'Отток клиентов', 'Успешность R&D'],
                     datasets: [{
-                        label: 'Текущие значения',
-                        data: [current.roi, current.churn, current.rdSuccess, current.decisionTime],
+                        label: 'Текущие значения, %',
+                        data: [current.roi, current.churn, current.rdSuccess],
                         backgroundColor: [
                             'rgba(139, 0, 0, 0.7)',
                             'rgba(165, 42, 42, 0.7)',
-                            'rgba(178, 34, 34, 0.7)',
-                            'rgba(205, 92, 92, 0.7)'
+                            'rgba(178, 34, 34, 0.7)'
                         ],
                         borderColor: '#8B0000',
                         borderWidth: 1
@@ -1390,7 +1503,39 @@
                     scales: {
                         y: {
                             beginAtZero: true,
-                            grid: { color: 'rgba(0, 0, 0, 0.1)' }
+                            grid: { color: 'rgba(0, 0, 0, 0.1)' },
+                            title: { display: true, text: 'Проценты (%)' }
+                        },
+                        x: { grid: { display: false } }
+                    }
+                }
+            });
+        }
+        
+        function createDecisionTimeChart() {
+            const ctx = document.getElementById('decisionTimeChart').getContext('2d');
+            const current = calculatedResults.current;
+            
+            charts.decisionTimeChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Время принятия решений'],
+                    datasets: [{
+                        label: 'Текущее значение, дней',
+                        data: [current.decisionTime],
+                        backgroundColor: ['rgba(205, 92, 92, 0.7)'],
+                        borderColor: '#8B0000',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: { color: 'rgba(0, 0, 0, 0.1)' },
+                            title: { display: true, text: 'Дни' }
                         },
                         x: { grid: { display: false } }
                     }
@@ -1400,9 +1545,9 @@
         
         function createLTVChart() {
             const ctx = document.getElementById('ltvChart').getContext('2d');
-            const clients = companyData.parameters.keyClients.value;
+            const clients = Math.min(companyData.parameters.keyClients.value, 8);
             
-            const ltvData = Array.from({length: Math.min(8, Math.max(1, clients))}, (_, i) => ({
+            const ltvData = Array.from({length: Math.max(5, clients)}, (_, i) => ({
                 client: `Клиент ${i+1}`,
                 current: 0.5 + Math.random() * 2,
                 predicted: 0.8 + Math.random() * 3
@@ -1488,26 +1633,26 @@
             });
         }
         
-        function createComparisonChart() {
-            const ctx = document.getElementById('comparisonChart').getContext('2d');
+        function createComparisonPercentageChart() {
+            const ctx = document.getElementById('comparisonPercentageChart').getContext('2d');
             const current = calculatedResults.current;
             const improved = calculatedResults.improved;
             
-            charts.comparisonChart = new Chart(ctx, {
+            charts.comparisonPercentageChart = new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels: ['ROI, %', 'Отток клиентов, %', 'Успешность R&D, %', 'Время решений, дней'],
+                    labels: ['ROI, %', 'Отток клиентов, %', 'Успешность R&D, %'],
                     datasets: [
                         {
                             label: 'До внедрения',
-                            data: [current.roi, current.churn, current.rdSuccess, current.decisionTime],
+                            data: [current.roi, current.churn, current.rdSuccess],
                             backgroundColor: 'rgba(139, 0, 0, 0.7)',
                             borderColor: '#8B0000',
                             borderWidth: 1
                         },
                         {
                             label: 'После внедрения',
-                            data: [improved.roi, improved.churn, improved.rdSuccess, improved.decisionTime],
+                            data: [improved.roi, improved.churn, improved.rdSuccess],
                             backgroundColor: 'rgba(0, 128, 0, 0.7)',
                             borderColor: '#008000',
                             borderWidth: 1
@@ -1520,7 +1665,49 @@
                     scales: {
                         y: {
                             beginAtZero: true,
-                            grid: { color: 'rgba(0, 0, 0, 0.1)' }
+                            grid: { color: 'rgba(0, 0, 0, 0.1)' },
+                            title: { display: true, text: 'Проценты (%)' }
+                        },
+                        x: { grid: { display: false } }
+                    }
+                }
+            });
+        }
+        
+        function createComparisonTimeChart() {
+            const ctx = document.getElementById('comparisonTimeChart').getContext('2d');
+            const current = calculatedResults.current;
+            const improved = calculatedResults.improved;
+            
+            charts.comparisonTimeChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Время принятия решений, дней'],
+                    datasets: [
+                        {
+                            label: 'До внедрения',
+                            data: [current.decisionTime],
+                            backgroundColor: 'rgba(139, 0, 0, 0.7)',
+                            borderColor: '#8B0000',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'После внедрения',
+                            data: [improved.decisionTime],
+                            backgroundColor: 'rgba(0, 128, 0, 0.7)',
+                            borderColor: '#008000',
+                            borderWidth: 1
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: { color: 'rgba(0, 0, 0, 0.1)' },
+                            title: { display: true, text: 'Дни' }
                         },
                         x: { grid: { display: false } }
                     }
@@ -1682,10 +1869,11 @@
             const recommendationsList = document.getElementById('recommendationsList');
             recommendationsList.innerHTML = '';
             
+            if (!calculatedResults) return;
+            
             const current = calculatedResults.current;
             const improved = calculatedResults.improved;
             const params = companyData.parameters;
-            const economic = calculatedResults.economic;
             
             const recommendations = [
                 {
@@ -1723,18 +1911,6 @@
                     description: `Средний LTV ${current.avgLtv} млн ₽ можно увеличить с помощью персонализированных маркетинговых кампаний на основе прогноза LTV.`,
                     impact: `Рост LTV: +${calculatedResults.ltvData.improvement}%`,
                     priority: 'Средний'
-                },
-                {
-                    title: 'Обучение персонала работе с ИИ',
-                    description: `Для успешного внедрения системы необходимо провести обучение персонала работе с ИИ-инструментами и новыми процессами.`,
-                    impact: `Повышение эффективности: +15-20%`,
-                    priority: 'Средний'
-                },
-                {
-                    title: 'Фазированное внедрение системы',
-                    description: `Рекомендуется начать с пилотного проекта в одном департаменте, затем масштабировать на всю компанию в течение 6-9 месяцев.`,
-                    impact: `Снижение рисков внедрения`,
-                    priority: 'Высокий'
                 }
             ];
             
@@ -1785,16 +1961,6 @@
         function showLoading(show) {
             document.getElementById('loading').classList.toggle('active', show);
         }
-        
-        document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById('innInput').addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') searchByINN();
-            });
-            
-            setTimeout(() => {
-                searchByINN();
-            }, 500);
-        });
     </script>
 </body>
 </html>
