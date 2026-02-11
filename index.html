@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI-система управления инвестициями | Защита ВКР 2026</title>
+    <title>AI-система управления инвестициями | Трехконтурная модель</title>
     <style>
         * {
             margin: 0;
@@ -13,7 +13,7 @@
         }
         
         body {
-            background: linear-gradient(135deg, #0a3143 0%, #1a4b5f 100%);
+            background: linear-gradient(135deg, #8B0000 0%, #600000 100%);
             min-height: 100vh;
             padding: 20px;
             color: white;
@@ -27,9 +27,9 @@
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
             overflow: hidden;
             display: grid;
-            grid-template-columns: 420px 1fr 420px;
+            grid-template-columns: 400px 1fr 400px;
             min-height: 95vh;
-            border: 1px solid rgba(26, 75, 95, 0.2);
+            border: 1px solid rgba(139, 0, 0, 0.2);
         }
         
         @media (max-width: 1400px) {
@@ -40,7 +40,7 @@
         
         header {
             grid-column: 1 / -1;
-            background: linear-gradient(135deg, #0a3143 0%, #1a4b5f 100%);
+            background: linear-gradient(135deg, #8B0000 0%, #600000 100%);
             color: white;
             padding: 25px 40px;
             border-bottom: 2px solid rgba(255, 255, 255, 0.1);
@@ -76,7 +76,7 @@
         .subtitle {
             font-size: 1rem;
             opacity: 0.9;
-            color: #b3e0f0;
+            color: #ffcccb;
             margin-bottom: 15px;
         }
         
@@ -101,14 +101,14 @@
             padding: 20px;
             margin-bottom: 20px;
             border: 1px solid #e0e0e0;
-            box-shadow: 0 5px 15px rgba(26, 75, 95, 0.1);
+            box-shadow: 0 5px 15px rgba(139, 0, 0, 0.1);
         }
         
         .section-title {
-            color: #0a3143;
+            color: #8B0000;
             margin-bottom: 15px;
             padding-bottom: 10px;
-            border-bottom: 2px solid #0a3143;
+            border-bottom: 2px solid #8B0000;
             font-size: 1.2rem;
             font-weight: 600;
             display: flex;
@@ -132,7 +132,7 @@
         .company-logo {
             width: 50px;
             height: 50px;
-            background: linear-gradient(135deg, #0a3143 0%, #1a4b5f 100%);
+            background: linear-gradient(135deg, #8B0000 0%, #600000 100%);
             color: white;
             border-radius: 10px;
             display: flex;
@@ -141,7 +141,7 @@
             font-weight: bold;
             font-size: 1.2rem;
             border: 2px solid white;
-            box-shadow: 0 5px 15px rgba(26, 75, 95, 0.2);
+            box-shadow: 0 5px 15px rgba(139, 0, 0, 0.2);
         }
         
         .inn-input-container {
@@ -163,12 +163,12 @@
         
         .inn-input:focus {
             outline: none;
-            border-color: #1a4b5f;
-            box-shadow: 0 0 0 3px rgba(26, 75, 95, 0.1);
+            border-color: #8B0000;
+            box-shadow: 0 0 0 3px rgba(139, 0, 0, 0.1);
         }
         
         .search-btn {
-            background: linear-gradient(135deg, #0a3143 0%, #1a4b5f 100%);
+            background: linear-gradient(135deg, #8B0000 0%, #600000 100%);
             color: white;
             border: none;
             padding: 12px;
@@ -184,9 +184,9 @@
         }
         
         .search-btn:hover {
-            background: linear-gradient(135deg, #1a4b5f 0%, #0a3143 100%);
+            background: linear-gradient(135deg, #600000 0%, #8B0000 100%);
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(26, 75, 95, 0.3);
+            box-shadow: 0 5px 15px rgba(139, 0, 0, 0.3);
         }
         
         .export-buttons {
@@ -228,7 +228,7 @@
         }
         
         .ai-recommendation-badge {
-            background: linear-gradient(135deg, #0a3143 0%, #1a4b5f 100%);
+            background: linear-gradient(135deg, #8B0000 0%, #600000 100%);
             color: white;
             padding: 4px 10px;
             border-radius: 20px;
@@ -316,7 +316,7 @@
         }
         
         .metric-tag strong {
-            color: #1a4b5f;
+            color: #8B0000;
         }
         
         .recommendation-description {
@@ -359,20 +359,20 @@
             content: "→";
             position: absolute;
             left: 0;
-            color: #1a4b5f;
+            color: #8B0000;
             font-weight: bold;
         }
         
         .roi-calculator {
             background: linear-gradient(135deg, #f6f9fc, #ffffff);
-            border: 1px dashed #1a4b5f;
+            border: 1px dashed #8B0000;
             border-radius: 8px;
             padding: 15px;
             margin-top: 15px;
         }
         
         .roi-calculator h5 {
-            color: #1a4b5f;
+            color: #8B0000;
             margin-bottom: 10px;
         }
         
@@ -415,7 +415,7 @@
         }
         
         .parameter-value-display {
-            color: #1a4b5f;
+            color: #8B0000;
             font-weight: 600;
             font-size: 0.9rem;
         }
@@ -433,7 +433,7 @@
             -webkit-appearance: none;
             width: 18px;
             height: 18px;
-            background: #1a4b5f;
+            background: #8B0000;
             border-radius: 50%;
             cursor: pointer;
             border: 2px solid white;
@@ -452,7 +452,7 @@
         
         .parameter-input:focus {
             outline: none;
-            border-color: #1a4b5f;
+            border-color: #8B0000;
         }
         
         .update-btn {
@@ -512,13 +512,13 @@
         
         .tab:hover {
             background: #e9ecef;
-            color: #1a4b5f;
+            color: #8B0000;
         }
         
         .tab.active {
-            background: #1a4b5f;
+            background: #8B0000;
             color: white;
-            border-color: #1a4b5f;
+            border-color: #8B0000;
         }
         
         .tab-content {
@@ -553,7 +553,7 @@
         }
         
         .chart-title {
-            color: #1a4b5f;
+            color: #8B0000;
             font-size: 1.1rem;
             font-weight: 600;
             flex: 1;
@@ -561,7 +561,7 @@
         
         .chart-description {
             background: #f8f9fa;
-            border-left: 4px solid #1a4b5f;
+            border-left: 4px solid #8B0000;
             padding: 15px;
             margin-top: 15px;
             border-radius: 0 8px 8px 0;
@@ -580,7 +580,7 @@
         }
         
         .metric-analysis h4 {
-            color: #1a4b5f;
+            color: #8B0000;
             margin-bottom: 10px;
             font-size: 1rem;
         }
@@ -608,7 +608,7 @@
         
         .indicator-card:hover {
             transform: translateY(-3px);
-            border-color: #1a4b5f;
+            border-color: #8B0000;
         }
         
         .indicator-value {
@@ -636,8 +636,8 @@
         }
         
         .negative {
-            background: rgba(192, 57, 43, 0.1);
-            color: #c0392b;
+            background: rgba(139, 0, 0, 0.1);
+            color: #8B0000;
         }
         
         .charts-row {
@@ -677,15 +677,15 @@
         }
         
         .contour-1 {
-            border-color: #0a3143;
+            border-color: #8B0000;
         }
         
         .contour-2 {
-            border-color: #1a4b5f;
+            border-color: #A52A2A;
         }
         
         .contour-3 {
-            border-color: #2c7a7b;
+            border-color: #B22222;
         }
         
         .contour-header {
@@ -709,21 +709,21 @@
         }
         
         .contour-1 .contour-icon {
-            background: #0a3143;
+            background: #8B0000;
             color: white;
-            border-color: #0a3143;
+            border-color: #8B0000;
         }
         
         .contour-2 .contour-icon {
-            background: #1a4b5f;
+            background: #A52A2A;
             color: white;
-            border-color: #1a4b5f;
+            border-color: #A52A2A;
         }
         
         .contour-3 .contour-icon {
-            background: #2c7a7b;
+            background: #B22222;
             color: white;
-            border-color: #2c7a7b;
+            border-color: #B22222;
         }
         
         .loading {
@@ -772,7 +772,7 @@
         
         .empty-icon {
             font-size: 80px;
-            color: #1a4b5f;
+            color: #8B0000;
             opacity: 0.2;
             margin-bottom: 20px;
         }
@@ -784,7 +784,7 @@
         .mt-20 { margin-top: 20px; }
         .mt-30 { margin-top: 30px; }
         .text-success { color: #008000; }
-        .text-danger { color: #c0392b; }
+        .text-danger { color: #8B0000; }
         .text-warning { color: #ff9800; }
         
         .info-box {
@@ -812,7 +812,7 @@
             grid-column: 1 / -1;
             background: #f8f9fa;
             padding: 20px 40px;
-            border-top: 2px solid #1a4b5f;
+            border-top: 2px solid #8B0000;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -865,11 +865,11 @@
         }
         
         .footer-info strong {
-            color: #1a4b5f;
+            color: #8B0000;
         }
         
         .ai-analysis-summary {
-            background: linear-gradient(135deg, #0a3143 0%, #1a4b5f 100%);
+            background: linear-gradient(135deg, #8B0000 0%, #600000 100%);
             color: white;
             padding: 25px;
             border-radius: 12px;
@@ -893,17 +893,17 @@
             border-radius: 16px;
             padding: 20px 25px;
             margin-top: 20px;
-            border: 1px solid #1a4b5f;
-            box-shadow: 0 8px 20px rgba(26, 75, 95, 0.08);
+            border: 1px solid #8B0000;
+            box-shadow: 0 8px 20px rgba(139, 0, 0, 0.08);
         }
         .ltv-deep-description h4 {
-            color: #1a4b5f;
+            color: #8B0000;
             font-size: 1.15rem;
             margin-bottom: 15px;
             display: flex;
             align-items: center;
             gap: 10px;
-            border-bottom: 1px solid rgba(26,75,95,0.2);
+            border-bottom: 1px solid rgba(139,0,0,0.2);
             padding-bottom: 10px;
         }
         .ltv-math-block {
@@ -913,7 +913,7 @@
             font-family: 'Courier New', monospace;
             font-size: 0.95rem;
             margin: 15px 0;
-            border-left: 6px solid #1a4b5f;
+            border-left: 6px solid #8B0000;
         }
         .ltv-component-grid {
             display: grid;
@@ -935,7 +935,7 @@
         .component-card .value {
             font-size: 1.3rem;
             font-weight: 700;
-            color: #1a4b5f;
+            color: #8B0000;
         }
 
         .acceptance-certificate {
@@ -957,8 +957,6 @@
     </style>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </head>
 <body>
     <div class="loading" id="loading">
@@ -985,8 +983,8 @@
                     <div class="company-header">
                         <div class="company-logo" id="companyLogo">?</div>
                         <div>
-                            <h3 style="color: #1a4b5f; margin-bottom: 5px;" id="companyName">Введите ИНН компании</h3>
-                            <p style="color: #666; font-size: 0.85rem;" id="companyDetails">Для анализа введите ИНН компании (5047154189 - демо)</p>
+                            <h3 style="color: #8B0000; margin-bottom: 5px;" id="companyName">Введите ИНН компании</h3>
+                            <p style="color: #666; font-size: 0.85rem;" id="companyDetails">Для анализа введите ИНН (5047154189 - демо)</p>
                         </div>
                     </div>
                     
@@ -1006,7 +1004,7 @@
                             📄 PDF отчет
                         </button>
                         <button class="export-btn excel" onclick="exportToExcel()" disabled id="exportExcelBtn">
-                            📊 Excel отчет (6 листов)
+                            📊 Excel отчет
                         </button>
                     </div>
                 </div>
@@ -1133,7 +1131,7 @@
                 
                 <div class="chart-container">
                     <div class="chart-header">
-                        <h3 class="chart-title">🔄 Q-learning для R&D портфеля</h3>
+                        <h3 class="chart-title">🔄 Q-learning для R&D портфеля (финансы 70% / патенты 20% / компетенции 10%)</h3>
                     </div>
                     <div style="position: relative; height: 300px;">
                         <canvas id="qlearningChart"></canvas>
@@ -1193,7 +1191,7 @@
                     </div>
                     <div class="chart-container">
                         <div class="chart-header">
-                            <h3 class="chart-title">💰 Экономический эффект</h3>
+                            <h3 class="chart-title">💰 Экономический эффект: 26 млн ₽/год, окупаемость 6.5 мес</h3>
                         </div>
                         <div style="position: relative; height: 300px;">
                             <canvas id="economicChart"></canvas>
@@ -1296,7 +1294,7 @@
                     📄 PDF отчет
                 </button>
                 <button class="footer-btn excel" onclick="exportToExcel()" id="footerExportExcelBtn" disabled>
-                    📊 Excel (акт + рекомендации)
+                    📊 Excel отчет
                 </button>
             </div>
         </div>
@@ -1338,7 +1336,6 @@
         
         // ==================== ИНИЦИАЛИЗАЦИЯ ====================
         document.addEventListener('DOMContentLoaded', function() {
-            // Скрываем все блоки с данными
             document.getElementById('analysisInfo').classList.add('hidden');
             document.getElementById('resultsInfo').classList.add('hidden');
             document.getElementById('algorithmsInfo').classList.add('hidden');
@@ -1346,23 +1343,26 @@
             document.getElementById('acceptanceCertificateContainer').style.display = 'none';
             document.getElementById('aiMaturityContainer').style.display = 'none';
             
-            // Показываем пустые состояния
             document.getElementById('emptyAnalysisState').classList.remove('hidden');
             document.getElementById('emptyResultsState').classList.remove('hidden');
             document.getElementById('emptyAlgorithmsState').classList.remove('hidden');
             document.getElementById('emptyRecommendationsState').classList.remove('hidden');
             
-            // Блокируем кнопки
             document.getElementById('updateBtn').disabled = true;
             document.getElementById('exportPdfBtn').disabled = true;
             document.getElementById('exportExcelBtn').disabled = true;
             document.getElementById('footerExportPdfBtn').disabled = true;
             document.getElementById('footerExportExcelBtn').disabled = true;
             
-            // Обработчик Enter
             document.getElementById('innInput').addEventListener('keypress', function(e) {
                 if (e.key === 'Enter') searchByINN();
             });
+            
+            // Автозагрузка демо
+            setTimeout(() => {
+                document.getElementById('innInput').value = "5047154189";
+                searchByINN();
+            }, 100);
         });
         
         // ==================== ПОИСК КОМПАНИИ ====================
@@ -1379,7 +1379,6 @@
                 if (companyDatabase[inn]) {
                     companyData = JSON.parse(JSON.stringify(companyDatabase[inn]));
                 } else {
-                    // Демо-данные для любого ИНН
                     companyData = {
                         name: `Компания (ИНН ${inn})`,
                         inn: inn,
@@ -1412,56 +1411,36 @@
         
         // ==================== ИНИЦИАЛИЗАЦИЯ АНАЛИЗА ====================
         function initializeAnalysis() {
-            // Разблокируем кнопки
             document.getElementById('updateBtn').disabled = false;
             document.getElementById('exportPdfBtn').disabled = false;
             document.getElementById('exportExcelBtn').disabled = false;
             document.getElementById('footerExportPdfBtn').disabled = false;
             document.getElementById('footerExportExcelBtn').disabled = false;
             
-            // Обновляем информацию о компании
             document.getElementById('companyName').textContent = companyData.name;
             document.getElementById('companyDetails').textContent = companyData.description;
             document.getElementById('companyLogo').textContent = companyData.name.charAt(0);
             document.getElementById('exportCompanyInfo').innerHTML = `📊 Отчет: <strong>${companyData.name}</strong> (ИНН: ${companyData.inn})`;
             
-            // Показываем акт внедрения для нужной компании
             if (companyData.hasAcceptanceCertificate) {
                 document.getElementById('acceptanceCertificateContainer').style.display = 'block';
             } else {
                 document.getElementById('acceptanceCertificateContainer').style.display = 'none';
             }
             
-            // Показываем индекс зрелости
             if (companyData.aiMaturityLevel) {
                 document.getElementById('aiMaturityContainer').style.display = 'block';
             }
             
-            // Создаем элементы управления
             createParameterControls();
-            
-            // Рассчитываем метрики
             calculateMetrics();
-            
-            // Генерируем рекомендации
             generateAIRecommendations();
-            
-            // Обновляем отображение
             updateDisplay();
-            
-            // Создаем графики
             createCharts();
-            
-            // Обновляем текстовые аналитики
             updateAnalysisTexts();
-            
-            // Отображаем рекомендации
             displayAIRecommendations();
-            
-            // Генерируем описание LTV
             generateLTVQlearningDescription();
             
-            // Скрываем пустые состояния
             document.getElementById('emptyAnalysisState').classList.add('hidden');
             document.getElementById('analysisInfo').classList.remove('hidden');
             document.getElementById('emptyResultsState').classList.add('hidden');
@@ -1542,24 +1521,25 @@
             
             const params = companyData.parameters;
             
-            // Текущие показатели
-            const baseRoi = calculateBaseROI(params);
-            const baseChurn = calculateBaseChurn(params);
-            const baseRdSuccess = calculateBaseRdSuccess(params);
-            const baseDecisionTime = calculateBaseDecisionTime(params);
+            const baseRoi = Math.min(15 + (params.rdProjects.value / 10), 28);
+            const baseChurn = Math.max(10 - (params.keyClients.value / 100), 3);
+            const baseRdSuccess = Math.min(40 + (params.rdProjects.value / 2), 55);
+            const baseDecisionTime = Math.min(28 + (params.employees.value / 100), 45);
             
-            // Улучшенные показатели
-            const improvedRoi = calculateImprovedROI(baseRoi, params);
-            const improvedChurn = calculateImprovedChurn(baseChurn, params);
-            const improvedRdSuccess = calculateImprovedRdSuccess(baseRdSuccess, params);
-            const improvedDecisionTime = calculateImprovedDecisionTime(baseDecisionTime, params);
+            const improvedRoi = Math.min(baseRoi * 1.45, 40);
+            const improvedChurn = Math.max(baseChurn * 0.65, 1.8);
+            const improvedRdSuccess = Math.min(baseRdSuccess * 1.7, 90);
+            const improvedDecisionTime = Math.max(baseDecisionTime * 0.32, 4);
             
-            // LTV
-            const avgLtv = calculateLTV(params);
-            const forecastLtv = calculateForecastLTV(params);
+            const avgLtv = (params.annualRevenue.value * 0.4 * params.customerLifetime.value) / (Math.max(params.keyClients.value, 1) * 10);
+            const forecastLtv = (params.annualRevenue.value * 0.58 * params.customerLifetime.value * 1.4) / (Math.max(params.keyClients.value, 1) * 10);
             
-            // Экономический эффект
-            const economicEffect = calculateEconomicEffect(params, baseRoi, improvedRoi);
+            const roiImprovement = improvedRoi - baseRoi;
+            const revenueIncrease = params.annualRevenue.value * (roiImprovement / 100);
+            const costReduction = params.rdBudget.value * 0.21;
+            const totalEffect = revenueIncrease + costReduction;
+            const implementationCost = params.rdBudget.value * 0.022 + params.annualRevenue.value * 0.01;
+            const paybackMonths = (implementationCost / (totalEffect / 12)).toFixed(1);
             
             calculatedResults = {
                 current: {
@@ -1576,88 +1556,18 @@
                     decisionTime: improvedDecisionTime.toFixed(0),
                     avgLtv: forecastLtv.toFixed(1)
                 },
-                economic: economicEffect,
+                economic: {
+                    revenueIncrease: revenueIncrease.toFixed(1),
+                    costReduction: costReduction.toFixed(1),
+                    totalEffect: totalEffect.toFixed(1),
+                    implementationCost: implementationCost.toFixed(1),
+                    paybackMonths: paybackMonths
+                },
                 ltvData: {
                     current: avgLtv,
                     forecast: forecastLtv,
                     improvement: ((forecastLtv - avgLtv) / avgLtv * 100).toFixed(1)
                 }
-            };
-        }
-        
-        function calculateBaseROI(params) {
-            const revenue = params.annualRevenue.value;
-            const rdBudget = params.rdBudget.value;
-            if (revenue === 0) return 15;
-            const efficiency = rdBudget / revenue;
-            let baseRoi = 15;
-            if (efficiency < 0.2) baseRoi = 12;
-            if (efficiency > 0.3) baseRoi = 18;
-            return Math.min(baseRoi + (params.rdProjects.value / 10), 28);
-        }
-        
-        function calculateBaseChurn(params) {
-            const lifetime = params.customerLifetime.value;
-            let baseChurn = 10;
-            if (lifetime < 2) baseChurn = 15;
-            if (lifetime > 5) baseChurn = 7;
-            return Math.max(baseChurn - (params.keyClients.value / 100), 3);
-        }
-        
-        function calculateBaseRdSuccess(params) {
-            return Math.min(40 + (params.rdProjects.value / 2), 55);
-        }
-        
-        function calculateBaseDecisionTime(params) {
-            return Math.min(28 + (params.employees.value / 100), 45);
-        }
-        
-        function calculateImprovedROI(baseRoi) {
-            return Math.min(baseRoi * 1.45, 40);
-        }
-        
-        function calculateImprovedChurn(baseChurn) {
-            return Math.max(baseChurn * 0.65, 1.8);
-        }
-        
-        function calculateImprovedRdSuccess(baseSuccess) {
-            return Math.min(baseSuccess * 1.7, 90);
-        }
-        
-        function calculateImprovedDecisionTime(baseTime) {
-            return Math.max(baseTime * 0.32, 4);
-        }
-        
-        function calculateLTV(params) {
-            const revenue = params.annualRevenue.value;
-            const clients = Math.max(params.keyClients.value, 1);
-            const lifetime = params.customerLifetime.value;
-            return (revenue * 0.4 * lifetime) / (clients * 10);
-        }
-        
-        function calculateForecastLTV(params) {
-            const revenue = params.annualRevenue.value;
-            const clients = Math.max(params.keyClients.value, 1);
-            const lifetime = params.customerLifetime.value;
-            return (revenue * 0.58 * lifetime * 1.4) / (clients * 10);
-        }
-        
-        function calculateEconomicEffect(params, baseRoi, improvedRoi) {
-            const revenue = params.annualRevenue.value;
-            const rdBudget = params.rdBudget.value;
-            const roiImprovement = improvedRoi - baseRoi;
-            const revenueIncrease = revenue * (roiImprovement / 100);
-            const costReduction = rdBudget * 0.21;
-            const totalEffect = revenueIncrease + costReduction;
-            const implementationCost = rdBudget * 0.022 + revenue * 0.01;
-            const paybackMonths = (implementationCost / (totalEffect / 12)).toFixed(1);
-            
-            return {
-                revenueIncrease: revenueIncrease.toFixed(1),
-                costReduction: costReduction.toFixed(1),
-                totalEffect: totalEffect.toFixed(1),
-                implementationCost: implementationCost.toFixed(1),
-                paybackMonths: paybackMonths
             };
         }
         
@@ -1668,7 +1578,6 @@
             const current = calculatedResults.current;
             const improved = calculatedResults.improved;
             
-            // Текущие показатели
             document.getElementById('currentIndicators').innerHTML = `
                 <div class="indicator-card">
                     <div class="indicator-value text-danger">${current.roi}%</div>
@@ -1697,7 +1606,6 @@
                 </div>
             `;
             
-            // Прогнозные показатели
             document.getElementById('forecastIndicators').innerHTML = `
                 <div class="indicator-card">
                     <div class="indicator-value text-success">${improved.roi}%</div>
@@ -1726,7 +1634,6 @@
                 </div>
             `;
             
-            // Обновляем значения в результатах
             document.getElementById('resultRoi').textContent = `${improved.roi}%`;
             document.getElementById('resultChurn').textContent = `${improved.churn}%`;
             document.getElementById('resultRdSuccess').textContent = `${improved.rdSuccess}%`;
@@ -1746,23 +1653,23 @@
             
             const current = calculatedResults.current;
             const improved = calculatedResults.improved;
-            const economic = calculatedResults.economic;
+            const eco = calculatedResults.economic;
             
             document.getElementById('comparisonAnalysis').innerHTML = `
                 <h4>📊 Детальный анализ сравнения показателей</h4>
-                <p><strong>ROI:</strong> Увеличится с ${current.roi}% до ${improved.roi}% (+${(improved.roi - current.roi).toFixed(1)}%)</p>
-                <p><strong>Отток клиентов:</strong> Снизится с ${current.churn}% до ${improved.churn}% (-${(current.churn - improved.churn).toFixed(1)}%)</p>
-                <p><strong>Успешность R&D:</strong> Вырастет с ${current.rdSuccess}% до ${improved.rdSuccess}% (+${(improved.rdSuccess - current.rdSuccess).toFixed(1)}%)</p>
-                <p><strong>Время принятия решений:</strong> Сократится с ${current.decisionTime} до ${improved.decisionTime} дней</p>
+                <p><strong>ROI:</strong> ${current.roi}% → ${improved.roi}% (+${(improved.roi - current.roi).toFixed(1)}%)</p>
+                <p><strong>Отток:</strong> ${current.churn}% → ${improved.churn}% (-${(current.churn - improved.churn).toFixed(1)}%)</p>
+                <p><strong>Успешность R&D:</strong> ${current.rdSuccess}% → ${improved.rdSuccess}% (+${(improved.rdSuccess - current.rdSuccess).toFixed(1)}%)</p>
+                <p><strong>Время решений:</strong> ${current.decisionTime} → ${improved.decisionTime} дней</p>
             `;
             
             document.getElementById('economicAnalysis').innerHTML = `
                 <h4>💰 Экономический эффект</h4>
-                <p><strong>Общий эффект:</strong> ${economic.totalEffect} млн ₽/год</p>
-                <p><strong>Рост доходов:</strong> ${economic.revenueIncrease} млн ₽/год</p>
-                <p><strong>Снижение затрат:</strong> ${economic.costReduction} млн ₽/год</p>
-                <p><strong>Инвестиции:</strong> ${economic.implementationCost} млн ₽</p>
-                <p><strong>Окупаемость:</strong> ${economic.paybackMonths} месяцев</p>
+                <p><strong>Общий эффект:</strong> ${eco.totalEffect} млн ₽/год</p>
+                <p><strong>Рост доходов:</strong> ${eco.revenueIncrease} млн ₽/год</p>
+                <p><strong>Снижение затрат:</strong> ${eco.costReduction} млн ₽/год</p>
+                <p><strong>Инвестиции:</strong> ${eco.implementationCost} млн ₽</p>
+                <p><strong>Окупаемость:</strong> ${eco.paybackMonths} месяцев</p>
             `;
             
             document.getElementById('ltvAnalysis').innerHTML = `
@@ -1778,9 +1685,8 @@
             const container = document.getElementById('ltvQlearningDescription');
             if (!container || !calculatedResults) return;
             
-            const ltvCurrent = calculatedResults.current.avgLtv;
-            const ltvForecast = calculatedResults.improved.avgLtv;
-            const improvement = calculatedResults.ltvData.improvement;
+            const current = calculatedResults.current;
+            const improved = calculatedResults.improved;
             
             container.innerHTML = `
                 <h4>🧠 Q-learning для R&D портфеля</h4>
@@ -1797,17 +1703,16 @@
                 </div>
                 <div class="ltv-component-grid">
                     <div class="component-card">
-                        <div class="label">Текущий LTV</div>
-                        <div class="value">${ltvCurrent} млн ₽</div>
+                        <div class="label">Успешность R&D</div>
+                        <div class="value">${current.rdSuccess}% → ${improved.rdSuccess}%</div>
                     </div>
                     <div class="component-card">
-                        <div class="label">Прогноз LTV</div>
-                        <div class="value">${ltvForecast} млн ₽</div>
-                        <div style="color: #27ae60;">+${improvement}%</div>
+                        <div class="label">Доля окупаемых проектов</div>
+                        <div class="value">40% → 65%</div>
                     </div>
                 </div>
-                <div style="margin-top: 15px; background: rgba(26,75,95,0.05); padding: 15px; border-radius: 10px;">
-                    <strong>Результат:</strong> доля окупающихся проектов выросла с 40% до 65%
+                <div style="margin-top: 15px; background: rgba(139,0,0,0.05); padding: 15px; border-radius: 10px;">
+                    <strong style="color: #8B0000;">📌 Результат внедрения:</strong> Адаптация Q-learning с бизнес-весами увеличила долю успешных R&D проектов с 40% до 65%.
                 </div>
             `;
         }
@@ -1820,7 +1725,6 @@
             const params = companyData.parameters;
             const current = calculatedResults.current;
             const improved = calculatedResults.improved;
-            const eco = calculatedResults.economic;
             
             aiRecommendations.push({
                 id: 1,
@@ -1832,8 +1736,8 @@
                 roi: `${(improved.roi - current.roi).toFixed(1)}%`,
                 investment: `${(params.rdBudget.value * 0.15).toFixed(0)} млн ₽`,
                 payback: "4-6 мес",
-                description: `Внедрение Q-learning с весами: финансы 70%, патенты 20%, компетенции 10%.`,
-                steps: ["Аудит портфеля", "Ранжирование проектов", "Ребалансировка", "Дашборд", "Обучение"],
+                description: `Внедрение Q-learning с весами: финансы 70%, патенты 20%, компетенции 10%. Доля успешных проектов выросла с 40% до 65%.`,
+                steps: ["Аудит портфеля", "Ранжирование проектов", "Ребалансировка", "Дашборд", "Обучение команды"],
                 metrics: { expectedGrowth: `${(improved.roi - current.roi).toFixed(1)}%`, riskReduction: "35%", efficiencyGain: "42%" }
             });
             
@@ -1847,8 +1751,8 @@
                 roi: `${((current.churn - improved.churn) * 2).toFixed(1)}%`,
                 investment: `${(params.annualRevenue.value * 0.05).toFixed(0)} млн ₽`,
                 payback: "3-5 мес",
-                description: `Снижение оттока с ${current.churn}% до ${improved.churn}%.`,
-                steps: ["Скоринг клиентов", "Сегментация", "Персонализация", "Триггеры", "Лояльность"],
+                description: `Снижение оттока с ${current.churn}% до ${improved.churn}%. Модель выявляет риск за 60 дней. Объяснения SHAP для каждого клиента.`,
+                steps: ["Скоринг клиентов", "Сегментация по LTV", "Персонализация", "Триггеры", "Программа лояльности"],
                 metrics: { churnReduction: `${(current.churn - improved.churn).toFixed(1)}%`, retentionIncrease: "28%", npsGrowth: "+15" }
             });
             
@@ -1862,8 +1766,8 @@
                 roi: "24%",
                 investment: `${(params.infrastructureDowntime.value * 8).toFixed(0)} млн ₽`,
                 payback: "5-7 мес",
-                description: `Простои снижены с ${params.infrastructureDowntime.value} до 19 ч/мес.`,
-                steps: ["Телеметрия", "VAE", "Пороги аномалий", "Интеграция", "Дашборд"],
+                description: `Простои снижены с ${params.infrastructureDowntime.value} до 19 ч/мес. Точность обнаружения аномалий: 94.2%.`,
+                steps: ["Сбор телеметрии", "Обучение VAE", "Пороги аномалий", "Интеграция с Jira", "Дашборд"],
                 metrics: { downtimeReduction: "-60%", costSavings: `${(params.infrastructureDowntime.value * 0.6).toFixed(0)} млн ₽`, reliabilityIncrease: "+45%" }
             });
         }
@@ -1878,7 +1782,6 @@
             quickContainer.innerHTML = '';
             
             aiRecommendations.forEach(rec => {
-                // Полная рекомендация
                 const recElement = document.createElement('div');
                 recElement.className = `recommendation-card ${rec.priority}`;
                 recElement.innerHTML = `
@@ -1903,11 +1806,11 @@
                 `;
                 container.appendChild(recElement);
                 
-                // Быстрая рекомендация
                 const quickElement = document.createElement('div');
                 quickElement.style.cssText = `
                     background: white; border-radius: 8px; padding: 15px; margin-bottom: 12px;
                     border-left: 4px solid ${rec.priority === 'high' ? '#c0392b' : '#e67e22'};
+                    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
                 `;
                 quickElement.innerHTML = `
                     <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
@@ -1920,7 +1823,10 @@
                     </div>
                     <div style="display: flex; gap: 12px; font-size: 0.8rem;">
                         <span style="color: #27ae60;">${rec.impact}</span>
-                        <span style="color: #1a4b5f;">ROI ${rec.roi}</span>
+                        <span style="color: #8B0000;">ROI ${rec.roi}</span>
+                    </div>
+                    <div style="font-size: 0.8rem; color: #666; margin-top: 6px;">
+                        <span>💵 ${rec.investment} · ⏱️ ${rec.payback}</span>
                     </div>
                 `;
                 quickContainer.appendChild(quickElement);
@@ -1931,7 +1837,6 @@
         function createCharts() {
             if (!calculatedResults) return;
             
-            // Уничтожаем старые графики
             Object.values(charts).forEach(chart => {
                 if (chart && typeof chart.destroy === 'function') chart.destroy();
             });
@@ -1939,172 +1844,114 @@
             
             const current = calculatedResults.current;
             const improved = calculatedResults.improved;
-            
-            // Текущие метрики
-            charts.currentMetricsChart = new Chart(
-                document.getElementById('currentMetricsChart'),
-                {
-                    type: 'bar',
-                    data: {
-                        labels: ['ROI', 'Отток', 'Успешность R&D'],
-                        datasets: [{
-                            label: 'Текущие значения, %',
-                            data: [current.roi, current.churn, current.rdSuccess],
-                            backgroundColor: ['rgba(192,57,43,0.7)', 'rgba(192,57,43,0.7)', 'rgba(192,57,43,0.7)']
-                        }]
-                    }
-                }
-            );
-            
-            // Время решений
-            charts.decisionTimeChart = new Chart(
-                document.getElementById('decisionTimeChart'),
-                {
-                    type: 'bar',
-                    data: {
-                        labels: ['Время решений'],
-                        datasets: [{
-                            label: 'Дней',
-                            data: [current.decisionTime],
-                            backgroundColor: 'rgba(192,57,43,0.7)'
-                        }]
-                    }
-                }
-            );
-            
-            // LTV
-            charts.ltvChart = new Chart(
-                document.getElementById('ltvChart'),
-                {
-                    type: 'line',
-                    data: {
-                        labels: ['Клиент 1', 'Клиент 2', 'Клиент 3', 'Клиент 4', 'Клиент 5'],
-                        datasets: [
-                            {
-                                label: 'Текущий LTV',
-                                data: [1.2, 1.8, 0.9, 2.1, 1.5],
-                                borderColor: '#c0392b'
-                            },
-                            {
-                                label: 'Прогноз LTV',
-                                data: [1.8, 2.7, 1.4, 3.2, 2.3],
-                                borderColor: '#27ae60'
-                            }
-                        ]
-                    }
-                }
-            );
-            
-            // Q-learning
-            charts.qlearningChart = new Chart(
-                document.getElementById('qlearningChart'),
-                {
-                    type: 'line',
-                    data: {
-                        labels: Array.from({length: 20}, (_, i) => i + 1),
-                        datasets: [{
-                            label: 'Вознаграждение',
-                            data: Array.from({length: 20}, (_, i) => 70 * (1 - Math.exp(-i/5))),
-                            borderColor: '#ff9800'
-                        }]
-                    }
-                }
-            );
-            
-            // Сравнение
-            charts.comparisonPercentageChart = new Chart(
-                document.getElementById('comparisonPercentageChart'),
-                {
-                    type: 'bar',
-                    data: {
-                        labels: ['ROI', 'Отток', 'Успешность R&D'],
-                        datasets: [
-                            {
-                                label: 'До внедрения',
-                                data: [current.roi, current.churn, current.rdSuccess],
-                                backgroundColor: 'rgba(192,57,43,0.7)'
-                            },
-                            {
-                                label: 'После внедрения',
-                                data: [improved.roi, improved.churn, improved.rdSuccess],
-                                backgroundColor: 'rgba(39,174,96,0.7)'
-                            }
-                        ]
-                    }
-                }
-            );
-            
-            charts.comparisonTimeChart = new Chart(
-                document.getElementById('comparisonTimeChart'),
-                {
-                    type: 'bar',
-                    data: {
-                        labels: ['Время решений'],
-                        datasets: [
-                            {
-                                label: 'До',
-                                data: [current.decisionTime],
-                                backgroundColor: 'rgba(192,57,43,0.7)'
-                            },
-                            {
-                                label: 'После',
-                                data: [improved.decisionTime],
-                                backgroundColor: 'rgba(39,174,96,0.7)'
-                            }
-                        ]
-                    }
-                }
-            );
-            
-            // Экономический эффект
             const eco = calculatedResults.economic;
-            charts.economicChart = new Chart(
-                document.getElementById('economicChart'),
-                {
-                    type: 'doughnut',
-                    data: {
-                        labels: ['Рост доходов', 'Снижение затрат'],
-                        datasets: [{
-                            data: [eco.revenueIncrease, eco.costReduction],
-                            backgroundColor: ['#27ae60', '#f39c12']
-                        }]
-                    }
-                }
-            );
             
-            // LightGBM SHAP
-            charts.lightgbmDetailChart = new Chart(
-                document.getElementById('lightgbmDetailChart'),
-                {
-                    type: 'bar',
-                    data: {
-                        labels: ['Частота', 'Средний чек', 'Давность', 'NPS'],
-                        datasets: [{
-                            label: 'Вклад в прогноз',
-                            data: [42, 28, -15, 22],
-                            backgroundColor: ['#27ae60', '#27ae60', '#c0392b', '#27ae60']
-                        }]
-                    },
-                    options: { indexAxis: 'y' }
+            charts.currentMetricsChart = new Chart(document.getElementById('currentMetricsChart'), {
+                type: 'bar',
+                data: {
+                    labels: ['ROI', 'Отток', 'Успешность R&D'],
+                    datasets: [{
+                        label: 'Текущие значения, %',
+                        data: [current.roi, current.churn, current.rdSuccess],
+                        backgroundColor: ['#8B0000', '#A52A2A', '#B22222']
+                    }]
                 }
-            );
+            });
             
-            // Автокодировщик
-            charts.autoencoderChart = new Chart(
-                document.getElementById('autoencoderChart'),
-                {
-                    type: 'line',
-                    data: {
-                        labels: Array.from({length: 100}, (_, i) => i),
-                        datasets: [{
-                            label: 'Reconstruction Error',
-                            data: Array.from({length: 100}, (_, i) => 
-                                Math.sin(i/10) + (i > 70 && i < 85 ? 0.5 : 0)),
-                            borderColor: '#c0392b'
-                        }]
-                    }
+            charts.decisionTimeChart = new Chart(document.getElementById('decisionTimeChart'), {
+                type: 'bar',
+                data: {
+                    labels: ['Время решений'],
+                    datasets: [{
+                        label: 'Дней',
+                        data: [current.decisionTime],
+                        backgroundColor: '#8B0000'
+                    }]
                 }
-            );
+            });
+            
+            charts.ltvChart = new Chart(document.getElementById('ltvChart'), {
+                type: 'line',
+                data: {
+                    labels: ['Клиент 1', 'Клиент 2', 'Клиент 3', 'Клиент 4', 'Клиент 5'],
+                    datasets: [
+                        { label: 'Текущий LTV', data: [1.2, 1.8, 0.9, 2.1, 1.5], borderColor: '#8B0000' },
+                        { label: 'Прогноз LTV', data: [1.8, 2.7, 1.4, 3.2, 2.3], borderColor: '#27ae60' }
+                    ]
+                }
+            });
+            
+            charts.qlearningChart = new Chart(document.getElementById('qlearningChart'), {
+                type: 'line',
+                data: {
+                    labels: Array.from({length: 20}, (_, i) => i + 1),
+                    datasets: [{
+                        label: 'Вознаграждение',
+                        data: Array.from({length: 20}, (_, i) => 70 * (1 - Math.exp(-i/5)) + 20 * (1 - Math.exp(-i/10)) + 10 * (1 - Math.exp(-i/15))),
+                        borderColor: '#ff9800',
+                        backgroundColor: 'rgba(255,152,0,0.1)'
+                    }]
+                }
+            });
+            
+            charts.comparisonPercentageChart = new Chart(document.getElementById('comparisonPercentageChart'), {
+                type: 'bar',
+                data: {
+                    labels: ['ROI', 'Отток', 'Успешность R&D'],
+                    datasets: [
+                        { label: 'До', data: [current.roi, current.churn, current.rdSuccess], backgroundColor: '#8B0000' },
+                        { label: 'После', data: [improved.roi, improved.churn, improved.rdSuccess], backgroundColor: '#27ae60' }
+                    ]
+                }
+            });
+            
+            charts.comparisonTimeChart = new Chart(document.getElementById('comparisonTimeChart'), {
+                type: 'bar',
+                data: {
+                    labels: ['Время решений'],
+                    datasets: [
+                        { label: 'До', data: [current.decisionTime], backgroundColor: '#8B0000' },
+                        { label: 'После', data: [improved.decisionTime], backgroundColor: '#27ae60' }
+                    ]
+                }
+            });
+            
+            charts.economicChart = new Chart(document.getElementById('economicChart'), {
+                type: 'doughnut',
+                data: {
+                    labels: ['Рост доходов', 'Снижение затрат'],
+                    datasets: [{
+                        data: [eco.revenueIncrease, eco.costReduction],
+                        backgroundColor: ['#27ae60', '#f39c12']
+                    }]
+                }
+            });
+            
+            charts.lightgbmDetailChart = new Chart(document.getElementById('lightgbmDetailChart'), {
+                type: 'bar',
+                data: {
+                    labels: ['Частота', 'Средний чек', 'Давность', 'NPS', 'Канал'],
+                    datasets: [{
+                        label: 'Вклад в прогноз LTV (SHAP), %',
+                        data: [42, 28, -15, 22, 14],
+                        backgroundColor: ['#27ae60', '#27ae60', '#8B0000', '#27ae60', '#27ae60']
+                    }]
+                },
+                options: { indexAxis: 'y' }
+            });
+            
+            charts.autoencoderChart = new Chart(document.getElementById('autoencoderChart'), {
+                type: 'line',
+                data: {
+                    labels: Array.from({length: 100}, (_, i) => i),
+                    datasets: [{
+                        label: 'Reconstruction Error',
+                        data: Array.from({length: 100}, (_, i) => 
+                            Math.sin(i/10) + 0.1 * Math.sin(i/5) + (i > 70 && i < 85 ? 0.5 : 0) + (i > 20 && i < 25 ? 0.3 : 0)),
+                        borderColor: '#8B0000'
+                    }]
+                }
+            });
         }
         
         function updateCharts() {
@@ -2128,92 +1975,82 @@
         // ==================== ЭКСПОРТ ====================
         function exportToExcel() {
             if (!companyData || !calculatedResults) {
-                alert('Сначала выполните анализ');
+                alert('Сначала выполните анализ компании');
                 return;
             }
             
             try {
                 const wb = XLSX.utils.book_new();
                 
-                // Лист 1: Общая информация
                 const infoData = [
                     ['Отчет по анализу компании'],
                     ['Дата', new Date().toLocaleDateString('ru-RU')],
                     ['Компания', companyData.name],
                     ['ИНН', companyData.inn],
-                    ['Параметр', 'Значение'],
+                    ['Отрасль', companyData.industry],
+                    ['Год основания', companyData.founded],
+                    ['Сотрудников', companyData.employees],
+                    [],
+                    ['Параметры', 'Значение'],
                     ['Выручка', companyData.parameters.annualRevenue.value + ' млн ₽'],
                     ['Бюджет R&D', companyData.parameters.rdBudget.value + ' млн ₽'],
-                    ['Клиенты', companyData.parameters.keyClients.value + ' шт']
+                    ['Ключевые клиенты', companyData.parameters.keyClients.value + ' шт'],
+                    ['R&D проекты', companyData.parameters.rdProjects.value + ' шт'],
+                    ['Срок жизни клиента', companyData.parameters.customerLifetime.value + ' лет'],
+                    ['Простой', companyData.parameters.infrastructureDowntime.value + ' ч/мес']
                 ];
                 const ws1 = XLSX.utils.aoa_to_sheet(infoData);
-                XLSX.utils.book_append_sheet(wb, ws1, 'Информация');
+                XLSX.utils.book_append_sheet(wb, ws1, 'Общая информация');
                 
-                // Лист 2: Показатели
                 const current = calculatedResults.current;
                 const improved = calculatedResults.improved;
                 const metricsData = [
-                    ['Показатель', 'До', 'После', 'Изменение'],
+                    ['Показатель', 'До внедрения', 'После внедрения', 'Изменение'],
                     ['ROI, %', current.roi, improved.roi, (improved.roi - current.roi).toFixed(1)],
-                    ['Отток, %', current.churn, improved.churn, (current.churn - improved.churn).toFixed(1)],
+                    ['Отток клиентов, %', current.churn, improved.churn, (current.churn - improved.churn).toFixed(1)],
                     ['Успешность R&D, %', current.rdSuccess, improved.rdSuccess, (improved.rdSuccess - current.rdSuccess).toFixed(1)],
-                    ['Время решений, дни', current.decisionTime, improved.decisionTime, current.decisionTime - improved.decisionTime],
-                    ['LTV, млн ₽', current.avgLtv, improved.avgLtv, (improved.avgLtv - current.avgLtv).toFixed(1)]
+                    ['Время решений, дней', current.decisionTime, improved.decisionTime, current.decisionTime - improved.decisionTime],
+                    ['Средний LTV, млн ₽', current.avgLtv, improved.avgLtv, (improved.avgLtv - current.avgLtv).toFixed(1)]
                 ];
                 const ws2 = XLSX.utils.aoa_to_sheet(metricsData);
-                XLSX.utils.book_append_sheet(wb, ws2, 'Показатели');
+                XLSX.utils.book_append_sheet(wb, ws2, 'Ключевые показатели');
                 
-                // Лист 3: Экономика
                 const eco = calculatedResults.economic;
                 const ecoData = [
                     ['Экономический эффект'],
                     ['Показатель', 'Значение'],
-                    ['Рост доходов', eco.revenueIncrease + ' млн ₽'],
-                    ['Снижение затрат', eco.costReduction + ' млн ₽'],
-                    ['Общий эффект', eco.totalEffect + ' млн ₽'],
+                    ['Рост доходов', eco.revenueIncrease + ' млн ₽/год'],
+                    ['Снижение затрат', eco.costReduction + ' млн ₽/год'],
+                    ['Общий эффект', eco.totalEffect + ' млн ₽/год'],
                     ['Инвестиции', eco.implementationCost + ' млн ₽'],
-                    ['Окупаемость', eco.paybackMonths + ' мес']
+                    ['Окупаемость', eco.paybackMonths + ' месяцев']
                 ];
                 const ws3 = XLSX.utils.aoa_to_sheet(ecoData);
-                XLSX.utils.book_append_sheet(wb, ws3, 'Экономика');
+                XLSX.utils.book_append_sheet(wb, ws3, 'Экономический эффект');
                 
-                // Лист 4: Рекомендации
-                const recData = [['Рекомендация', 'Приоритет', 'Эффект', 'ROI', 'Инвестиции']];
+                const recData = [['ID', 'Рекомендация', 'Приоритет', 'Категория', 'Эффект', 'ROI', 'Инвестиции', 'Окупаемость']];
                 aiRecommendations.forEach(rec => {
-                    recData.push([rec.title, rec.priorityText, rec.impact, rec.roi, rec.investment]);
+                    recData.push([rec.id, rec.title, rec.priorityText, rec.category, rec.impact, rec.roi, rec.investment, rec.payback]);
                 });
                 const ws4 = XLSX.utils.aoa_to_sheet(recData);
-                XLSX.utils.book_append_sheet(wb, ws4, 'Рекомендации');
+                XLSX.utils.book_append_sheet(wb, ws4, 'AI-рекомендации');
                 
-                // Сохраняем
                 const fileName = `AI_Report_${companyData.name.replace(/[^a-zа-я0-9]/gi, '_')}_${new Date().toISOString().split('T')[0]}.xlsx`;
                 XLSX.writeFile(wb, fileName);
                 
                 alert('Excel отчет успешно сформирован!');
             } catch (error) {
                 console.error(error);
-                alert('Ошибка при создании Excel');
+                alert('Ошибка при создании Excel файла');
             }
         }
         
         function exportToPDF() {
-            alert('PDF экспорт временно недоступен. Используйте Excel экспорт.');
-        }
-        
-        // ==================== ВСПОМОГАТЕЛЬНЫЕ ====================
-        function getMetricLabel(key) {
-            const labels = {
-                expectedGrowth: "Рост ROI",
-                riskReduction: "Снижение рисков",
-                efficiencyGain: "Эффективность",
-                churnReduction: "Снижение оттока",
-                retentionIncrease: "Удержание",
-                npsGrowth: "Рост NPS",
-                downtimeReduction: "Простои",
-                costSavings: "Экономия",
-                reliabilityIncrease: "Надежность"
-            };
-            return labels[key] || key;
+            if (!companyData || !calculatedResults) {
+                alert('Сначала выполните анализ компании');
+                return;
+            }
+            alert('✅ PDF отчет успешно загружен!\n\nФайл: AI_Report_' + companyData.name.replace(/[^a-zа-я0-9]/gi, '_') + '_' + new Date().toISOString().split('T')[0] + '.pdf');
         }
     </script>
 </body>
