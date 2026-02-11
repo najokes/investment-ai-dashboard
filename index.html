@@ -692,6 +692,9 @@
         }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </head>
 <body>
     <div class="loading" id="loading">
@@ -1081,6 +1084,11 @@
             const avgLtv = (params.annualRevenue * 0.4 * params.customerLifetime * (params.customerSatisfaction/100)) / (Math.max(params.keyClients, 1) * 10);
             
             window.results = {
+                company: {
+                    name: currentCompany.name,
+                    inn: currentCompany.inn,
+                    industry: currentCompany.industry
+                },
                 current: {
                     roi: 15.0,
                     churn: 10.0,
@@ -1449,20 +1457,205 @@
             document.getElementById('loading').classList.toggle('active', show);
         }
 
-        function exportToPDF() {
-            if (!currentCompany) {
+        // ========== ЭКСПОРТ В PDF С ПОЛНЫМИ ДАННЫМИ ==========
+        async function exportToPDF() {
+            if (!currentCompany || !window.results) {
                 alert('Сначала загрузите данные компании');
                 return;
             }
-            alert('PDF-отчет сформирован');
+            
+            showLoading(true);
+            
+            try {
+                const { jsPDF } = window.jspdf;
+                const pdf = new jsPDF('p', 'pt', 'a4');
+                const r = window.results;
+                
+                // Заголовок
+                pdf.setFontSize(20);
+                pdf.setTextColor(139, 0, 0);
+                pdf.text('AI-система управления инвестициями', 40, 40);
+                
+                // Информация о компании
+                pdf.setFontSize(14);
+                pdf.setTextColor(0, 0, 0);
+                pdf.text(`Компания: ${currentCompany.name}`, 40, 80);
+                pdf.text(`ИНН: ${currentCompany.inn}`, 40, 100);
+                pdf.text(`Отрасль: ${currentCompany.industry}`, 40, 120);
+                pdf.text(`Дата отчета: ${new Date().toLocaleDateString('ru-RU')}`, 40, 140);
+                
+                // Ключевые показатели
+                pdf.setFontSize(16);
+                pdf.setTextColor(139, 0, 0);
+                pdf.text('Ключевые показатели', 40, 180);
+                
+                pdf.setFontSize(12);
+                pdf.setTextColor(0, 0, 0);
+                pdf.text(`Доходность инвестиций (ROI): ${r.current.roi}% → ${r.improved.roi}% (+${(r.improved.roi - r.current.roi).toFixed(1)}%)`, 40, 210);
+                pdf.text(`Отток клиентов: ${r.current.churn}% → ${r.improved.churn}% (-${(r.current.churn - r.improved.churn).toFixed(1)}%)`, 40, 230);
+                pdf.text(`Успешность R&D проектов: ${r.current.rdSuccess}% → ${r.improved.rdSuccess}% (+${(r.improved.rdSuccess - r.current.rdSuccess).toFixed(1)}%)`, 40, 250);
+                pdf.text(`Время принятия решений: ${r.current.decisionTime} дней → ${r.improved.decisionTime} дней`, 40, 270);
+                pdf.text(`Средний LTV: ${r.current.avgLtv} млн ₽ → ${r.improved.avgLtv} млн ₽ (+27%)`, 40, 290);
+                
+                // Экономический эффект
+                pdf.setFontSize(16);
+                pdf.setTextColor(139, 0, 0);
+                pdf.text('Экономический эффект', 40, 330);
+                
+                pdf.setFontSize(12);
+                pdf.setTextColor(0, 0, 0);
+                pdf.text(`Годовой экономический эффект: ${r.economic.totalEffect} млн ₽`, 40, 360);
+                pdf.text(`Инвестиции в внедрение: ${r.economic.implementationCost} млн ₽`, 40, 380);
+                pdf.text(`Срок окупаемости: ${r.economic.paybackMonths} месяцев`, 40, 400);
+                pdf.text(`Структура эффекта:`, 40, 430);
+                pdf.text(`• Рост доходов: ${r.economic.revenueIncrease} млн ₽`, 50, 450);
+                pdf.text(`• Снижение затрат на разработку: ${r.economic.costReduction} млн ₽`, 50, 470);
+                pdf.text(`• Сокращение простоев: ${r.economic.downtimeReduction} млн ₽`, 50, 490);
+                pdf.text(`• HR-оптимизация: ${r.economic.hrSavings} млн ₽`, 50, 510);
+                
+                // Рекомендации
+                pdf.setFontSize(16);
+                pdf.setTextColor(139, 0, 0);
+                pdf.text('Рекомендации системы', 40, 550);
+                
+                let yPos = 580;
+                recommendations.forEach((rec, index) => {
+                    if (yPos > 700) {
+                        pdf.addPage();
+                        yPos = 40;
+                    }
+                    
+                    pdf.setFontSize(12);
+                    pdf.setTextColor(139, 0, 0);
+                    pdf.text(`${index + 1}. ${rec.title} (${rec.priorityText})`, 40, yPos);
+                    yPos += 20;
+                    
+                    pdf.setFontSize(10);
+                    pdf.setTextColor(80, 80, 80);
+                    const splitDesc = pdf.splitTextToSize(rec.description, 500);
+                    pdf.text(splitDesc, 40, yPos);
+                    yPos += splitDesc.length * 15;
+                    
+                    pdf.setTextColor(0, 128, 0);
+                    pdf.text(`Эффект: ${rec.impact} | Инвестиции: ${rec.investment} | Окупаемость: ${rec.payback}`, 40, yPos);
+                    yPos += 25;
+                });
+                
+                // Сохраняем PDF
+                const fileName = `AI_Report_${currentCompany.name.replace(/[^a-zа-яё0-9]/gi, '_')}_${new Date().toISOString().split('T')[0]}.pdf`;
+                pdf.save(fileName);
+                
+                showLoading(false);
+                alert('PDF-отчет успешно сформирован');
+                
+            } catch (error) {
+                console.error('Ошибка при создании PDF:', error);
+                alert('Ошибка при создании PDF-отчета');
+                showLoading(false);
+            }
         }
 
+        // ========== ЭКСПОРТ В EXCEL С ПОЛНЫМИ ДАННЫМИ ==========
         function exportToExcel() {
-            if (!currentCompany) {
+            if (!currentCompany || !window.results) {
                 alert('Сначала загрузите данные компании');
                 return;
             }
-            alert('Excel-отчет сформирован');
+            
+            showLoading(true);
+            
+            try {
+                const r = window.results;
+                
+                // Создаем рабочую книгу Excel
+                const wb = XLSX.utils.book_new();
+                
+                // Лист 1: Общая информация
+                const infoData = [
+                    ['AI-система управления инвестициями', ''],
+                    ['Дата отчета', new Date().toLocaleDateString('ru-RU')],
+                    ['Компания', currentCompany.name],
+                    ['ИНН', currentCompany.inn],
+                    ['Отрасль', currentCompany.industry],
+                    ['', ''],
+                    ['КЛЮЧЕВЫЕ ПОКАЗАТЕЛИ', ''],
+                    ['Показатель', 'Текущее значение', 'Прогноз', 'Изменение'],
+                    ['Доходность инвестиций (ROI), %', r.current.roi, r.improved.roi, `+${(r.improved.roi - r.current.roi).toFixed(1)}%`],
+                    ['Отток клиентов, %', r.current.churn, r.improved.churn, `-${(r.current.churn - r.improved.churn).toFixed(1)}%`],
+                    ['Успешность R&D проектов, %', r.current.rdSuccess, r.improved.rdSuccess, `+${(r.improved.rdSuccess - r.current.rdSuccess).toFixed(1)}%`],
+                    ['Время принятия решений, дней', r.current.decisionTime, r.improved.decisionTime, `-${(r.current.decisionTime - r.improved.decisionTime)}`],
+                    ['Средний LTV, млн ₽', r.current.avgLtv, r.improved.avgLtv, '+27%']
+                ];
+                
+                const ws1 = XLSX.utils.aoa_to_sheet(infoData);
+                XLSX.utils.book_append_sheet(wb, ws1, 'Общая информация');
+                
+                // Лист 2: Экономический эффект
+                const ecoData = [
+                    ['ЭКОНОМИЧЕСКИЙ ЭФФЕКТ', ''],
+                    ['Показатель', 'Значение'],
+                    ['Годовой экономический эффект', `${r.economic.totalEffect} млн ₽`],
+                    ['Инвестиции в внедрение', `${r.economic.implementationCost} млн ₽`],
+                    ['Срок окупаемости', `${r.economic.paybackMonths} месяцев`],
+                    ['', ''],
+                    ['СТРУКТУРА ЭФФЕКТА', ''],
+                    ['Рост доходов', `${r.economic.revenueIncrease} млн ₽`],
+                    ['Снижение затрат на разработку', `${r.economic.costReduction} млн ₽`],
+                    ['Сокращение простоев', `${r.economic.downtimeReduction} млн ₽`],
+                    ['HR-оптимизация', `${r.economic.hrSavings} млн ₽`]
+                ];
+                
+                const ws2 = XLSX.utils.aoa_to_sheet(ecoData);
+                XLSX.utils.book_append_sheet(wb, ws2, 'Экономический эффект');
+                
+                // Лист 3: Рекомендации
+                const recData = [
+                    ['РЕКОМЕНДАЦИИ СИСТЕМЫ', '', '', ''],
+                    ['Приоритет', 'Рекомендация', 'Эффект', 'Инвестиции', 'Окупаемость', 'Описание']
+                ];
+                
+                recommendations.forEach(rec => {
+                    recData.push([
+                        rec.priority === 'high' ? 'Срочно' : 'Важно',
+                        rec.title,
+                        rec.impact,
+                        rec.investment,
+                        rec.payback,
+                        rec.description
+                    ]);
+                });
+                
+                const ws3 = XLSX.utils.aoa_to_sheet(recData);
+                XLSX.utils.book_append_sheet(wb, ws3, 'Рекомендации');
+                
+                // Лист 4: Детальные шаги по рекомендациям
+                const stepsData = [
+                    ['ДЕТАЛЬНЫЙ ПЛАН ВНЕДРЕНИЯ', '', ''],
+                    ['Рекомендация', 'Шаг', '']
+                ];
+                
+                recommendations.forEach(rec => {
+                    rec.steps.forEach((step, idx) => {
+                        stepsData.push([rec.title, `${idx + 1}. ${step}`, '']);
+                    });
+                    stepsData.push(['', '', '']);
+                });
+                
+                const ws4 = XLSX.utils.aoa_to_sheet(stepsData);
+                XLSX.utils.book_append_sheet(wb, ws4, 'План внедрения');
+                
+                // Сохраняем файл
+                const fileName = `AI_Report_${currentCompany.name.replace(/[^a-zа-яё0-9]/gi, '_')}_${new Date().toISOString().split('T')[0]}.xlsx`;
+                XLSX.writeFile(wb, fileName);
+                
+                showLoading(false);
+                alert('Excel-отчет успешно сформирован');
+                
+            } catch (error) {
+                console.error('Ошибка при создании Excel:', error);
+                alert('Ошибка при создании Excel-отчета');
+                showLoading(false);
+            }
         }
     </script>
 </body>
