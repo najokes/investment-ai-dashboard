@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI-система управления инвестициями</title>
+    <title>AI-система управления инвестициями | Полное соответствие докладу</title>
     <style>
         * {
             margin: 0;
@@ -340,6 +340,20 @@
             background: linear-gradient(to right, rgba(230, 126, 34, 0.02), white);
         }
         
+        .recommendation-card.low {
+            border-left-color: #f39c12;
+            background: linear-gradient(to right, rgba(243, 156, 18, 0.02), white);
+        }
+        
+        .anomaly-card {
+            background: #fff3cd;
+            border-left: 6px solid #ffc107;
+            border-radius: 12px;
+            padding: 18px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+        
         .recommendation-header {
             display: flex;
             justify-content: space-between;
@@ -366,6 +380,7 @@
         
         .priority-high { background: #c0392b; }
         .priority-medium { background: #e67e22; }
+        .priority-low { background: #f39c12; }
         
         .recommendation-metrics {
             display: flex;
@@ -431,6 +446,52 @@
             left: 0;
             color: #8B0000;
             font-weight: bold;
+        }
+        
+        .shap-analysis {
+            background: #e8f4f8;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+            border: 1px solid #b8e0f0;
+        }
+        
+        .shap-bar {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .shap-label {
+            width: 140px;
+            font-size: 0.85rem;
+            color: #555;
+        }
+        
+        .shap-positive {
+            height: 24px;
+            background: #008000;
+            border-radius: 4px;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 10px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .shap-negative {
+            height: 24px;
+            background: #8B0000;
+            border-radius: 4px;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            padding-left: 10px;
+            font-size: 0.8rem;
+            font-weight: 600;
         }
         
         .main-content {
@@ -868,6 +929,73 @@
             font-weight: 600;
             font-size: 0.9rem;
         }
+        
+        .anomaly-alert {
+            background: #ffebee;
+            border: 2px solid #c0392b;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .anomaly-icon {
+            font-size: 2.5rem;
+        }
+        
+        .anomaly-content {
+            flex: 1;
+        }
+        
+        .anomaly-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #c0392b;
+            margin-bottom: 5px;
+        }
+        
+        .anomaly-description {
+            color: #555;
+            font-size: 0.95rem;
+        }
+        
+        .anomaly-time {
+            font-size: 0.85rem;
+            color: #666;
+            margin-top: 5px;
+            font-style: italic;
+        }
+        
+        .epsilon-badge {
+            background: #ff9800;
+            color: white;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            display: inline-block;
+        }
+        
+        .composite-reward {
+            display: flex;
+            gap: 10px;
+            margin: 10px 0;
+        }
+        
+        .reward-segment {
+            height: 8px;
+            border-radius: 4px;
+        }
+        
+        .insight-bubble {
+            background: #e3f2fd;
+            border-radius: 18px;
+            padding: 12px 18px;
+            margin-bottom: 12px;
+            border-left: 4px solid #2196F3;
+        }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
@@ -883,11 +1011,11 @@
     <div class="container">
         <header>
             <div class="header-content">
-                <h1>AI-система управления инвестициями</h1>
-                <p class="subtitle">Прогнозирование LTV · Оптимизация R&D-портфеля · Предиктивное обслуживание</p>
+                <h1>Трехконтурная AI-система управления инвестициями</h1>
+                <p class="subtitle">LightGBM (R²=0.89) · Q-learning с композитным вознаграждением · Автокодировщик (динамический порог 99.5%)</p>
             </div>
             <div class="header-bg">
-                📊
+                🧠
             </div>
         </header>
         
@@ -925,7 +1053,7 @@
                 </div>
             </div>
             
-            <!-- СТРАТЕГИЧЕСКИЙ КОНТУР УПРАВЛЕНИЯ - РАСШИРЕННЫЙ -->
+            <!-- СТРАТЕГИЧЕСКИЙ КОНТУР УПРАВЛЕНИЯ -->
             <div class="panel-section" id="paramsPanel" style="display: none;">
                 <div class="contour-badge">
                     <span style="font-size: 1.2rem;">🎯</span> 
@@ -959,7 +1087,13 @@
                     <span class="tech-badge-simple">Kafka</span>
                     <span class="tech-badge-simple">Spark</span>
                     <span class="tech-badge-simple">MLflow</span>
+                    <span class="tech-badge-simple">Airflow</span>
+                    <span class="tech-badge-simple">Evidently AI</span>
+                    <span class="tech-badge-simple">DVC</span>
                 </div>
+                <p style="margin-top: 10px; font-size: 0.8rem; color: #666;">
+                    <strong>MLOps-пайплайн:</strong> Airflow → Evidently AI → MLflow → автоматическое переобучение при дрейфе данных
+                </p>
             </div>
         </div>
         
@@ -1003,12 +1137,60 @@
                         </div>
                     </div>
                     
+                    <!-- АНОМАЛИЯ: ПРОСТОИ ОБОРУДОВАНИЯ -->
+                    <div class="anomaly-alert" id="anomalyAlert">
+                        <div class="anomaly-icon">⚠️</div>
+                        <div class="anomaly-content">
+                            <div class="anomaly-title">Обнаружена аномалия в работе оборудования</div>
+                            <div class="anomaly-description" id="anomalyDescription">Нейросеть-автокодировщик зафиксировала отклонение параметров на сервере №3. Вероятность отказа в ближайшие 4.5 часа — 94%.</div>
+                            <div class="anomaly-time" id="anomalyTime">Прогнозное время отказа: 14:30 (через 3 часа 20 минут)</div>
+                        </div>
+                    </div>
+                    
                     <div class="simple-explanation" id="ltvSimpleExplanation">
-                        <strong>💰 Модель прогнозирования прибыльности клиентов (LTV):</strong> Предсказывает, сколько денег принесет каждый клиент за всё время работы. Точность прогноза — 89%. Помогает понять, кого нужно удерживать скидками.
+                        <strong>💰 Модель прогнозирования прибыльности клиентов (LTV):</strong> LightGBM + Optuna, R² = 0.89. Автоматический подбор гиперпараметров сократил время настройки с 3 недель до 8 часов.
                     </div>
                     
                     <div class="simple-explanation" id="qlearningSimpleExplanation">
-                        <strong>🎯 Система выбора проектов:</strong> Анализирует прошлые проекты и подсказывает, в какие разработки стоит вкладывать деньги. Учитывает прибыль, патенты и рост команды. Доля успешных проектов вырастает с 40% до 65%.
+                        <strong>🎯 Система выбора проектов (Q-learning):</strong> Композитное вознаграждение: 70% — финансовая отдача, 20% — патентный потенциал, 10% — рост компетенций. ε-жадность: 100% → 10%. Доля успешных проектов: 40% → 65%.
+                    </div>
+                    
+                    <!-- SHAP-анализ факторной модели -->
+                    <div class="shap-analysis">
+                        <h4 style="color: #8B0000; margin-bottom: 15px;">🔍 SHAP-анализ: факторы прогноза LTV</h4>
+                        <div class="shap-bar">
+                            <span class="shap-label">Частота покупок</span>
+                            <div style="flex: 1; display: flex;">
+                                <div class="shap-positive" style="width: 42%;">+42%</div>
+                            </div>
+                        </div>
+                        <div class="shap-bar">
+                            <span class="shap-label">Средний чек</span>
+                            <div style="flex: 1; display: flex;">
+                                <div class="shap-positive" style="width: 28%;">+28%</div>
+                            </div>
+                        </div>
+                        <div class="shap-bar">
+                            <span class="shap-label">Давность покупки</span>
+                            <div style="flex: 1; display: flex;">
+                                <div class="shap-negative" style="width: 15%;">-15%</div>
+                            </div>
+                        </div>
+                        <div class="shap-bar">
+                            <span class="shap-label">NPS</span>
+                            <div style="flex: 1; display: flex;">
+                                <div class="shap-positive" style="width: 22%;">+22%</div>
+                            </div>
+                        </div>
+                        <div class="shap-bar">
+                            <span class="shap-label">Канал привлечения</span>
+                            <div style="flex: 1; display: flex;">
+                                <div class="shap-positive" style="width: 14%;">+14%</div>
+                            </div>
+                        </div>
+                        <p style="margin-top: 15px; font-size: 0.85rem; color: #555;">
+                            <strong>Вывод:</strong> Ключевой фактор роста LTV — частота покупок. Клиенты с периодичностью заказов менее 45 дней приносят на 42% больше прибыли.
+                        </p>
                     </div>
                     
                     <div class="charts-row">
@@ -1077,6 +1259,10 @@
                                 <span class="comparison-label">Средний LTV</span>
                                 <span class="comparison-value" id="compCurrentLtv">2.4 млн ₽</span>
                             </div>
+                            <div class="comparison-item">
+                                <span class="comparison-label">Простои</span>
+                                <span class="comparison-value" id="compCurrentDowntime">48 ч/мес</span>
+                            </div>
                         </div>
                         
                         <div class="comparison-col">
@@ -1100,6 +1286,10 @@
                             <div class="comparison-item">
                                 <span class="comparison-label">Средний LTV</span>
                                 <span class="comparison-value" id="compForecastLtv">3.0 млн ₽</span>
+                            </div>
+                            <div class="comparison-item">
+                                <span class="comparison-label">Простои</span>
+                                <span class="comparison-value" id="compForecastDowntime">19 ч/мес</span>
                             </div>
                         </div>
                         
@@ -1125,11 +1315,15 @@
                                 <span class="comparison-label">LTV</span>
                                 <span class="comparison-improvement" id="compImprovementLtv">+27%</span>
                             </div>
+                            <div class="comparison-item">
+                                <span class="comparison-label">Простои</span>
+                                <span class="comparison-improvement" id="compImprovementDowntime">-60%</span>
+                            </div>
                         </div>
                     </div>
                     
                     <div class="simple-explanation" style="margin-top: 20px;">
-                        <strong>🎯 Что даст внедрение:</strong> Система позволит увеличить доходность инвестиций на 6%, снизить отток ключевых клиентов на 3%, повысить успешность R&D проектов на 25% и сократить время принятия решений в 2.8 раза.
+                        <strong>🎯 Что даст внедрение:</strong> Система позволит увеличить доходность инвестиций на 6%, снизить отток ключевых клиентов на 3%, повысить успешность R&D проектов на 25% и сократить время принятия решений в 2.8 раза. Предиктивное обслуживание снизит простои на 60%.
                     </div>
                     
                     <div class="charts-row">
@@ -1159,6 +1353,7 @@
                         <p><strong>Успешность R&D проектов:</strong> повысится с <span id="detailCurrentRd">40%</span> до <span id="detailForecastRd">65%</span> — дополнительно <span id="detailRdIncrease">25</span>% успешных проектов</p>
                         <p><strong>Время принятия решений:</strong> сократится с <span id="detailCurrentTime">28</span> до <span id="detailForecastTime">10</span> дней — экономия <span id="detailTimeDecrease">18</span> дней на каждом решении</p>
                         <p><strong>Средний LTV:</strong> увеличится с <span id="detailCurrentLtv">2.4</span> до <span id="detailForecastLtv">3.0</span> млн ₽ — рост на <span id="detailLtvIncrease">27</span>%</p>
+                        <p><strong>Простои инфраструктуры:</strong> снизятся с <span id="detailCurrentDowntime">48</span> до <span id="detailForecastDowntime">19</span> ч/мес — сокращение на 60%</p>
                     </div>
                 </div>
             </div>
@@ -1198,6 +1393,10 @@
                     </div>
                     
                     <div class="metric-analysis" id="economicAnalysis"></div>
+                    
+                    <div class="insight-bubble">
+                        <strong>💡 Эффективность инвестиций:</strong> Каждый вложенный рубль приносит 1.85 рубля чистой прибыли в течение первого года.
+                    </div>
                 </div>
             </div>
             
@@ -1217,7 +1416,7 @@
             </div>
         </div>
         
-        <!-- Правая панель - Использование ИИ -->
+        <!-- Правая панель - Индекс зрелости ИИ и быстрые инсайты -->
         <div class="right-panel">
             <div class="panel-section" id="aiMaturityPanel" style="display: none;">
                 <h2 class="section-title">🧠 ИНДЕКС ЗРЕЛОСТИ ИИ</h2>
@@ -1230,12 +1429,50 @@
                 </div>
                 <p style="font-size: 0.85rem; color: #666;">
                     Рост с «Начального» до «Высокого» за 12 месяцев.<br>
-                    Руководители самостоятельно анализируют SHAP-объяснения прогнозов.
+                    Руководители самостоятельно анализируют SHAP-объяснения прогнозов. Сформирована культура, основанная на данных.
                 </p>
             </div>
             
-            <div class="panel-section" id="emptyRightPanel" style="display: none; min-height: 200px;">
-                <!-- Пустой блок для симметрии -->
+            <div class="panel-section" id="mlopsPanel" style="display: none;">
+                <h2 class="section-title">⚙️ MLOps СТАТУС</h2>
+                <div style="display: flex; flex-direction: column; gap: 12px;">
+                    <div style="display: flex; justify-content: space-between;">
+                        <span style="color: #666;">Evidently AI (дрейф):</span>
+                        <span style="color: #28a745; font-weight: 600;">✓ Норма</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between;">
+                        <span style="color: #666;">Airflow (пайплайн):</span>
+                        <span style="color: #28a745; font-weight: 600;">✓ Активен</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between;">
+                        <span style="color: #666;">MLflow (версия):</span>
+                        <span style="color: #28a745; font-weight: 600;">v3.2.1</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between;">
+                        <span style="color: #666;">FastAPI SLA:</span>
+                        <span style="color: #28a745; font-weight: 600;">200ms / 99.9%</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between;">
+                        <span style="color: #666;">Последнее переобучение:</span>
+                        <span style="color: #666;">сегодня 04:00</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="panel-section" id="insightsPanel" style="display: none;">
+                <h2 class="section-title">🔍 КЛЮЧЕВЫЕ ИНСАЙТЫ</h2>
+                <div style="background: #e8f5e9; border-left: 4px solid #008000; padding: 12px; margin-bottom: 12px; border-radius: 6px;">
+                    <strong style="color: #008000; font-size: 0.85rem;">📈 Рост LTV</strong>
+                    <p style="font-size: 0.8rem; color: #555; margin-top: 5px;">Клиенты с частотой покупок >1 в месяц имеют LTV на 42% выше среднего.</p>
+                </div>
+                <div style="background: #fff3e0; border-left: 4px solid #ff9800; padding: 12px; margin-bottom: 12px; border-radius: 6px;">
+                    <strong style="color: #ff9800; font-size: 0.85rem;">⚠️ Риск оттока</strong>
+                    <p style="font-size: 0.8rem; color: #555; margin-top: 5px;">5 клиентов в зоне высокого риска. Общая годовая выручка под угрозой — 124 млн ₽.</p>
+                </div>
+                <div style="background: #ffebee; border-left: 4px solid #c0392b; padding: 12px; border-radius: 6px;">
+                    <strong style="color: #c0392b; font-size: 0.85rem;">🔧 Аномалия оборудования</strong>
+                    <p style="font-size: 0.8rem; color: #555; margin-top: 5px;">Сервер №3, датчик температуры. Превышение на 23% относительно нормы.</p>
+                </div>
             </div>
         </div>
         
@@ -1273,7 +1510,9 @@
                     customerSatisfaction: 82,
                     infrastructureDowntime: 48,
                     employeeTurnover: 15,
-                    innovationIndex: 68
+                    innovationIndex: 68,
+                    anomalyDetected: true,
+                    epsilon: 0.15
                 }
             }
         };
@@ -1302,7 +1541,8 @@
             document.getElementById('paramsPanel').style.display = 'none';
             document.getElementById('techStackPanel').style.display = 'none';
             document.getElementById('aiMaturityPanel').style.display = 'none';
-            document.getElementById('emptyRightPanel').style.display = 'none';
+            document.getElementById('mlopsPanel').style.display = 'none';
+            document.getElementById('insightsPanel').style.display = 'none';
             
             document.getElementById('analysisInfo').classList.add('hidden');
             document.getElementById('forecastInfo').classList.add('hidden');
@@ -1350,6 +1590,8 @@
             document.getElementById('paramsPanel').style.display = 'block';
             document.getElementById('techStackPanel').style.display = 'block';
             document.getElementById('aiMaturityPanel').style.display = 'block';
+            document.getElementById('mlopsPanel').style.display = 'block';
+            document.getElementById('insightsPanel').style.display = 'block';
             
             document.getElementById('exportPdfBtn').disabled = false;
             document.getElementById('exportExcelBtn').disabled = false;
@@ -1357,7 +1599,6 @@
             document.getElementById('footerExportExcelBtn').disabled = false;
             
             createParameterControls();
-            // Первичный расчет
             calculateMetrics();
             generateRecommendations();
             updateDisplay();
@@ -1365,6 +1606,7 @@
             initializeCharts();
             initializeForecastCharts();
             displayRecommendations();
+            updateAnomalyAlert();
             
             document.getElementById('emptyAnalysisState').classList.add('hidden');
             document.getElementById('analysisInfo').classList.remove('hidden');
@@ -1378,7 +1620,6 @@
             switchTab('analysis');
         }
 
-        // Параметры для редактирования - СТРАТЕГИЧЕСКИЙ КОНТУР
         function createParameterControls() {
             const container = document.getElementById('parameterControls');
             container.innerHTML = '';
@@ -1394,7 +1635,6 @@
             ];
             
             params.forEach(p => {
-                // Используем текущее значение из компании или дефолтное
                 const value = currentCompany.parameters[p.key] !== undefined ? currentCompany.parameters[p.key] : p.default;
                 
                 const control = document.createElement('div');
@@ -1433,7 +1673,6 @@
             document.getElementById(`${key}Slider`).value = numValue;
             document.getElementById(`${key}Input`).value = numValue;
             
-            // АВТОМАТИЧЕСКИЙ ПЕРЕСЧЕТ ПРИ ИЗМЕНЕНИИ ПАРАМЕТРОВ
             updateAnalysis();
         }
 
@@ -1441,7 +1680,6 @@
             showLoading(true);
             
             setTimeout(() => {
-                // Пересчитываем метрики с новыми параметрами
                 calculateMetrics();
                 generateRecommendations();
                 updateDisplay();
@@ -1449,6 +1687,7 @@
                 updateCharts();
                 updateForecastCharts();
                 displayRecommendations();
+                updateAnomalyAlert();
                 
                 showLoading(false);
             }, 600);
@@ -1471,32 +1710,27 @@
         function calculateMetrics() {
             const params = currentCompany.parameters;
             
-            // ROI зависит от бюджета R&D и выручки
             let baseRoi = 12 + (params.rdBudget / params.annualRevenue * 15);
-            // Отток зависит от удовлетворенности и количества проектов
             let baseChurn = 15 - (params.customerSatisfaction / 12) + (params.rdProjects / 30);
-            // Успешность R&D зависит от бюджета и количества проектов
             let baseRdSuccess = 35 + (params.rdBudget / params.annualRevenue * 20) - (params.rdProjects / 5);
-            // Время решений зависит от количества проектов и удовлетворенности
             let baseDecisionTime = 25 + (params.rdProjects / 2) - (params.customerSatisfaction / 10);
             
-            // Ограничиваем значения в реалистичных пределах
             const currentRoi = Math.min(Math.max(baseRoi, 8), 22).toFixed(1);
             const currentChurn = Math.min(Math.max(baseChurn, 6), 18).toFixed(1);
             const currentRdSuccess = Math.min(Math.max(baseRdSuccess, 30), 55).toFixed(1);
             const currentDecisionTime = Math.min(Math.max(baseDecisionTime, 20), 45).toFixed(0);
             
-            // Прогноз с улучшениями
             const improvedRoi = Math.min(parseFloat(currentRoi) * 1.4, 28).toFixed(1);
             const improvedChurn = Math.max(parseFloat(currentChurn) * 0.7, 5).toFixed(1);
             const improvedRdSuccess = Math.min(parseFloat(currentRdSuccess) * 1.6, 75).toFixed(1);
             const improvedDecisionTime = Math.max(parseFloat(currentDecisionTime) * 0.35, 8).toFixed(0);
             
-            // LTV
             const avgLtv = (params.annualRevenue * 0.4 * params.customerLifetime * (params.customerSatisfaction/100)) / (Math.max(params.keyClients, 1) * 10);
             const forecastLtv = avgLtv * 1.27;
             
-            // Экономический эффект (масштабируется под выручку)
+            const downtime = params.infrastructureDowntime;
+            const forecastDowntime = Math.max(downtime * 0.4, 10).toFixed(0);
+            
             const scale = params.annualRevenue / 2800;
             
             window.results = {
@@ -1510,14 +1744,16 @@
                     churn: currentChurn,
                     rdSuccess: currentRdSuccess,
                     decisionTime: currentDecisionTime,
-                    avgLtv: avgLtv.toFixed(1)
+                    avgLtv: avgLtv.toFixed(1),
+                    downtime: downtime.toFixed(0)
                 },
                 improved: {
                     roi: improvedRoi,
                     churn: improvedChurn,
                     rdSuccess: improvedRdSuccess,
                     decisionTime: improvedDecisionTime,
-                    avgLtv: forecastLtv.toFixed(1)
+                    avgLtv: forecastLtv.toFixed(1),
+                    downtime: forecastDowntime
                 },
                 economic: {
                     totalEffect: (26 * scale).toFixed(1),
@@ -1529,6 +1765,21 @@
                     hrSavings: (3.1 * scale).toFixed(1)
                 }
             };
+        }
+
+        function updateAnomalyAlert() {
+            const params = currentCompany.parameters;
+            const anomalyAlert = document.getElementById('anomalyAlert');
+            const anomalyDesc = document.getElementById('anomalyDescription');
+            const anomalyTime = document.getElementById('anomalyTime');
+            
+            if (params.infrastructureDowntime > 40) {
+                anomalyAlert.style.display = 'flex';
+                anomalyDesc.innerHTML = `Нейросеть-автокодировщик зафиксировала отклонение параметров на сервере №3. Вероятность отказа в ближайшие 4.5 часа — 94%. Текущий уровень простоев: ${params.infrastructureDowntime} ч/мес.`;
+                anomalyTime.innerHTML = `Прогнозное время отказа: 14:30 (через 3 часа 20 минут) · Динамический порог: 99.5%`;
+            } else {
+                anomalyAlert.style.display = 'none';
+            }
         }
 
         function generateRecommendations() {
@@ -1546,7 +1797,8 @@
                     impact: `+${(r.improved.roi - r.current.roi).toFixed(1)}% доходность`,
                     investment: `${(params.rdBudget * 0.15).toFixed(0)} млн ₽`,
                     payback: "4-6 мес",
-                    description: `Сейчас бюджет распределен неэффективно. Система проанализировала прошлые проекты и определила, какие направления приносят реальную прибыль.`,
+                    description: `Сейчас 60% бюджета направляется в проекты с низкой маржинальностью. Q-learning агент с композитным вознаграждением (70% финансы / 20% патенты / 10% компетенции) позволяет перераспределить инвестиции.`,
+                    insight: `Агент обучается с ε-жадностью: текущий ε = ${currentCompany.parameters.epsilon || 0.15} (снижение с 1.0)`,
                     steps: [
                         "Сократите финансирование 3 проектов с низкой маржинальностью",
                         "Увеличьте бюджет на 2 перспективных направления",
@@ -1561,7 +1813,8 @@
                     impact: `-${(r.current.churn - r.improved.churn).toFixed(1)}% отток`,
                     investment: `${(params.annualRevenue * 0.05).toFixed(0)} млн ₽`,
                     payback: "3-5 мес",
-                    description: `Каждый год компания теряет ${r.current.churn}% ключевых клиентов. Система определила, кто собирается уйти в ближайшие 3 месяца.`,
+                    description: `Каждый год компания теряет ${r.current.churn}% ключевых клиентов. LightGBM (R²=0.89) выявил 5 клиентов в зоне высокого риска.`,
+                    insight: `SHAP-анализ показывает: основной фактор оттока — время реакции на запросы (вклад -32%).`,
                     steps: [
                         "Свяжитесь с 5 клиентами в зоне высокого риска",
                         "Предоставьте индивидуальные скидки топ-10 клиентам",
@@ -1576,7 +1829,8 @@
                     impact: `+${(r.improved.rdSuccess - r.current.rdSuccess).toFixed(1)}% успешность`,
                     investment: `${(params.rdBudget * 0.12).toFixed(0)} млн ₽`,
                     payback: "7-9 мес",
-                    description: `Только ${r.current.rdSuccess}% новых продуктов доходят до рынка. Система нашла общие закономерности успешных проектов.`,
+                    description: `Только ${r.current.rdSuccess}% новых продуктов доходят до рынка. Q-learning с композитным вознаграждением учитывает не только прибыль, но и патентный потенциал и рост компетенций.`,
+                    insight: `Бизнес-фильтры отсекли проекты с отрицательной EBITDA и долей государства ниже 20% — пространство поиска сокращено на 40%.`,
                     steps: [
                         "Используйте чек-лист успешных проектов при запуске",
                         "Проводите быстрый анализ рынка до старта разработки",
@@ -1591,11 +1845,60 @@
                     impact: "-60% простоев",
                     investment: `${(params.infrastructureDowntime * 8).toFixed(0)} млн ₽`,
                     payback: "5-7 мес",
-                    description: `Оборудование простаивает ${params.infrastructureDowntime} часов в месяц. Система замечает аномалии за 4-5 часов до отказа.`,
+                    description: `Оборудование простаивает ${params.infrastructureDowntime} часов в месяц. Вариационный автокодировщик с динамическим порогом (99.5% процентиль) выявляет аномалии за 4.5 часа до отказа.`,
+                    insight: `Ложные тревоги снижены с 15% до 3%. Обнаружение отказов: за 4.5 часа.`,
                     steps: [
                         "Подключите мониторинг критических узлов",
                         "Настройте автоматические оповещения",
                         "Перейдите на предиктивное обслуживание"
+                    ]
+                },
+                {
+                    id: 5,
+                    title: "⚡ ОПТИМИЗИРУЙТЕ ВРЕМЯ ПРИНЯТИЯ РЕШЕНИЙ",
+                    priority: "medium",
+                    priorityText: "ВАЖНО",
+                    impact: `-${(r.current.decisionTime - r.improved.decisionTime)} дней`,
+                    investment: `${(params.annualRevenue * 0.03).toFixed(0)} млн ₽`,
+                    payback: "6-8 мес",
+                    description: `Время принятия решений (${r.current.decisionTime} дней) в 2.3 раза превышает показатель лидеров рынка. Микросервисная архитектура на FastAPI (SLA: 200ms, 99.9%) обеспечивает мгновенный доступ к прогнозам.`,
+                    insight: `Интеграция новых моделей сокращена с 2 месяцев до 2 дней благодаря REST API.`,
+                    steps: [
+                        "Внедрите единое окно согласования с AI-ассистентом",
+                        "Автоматизируйте сбор данных для решений",
+                        "Настройте дашборды с SHAP-объяснениями"
+                    ]
+                },
+                {
+                    id: 6,
+                    title: "📈 ПОВЫСЬТЕ LTV КЛИЕНТОВ",
+                    priority: "medium",
+                    priorityText: "ВАЖНО",
+                    impact: `+27% LTV`,
+                    investment: `${(params.annualRevenue * 0.04).toFixed(0)} млн ₽`,
+                    payback: "8-10 мес",
+                    description: `Текущий LTV (${r.current.avgLtv} млн ₽) ниже потенциала. LightGBM с SHAP-объяснениями позволяет персонализировать предложения.`,
+                    insight: `Клиенты с частотой покупок >1 в месяц имеют LTV на 42% выше среднего. Сегмент из 12 клиентов с низкой частотой — точка роста.`,
+                    steps: [
+                        "Внедрите систему прогнозирования LTV для каждого клиента",
+                        "Разработайте персонализированные сценарии коммуникации",
+                        "Запустите программу лояльности"
+                    ]
+                },
+                {
+                    id: 7,
+                    title: "🧠 ПОВЫСЬТЕ ИНДЕКС ЗРЕЛОСТИ ИИ",
+                    priority: "low",
+                    priorityText: "СТРАТЕГИЧЕСКИ",
+                    impact: "Начальный → Высокий",
+                    investment: "4 млн ₽",
+                    payback: "12 мес",
+                    description: `Текущий индекс зрелости ИИ управленческой команды — «Высокий» (рост с «Начального» за 12 месяцев). Рекомендуется тиражирование практик на партнерские компании.`,
+                    insight: `Руководители самостоятельно анализируют SHAP-объяснения. Культура, основанная на данных, сформирована.`,
+                    steps: [
+                        "Проведите тренинг по Data-Driven культуре",
+                        "Внедрите KPI по использованию ИИ для руководителей",
+                        "Создайте центр компетенций по ИИ"
                     ]
                 }
             ];
@@ -1611,6 +1914,14 @@
             recommendations.forEach(rec => {
                 const recElement = document.createElement('div');
                 recElement.className = `recommendation-card ${rec.priority}`;
+                
+                let insightHtml = '';
+                if (rec.insight) {
+                    insightHtml = `<div style="background: #e8f5e9; padding: 12px; border-radius: 8px; margin: 15px 0; border-left: 4px solid #008000;">
+                        <strong style="color: #008000;">🔍 ИНСАЙТ:</strong> ${rec.insight}
+                    </div>`;
+                }
+                
                 recElement.innerHTML = `
                     <div class="recommendation-header">
                         <div class="recommendation-title">${rec.title}</div>
@@ -1622,6 +1933,7 @@
                         <span class="metric-tag"><span>⏱️ Окупаемость</span><strong>${rec.payback}</strong></span>
                     </div>
                     <div class="recommendation-description">${rec.description}</div>
+                    ${insightHtml}
                     <div class="implementation-steps">
                         <h5>📋 ЧТО ДЕЛАТЬ:</h5>
                         <ul>${rec.steps.map(step => `<li>${step}</li>`).join('')}</ul>
@@ -1636,24 +1948,22 @@
             
             const r = window.results;
             
-            // Обновляем крупные KPI на вкладке "Текущие показатели"
             document.getElementById('kpiRoiCurrent').textContent = `${r.current.roi}%`;
             document.getElementById('kpiChurnCurrent').textContent = `${r.current.churn}%`;
             document.getElementById('kpiRdCurrent').textContent = `${r.current.rdSuccess}%`;
             document.getElementById('kpiTimeCurrent').textContent = `${r.current.decisionTime}`;
             
-            // Обновляем экономические показатели
             document.getElementById('ecoEffect').textContent = `${r.economic.totalEffect} млн ₽`;
             document.getElementById('ecoInvestment').textContent = `${r.economic.implementationCost} млн ₽`;
             document.getElementById('ecoPayback').textContent = `${r.economic.paybackMonths} мес`;
             
-            // Обновляем анализ экономического эффекта
             document.getElementById('economicAnalysis').innerHTML = `
                 <h4>💰 ИСТОЧНИКИ ЭКОНОМИИ</h4>
                 <p>📈 Рост доходов: ${r.economic.revenueIncrease} млн ₽</p>
-                <p>📉 Снижение затрат: ${r.economic.costReduction} млн ₽</p>
-                <p>⚡ Меньше простоев: ${r.economic.downtimeReduction} млн ₽</p>
-                <p>👥 Оптимизация: ${r.economic.hrSavings} млн ₽</p>
+                <p>📉 Снижение затрат на R&D: ${r.economic.costReduction} млн ₽</p>
+                <p>⚡ Сокращение простоев: ${r.economic.downtimeReduction} млн ₽</p>
+                <p>👥 HR-оптимизация: ${r.economic.hrSavings} млн ₽</p>
+                <p style="margin-top: 10px; font-style: italic; color: #666;">ROI инвестиций: ${((parseFloat(r.economic.totalEffect) / parseFloat(r.economic.implementationCost)) * 100).toFixed(0)}%</p>
             `;
         }
         
@@ -1662,26 +1972,27 @@
             
             const r = window.results;
             
-            // Сравнительная таблица на вкладке "Прогноз показателей"
             document.getElementById('compCurrentRoi').textContent = `${r.current.roi}%`;
             document.getElementById('compCurrentChurn').textContent = `${r.current.churn}%`;
             document.getElementById('compCurrentRd').textContent = `${r.current.rdSuccess}%`;
             document.getElementById('compCurrentTime').textContent = `${r.current.decisionTime} дней`;
             document.getElementById('compCurrentLtv').textContent = `${r.current.avgLtv} млн ₽`;
+            document.getElementById('compCurrentDowntime').textContent = `${r.current.downtime} ч/мес`;
             
             document.getElementById('compForecastRoi').textContent = `${r.improved.roi}%`;
             document.getElementById('compForecastChurn').textContent = `${r.improved.churn}%`;
             document.getElementById('compForecastRd').textContent = `${r.improved.rdSuccess}%`;
             document.getElementById('compForecastTime').textContent = `${r.improved.decisionTime} дней`;
             document.getElementById('compForecastLtv').textContent = `${r.improved.avgLtv} млн ₽`;
+            document.getElementById('compForecastDowntime').textContent = `${r.improved.downtime} ч/мес`;
             
             document.getElementById('compImprovementRoi').textContent = `+${(r.improved.roi - r.current.roi).toFixed(1)}%`;
             document.getElementById('compImprovementChurn').textContent = `-${(r.current.churn - r.improved.churn).toFixed(1)}%`;
             document.getElementById('compImprovementRd').textContent = `+${(r.improved.rdSuccess - r.current.rdSuccess).toFixed(1)}%`;
             document.getElementById('compImprovementTime').textContent = `-${(r.current.decisionTime - r.improved.decisionTime)} дней`;
             document.getElementById('compImprovementLtv').textContent = `+27%`;
+            document.getElementById('compImprovementDowntime').textContent = `-60%`;
             
-            // Детальный анализ прогноза
             document.getElementById('detailCurrentRoi').textContent = `${r.current.roi}%`;
             document.getElementById('detailForecastRoi').textContent = `${r.improved.roi}%`;
             document.getElementById('detailRoiIncrease').textContent = (r.improved.roi - r.current.roi).toFixed(1);
@@ -1701,6 +2012,9 @@
             document.getElementById('detailCurrentLtv').textContent = r.current.avgLtv;
             document.getElementById('detailForecastLtv').textContent = r.improved.avgLtv;
             document.getElementById('detailLtvIncrease').textContent = '27';
+            
+            document.getElementById('detailCurrentDowntime').textContent = r.current.downtime;
+            document.getElementById('detailForecastDowntime').textContent = r.improved.downtime;
         }
 
         function initializeCharts() {
@@ -1713,7 +2027,6 @@
             
             const r = window.results;
             
-            // График 1: Текущие показатели
             const ctx1 = document.getElementById('currentMetricsChart')?.getContext('2d');
             if (ctx1) {
                 charts.ctx1 = new Chart(ctx1, {
@@ -1734,7 +2047,6 @@
                 });
             }
             
-            // График 2: Время решений
             const ctx2 = document.getElementById('decisionTimeChart')?.getContext('2d');
             if (ctx2) {
                 charts.ctx2 = new Chart(ctx2, {
@@ -1755,7 +2067,6 @@
                 });
             }
             
-            // График 3: LTV
             const ctx3 = document.getElementById('ltvChart')?.getContext('2d');
             if (ctx3) {
                 const baseLtv = parseFloat(r.current.avgLtv);
@@ -1782,13 +2093,12 @@
                 });
             }
             
-            // График 6: Экономика
             const ctx6 = document.getElementById('economicChart')?.getContext('2d');
             if (ctx6) {
                 charts.ctx6 = new Chart(ctx6, {
                     type: 'doughnut',
                     data: {
-                        labels: ['Рост доходов', 'Снижение затрат', 'Снижение простоев', 'HR'],
+                        labels: ['Рост доходов', 'Снижение затрат R&D', 'Снижение простоев', 'HR'],
                         datasets: [{
                             data: [
                                 parseFloat(r.economic.revenueIncrease),
@@ -1809,7 +2119,6 @@
             
             const r = window.results;
             
-            // График 4: Сравнение показателей
             const ctx4 = document.getElementById('forecastComparisonChart')?.getContext('2d');
             if (ctx4) {
                 charts.forecastComparison = new Chart(ctx4, {
@@ -1829,7 +2138,6 @@
                 });
             }
             
-            // График 5: Сравнение времени
             const ctx5 = document.getElementById('forecastTimeChart')?.getContext('2d');
             if (ctx5) {
                 charts.forecastTime = new Chart(ctx5, {
@@ -1880,7 +2188,7 @@
                 
                 pdf.setFontSize(20);
                 pdf.setTextColor(139, 0, 0);
-                pdf.text('AI-система управления инвестициями', 40, 40);
+                pdf.text('Трехконтурная AI-система управления инвестициями', 40, 40);
                 
                 pdf.setFontSize(14);
                 pdf.setTextColor(0, 0, 0);
@@ -1900,28 +2208,29 @@
                 pdf.text(`Успешность R&D проектов: ${r.current.rdSuccess}% → ${r.improved.rdSuccess}% (+${(r.improved.rdSuccess - r.current.rdSuccess).toFixed(1)}%)`, 40, 250);
                 pdf.text(`Время принятия решений: ${r.current.decisionTime} дней → ${r.improved.decisionTime} дней`, 40, 270);
                 pdf.text(`Средний LTV: ${r.current.avgLtv} млн ₽ → ${r.improved.avgLtv} млн ₽ (+27%)`, 40, 290);
+                pdf.text(`Простои инфраструктуры: ${r.current.downtime} ч/мес → ${r.improved.downtime} ч/мес (-60%)`, 40, 310);
                 
                 pdf.setFontSize(16);
                 pdf.setTextColor(139, 0, 0);
-                pdf.text('Экономический эффект', 40, 330);
+                pdf.text('Экономический эффект', 40, 350);
                 
                 pdf.setFontSize(12);
                 pdf.setTextColor(0, 0, 0);
-                pdf.text(`Годовой экономический эффект: ${r.economic.totalEffect} млн ₽`, 40, 360);
-                pdf.text(`Инвестиции в внедрение: ${r.economic.implementationCost} млн ₽`, 40, 380);
-                pdf.text(`Срок окупаемости: ${r.economic.paybackMonths} месяцев`, 40, 400);
-                pdf.text(`Структура эффекта:`, 40, 430);
-                pdf.text(`• Рост доходов: ${r.economic.revenueIncrease} млн ₽`, 50, 450);
-                pdf.text(`• Снижение затрат на разработку: ${r.economic.costReduction} млн ₽`, 50, 470);
-                pdf.text(`• Сокращение простоев: ${r.economic.downtimeReduction} млн ₽`, 50, 490);
-                pdf.text(`• HR-оптимизация: ${r.economic.hrSavings} млн ₽`, 50, 510);
+                pdf.text(`Годовой экономический эффект: ${r.economic.totalEffect} млн ₽`, 40, 380);
+                pdf.text(`Инвестиции в внедрение: ${r.economic.implementationCost} млн ₽`, 40, 400);
+                pdf.text(`Срок окупаемости: ${r.economic.paybackMonths} месяцев`, 40, 420);
+                pdf.text(`Структура эффекта:`, 40, 450);
+                pdf.text(`• Рост доходов: ${r.economic.revenueIncrease} млн ₽`, 50, 470);
+                pdf.text(`• Снижение затрат на разработку: ${r.economic.costReduction} млн ₽`, 50, 490);
+                pdf.text(`• Сокращение простоев: ${r.economic.downtimeReduction} млн ₽`, 50, 510);
+                pdf.text(`• HR-оптимизация: ${r.economic.hrSavings} млн ₽`, 50, 530);
                 
                 pdf.setFontSize(16);
                 pdf.setTextColor(139, 0, 0);
-                pdf.text('Рекомендации системы', 40, 550);
+                pdf.text('Рекомендации системы', 40, 570);
                 
-                let yPos = 580;
-                recommendations.forEach((rec, index) => {
+                let yPos = 600;
+                recommendations.slice(0, 4).forEach((rec, index) => {
                     if (yPos > 700) {
                         pdf.addPage();
                         yPos = 40;
@@ -1969,7 +2278,7 @@
                 const wb = XLSX.utils.book_new();
                 
                 const infoData = [
-                    ['AI-система управления инвестициями', ''],
+                    ['Трехконтурная AI-система управления инвестициями', ''],
                     ['Дата отчета', new Date().toLocaleDateString('ru-RU')],
                     ['Компания', currentCompany.name],
                     ['ИНН', currentCompany.inn],
@@ -1981,7 +2290,8 @@
                     ['Отток клиентов, %', r.current.churn, r.improved.churn, `-${(r.current.churn - r.improved.churn).toFixed(1)}%`],
                     ['Успешность R&D проектов, %', r.current.rdSuccess, r.improved.rdSuccess, `+${(r.improved.rdSuccess - r.current.rdSuccess).toFixed(1)}%`],
                     ['Время принятия решений, дней', r.current.decisionTime, r.improved.decisionTime, `-${(r.current.decisionTime - r.improved.decisionTime)}`],
-                    ['Средний LTV, млн ₽', r.current.avgLtv, r.improved.avgLtv, '+27%']
+                    ['Средний LTV, млн ₽', r.current.avgLtv, r.improved.avgLtv, '+27%'],
+                    ['Простои инфраструктуры, ч/мес', r.current.downtime, r.improved.downtime, '-60%']
                 ];
                 
                 const ws1 = XLSX.utils.aoa_to_sheet(infoData);
@@ -2005,17 +2315,18 @@
                 XLSX.utils.book_append_sheet(wb, ws2, 'Экономический эффект');
                 
                 const recData = [
-                    ['РЕКОМЕНДАЦИИ СИСТЕМЫ', '', '', ''],
-                    ['Приоритет', 'Рекомендация', 'Эффект', 'Инвестиции', 'Окупаемость', 'Описание']
+                    ['РЕКОМЕНДАЦИИ СИСТЕМЫ', '', '', '', ''],
+                    ['Приоритет', 'Рекомендация', 'Эффект', 'Инвестиции', 'Окупаемость', 'Инсайт', 'Описание']
                 ];
                 
                 recommendations.forEach(rec => {
                     recData.push([
-                        rec.priority === 'high' ? 'Срочно' : 'Важно',
+                        rec.priority === 'high' ? 'Срочно' : rec.priority === 'medium' ? 'Важно' : 'Стратегически',
                         rec.title,
                         rec.impact,
                         rec.investment,
                         rec.payback,
+                        rec.insight || '-',
                         rec.description
                     ]);
                 });
