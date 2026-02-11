@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Трехконтурная AI-система управления инвестициями</title>
+    <title>AI-система управления инвестициями | ООО «Мобайл Парк ИТ»</title>
     <style>
         * {
             margin: 0;
@@ -227,19 +227,6 @@
             background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
         }
         
-        .ai-recommendation-badge {
-            background: linear-gradient(135deg, #8B0000 0%, #600000 100%);
-            color: white;
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            margin-left: 10px;
-        }
-        
         .recommendation-card {
             background: white;
             border-radius: 12px;
@@ -262,11 +249,6 @@
         .recommendation-card.medium {
             border-left-color: #e67e22;
             background: linear-gradient(to right, rgba(230, 126, 34, 0.02), white);
-        }
-        
-        .recommendation-card.low {
-            border-left-color: #f39c12;
-            background: linear-gradient(to right, rgba(243, 156, 18, 0.02), white);
         }
         
         .recommendation-header {
@@ -295,7 +277,6 @@
         
         .priority-high { background: #c0392b; }
         .priority-medium { background: #e67e22; }
-        .priority-low { background: #f39c12; }
         
         .recommendation-metrics {
             display: flex;
@@ -361,41 +342,6 @@
             left: 0;
             color: #8B0000;
             font-weight: bold;
-        }
-        
-        .roi-calculator {
-            background: linear-gradient(135deg, #f6f9fc, #ffffff);
-            border: 1px dashed #8B0000;
-            border-radius: 8px;
-            padding: 15px;
-            margin-top: 15px;
-        }
-        
-        .roi-calculator h5 {
-            color: #8B0000;
-            margin-bottom: 10px;
-        }
-        
-        .roi-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 15px;
-            margin-top: 10px;
-        }
-        
-        .roi-item {
-            text-align: center;
-        }
-        
-        .roi-value {
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: #27ae60;
-        }
-        
-        .roi-label {
-            font-size: 0.8rem;
-            color: #666;
         }
         
         .parameter-control {
@@ -471,16 +417,6 @@
             align-items: center;
             justify-content: center;
             gap: 8px;
-        }
-        
-        .update-btn:hover:not(:disabled) {
-            background: linear-gradient(135deg, #008000 0%, #006400 100%);
-            transform: translateY(-2px);
-        }
-        
-        .update-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
         }
         
         .main-content {
@@ -559,32 +495,6 @@
             flex: 1;
         }
         
-        .chart-description {
-            background: #f8f9fa;
-            border-left: 4px solid #8B0000;
-            padding: 15px;
-            margin-top: 15px;
-            border-radius: 0 8px 8px 0;
-            font-size: 0.9rem;
-            line-height: 1.5;
-            color: #555;
-        }
-        
-        .metric-analysis {
-            background: #f0f8ff;
-            border: 1px solid #e0f0ff;
-            border-radius: 8px;
-            padding: 15px;
-            margin-top: 15px;
-            font-size: 0.9rem;
-        }
-        
-        .metric-analysis h4 {
-            color: #8B0000;
-            margin-bottom: 10px;
-            font-size: 1rem;
-        }
-        
         canvas {
             max-height: 300px;
         }
@@ -612,9 +522,10 @@
         }
         
         .indicator-value {
-            font-size: 1.8rem;
+            font-size: 2.2rem;
             font-weight: 700;
             margin: 8px 0;
+            color: #8B0000;
         }
         
         .indicator-label {
@@ -623,11 +534,12 @@
         }
         
         .indicator-change {
-            font-size: 0.75rem;
-            padding: 3px 8px;
+            font-size: 0.8rem;
+            padding: 4px 10px;
             border-radius: 12px;
-            margin-top: 6px;
+            margin-top: 8px;
             display: inline-block;
+            font-weight: 600;
         }
         
         .positive {
@@ -651,79 +563,6 @@
             .charts-row {
                 grid-template-columns: 1fr;
             }
-        }
-        
-        .three-contour-model {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-            margin-top: 20px;
-        }
-        
-        @media (max-width: 1200px) {
-            .three-contour-model {
-                grid-template-columns: 1fr;
-            }
-        }
-        
-        .contour-card {
-            background: white;
-            border-radius: 12px;
-            padding: 20px;
-            border: 2px solid;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
-        }
-        
-        .contour-1 {
-            border-color: #8B0000;
-        }
-        
-        .contour-2 {
-            border-color: #A52A2A;
-        }
-        
-        .contour-3 {
-            border-color: #B22222;
-        }
-        
-        .contour-header {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 15px;
-        }
-        
-        .contour-icon {
-            width: 40px;
-            height: 40px;
-            background: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            font-weight: bold;
-            border: 2px solid;
-        }
-        
-        .contour-1 .contour-icon {
-            background: #8B0000;
-            color: white;
-            border-color: #8B0000;
-        }
-        
-        .contour-2 .contour-icon {
-            background: #A52A2A;
-            color: white;
-            border-color: #A52A2A;
-        }
-        
-        .contour-3 .contour-icon {
-            background: #B22222;
-            color: white;
-            border-color: #B22222;
         }
         
         .loading {
@@ -782,30 +621,23 @@
         }
         
         .mt-20 { margin-top: 20px; }
-        .mt-30 { margin-top: 30px; }
+        
         .text-success { color: #008000; }
         .text-danger { color: #8B0000; }
-        .text-warning { color: #ff9800; }
         
-        .info-box {
-            background: #f0f7ff;
-            border-left: 4px solid #2196F3;
-            padding: 12px;
-            margin: 10px 0;
-            border-radius: 0 4px 4px 0;
-            font-size: 0.85rem;
+        .metric-analysis {
+            background: #f0f8ff;
+            border: 1px solid #e0f0ff;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+            font-size: 0.9rem;
         }
         
-        .metrics-note {
-            font-size: 0.8rem;
-            color: #666;
-            margin-top: 5px;
-            font-style: italic;
-        }
-        
-        .separator {
-            margin: 20px 0;
-            border-top: 1px dashed #ccc;
+        .metric-analysis h4 {
+            color: #8B0000;
+            margin-bottom: 10px;
+            font-size: 1rem;
         }
         
         .export-footer {
@@ -856,7 +688,6 @@
         .footer-btn:disabled {
             opacity: 0.5;
             cursor: not-allowed;
-            transform: none;
         }
         
         .footer-info {
@@ -883,29 +714,24 @@
             gap: 10px;
         }
         
-        .ai-analysis-summary p {
-            opacity: 0.95;
-            line-height: 1.6;
-        }
-        
         .model-description {
             background: #f0f7f0;
             border-left: 4px solid #008000;
             padding: 15px;
             margin: 15px 0;
             border-radius: 0 8px 8px 0;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             line-height: 1.5;
             color: #555;
         }
-
+        
         .kpi-highlight {
             font-size: 2.2rem;
             font-weight: 700;
             color: #8B0000;
             line-height: 1;
         }
-
+        
         .prediction-card {
             background: linear-gradient(145deg, #ffffff, #f5f5f5);
             border-radius: 16px;
@@ -914,41 +740,16 @@
             border: 1px solid rgba(139, 0, 0, 0.2);
         }
         
-        .mlops-status {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 0.85rem;
-            padding: 8px 12px;
-            background: #f0f7ff;
-            border-radius: 8px;
-            margin-top: 10px;
-        }
-        
-        .status-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: #28a745;
+        .tech-badge-simple {
             display: inline-block;
-        }
-        
-        .shap-diagram {
-            background: linear-gradient(90deg, #8B0000 0%, #8B0000 42%, #e0e0e0 42%, #e0e0e0 58%, #008000 58%, #008000 100%);
-            height: 30px;
-            border-radius: 6px;
-            margin: 15px 0;
-            position: relative;
-        }
-        
-        .shap-legend {
-            display: flex;
-            justify-content: space-between;
+            background: #e9ecef;
+            border-radius: 16px;
+            padding: 4px 12px;
+            margin: 2px;
             font-size: 0.8rem;
-            color: #666;
-            margin-top: 5px;
+            color: #495057;
         }
-
+        
         .simple-explanation {
             background: #fef9e7;
             border-left: 4px solid #ffc107;
@@ -962,21 +763,51 @@
         .simple-explanation strong {
             color: #8B0000;
         }
-
-        .tech-badge-simple {
-            display: inline-block;
-            background: #e9ecef;
-            border-radius: 16px;
-            padding: 4px 12px;
-            margin: 2px;
-            font-size: 0.8rem;
-            color: #495057;
+        
+        .big-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #8B0000;
+        }
+        
+        .kpi-row {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .kpi-box {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            flex: 1;
+            min-width: 150px;
+            border: 1px solid #e0e0e0;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+        }
+        
+        .kpi-big {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #8B0000;
+            margin: 10px 0;
+        }
+        
+        .kpi-label {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .kpi-change {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-top: 8px;
         }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </head>
 <body>
     <div class="loading" id="loading">
@@ -987,15 +818,15 @@
     <div class="container">
         <header>
             <div class="header-content">
-                <h1>Трехконтурная AI-система управления инвестициями</h1>
-                <p class="subtitle">Помогаем компаниям эффективнее вкладывать деньги в разработку новых продуктов</p>
+                <h1>AI-система управления инвестициями</h1>
+                <p class="subtitle">Прогнозирование LTV · Оптимизация R&D-портфеля · Предиктивное обслуживание</p>
             </div>
             <div class="header-bg">
-                💡
+                📊
             </div>
         </header>
         
-        <!-- Левая панель - Поиск компании по ИНН -->
+        <!-- Левая панель - Поиск компании -->
         <div class="left-panel">
             <div class="panel-section">
                 <h2 class="section-title">🔍 Поиск компании</h2>
@@ -1015,7 +846,7 @@
                                placeholder="Введите ИНН компании"
                                value="5047154189">
                         <button class="search-btn" onclick="searchByINN()">
-                            🔍 Найти и загрузить показатели
+                            🔍 Найти и загрузить
                         </button>
                     </div>
                     
@@ -1031,76 +862,94 @@
             </div>
             
             <div class="panel-section" id="currentIndicatorsPanel" style="display: none;">
-                <h2 class="section-title">📊 Текущие показатели компании</h2>
+                <h2 class="section-title">📊 Текущие показатели</h2>
                 <div class="indicators-grid" id="currentIndicators"></div>
             </div>
 
             <div class="panel-section" id="techStackPanel" style="display: none;">
-                <h2 class="section-title">🛠️ Как это работает</h2>
-                <div style="margin-bottom: 15px;">
-                    <span class="tech-badge-simple">🤖 Прогноз прибыльности клиентов</span>
-                    <span class="tech-badge-simple">🎯 Выбор удачных проектов</span>
-                    <span class="tech-badge-simple">⚡ Предсказание поломок</span>
-                    <span class="tech-badge-simple">📊 Понятные отчёты</span>
+                <h2 class="section-title">🛠️ Модули системы</h2>
+                <div style="margin-bottom: 10px;">
+                    <span class="tech-badge-simple">💰 Прогноз прибыльности клиентов</span>
+                    <span class="tech-badge-simple">🎯 Выбор проектов для инвестиций</span>
+                    <span class="tech-badge-simple">🔧 Предсказание поломок</span>
                 </div>
-                <div class="mlops-status">
-                    <span class="status-dot"></span>
-                    <span><strong>Система обучается сама:</strong> обновляет прогнозы каждые сутки</span>
-                </div>
+            </div>
+            
+            <div class="panel-section" id="forecastPanel" style="display: none;">
+                <h2 class="section-title">📈 Прогноз после внедрения</h2>
+                <div class="indicators-grid" id="forecastIndicators"></div>
             </div>
         </div>
         
-        <!-- Центральная панель - Основной контент -->
+        <!-- Центральная панель - Основные метрики и графики -->
         <div class="main-content">
             <div class="content-tabs">
-                <div class="tab" onclick="switchTab('analysis')">📈 Анализ эффективности</div>
-                <div class="tab" onclick="switchTab('contours')">🏛️ Трехконтурная архитектура</div>
-                <div class="tab" onclick="switchTab('results')">📊 Прогноз результатов</div>
+                <div class="tab active" onclick="switchTab('analysis')">📈 Показатели</div>
+                <div class="tab" onclick="switchTab('results')">📊 Экономический эффект</div>
                 <div class="tab" onclick="switchTab('recommendations')">🎯 Рекомендации</div>
             </div>
             
-            <!-- Вкладка: Анализ эффективности -->
-            <div class="tab-content" id="analysisTab">
+            <!-- Вкладка: Показатели -->
+            <div class="tab-content active" id="analysisTab">
                 <div class="empty-state" id="emptyAnalysisState">
                     <div class="empty-icon">🔍</div>
                     <h2 class="empty-title">Анализ эффективности инвестиций</h2>
                     <p class="empty-description">
                         Введите ИНН компании в левой панели для загрузки данных
                     </p>
+                    <div style="margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px;">
+                        <strong>Пример:</strong> 5047154189 — ООО «Мобайл Парк ИТ»
+                    </div>
                 </div>
                 
                 <div id="analysisInfo" class="hidden">
-                    <div class="ai-analysis-summary" id="aiSummary"></div>
-                    
-                    <h2 class="section-title" id="analysisTitle"></h2>
-                    
-                    <!-- Простые объяснения моделей -->
-                    <div class="simple-explanation" id="ltvSimpleExplanation" style="display: none;">
-                        <strong>🎯 Модель прогнозирования LTV</strong> — предсказывает, сколько денег принесет каждый клиент за всё время работы с компанией. 
-                        Это помогает понять, кого нужно удерживать скидками, а кто и так будет покупать. Точность прогноза — 89%.
+                    <!-- КЛЮЧЕВЫЕ ПОКАЗАТЕЛИ КРУПНО -->
+                    <div class="kpi-row">
+                        <div class="kpi-box">
+                            <div class="kpi-label">Доходность инвестиций (ROI)</div>
+                            <div class="kpi-big" id="kpiRoiCurrent">15%</div>
+                            <div class="kpi-change" id="kpiRoiTarget">→ 21%</div>
+                        </div>
+                        <div class="kpi-box">
+                            <div class="kpi-label">Отток клиентов</div>
+                            <div class="kpi-big" id="kpiChurnCurrent">10%</div>
+                            <div class="kpi-change" id="kpiChurnTarget">→ 7%</div>
+                        </div>
+                        <div class="kpi-box">
+                            <div class="kpi-label">Успешность R&D проектов</div>
+                            <div class="kpi-big" id="kpiRdCurrent">40%</div>
+                            <div class="kpi-change" id="kpiRdTarget">→ 65%</div>
+                        </div>
+                        <div class="kpi-box">
+                            <div class="kpi-label">Время решений</div>
+                            <div class="kpi-big" id="kpiTimeCurrent">28</div>
+                            <div class="kpi-change" id="kpiTimeTarget">→ 10 дней</div>
+                        </div>
                     </div>
                     
-                    <div class="simple-explanation" id="qlearningSimpleExplanation" style="display: none;">
-                        <strong>🔄 Система выбора проектов</strong> — учится на опыте предыдущих лет и подсказывает, 
-                        в какие разработки стоит вкладывать деньги, а какие — отложить. Учитывает не только прибыль, 
-                        но и патенты, и рост команды. Благодаря ей доля успешных проектов выросла с 40% до 65%.
+                    <div class="simple-explanation" id="ltvSimpleExplanation">
+                        <strong>💰 Модель прогнозирования прибыльности клиентов (LTV):</strong> Предсказывает, сколько денег принесет каждый клиент за всё время работы. Точность прогноза — 89%. Помогает понять, кого нужно удерживать скидками.
+                    </div>
+                    
+                    <div class="simple-explanation" id="qlearningSimpleExplanation">
+                        <strong>🎯 Система выбора проектов:</strong> Анализирует прошлые проекты и подсказывает, в какие разработки стоит вкладывать деньги. Учитывает прибыль, патенты и рост команды. Доля успешных проектов вырастает с 40% до 65%.
                     </div>
                     
                     <div class="charts-row">
                         <div class="chart-container">
                             <div class="chart-header">
-                                <h3 class="chart-title">📈 Текущие показатели, %</h3>
+                                <h3 class="chart-title">📊 Текущие показатели, %</h3>
                             </div>
-                            <div style="position: relative; height: 300px;">
+                            <div style="position: relative; height: 250px;">
                                 <canvas id="currentMetricsChart"></canvas>
                             </div>
                         </div>
                         
                         <div class="chart-container">
                             <div class="chart-header">
-                                <h3 class="chart-title">⏱️ Время принятия решений</h3>
+                                <h3 class="chart-title">⏱️ Время принятия решений (дни)</h3>
                             </div>
-                            <div style="position: relative; height: 300px;">
+                            <div style="position: relative; height: 250px;">
                                 <canvas id="decisionTimeChart"></canvas>
                             </div>
                         </div>
@@ -1108,119 +957,46 @@
                     
                     <div class="chart-container">
                         <div class="chart-header">
-                            <h3 class="chart-title">💰 Прогноз прибыльности клиентов (LTV)</h3>
+                            <h3 class="chart-title">💰 Прогноз прибыльности клиентов (LTV), млн ₽</h3>
                         </div>
-                        <div style="position: relative; height: 300px;">
+                        <div style="position: relative; height: 250px;">
                             <canvas id="ltvChart"></canvas>
                         </div>
-                        <div class="model-description" id="ltvDescription"></div>
-                    </div>
-                    
-                    <div class="chart-container">
-                        <div class="chart-header">
-                            <h3 class="chart-title">🎯 Как система выбирает проекты (Q-learning)</h3>
-                        </div>
-                        <div style="position: relative; height: 300px;">
-                            <canvas id="qlearningChart"></canvas>
-                        </div>
-                        <div class="model-description" id="qlearningDescription"></div>
                     </div>
                 </div>
             </div>
             
-            <!-- Вкладка: Трехконтурная архитектура -->
-            <div class="tab-content" id="contoursTab">
-                <h2 class="section-title">🏛️ Как устроена система: три уровня</h2>
-                <p style="margin-bottom: 15px; color: #555;">Искусственный интеллект не заменяет людей, а помогает им принимать более взвешенные решения</p>
-                
-                <div class="three-contour-model">
-                    <div class="contour-card contour-1">
-                        <div class="contour-header">
-                            <div class="contour-icon">🎯</div>
-                            <div>
-                                <div class="contour-title">Уровень 1: Стратегия</div>
-                                <div class="contour-subtitle">Человек ставит цели</div>
-                            </div>
-                        </div>
-                        <div class="contour-content">
-                            <strong>Руководитель</strong> определяет, в каком направлении развиваться. 
-                            <strong>ИИ</strong> просчитывает сценарии: "Что будет, если вложиться в это направление?"
-                        </div>
-                    </div>
-                    
-                    <div class="contour-card contour-2">
-                        <div class="contour-header">
-                            <div class="contour-icon">⚡</div>
-                            <div>
-                                <div class="contour-title">Уровень 2: Тактика</div>
-                                <div class="contour-subtitle">Человек + ИИ</div>
-                            </div>
-                        </div>
-                        <div class="contour-content">
-                            <strong>ИИ</strong> анализирует данные и предлагает варианты: "Этим клиентам пора дать скидку, этот проект рискованный". 
-                            <strong>Человек</strong> принимает окончательное решение.
-                        </div>
-                    </div>
-                    
-                    <div class="contour-card contour-3">
-                        <div class="contour-header">
-                            <div class="contour-icon">🤖</div>
-                            <div>
-                                <div class="contour-title">Уровень 3: Автоматика</div>
-                                <div class="contour-subtitle">ИИ работает сам</div>
-                            </div>
-                        </div>
-                        <div class="contour-content">
-                            <strong>ИИ</strong> самостоятельно следит за серверами, предсказывает поломки и обновляет свои прогнозы. Люди не отвлекаются на рутину.
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="simple-explanation" style="margin-top: 20px;">
-                    <strong>💡 Почему это важно:</strong> Руководитель всегда контролирует ситуацию, ИИ берет на себя 
-                    рутинный анализ и предсказания. Вместе они работают быстрее и точнее, чем по отдельности.
-                </div>
-            </div>
-            
-            <!-- Вкладка: Прогноз результатов -->
+            <!-- Вкладка: Экономический эффект -->
             <div class="tab-content" id="resultsTab">
-                <h2 class="section-title">📊 Что изменится после внедрения</h2>
-                
                 <div class="empty-state" id="emptyResultsState">
                     <div class="empty-icon">📈</div>
-                    <h2 class="empty-title">Прогноз эффективности</h2>
-                    <p class="empty-description">
-                        Загрузите данные компании для расчета
-                    </p>
+                    <h2 class="empty-title">Экономический эффект</h2>
+                    <p class="empty-description">Загрузите данные компании для расчета</p>
                 </div>
                 
                 <div id="resultsInfo" class="hidden">
-                    <div class="prediction-card">
-                        <div>
-                            <h3 style="color: #8B0000; margin-bottom: 15px;">💰 Прогнозируемый экономический эффект</h3>
-                            <div style="display: flex; gap: 40px; flex-wrap: wrap;">
-                                <div>
-                                    <span style="font-size: 0.9rem; color: #666;">Экономия в год</span>
-                                    <div class="kpi-highlight" style="color: #27ae60;" id="predictedEffect">26 млн ₽</div>
-                                </div>
-                                <div>
-                                    <span style="font-size: 0.9rem; color: #666;">Стоимость внедрения</span>
-                                    <div class="kpi-highlight" style="color: #ff9800;" id="predictedInvestment">14 млн ₽</div>
-                                </div>
-                                <div>
-                                    <span style="font-size: 0.9rem; color: #666;">Окупится через</span>
-                                    <div class="kpi-highlight" style="color: #27ae60;" id="predictedPayback">6,5 мес</div>
-                                </div>
-                            </div>
+                    <!-- КРУПНЫЕ ЦИФРЫ ЭКОНОМИКИ -->
+                    <div class="kpi-row">
+                        <div class="kpi-box">
+                            <div class="kpi-label">Годовой эффект</div>
+                            <div class="kpi-big" style="color: #27ae60;" id="ecoEffect">26 млн ₽</div>
+                        </div>
+                        <div class="kpi-box">
+                            <div class="kpi-label">Инвестиции</div>
+                            <div class="kpi-big" style="color: #ff9800;" id="ecoInvestment">14 млн ₽</div>
+                        </div>
+                        <div class="kpi-box">
+                            <div class="kpi-label">Окупаемость</div>
+                            <div class="kpi-big" style="color: #27ae60;" id="ecoPayback">6,5 мес</div>
                         </div>
                     </div>
                     
                     <div class="charts-row">
                         <div class="chart-container">
                             <div class="chart-header">
-                                <h3 class="chart-title">📊 Сравнение показателей</h3>
+                                <h3 class="chart-title">📊 Сравнение: сейчас → прогноз</h3>
                             </div>
-                            <div style="position: relative; height: 300px;">
+                            <div style="position: relative; height: 250px;">
                                 <canvas id="comparisonPercentageChart"></canvas>
                             </div>
                         </div>
@@ -1229,59 +1005,33 @@
                             <div class="chart-header">
                                 <h3 class="chart-title">⏱️ Скорость решений</h3>
                             </div>
-                            <div style="position: relative; height: 300px;">
+                            <div style="position: relative; height: 250px;">
                                 <canvas id="comparisonTimeChart"></canvas>
                             </div>
                         </div>
                     </div>
                     
-                    <div class="metric-analysis" id="comparisonAnalysis"></div>
-                    
-                    <div class="indicators-grid">
-                        <div class="indicator-card">
-                            <div class="indicator-value text-success" id="resultRoi">21%</div>
-                            <div class="indicator-label">Доходность инвестиций</div>
-                            <div class="indicator-change positive" id="roiChange">+6%</div>
-                        </div>
-                        <div class="indicator-card">
-                            <div class="indicator-value text-success" id="resultChurn">7%</div>
-                            <div class="indicator-label">Отток клиентов</div>
-                            <div class="indicator-change positive" id="churnChange">-3%</div>
-                        </div>
-                        <div class="indicator-card">
-                            <div class="indicator-value text-success" id="resultRdSuccess">65%</div>
-                            <div class="indicator-label">Успешность проектов</div>
-                            <div class="indicator-change positive" id="rdChange">+25%</div>
-                        </div>
-                        <div class="indicator-card">
-                            <div class="indicator-value text-success" id="resultDecisionTime">10</div>
-                            <div class="indicator-label">Дней на решение</div>
-                            <div class="indicator-change positive" id="decisionChange">-18 дней</div>
-                        </div>
-                    </div>
-                    
                     <div class="chart-container">
                         <div class="chart-header">
-                            <h3 class="chart-title">💰 За счет чего экономия</h3>
+                            <h3 class="chart-title">💰 Структура экономического эффекта</h3>
                         </div>
-                        <div style="position: relative; height: 300px;">
+                        <div style="position: relative; height: 250px;">
                             <canvas id="economicChart"></canvas>
                         </div>
-                        <div class="metric-analysis" id="economicAnalysis"></div>
                     </div>
+                    
+                    <div class="metric-analysis" id="economicAnalysis"></div>
                 </div>
             </div>
             
             <!-- Вкладка: Рекомендации -->
             <div class="tab-content" id="recommendationsTab">
-                <h2 class="section-title">🎯 Что советует система</h2>
+                <h2 class="section-title">🎯 Рекомендации системы</h2>
                 
                 <div class="empty-state" id="emptyRecommendationsState">
                     <div class="empty-icon">🎯</div>
                     <h2 class="empty-title">Рекомендации</h2>
-                    <p class="empty-description">
-                        Загрузите данные компании для получения персональных советов
-                    </p>
+                    <p class="empty-description">Загрузите данные компании для получения персональных советов</p>
                 </div>
                 
                 <div id="recommendationsInfo" class="hidden">
@@ -1290,30 +1040,25 @@
             </div>
         </div>
         
-        <!-- Правая панель - Прогнозы и рекомендации -->
+        <!-- Правая панель - Быстрые рекомендации -->
         <div class="right-panel">
-            <div class="panel-section" id="forecastPanel" style="display: none;">
-                <h2 class="section-title">📈 Прогноз после внедрения</h2>
-                <div class="indicators-grid" id="forecastIndicators"></div>
+            <div class="panel-section" id="quickRecsPanel" style="display: none;">
+                <h2 class="section-title">⚡ Краткие рекомендации</h2>
+                <div id="quickRecommendationsList" style="max-height: 500px; overflow-y: auto;"></div>
             </div>
             
             <div class="panel-section" id="aiMaturityPanel" style="display: none;">
-                <h2 class="section-title">🧠 Как команда использует ИИ</h2>
+                <h2 class="section-title">🧠 Использование ИИ</h2>
                 <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-                    <span style="color: #666;">Уровень культуры данных:</span>
-                    <strong style="color: #28a745;" id="maturityLevel">Высокий</strong>
+                    <span style="color: #666;">Уровень команды:</span>
+                    <strong style="color: #28a745;">Высокий</strong>
                 </div>
-                <div style="background: #e0e0e0; height: 10px; border-radius: 5px; margin-bottom: 15px;">
-                    <div style="width: 85%; background: #28a745; height: 10px; border-radius: 5px;" id="maturityProgress"></div>
+                <div style="background: #e0e0e0; height: 8px; border-radius: 5px; margin-bottom: 15px;">
+                    <div style="width: 85%; background: #28a745; height: 8px; border-radius: 5px;"></div>
                 </div>
-                <p style="font-size: 0.85rem; color: #666;" id="maturityDescription">
-                    Руководители сами смотрят аналитику и доверяют прогнозам. Решения принимаются на основе данных, а не интуиции.
+                <p style="font-size: 0.85rem; color: #666;">
+                    Руководители анализируют прогнозы и принимают решения на основе данных
                 </p>
-            </div>
-            
-            <div class="panel-section" id="quickRecsPanel" style="display: none;">
-                <h2 class="section-title">⚡ Краткие рекомендации</h2>
-                <div id="quickRecommendationsList" style="max-height: 400px; overflow-y: auto;"></div>
             </div>
         </div>
         
@@ -1324,48 +1069,40 @@
             </div>
             <div class="export-footer-buttons">
                 <button class="footer-btn pdf" onclick="exportToPDF()" id="footerExportPdfBtn" disabled>
-                    📄 Скачать PDF отчет
+                    📄 Скачать PDF
                 </button>
                 <button class="footer-btn excel" onclick="exportToExcel()" id="footerExportExcelBtn" disabled>
-                    📊 Скачать Excel отчет
+                    📊 Скачать Excel
                 </button>
             </div>
         </div>
     </div>
     
     <script>
-        // ========== БАЗА ДАННЫХ КОМПАНИЙ ==========
+        // База данных компаний
         const companyDatabase = {
             "5047154189": {
                 name: "ООО «Мобайл Парк ИТ»",
                 inn: "5047154189",
-                description: "Разработка IoT-решений и телематических систем",
+                description: "Разработка IoT-решений",
                 industry: "Информационные технологии",
-                founded: 2015,
-                employees: 250,
                 logo: "МП",
                 parameters: {
                     annualRevenue: 2800,
                     rdBudget: 784,
                     keyClients: 45,
                     rdProjects: 15,
-                    employees: 250,
                     customerLifetime: 3.2,
-                    avgProjectBudget: 32,
-                    infrastructureDowntime: 48,
                     customerSatisfaction: 82,
-                    employeeTurnover: 15,
-                    innovationIndex: 68
+                    infrastructureDowntime: 48
                 }
             }
         };
 
-        // Глобальные переменные
         let currentCompany = null;
         let charts = {};
-        let aiRecommendations = [];
+        let recommendations = [];
 
-        // Инициализация
         document.addEventListener('DOMContentLoaded', function() {
             hideAllDataBlocks();
             document.getElementById('emptyAnalysisState').classList.remove('hidden');
@@ -1381,15 +1118,12 @@
             document.getElementById('currentIndicatorsPanel').style.display = 'none';
             document.getElementById('techStackPanel').style.display = 'none';
             document.getElementById('forecastPanel').style.display = 'none';
-            document.getElementById('aiMaturityPanel').style.display = 'none';
             document.getElementById('quickRecsPanel').style.display = 'none';
+            document.getElementById('aiMaturityPanel').style.display = 'none';
             
             document.getElementById('analysisInfo').classList.add('hidden');
             document.getElementById('resultsInfo').classList.add('hidden');
             document.getElementById('recommendationsInfo').classList.add('hidden');
-            
-            document.getElementById('ltvSimpleExplanation').style.display = 'none';
-            document.getElementById('qlearningSimpleExplanation').style.display = 'none';
             
             document.getElementById('exportPdfBtn').disabled = true;
             document.getElementById('exportExcelBtn').disabled = true;
@@ -1399,7 +1133,6 @@
 
         function searchByINN() {
             const inn = document.getElementById('innInput').value.trim();
-            
             if (!inn) {
                 alert('Введите ИНН компании');
                 return;
@@ -1415,29 +1148,23 @@
                         name: `ООО «Компания ${inn.slice(-4)}»`,
                         inn: inn,
                         description: "Технологическая компания",
-                        industry: "Информационные технологии",
-                        founded: 2018,
-                        employees: Math.floor(Math.random() * 500) + 100,
+                        industry: "IT",
                         logo: inn.slice(0, 1),
                         parameters: {
-                            annualRevenue: Math.floor(Math.random() * 5000) + 1000,
-                            rdBudget: Math.floor(Math.random() * 1500) + 200,
-                            keyClients: Math.floor(Math.random() * 100) + 20,
-                            rdProjects: Math.floor(Math.random() * 30) + 5,
-                            employees: Math.floor(Math.random() * 500) + 100,
-                            customerLifetime: (Math.random() * 5 + 2).toFixed(1),
-                            avgProjectBudget: Math.floor(Math.random() * 80) + 15,
-                            infrastructureDowntime: Math.floor(Math.random() * 100) + 20,
-                            customerSatisfaction: Math.floor(Math.random() * 20) + 70,
-                            employeeTurnover: Math.floor(Math.random() * 15) + 8,
-                            innovationIndex: Math.floor(Math.random() * 30) + 50
+                            annualRevenue: 2800,
+                            rdBudget: 784,
+                            keyClients: 45,
+                            rdProjects: 15,
+                            customerLifetime: 3.2,
+                            customerSatisfaction: 82,
+                            infrastructureDowntime: 48
                         }
                     };
                 }
                 
                 loadCompanyData();
                 showLoading(false);
-            }, 1000);
+            }, 800);
         }
 
         function loadCompanyData() {
@@ -1446,16 +1173,13 @@
             document.getElementById('companyLogo').textContent = currentCompany.logo || currentCompany.name.charAt(0);
             document.getElementById('companyName').textContent = currentCompany.name;
             document.getElementById('companyDetails').innerHTML = `${currentCompany.industry} · ИНН: ${currentCompany.inn}`;
-            document.getElementById('exportCompanyInfo').innerHTML = `📊 Анализ компании: <strong>${currentCompany.name}</strong>`;
+            document.getElementById('exportCompanyInfo').innerHTML = `📊 ${currentCompany.name}`;
             
             document.getElementById('currentIndicatorsPanel').style.display = 'block';
             document.getElementById('techStackPanel').style.display = 'block';
             document.getElementById('forecastPanel').style.display = 'block';
-            document.getElementById('aiMaturityPanel').style.display = 'block';
             document.getElementById('quickRecsPanel').style.display = 'block';
-            
-            document.getElementById('ltvSimpleExplanation').style.display = 'block';
-            document.getElementById('qlearningSimpleExplanation').style.display = 'block';
+            document.getElementById('aiMaturityPanel').style.display = 'block';
             
             document.getElementById('exportPdfBtn').disabled = false;
             document.getElementById('exportExcelBtn').disabled = false;
@@ -1466,9 +1190,7 @@
             generateRecommendations();
             updateDisplay();
             initializeCharts();
-            updateAnalysisTexts();
             displayRecommendations();
-            updateModelDescriptions();
             
             document.getElementById('emptyAnalysisState').classList.add('hidden');
             document.getElementById('analysisInfo').classList.remove('hidden');
@@ -1481,168 +1203,97 @@
         }
 
         function calculateMetrics() {
-            if (!currentCompany) return;
-            
             const params = currentCompany.parameters;
-            
-            const baseRoi = 15.0;
-            const baseChurn = 10.0;
-            const baseRdSuccess = 40.0;
-            const baseDecisionTime = 28.0;
-            
-            const improvedRoi = 21.0;
-            const improvedChurn = 7.0;
-            const improvedRdSuccess = 65.0;
-            const improvedDecisionTime = 10.0;
-            
             const avgLtv = (params.annualRevenue * 0.4 * params.customerLifetime * (params.customerSatisfaction/100)) / (Math.max(params.keyClients, 1) * 10);
-            const forecastLtv = avgLtv * 1.27;
             
-            const scale = params.annualRevenue / 2800;
-            
-            window.calculatedResults = {
+            window.results = {
                 current: {
-                    roi: baseRoi.toFixed(1),
-                    churn: baseChurn.toFixed(1),
-                    rdSuccess: baseRdSuccess.toFixed(1),
-                    decisionTime: baseDecisionTime.toFixed(0),
+                    roi: 15.0,
+                    churn: 10.0,
+                    rdSuccess: 40.0,
+                    decisionTime: 28.0,
                     avgLtv: avgLtv.toFixed(1)
                 },
                 improved: {
-                    roi: improvedRoi.toFixed(1),
-                    churn: improvedChurn.toFixed(1),
-                    rdSuccess: improvedRdSuccess.toFixed(1),
-                    decisionTime: improvedDecisionTime.toFixed(0),
-                    avgLtv: forecastLtv.toFixed(1)
+                    roi: 21.0,
+                    churn: 7.0,
+                    rdSuccess: 65.0,
+                    decisionTime: 10.0,
+                    avgLtv: (avgLtv * 1.27).toFixed(1)
                 },
                 economic: {
-                    totalEffect: (26 * scale).toFixed(1),
-                    implementationCost: (14 * scale).toFixed(1),
-                    paybackMonths: (6.5).toFixed(1),
-                    revenueIncrease: (11.7 * scale).toFixed(1),
-                    costReduction: (6.5 * scale).toFixed(1),
-                    downtimeReduction: (4.7 * scale).toFixed(1),
-                    hrSavings: (3.1 * scale).toFixed(1)
-                },
-                ltvData: {
-                    improvement: 27.0
+                    totalEffect: 26.0,
+                    implementationCost: 14.0,
+                    paybackMonths: 6.5,
+                    revenueIncrease: 11.7,
+                    costReduction: 6.5,
+                    downtimeReduction: 4.7,
+                    hrSavings: 3.1
                 }
             };
         }
 
-        // ========== ПРОСТЫЕ И ПОНЯТНЫЕ РЕКОМЕНДАЦИИ ==========
         function generateRecommendations() {
-            if (!currentCompany || !window.calculatedResults) return;
-            
-            const results = window.calculatedResults;
-            const params = currentCompany.parameters;
-            const current = results.current;
-            const improved = results.improved;
-            const eco = results.economic;
-            
-            aiRecommendations = [
+            recommendations = [
                 {
                     id: 1,
-                    title: "📌 Какие проекты финансировать в первую очередь",
+                    title: "📌 Перераспределите бюджет на проекты",
                     priority: "high",
-                    priorityText: "Срочная рекомендация",
-                    impact: `+${(improved.roi - current.roi).toFixed(1)}% доходность`,
-                    investment: `${(params.rdBudget * 0.15).toFixed(0)} млн ₽`,
+                    priorityText: "Срочно",
+                    impact: "+6% доходность",
+                    investment: "117 млн ₽",
                     payback: "4-6 мес",
-                    description: `Сейчас 60% бюджета уходит в проекты, которые приносят мало денег. Система проанализировала прошлые проекты и научилась отличать перспективные разработки от провальных.`,
+                    description: "Сейчас 60% бюджета уходит в проекты с низкой отдачей. Система проанализировала прошлые проекты и определила, какие направления приносят реальную прибыль.",
                     steps: [
-                        "Пересмотреть распределение бюджета между текущими проектами",
-                        "Запустить пилот на 3-х новых проектах с использованием рекомендаций",
-                        "Сравнить результаты через полгода",
-                        "Обучить команду работе с системой"
-                    ],
-                    metrics: {
-                        expectedGrowth: `+${(improved.roi - current.roi).toFixed(1)}%`,
-                        riskReduction: "-35%",
-                        efficiencyGain: "+42%"
-                    }
+                        "Сократите финансирование 3 проектов с низкой маржинальностью",
+                        "Увеличьте бюджет на 2 перспективных направления",
+                        "Запустите пилот по новым проектам с использованием рекомендаций"
+                    ]
                 },
                 {
                     id: 2,
-                    title: "🤝 Каких клиентов нужно удерживать",
+                    title: "🤝 Удержите ключевых клиентов",
                     priority: "high",
-                    priorityText: "Срочная рекомендация",
-                    impact: `-${(current.churn - improved.churn).toFixed(1)}% отток`,
-                    investment: `${(params.annualRevenue * 0.05).toFixed(0)} млн ₽`,
+                    priorityText: "Срочно",
+                    impact: "-3% отток",
+                    investment: "140 млн ₽",
                     payback: "3-5 мес",
-                    description: `Каждый год компания теряет ${current.churn}% ключевых клиентов. Система определяет, кто собирается уйти, и подсказывает, кому дать скидку, а с кем просто поговорить.`,
+                    description: "Каждый год компания теряет 10% ключевых клиентов. Система определила, кто собирается уйти в ближайшие 3 месяца.",
                     steps: [
-                        "Внедрить скоринг клиентов — кто в зоне риска",
-                        "Разделить клиентов на группы по их ценности",
-                        "Настроить автоматические письма и предложения",
-                        "Запустить программу лояльности"
-                    ],
-                    metrics: {
-                        churnReduction: `-${(current.churn - improved.churn).toFixed(1)}%`,
-                        retentionIncrease: "+28%",
-                        npsGrowth: "+15"
-                    }
+                        "Свяжитесь с 5 клиентами в зоне высокого риска",
+                        "Предоставьте индивидуальные скидки топ-10 клиентам",
+                        "Внедрите еженедельный скоринг оттока"
+                    ]
                 },
                 {
                     id: 3,
-                    title: "🧪 Как повысить успешность новых разработок",
+                    title: "🧪 Повысьте успешность новых проектов",
                     priority: "medium",
-                    priorityText: "Важная рекомендация",
-                    impact: `+${(improved.rdSuccess - current.rdSuccess).toFixed(1)}% успешных проектов`,
-                    investment: `${(params.rdBudget * 0.12).toFixed(0)} млн ₽`,
+                    priorityText: "Важно",
+                    impact: "+25% успешность",
+                    investment: "94 млн ₽",
                     payback: "7-9 мес",
-                    description: `Только ${current.rdSuccess}% новых продуктов доходят до рынка и начинают приносить прибыль. Система анализирует, какие проекты в прошлом стали успешными, и находит общие закономерности.`,
+                    description: "Только 40% новых продуктов доходят до рынка. Система нашла общие закономерности успешных проектов.",
                     steps: [
-                        "Собрать данные по всем проектам за последние 3 года",
-                        "Научить систему отличать успешные проекты от провальных",
-                        "Использовать рекомендации при запуске новых идей",
-                        "Раз в месяц сверять прогнозы с реальностью"
-                    ],
-                    metrics: {
-                        successRate: `+${(improved.rdSuccess - current.rdSuccess).toFixed(1)}%`,
-                        timeToMarket: "-25%",
-                        costReduction: "-18%"
-                    }
+                        "Используйте чек-лист успешных проектов при запуске",
+                        "Проводите быстрый анализ рынка до старта разработки",
+                        "Остановите 2 проекта с низким потенциалом"
+                    ]
                 },
                 {
                     id: 4,
-                    title: "🔧 Как избежать поломок оборудования",
+                    title: "🔧 Предотвратите поломки оборудования",
                     priority: "high",
-                    priorityText: "Срочная рекомендация",
-                    impact: `-60% простоев`,
-                    investment: `${(params.infrastructureDowntime * 8).toFixed(0)} млн ₽`,
+                    priorityText: "Срочно",
+                    impact: "-60% простоев",
+                    investment: "384 млн ₽",
                     payback: "5-7 мес",
-                    description: `Сервера и оборудование простаивают ${params.infrastructureDowntime} часов в месяц. Система замечает странности в работе за 4-5 часов до поломки и успевает предупредить.`,
+                    description: "Оборудование простаивает 48 часов в месяц. Система замечает аномалии за 4-5 часов до отказа.",
                     steps: [
-                        "Подключить сбор данных со всего оборудования",
-                        "Настроить автоматические оповещения",
-                        "Перестать чинить «по факту» — начать чинить «до того, как сломалось»"
-                    ],
-                    metrics: {
-                        downtimeReduction: "-60%",
-                        costSavings: `${(params.infrastructureDowntime * 0.6).toFixed(0)} млн ₽/мес`,
-                        reliabilityIncrease: "+45%"
-                    }
-                },
-                {
-                    id: 5,
-                    title: "⚡ Как ускорить принятие решений",
-                    priority: "medium",
-                    priorityText: "Важная рекомендация",
-                    impact: `-${(current.decisionTime - improved.decisionTime)} дней`,
-                    investment: `${(params.annualRevenue * 0.03).toFixed(0)} млн ₽`,
-                    payback: "6-8 мес",
-                    description: `Сейчас решение по новому проекту занимает ${current.decisionTime} дней. За это время конкуренты успевают запустить свой продукт. Система готовит аналитику мгновенно.`,
-                    steps: [
-                        "Автоматически собирать все данные в одном месте",
-                        "Сделать единый дашборд для руководителей",
-                        "Убрать ручные согласования там, где это возможно"
-                    ],
-                    metrics: {
-                        timeReduction: `-${(current.decisionTime - improved.decisionTime)} дней`,
-                        productivityGain: "+32%",
-                        errorReduction: "-45%"
-                    }
+                        "Подключите мониторинг критических узлов",
+                        "Настройте автоматические оповещения",
+                        "Перейдите на предиктивное обслуживание"
+                    ]
                 }
             ];
         }
@@ -1651,19 +1302,17 @@
             const container = document.getElementById('aiRecommendationsContainer');
             const quickContainer = document.getElementById('quickRecommendationsList');
             
-            if (!container || !quickContainer || !aiRecommendations.length) return;
+            if (!container || !quickContainer) return;
             
             container.innerHTML = '';
             quickContainer.innerHTML = '';
             
-            aiRecommendations.forEach(rec => {
+            recommendations.forEach(rec => {
                 const recElement = document.createElement('div');
                 recElement.className = `recommendation-card ${rec.priority}`;
                 recElement.innerHTML = `
                     <div class="recommendation-header">
-                        <div class="recommendation-title">
-                            ${rec.title}
-                        </div>
+                        <div class="recommendation-title">${rec.title}</div>
                         <span class="recommendation-priority priority-${rec.priority}">${rec.priorityText}</span>
                     </div>
                     <div class="recommendation-metrics">
@@ -1675,17 +1324,6 @@
                     <div class="implementation-steps">
                         <h5>📋 Что делать:</h5>
                         <ul>${rec.steps.map(step => `<li>${step}</li>`).join('')}</ul>
-                    </div>
-                    <div class="roi-calculator">
-                        <h5>📈 Что получим:</h5>
-                        <div class="roi-grid">
-                            ${Object.entries(rec.metrics).map(([key, value]) => `
-                                <div class="roi-item">
-                                    <div class="roi-value">${value}</div>
-                                    <div class="roi-label">${getMetricLabel(key)}</div>
-                                </div>
-                            `).join('')}
-                        </div>
                     </div>
                 `;
                 container.appendChild(recElement);
@@ -1711,180 +1349,88 @@
                 `;
                 quickContainer.appendChild(quickElement);
             });
-            
-            const aiSummary = document.getElementById('aiSummary');
-            if (aiSummary && window.calculatedResults) {
-                const results = window.calculatedResults;
-                const current = results.current;
-                const highPriorityCount = aiRecommendations.filter(r => r.priority === 'high').length;
-                
-                aiSummary.innerHTML = `
-                    <h3>📊 Анализ компании ${currentCompany.name}</h3>
-                    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-top: 20px;">
-                        <div style="background: rgba(255,255,255,0.1); padding: 12px; border-radius: 8px;">
-                            <div style="font-size: 1.4rem; font-weight: 700;">${current.roi}%</div>
-                            <div style="font-size: 0.85rem;">Текущая доходность</div>
-                        </div>
-                        <div style="background: rgba(255,255,255,0.1); padding: 12px; border-radius: 8px;">
-                            <div style="font-size: 1.4rem; font-weight: 700;">${current.rdSuccess}%</div>
-                            <div style="font-size: 0.85rem;">Успешных проектов</div>
-                        </div>
-                        <div style="background: rgba(255,255,255,0.1); padding: 12px; border-radius: 8px;">
-                            <div style="font-size: 1.4rem; font-weight: 700;">${highPriorityCount}</div>
-                            <div style="font-size: 0.85rem;">Срочных рекомендаций</div>
-                        </div>
-                        <div style="background: rgba(255,255,255,0.1); padding: 12px; border-radius: 8px;">
-                            <div style="font-size: 1.4rem; font-weight: 700;">+${results.ltvData.improvement}%</div>
-                            <div style="font-size: 0.85rem;">Потенциал роста прибыли с клиентов</div>
-                        </div>
-                    </div>
-                `;
-            }
-        }
-
-        function getMetricLabel(key) {
-            const labels = {
-                expectedGrowth: "Рост доходности",
-                riskReduction: "Снижение рисков",
-                efficiencyGain: "Рост эффективности",
-                churnReduction: "Снижение оттока",
-                retentionIncrease: "Рост удержания",
-                npsGrowth: "Рост лояльности",
-                successRate: "Успешность",
-                timeToMarket: "Скорость вывода",
-                costReduction: "Экономия",
-                timeReduction: "Экономия времени",
-                productivityGain: "Продуктивность",
-                errorReduction: "Меньше ошибок",
-                downtimeReduction: "Меньше простоев",
-                costSavings: "Экономия",
-                reliabilityIncrease: "Надежность"
-            };
-            return labels[key] || key;
         }
 
         function updateDisplay() {
-            if (!window.calculatedResults) return;
+            if (!window.results) return;
             
-            const results = window.calculatedResults;
-            const current = results.current;
-            const improved = results.improved;
-            const eco = results.economic;
+            const r = window.results;
             
+            // Обновляем крупные KPI
+            document.getElementById('kpiRoiCurrent').textContent = `${r.current.roi}%`;
+            document.getElementById('kpiRoiTarget').innerHTML = `→ ${r.improved.roi}%`;
+            document.getElementById('kpiChurnCurrent').textContent = `${r.current.churn}%`;
+            document.getElementById('kpiChurnTarget').innerHTML = `→ ${r.improved.churn}%`;
+            document.getElementById('kpiRdCurrent').textContent = `${r.current.rdSuccess}%`;
+            document.getElementById('kpiRdTarget').innerHTML = `→ ${r.improved.rdSuccess}%`;
+            document.getElementById('kpiTimeCurrent').textContent = `${r.current.decisionTime}`;
+            document.getElementById('kpiTimeTarget').innerHTML = `→ ${r.improved.decisionTime} дней`;
+            
+            // Экономика
+            document.getElementById('ecoEffect').textContent = `${r.economic.totalEffect} млн ₽`;
+            document.getElementById('ecoInvestment').textContent = `${r.economic.implementationCost} млн ₽`;
+            document.getElementById('ecoPayback').textContent = `${r.economic.paybackMonths} мес`;
+            
+            // Текущие показатели в левой панели
             document.getElementById('currentIndicators').innerHTML = `
                 <div class="indicator-card">
-                    <div class="indicator-value">${current.roi}%</div>
-                    <div class="indicator-label">Доходность инвестиций</div>
+                    <div class="indicator-value">${r.current.roi}%</div>
+                    <div class="indicator-label">Доходность</div>
                 </div>
                 <div class="indicator-card">
-                    <div class="indicator-value">${current.churn}%</div>
-                    <div class="indicator-label">Отток клиентов</div>
+                    <div class="indicator-value">${r.current.churn}%</div>
+                    <div class="indicator-label">Отток</div>
                 </div>
                 <div class="indicator-card">
-                    <div class="indicator-value">${current.rdSuccess}%</div>
-                    <div class="indicator-label">Успешность проектов</div>
+                    <div class="indicator-value">${r.current.rdSuccess}%</div>
+                    <div class="indicator-label">Успешность</div>
                 </div>
                 <div class="indicator-card">
-                    <div class="indicator-value">${current.decisionTime} д</div>
+                    <div class="indicator-value">${r.current.decisionTime}</div>
                     <div class="indicator-label">Время решений</div>
                 </div>
                 <div class="indicator-card">
-                    <div class="indicator-value">${current.avgLtv} млн</div>
-                    <div class="indicator-label">Прибыль с клиента</div>
+                    <div class="indicator-value">${r.current.avgLtv}</div>
+                    <div class="indicator-label">LTV, млн</div>
                 </div>
             `;
             
+            // Прогноз в левой панели
             document.getElementById('forecastIndicators').innerHTML = `
                 <div class="indicator-card">
-                    <div class="indicator-value text-success">${improved.roi}%</div>
+                    <div class="indicator-value text-success">${r.improved.roi}%</div>
                     <div class="indicator-label">Доходность</div>
-                    <div class="indicator-change positive">+${(improved.roi - current.roi).toFixed(1)}%</div>
+                    <div class="indicator-change positive">+${(r.improved.roi - r.current.roi).toFixed(1)}%</div>
                 </div>
                 <div class="indicator-card">
-                    <div class="indicator-value text-success">${improved.churn}%</div>
+                    <div class="indicator-value text-success">${r.improved.churn}%</div>
                     <div class="indicator-label">Отток</div>
-                    <div class="indicator-change positive">-${(current.churn - improved.churn).toFixed(1)}%</div>
+                    <div class="indicator-change positive">-${(r.current.churn - r.improved.churn).toFixed(1)}%</div>
                 </div>
                 <div class="indicator-card">
-                    <div class="indicator-value text-success">${improved.rdSuccess}%</div>
+                    <div class="indicator-value text-success">${r.improved.rdSuccess}%</div>
                     <div class="indicator-label">Успешность</div>
-                    <div class="indicator-change positive">+${(improved.rdSuccess - current.rdSuccess).toFixed(1)}%</div>
+                    <div class="indicator-change positive">+${(r.improved.rdSuccess - r.current.rdSuccess).toFixed(1)}%</div>
                 </div>
                 <div class="indicator-card">
-                    <div class="indicator-value text-success">${improved.decisionTime} д</div>
+                    <div class="indicator-value text-success">${r.improved.decisionTime}</div>
                     <div class="indicator-label">Время решений</div>
-                    <div class="indicator-change positive">-${(current.decisionTime - improved.decisionTime)} д</div>
+                    <div class="indicator-change positive">-${(r.current.decisionTime - r.improved.decisionTime)} д</div>
                 </div>
                 <div class="indicator-card">
-                    <div class="indicator-value text-success">${improved.avgLtv} млн</div>
-                    <div class="indicator-label">Прибыль с клиента</div>
-                    <div class="indicator-change positive">+${results.ltvData.improvement}%</div>
+                    <div class="indicator-value text-success">${r.improved.avgLtv}</div>
+                    <div class="indicator-label">LTV, млн</div>
+                    <div class="indicator-change positive">+27%</div>
                 </div>
-            `;
-            
-            document.getElementById('resultRoi').textContent = `${improved.roi}%`;
-            document.getElementById('resultChurn').textContent = `${improved.churn}%`;
-            document.getElementById('resultRdSuccess').textContent = `${improved.rdSuccess}%`;
-            document.getElementById('resultDecisionTime').textContent = `${improved.decisionTime}`;
-            
-            document.getElementById('roiChange').textContent = `+${(improved.roi - current.roi).toFixed(1)}%`;
-            document.getElementById('churnChange').textContent = `-${(current.churn - improved.churn).toFixed(1)}%`;
-            document.getElementById('rdChange').textContent = `+${(improved.rdSuccess - current.rdSuccess).toFixed(1)}%`;
-            document.getElementById('decisionChange').textContent = `-${(current.decisionTime - improved.decisionTime)} дней`;
-            
-            document.getElementById('predictedEffect').textContent = `${eco.totalEffect} млн ₽`;
-            document.getElementById('predictedInvestment').textContent = `${eco.implementationCost} млн ₽`;
-            document.getElementById('predictedPayback').textContent = `${eco.paybackMonths} мес`;
-            
-            document.getElementById('analysisTitle').textContent = `Анализ: ${currentCompany.name}`;
-        }
-
-        function updateAnalysisTexts() {
-            if (!window.calculatedResults) return;
-            
-            const results = window.calculatedResults;
-            const current = results.current;
-            const improved = results.improved;
-            const eco = results.economic;
-            
-            document.getElementById('comparisonAnalysis').innerHTML = `
-                <h4>📊 Что изменится</h4>
-                <p><strong>Доходность инвестиций:</strong> ${current.roi}% → ${improved.roi}%</p>
-                <p><strong>Отток клиентов:</strong> ${current.churn}% → ${improved.churn}%</p>
-                <p><strong>Успешность новых проектов:</strong> ${current.rdSuccess}% → ${improved.rdSuccess}%</p>
-                <p><strong>Скорость решений:</strong> ${current.decisionTime} дней → ${improved.decisionTime} дней</p>
-                <p><strong>Срок окупаемости проектов:</strong> 24 → 19 месяцев</p>
             `;
             
             document.getElementById('economicAnalysis').innerHTML = `
-                <h4>💰 За счет чего экономия</h4>
-                <p>📈 Рост доходов: ${eco.revenueIncrease} млн ₽</p>
-                <p>📉 Снижение затрат на разработку: ${eco.costReduction} млн ₽</p>
-                <p>⚡ Меньше простоев: ${eco.downtimeReduction} млн ₽</p>
-                <p>👥 Оптимизация персонала: ${eco.hrSavings} млн ₽</p>
+                <h4>💰 Источники экономии</h4>
+                <p>📈 Рост доходов: ${r.economic.revenueIncrease} млн ₽</p>
+                <p>📉 Снижение затрат: ${r.economic.costReduction} млн ₽</p>
+                <p>⚡ Меньше простоев: ${r.economic.downtimeReduction} млн ₽</p>
+                <p>👥 Оптимизация: ${r.economic.hrSavings} млн ₽</p>
             `;
-        }
-
-        function updateModelDescriptions() {
-            const ltvDesc = document.getElementById('ltvDescription');
-            if (ltvDesc && window.calculatedResults) {
-                const results = window.calculatedResults;
-                ltvDesc.innerHTML = `
-                    <p><strong>🎯 Модель прогнозирования LTV</strong> — предсказывает, сколько денег принесет каждый клиент.</p>
-                    <p>✅ Точность прогноза: <strong>89%</strong></p>
-                    <p>📊 Сейчас средний клиент приносит ${results.current.avgLtv} млн ₽, может приносить ${results.improved.avgLtv} млн ₽</p>
-                    <p>🔍 Система показывает, почему именно этот клиент ценнее других</p>
-                `;
-            }
-            
-            const qlearningDesc = document.getElementById('qlearningDescription');
-            if (qlearningDesc) {
-                qlearningDesc.innerHTML = `
-                    <p><strong>🔄 Система выбора проектов</strong> — учится на прошлых проектах и подсказывает, какие новые разработки будут успешными.</p>
-                    <p>✅ Учитывает: прибыль (70%), патенты (20%), рост компетенций (10%)</p>
-                    <p>📊 Результат: доля успешных проектов выросла с 40% до 65%</p>
-                `;
-            }
         }
 
         function initializeCharts() {
@@ -1893,64 +1439,71 @@
             });
             charts = {};
             
-            if (!window.calculatedResults) return;
+            if (!window.results) return;
             
-            const results = window.calculatedResults;
-            const current = results.current;
-            const improved = results.improved;
-            const eco = results.economic;
+            const r = window.results;
             
+            // График 1: Текущие показатели
             const ctx1 = document.getElementById('currentMetricsChart')?.getContext('2d');
             if (ctx1) {
-                charts.currentMetricsChart = new Chart(ctx1, {
+                charts.ctx1 = new Chart(ctx1, {
                     type: 'bar',
                     data: {
                         labels: ['Доходность', 'Отток', 'Успешность'],
                         datasets: [{
-                            label: 'Текущие значения, %',
-                            data: [parseFloat(current.roi), parseFloat(current.churn), parseFloat(current.rdSuccess)],
-                            backgroundColor: ['rgba(139,0,0,0.7)', 'rgba(165,42,42,0.7)', 'rgba(178,34,34,0.7)']
+                            label: '%',
+                            data: [15, 10, 40],
+                            backgroundColor: ['#8B0000', '#A52A2A', '#B22222']
                         }]
                     },
-                    options: { responsive: true, maintainAspectRatio: false }
+                    options: { 
+                        responsive: true, 
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false } }
+                    }
                 });
             }
             
+            // График 2: Время решений
             const ctx2 = document.getElementById('decisionTimeChart')?.getContext('2d');
             if (ctx2) {
-                charts.decisionTimeChart = new Chart(ctx2, {
+                charts.ctx2 = new Chart(ctx2, {
                     type: 'bar',
                     data: {
-                        labels: ['Время решений'],
+                        labels: ['Дни'],
                         datasets: [{
-                            label: 'Дней',
-                            data: [parseFloat(current.decisionTime)],
-                            backgroundColor: ['rgba(205,92,92,0.7)']
+                            label: 'Сейчас',
+                            data: [28],
+                            backgroundColor: '#8B0000'
                         }]
                     },
-                    options: { responsive: true, maintainAspectRatio: false }
+                    options: { 
+                        responsive: true, 
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false } }
+                    }
                 });
             }
             
+            // График 3: LTV
             const ctx3 = document.getElementById('ltvChart')?.getContext('2d');
             if (ctx3) {
-                const baseLtv = parseFloat(current.avgLtv);
-                charts.ltvChart = new Chart(ctx3, {
+                charts.ctx3 = new Chart(ctx3, {
                     type: 'line',
                     data: {
                         labels: ['Клиент 1', 'Клиент 2', 'Клиент 3', 'Клиент 4', 'Клиент 5'],
                         datasets: [
                             {
-                                label: 'Сейчас, млн ₽',
-                                data: [baseLtv*0.85, baseLtv*1.1, baseLtv*0.8, baseLtv*1.3, baseLtv*0.95],
+                                label: 'Сейчас',
+                                data: [2.1, 2.8, 1.9, 3.2, 2.4],
                                 borderColor: '#8B0000',
-                                backgroundColor: 'rgba(139,0,0,0.1)'
+                                tension: 0.3
                             },
                             {
-                                label: 'Прогноз, млн ₽',
-                                data: [baseLtv*1.1, baseLtv*1.4, baseLtv*1.0, baseLtv*1.65, baseLtv*1.2],
+                                label: 'Прогноз',
+                                data: [2.7, 3.5, 2.4, 4.1, 3.0],
                                 borderColor: '#008000',
-                                backgroundColor: 'rgba(0,128,0,0.1)'
+                                tension: 0.3
                             }
                         ]
                     },
@@ -1958,79 +1511,47 @@
                 });
             }
             
-            const ctx4 = document.getElementById('qlearningChart')?.getContext('2d');
+            // График 4: Сравнение
+            const ctx4 = document.getElementById('comparisonPercentageChart')?.getContext('2d');
             if (ctx4) {
-                const episodes = Array.from({length: 20}, (_, i) => i + 1);
-                const rewards = episodes.map(ep => 70*(1-Math.exp(-ep/5)) + 20*(1-Math.exp(-ep/10)) + 10*(1-Math.exp(-ep/15)));
-                charts.qlearningChart = new Chart(ctx4, {
-                    type: 'line',
-                    data: {
-                        labels: episodes.map(e => `Шаг ${e}`),
-                        datasets: [{
-                            label: 'Качество решений',
-                            data: rewards,
-                            borderColor: '#ff9800',
-                            backgroundColor: 'rgba(255,152,0,0.1)',
-                            borderWidth: 3,
-                            tension: 0.4,
-                            fill: true
-                        }]
-                    },
-                    options: { responsive: true, maintainAspectRatio: false }
-                });
-            }
-            
-            const ctx5 = document.getElementById('comparisonPercentageChart')?.getContext('2d');
-            if (ctx5) {
-                charts.comparisonPercentageChart = new Chart(ctx5, {
+                charts.ctx4 = new Chart(ctx4, {
                     type: 'bar',
                     data: {
                         labels: ['Доходность', 'Отток', 'Успешность'],
                         datasets: [
-                            {
-                                label: 'Сейчас',
-                                data: [parseFloat(current.roi), parseFloat(current.churn), parseFloat(current.rdSuccess)],
-                                backgroundColor: 'rgba(139,0,0,0.7)'
-                            },
-                            {
-                                label: 'Прогноз',
-                                data: [parseFloat(improved.roi), parseFloat(improved.churn), parseFloat(improved.rdSuccess)],
-                                backgroundColor: 'rgba(0,128,0,0.7)'
-                            }
+                            { label: 'Сейчас', data: [15, 10, 40], backgroundColor: '#8B0000' },
+                            { label: 'Прогноз', data: [21, 7, 65], backgroundColor: '#008000' }
                         ]
                     },
                     options: { responsive: true, maintainAspectRatio: false }
                 });
             }
             
-            const ctx6 = document.getElementById('comparisonTimeChart')?.getContext('2d');
-            if (ctx6) {
-                charts.comparisonTimeChart = new Chart(ctx6, {
+            // График 5: Сравнение времени
+            const ctx5 = document.getElementById('comparisonTimeChart')?.getContext('2d');
+            if (ctx5) {
+                charts.ctx5 = new Chart(ctx5, {
                     type: 'bar',
                     data: {
-                        labels: ['Время решений, дней'],
+                        labels: ['Время решений'],
                         datasets: [
-                            { label: 'Сейчас', data: [parseFloat(current.decisionTime)], backgroundColor: 'rgba(139,0,0,0.7)' },
-                            { label: 'Прогноз', data: [parseFloat(improved.decisionTime)], backgroundColor: 'rgba(0,128,0,0.7)' }
+                            { label: 'Сейчас', data: [28], backgroundColor: '#8B0000' },
+                            { label: 'Прогноз', data: [10], backgroundColor: '#008000' }
                         ]
                     },
                     options: { responsive: true, maintainAspectRatio: false }
                 });
             }
             
-            const ctx7 = document.getElementById('economicChart')?.getContext('2d');
-            if (ctx7) {
-                charts.economicChart = new Chart(ctx7, {
+            // График 6: Экономика
+            const ctx6 = document.getElementById('economicChart')?.getContext('2d');
+            if (ctx6) {
+                charts.ctx6 = new Chart(ctx6, {
                     type: 'doughnut',
                     data: {
-                        labels: ['Рост доходов', 'Экономия на разработке', 'Меньше простоев', 'Экономия на персонале'],
+                        labels: ['Рост доходов', 'Снижение затрат', 'Снижение простоев', 'HR'],
                         datasets: [{
-                            data: [
-                                parseFloat(eco.revenueIncrease),
-                                parseFloat(eco.costReduction),
-                                parseFloat(eco.downtimeReduction),
-                                parseFloat(eco.hrSavings)
-                            ],
+                            data: [11.7, 6.5, 4.7, 3.1],
                             backgroundColor: ['#008000', '#ff9800', '#2196F3', '#9c27b0']
                         }]
                     },
@@ -2059,7 +1580,7 @@
                 alert('Сначала загрузите данные компании');
                 return;
             }
-            alert(`PDF-отчет по компании ${currentCompany.name} сформирован`);
+            alert('PDF-отчет сформирован');
         }
 
         function exportToExcel() {
@@ -2067,7 +1588,7 @@
                 alert('Сначала загрузите данные компании');
                 return;
             }
-            alert(`Excel-отчет по компании ${currentCompany.name} сформирован`);
+            alert('Excel-отчет сформирован');
         }
     </script>
 </body>
