@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI-система управления инвестициями | Трехконтурная модель</title>
+    <title>Трехконтурная AI-система управления инвестициями | ООО «Мобайл Парк ИТ»</title>
     <style>
         * {
             margin: 0;
@@ -13,7 +13,7 @@
         }
         
         body {
-            background: linear-gradient(135deg, #0a1929 0%, #1a2a3a 100%);
+            background: linear-gradient(135deg, #8B0000 0%, #600000 100%);
             min-height: 100vh;
             padding: 20px;
             color: white;
@@ -29,7 +29,7 @@
             display: grid;
             grid-template-columns: 400px 1fr 400px;
             min-height: 95vh;
-            border: 1px solid rgba(25, 118, 210, 0.2);
+            border: 1px solid rgba(139, 0, 0, 0.2);
         }
         
         @media (max-width: 1400px) {
@@ -40,10 +40,10 @@
         
         header {
             grid-column: 1 / -1;
-            background: linear-gradient(135deg, #0a1929 0%, #1a2a3a 100%);
+            background: linear-gradient(135deg, #8B0000 0%, #600000 100%);
             color: white;
             padding: 25px 40px;
-            border-bottom: 2px solid #1976d2;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
             position: relative;
             overflow: hidden;
         }
@@ -63,7 +63,6 @@
             display: flex;
             align-items: center;
             padding-right: 40px;
-            color: #1976d2;
         }
         
         h1 {
@@ -77,7 +76,7 @@
         .subtitle {
             font-size: 1rem;
             opacity: 0.9;
-            color: #bbdefb;
+            color: #ffcccb;
             margin-bottom: 15px;
         }
         
@@ -102,109 +101,19 @@
             padding: 20px;
             margin-bottom: 20px;
             border: 1px solid #e0e0e0;
-            box-shadow: 0 5px 15px rgba(25, 118, 210, 0.1);
+            box-shadow: 0 5px 15px rgba(139, 0, 0, 0.1);
         }
         
         .section-title {
-            color: #1976d2;
+            color: #8B0000;
             margin-bottom: 15px;
             padding-bottom: 10px;
-            border-bottom: 2px solid #1976d2;
+            border-bottom: 2px solid #8B0000;
             font-size: 1.2rem;
             font-weight: 600;
             display: flex;
             align-items: center;
             gap: 10px;
-        }
-        
-        /* Трехконтурная модель */
-        .three-contour-model {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-            margin-bottom: 25px;
-        }
-        
-        .contour-card {
-            background: white;
-            border-radius: 10px;
-            padding: 15px;
-            border-left: 6px solid;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-            transition: transform 0.2s;
-        }
-        
-        .contour-card:hover {
-            transform: translateY(-5px);
-        }
-        
-        .contour-card.tactical {
-            border-left-color: #2196f3;
-            background: linear-gradient(to right, rgba(33, 150, 243, 0.05), white);
-        }
-        
-        .contour-card.operational {
-            border-left-color: #1976d2;
-            background: linear-gradient(to right, rgba(25, 118, 210, 0.05), white);
-        }
-        
-        .contour-card.strategic {
-            border-left-color: #0a4770;
-            background: linear-gradient(to right, rgba(10, 71, 112, 0.05), white);
-        }
-        
-        .contour-header {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 10px;
-        }
-        
-        .contour-icon {
-            width: 40px;
-            height: 40px;
-            background: #1976d2;
-            color: white;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-        }
-        
-        .contour-title {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: #0a1929;
-        }
-        
-        .contour-period {
-            font-size: 0.8rem;
-            color: #666;
-            margin-top: 5px;
-        }
-        
-        .contour-metrics {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 12px;
-            padding-top: 12px;
-            border-top: 1px dashed #e0e0e0;
-        }
-        
-        .contour-metric {
-            text-align: center;
-        }
-        
-        .contour-metric-value {
-            font-weight: 700;
-            color: #1976d2;
-            font-size: 1.1rem;
-        }
-        
-        .contour-metric-label {
-            font-size: 0.7rem;
-            color: #666;
         }
         
         .company-info {
@@ -223,7 +132,7 @@
         .company-logo {
             width: 50px;
             height: 50px;
-            background: linear-gradient(135deg, #1976d2 0%, #0a4770 100%);
+            background: linear-gradient(135deg, #8B0000 0%, #600000 100%);
             color: white;
             border-radius: 10px;
             display: flex;
@@ -232,7 +141,7 @@
             font-weight: bold;
             font-size: 1.2rem;
             border: 2px solid white;
-            box-shadow: 0 5px 15px rgba(25, 118, 210, 0.2);
+            box-shadow: 0 5px 15px rgba(139, 0, 0, 0.2);
         }
         
         .inn-input-container {
@@ -254,12 +163,12 @@
         
         .inn-input:focus {
             outline: none;
-            border-color: #1976d2;
-            box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.1);
+            border-color: #8B0000;
+            box-shadow: 0 0 0 3px rgba(139, 0, 0, 0.1);
         }
         
         .search-btn {
-            background: linear-gradient(135deg, #1976d2 0%, #0a4770 100%);
+            background: linear-gradient(135deg, #8B0000 0%, #600000 100%);
             color: white;
             border: none;
             padding: 12px;
@@ -275,9 +184,9 @@
         }
         
         .search-btn:hover {
-            background: linear-gradient(135deg, #0a4770 0%, #1976d2 100%);
+            background: linear-gradient(135deg, #600000 0%, #8B0000 100%);
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(25, 118, 210, 0.3);
+            box-shadow: 0 5px 15px rgba(139, 0, 0, 0.3);
         }
         
         .export-buttons {
@@ -319,7 +228,7 @@
         }
         
         .ai-recommendation-badge {
-            background: linear-gradient(135deg, #1976d2 0%, #0a4770 100%);
+            background: linear-gradient(135deg, #8B0000 0%, #600000 100%);
             color: white;
             padding: 4px 10px;
             border-radius: 20px;
@@ -345,16 +254,19 @@
             transform: translateX(5px);
         }
         
-        .recommendation-card.tactical-rec {
-            border-left-color: #2196f3;
+        .recommendation-card.high {
+            border-left-color: #c0392b;
+            background: linear-gradient(to right, rgba(192, 57, 43, 0.02), white);
         }
         
-        .recommendation-card.operational-rec {
-            border-left-color: #1976d2;
+        .recommendation-card.medium {
+            border-left-color: #e67e22;
+            background: linear-gradient(to right, rgba(230, 126, 34, 0.02), white);
         }
         
-        .recommendation-card.strategic-rec {
-            border-left-color: #0a4770;
+        .recommendation-card.low {
+            border-left-color: #f39c12;
+            background: linear-gradient(to right, rgba(243, 156, 18, 0.02), white);
         }
         
         .recommendation-header {
@@ -373,7 +285,7 @@
             gap: 10px;
         }
         
-        .recommendation-contour {
+        .recommendation-priority {
             padding: 5px 12px;
             border-radius: 20px;
             font-size: 0.8rem;
@@ -381,9 +293,9 @@
             color: white;
         }
         
-        .contour-tactical { background: #2196f3; }
-        .contour-operational { background: #1976d2; }
-        .contour-strategic { background: #0a4770; }
+        .priority-high { background: #c0392b; }
+        .priority-medium { background: #e67e22; }
+        .priority-low { background: #f39c12; }
         
         .recommendation-metrics {
             display: flex;
@@ -404,7 +316,7 @@
         }
         
         .metric-tag strong {
-            color: #1976d2;
+            color: #8B0000;
         }
         
         .recommendation-description {
@@ -447,20 +359,20 @@
             content: "→";
             position: absolute;
             left: 0;
-            color: #1976d2;
+            color: #8B0000;
             font-weight: bold;
         }
         
         .roi-calculator {
             background: linear-gradient(135deg, #f6f9fc, #ffffff);
-            border: 1px dashed #1976d2;
+            border: 1px dashed #8B0000;
             border-radius: 8px;
             padding: 15px;
             margin-top: 15px;
         }
         
         .roi-calculator h5 {
-            color: #1976d2;
+            color: #8B0000;
             margin-bottom: 10px;
         }
         
@@ -503,7 +415,7 @@
         }
         
         .parameter-value-display {
-            color: #1976d2;
+            color: #8B0000;
             font-weight: 600;
             font-size: 0.9rem;
         }
@@ -521,7 +433,7 @@
             -webkit-appearance: none;
             width: 18px;
             height: 18px;
-            background: #1976d2;
+            background: #8B0000;
             border-radius: 50%;
             cursor: pointer;
             border: 2px solid white;
@@ -540,12 +452,12 @@
         
         .parameter-input:focus {
             outline: none;
-            border-color: #1976d2;
+            border-color: #8B0000;
         }
         
         .update-btn {
             width: 100%;
-            background: linear-gradient(135deg, #27ae60 0%, #229954 100%);
+            background: linear-gradient(135deg, #006400 0%, #008000 100%);
             color: white;
             border: none;
             padding: 12px;
@@ -562,7 +474,7 @@
         }
         
         .update-btn:hover:not(:disabled) {
-            background: linear-gradient(135deg, #229954 0%, #27ae60 100%);
+            background: linear-gradient(135deg, #008000 0%, #006400 100%);
             transform: translateY(-2px);
         }
         
@@ -591,464 +503,2036 @@
             background: #f8f9fa;
             border: 1px solid transparent;
             border-radius: 8px 8px 0 0;
+            color: #666;
             cursor: pointer;
-            font-weight: 500;
-            color: #555;
             transition: all 0.3s;
+            font-weight: 500;
+            font-size: 0.9rem;
         }
         
         .tab:hover {
-            background: #e3f2fd;
-            color: #1976d2;
+            background: #e9ecef;
+            color: #8B0000;
         }
         
         .tab.active {
-            background: #1976d2;
+            background: #8B0000;
             color: white;
+            border-color: #8B0000;
         }
         
-        .tab.contour {
-            display: flex;
-            align-items: center;
-            gap: 5px;
+        .tab-content {
+            display: none;
+            color: #333;
         }
         
-        .footer {
-            grid-column: 1 / -1;
-            background: #0a1929;
-            color: white;
-            padding: 15px 40px;
-            text-align: center;
-            border-top: 2px solid #1976d2;
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .chart-container {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 25px;
+            border: 2px solid #e0e0e0;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .chart-header {
             display: flex;
             justify-content: space-between;
-            align-items: center;
+            align-items: flex-start;
+            margin-bottom: 15px;
         }
         
-        .github-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 16px;
-            background: #1a2a3a;
-            color: white;
-            text-decoration: none;
-            border-radius: 6px;
+        .chart-title {
+            color: #8B0000;
+            font-size: 1.1rem;
+            font-weight: 600;
+            flex: 1;
+        }
+        
+        .chart-description {
+            background: #f8f9fa;
+            border-left: 4px solid #8B0000;
+            padding: 15px;
+            margin-top: 15px;
+            border-radius: 0 8px 8px 0;
             font-size: 0.9rem;
-            border: 1px solid #1976d2;
-            transition: all 0.3s;
+            line-height: 1.5;
+            color: #555;
         }
         
-        .github-link:hover {
-            background: #1976d2;
-            transform: translateY(-2px);
+        .metric-analysis {
+            background: #f0f8ff;
+            border: 1px solid #e0f0ff;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+            font-size: 0.9rem;
         }
         
-        .contour-summary {
+        .metric-analysis h4 {
+            color: #8B0000;
+            margin-bottom: 10px;
+            font-size: 1rem;
+        }
+        
+        canvas {
+            max-height: 300px;
+        }
+        
+        .indicators-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .indicator-card {
+            background: white;
+            border-radius: 12px;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            text-align: center;
+            transition: transform 0.3s;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .indicator-card:hover {
+            transform: translateY(-3px);
+            border-color: #8B0000;
+        }
+        
+        .indicator-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin: 8px 0;
+        }
+        
+        .indicator-label {
+            color: #666;
+            font-size: 0.85rem;
+        }
+        
+        .indicator-change {
+            font-size: 0.75rem;
+            padding: 3px 8px;
+            border-radius: 12px;
+            margin-top: 6px;
+            display: inline-block;
+        }
+        
+        .positive {
+            background: rgba(0, 128, 0, 0.1);
+            color: #008000;
+        }
+        
+        .negative {
+            background: rgba(139, 0, 0, 0.1);
+            color: #8B0000;
+        }
+        
+        .charts-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+        
+        @media (max-width: 1200px) {
+            .charts-row {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .three-contour-model {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 15px;
             margin-top: 20px;
         }
         
-        .contour-summary-card {
-            background: white;
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            text-align: center;
+        @media (max-width: 1200px) {
+            .three-contour-model {
+                grid-template-columns: 1fr;
+            }
         }
         
-        .contour-summary-value {
-            font-size: 2rem;
-            font-weight: 700;
-            color: #1976d2;
+        .contour-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            border: 2px solid;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .contour-1 {
+            border-color: #8B0000;
+        }
+        
+        .contour-2 {
+            border-color: #A52A2A;
+        }
+        
+        .contour-3 {
+            border-color: #B22222;
+        }
+        
+        .contour-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+        
+        .contour-icon {
+            width: 40px;
+            height: 40px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border: 2px solid;
+        }
+        
+        .contour-1 .contour-icon {
+            background: #8B0000;
+            color: white;
+            border-color: #8B0000;
+        }
+        
+        .contour-2 .contour-icon {
+            background: #A52A2A;
+            color: white;
+            border-color: #A52A2A;
+        }
+        
+        .contour-3 .contour-icon {
+            background: #B22222;
+            color: white;
+            border-color: #B22222;
+        }
+        
+        .loading {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .loading.active {
+            display: flex;
+        }
+        
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top: 4px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .empty-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 400px;
+            color: #666;
+            text-align: center;
+            padding: 30px;
+        }
+        
+        .empty-icon {
+            font-size: 80px;
+            color: #8B0000;
+            opacity: 0.2;
+            margin-bottom: 20px;
+        }
+        
+        .hidden {
+            display: none !important;
+        }
+        
+        .mt-20 { margin-top: 20px; }
+        .mt-30 { margin-top: 30px; }
+        .text-success { color: #008000; }
+        .text-danger { color: #8B0000; }
+        .text-warning { color: #ff9800; }
+        
+        .info-box {
+            background: #f0f7ff;
+            border-left: 4px solid #2196F3;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 0 4px 4px 0;
+            font-size: 0.85rem;
+        }
+        
+        .metrics-note {
+            font-size: 0.8rem;
+            color: #666;
+            margin-top: 5px;
+            font-style: italic;
+        }
+        
+        .separator {
+            margin: 20px 0;
+            border-top: 1px dashed #ccc;
+        }
+        
+        .export-footer {
+            grid-column: 1 / -1;
+            background: #f8f9fa;
+            padding: 20px 40px;
+            border-top: 2px solid #8B0000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .export-footer-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .footer-btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+        }
+        
+        .footer-btn.pdf {
+            background: linear-gradient(135deg, #c0392b 0%, #e74c3c 100%);
+        }
+        
+        .footer-btn.excel {
+            background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+        }
+        
+        .footer-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .footer-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .footer-info {
+            color: #333;
+            font-size: 0.9rem;
+        }
+        
+        .footer-info strong {
+            color: #8B0000;
+        }
+        
+        .ai-analysis-summary {
+            background: linear-gradient(135deg, #8B0000 0%, #600000 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+        }
+        
+        .ai-analysis-summary h3 {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .ai-analysis-summary p {
+            opacity: 0.95;
+            line-height: 1.6;
+        }
+        
+        .model-description {
+            background: #f0f7f0;
+            border-left: 4px solid #008000;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            color: #555;
+        }
+
+        .act-badge {
+            background: #d4edda;
+            border-left: 6px solid #28a745;
+            padding: 15px;
+            border-radius: 8px;
+            color: #155724;
+            font-weight: 500;
+            margin-bottom: 20px;
         }
     </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </head>
 <body>
+    <div class="loading" id="loading">
+        <div class="spinner"></div>
+        <div style="color: white; font-size: 1.1rem;">AI-анализ данных компании...</div>
+    </div>
+    
     <div class="container">
         <header>
             <div class="header-content">
-                <h1>🔵 AI-система управления инвестициями</h1>
-                <div class="subtitle">Трехконтурная модель принятия решений • Тактический • Оперативный • Стратегический контуры</div>
-                <div style="display: flex; gap: 20px; margin-top: 15px;">
-                    <div style="display: flex; align-items: center; gap: 8px;">
-                        <span style="background: #2196f3; width: 12px; height: 12px; border-radius: 3px;"></span>
-                        <span>Контур 1: Тактический (1-30 дней)</span>
-                    </div>
-                    <div style="display: flex; align-items: center; gap: 8px;">
-                        <span style="background: #1976d2; width: 12px; height: 12px; border-radius: 3px;"></span>
-                        <span>Контур 2: Оперативный (1-12 мес)</span>
-                    </div>
-                    <div style="display: flex; align-items: center; gap: 8px;">
-                        <span style="background: #0a4770; width: 12px; height: 12px; border-radius: 3px;"></span>
-                        <span>Контур 3: Стратегический (1-5 лет)</span>
-                    </div>
-                </div>
+                <h1>Трехконтурная AI-система управления инвестициями</h1>
+                <p class="subtitle">Оригинальная архитектура интеграции искусственного интеллекта: синергия человека и алгоритмов</p>
             </div>
             <div class="header-bg">
-                🔵📊📈
+                🤖
             </div>
         </header>
         
-        <!-- Левая панель: Компания и тактический контур -->
+        <!-- Левая панель - Поиск компании -->
         <div class="left-panel">
             <div class="panel-section">
-                <div class="section-title">
-                    <span>🏢</span> Анализ компании
-                </div>
+                <h2 class="section-title">🔍 Объект исследования</h2>
                 <div class="company-info">
                     <div class="company-header">
-                        <div class="company-logo">ООО</div>
-                        <div style="color: #333; font-weight: 600;">ООО "ТехноИнвест"</div>
+                        <div class="company-logo" id="companyLogo">МП</div>
+                        <div>
+                            <h3 style="color: #8B0000; margin-bottom: 5px;" id="companyName">ООО «Мобайл Парк ИТ»</h3>
+                            <p style="color: #666; font-size: 0.85rem;" id="companyDetails">Технологическая компания, объект внедрения магистерской диссертации</p>
+                        </div>
                     </div>
+                    
                     <div class="inn-input-container">
-                        <input type="text" class="inn-input" placeholder="Введите ИНН компании" value="7701123456">
-                        <button class="search-btn">
-                            <span>🔍</span> Загрузить данные
+                        <input type="text" 
+                               class="inn-input" 
+                               id="innInput" 
+                               placeholder="ИНН компании (5047154189)"
+                               value="5047154189">
+                        <button class="search-btn" onclick="searchByINN()">
+                            🔍 Загрузить данные компании
+                        </button>
+                    </div>
+                    
+                    <div class="export-buttons" id="exportButtons">
+                        <button class="export-btn pdf" onclick="exportToPDF()" disabled id="exportPdfBtn">
+                            📄 PDF отчет
+                        </button>
+                        <button class="export-btn excel" onclick="exportToExcel()" disabled id="exportExcelBtn">
+                            📊 Excel отчет
                         </button>
                     </div>
                 </div>
             </div>
             
-            <!-- Трехконтурная модель - визуализация -->
             <div class="panel-section">
-                <div class="section-title">
-                    <span>🔄</span> Трехконтурная модель
+                <h2 class="section-title">📊 Текущие показатели</h2>
+                <div class="indicators-grid" id="currentIndicators">
+                    <!-- Пусто до анализа -->
                 </div>
-                <div class="three-contour-model">
-                    <div class="contour-card tactical">
-                        <div class="contour-header">
-                            <div class="contour-icon">T1</div>
-                            <div class="contour-title">Тактический</div>
-                        </div>
-                        <div class="contour-period">1-30 дней</div>
-                        <div class="contour-metrics">
-                            <div class="contour-metric">
-                                <div class="contour-metric-value">4</div>
-                                <div class="contour-metric-label">Проекта</div>
-                            </div>
-                            <div class="contour-metric">
-                                <div class="contour-metric-value">+12.4%</div>
-                                <div class="contour-metric-label">ROI</div>
-                            </div>
-                            <div class="contour-metric">
-                                <div class="contour-metric-value">Высокий</div>
-                                <div class="contour-metric-label">Приоритет</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="contour-card operational">
-                        <div class="contour-header">
-                            <div class="contour-icon">O2</div>
-                            <div class="contour-title">Оперативный</div>
-                        </div>
-                        <div class="contour-period">1-12 месяцев</div>
-                        <div class="contour-metrics">
-                            <div class="contour-metric">
-                                <div class="contour-metric-value">7</div>
-                                <div class="contour-metric-label">Проекта</div>
-                            </div>
-                            <div class="contour-metric">
-                                <div class="contour-metric-value">+18.7%</div>
-                                <div class="contour-metric-label">ROI</div>
-                            </div>
-                            <div class="contour-metric">
-                                <div class="contour-metric-value">Средний</div>
-                                <div class="contour-metric-label">Приоритет</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="contour-card strategic">
-                        <div class="contour-header">
-                            <div class="contour-icon">S3</div>
-                            <div class="contour-title">Стратегический</div>
-                        </div>
-                        <div class="contour-period">1-5 лет</div>
-                        <div class="contour-metrics">
-                            <div class="contour-metric">
-                                <div class="contour-metric-value">3</div>
-                                <div class="contour-metric-label">Проекта</div>
-                            </div>
-                            <div class="contour-metric">
-                                <div class="contour-metric-value">+24.2%</div>
-                                <div class="contour-metric-label">ROI</div>
-                            </div>
-                            <div class="contour-metric">
-                                <div class="contour-metric-value">Высокий</div>
-                                <div class="contour-metric-label">Приоритет</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Тактические рекомендации (Контур 1) -->
-            <div class="panel-section">
-                <div class="section-title">
-                    <span>⚡</span> Тактический контур
-                    <span class="ai-recommendation-badge">AI: 4 рекомендации</span>
-                </div>
-                
-                <div class="recommendation-card tactical-rec">
-                    <div class="recommendation-header">
-                        <div class="recommendation-title">
-                            <span>📊</span> Оптимизация cash-flow
-                        </div>
-                        <span class="recommendation-contour contour-tactical">T1</span>
-                    </div>
-                    <div class="recommendation-metrics">
-                        <span class="metric-tag"><strong>ROI</strong> +8.3%</span>
-                        <span class="metric-tag"><strong>Срок</strong> 7 дней</span>
-                        <span class="metric-tag"><strong>Эффект</strong> 2.4 млн ₽</span>
-                    </div>
-                    <div class="recommendation-description">
-                        Перераспределить свободные денежные средства с низколиквидных активов в краткосрочные облигации.
-                    </div>
-                    <div class="implementation-steps">
-                        <h5>📋 План реализации:</h5>
-                        <ul>
-                            <li>Анализ текущих остатков (день 1)</li>
-                            <li>Формирование портфеля (день 2-3)</li>
-                            <li>Заключение сделок (день 4-5)</li>
-                            <li>Мониторинг доходности (день 6-7)</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="export-buttons">
-                <button class="export-btn pdf">
-                    <span>📄</span> Экспорт PDF
-                </button>
-                <button class="export-btn excel">
-                    <span>📊</span> Экспорт Excel
-                </button>
             </div>
         </div>
         
-        <!-- Центральная панель: Основной контент -->
+        <!-- Центральная панель - Основной контент -->
         <div class="main-content">
             <div class="content-tabs">
-                <div class="tab active">Общий портфель</div>
-                <div class="tab contour">📊 Тактический</div>
-                <div class="tab contour">📈 Оперативный</div>
-                <div class="tab contour">🎯 Стратегический</div>
-                <div class="tab">AI-аналитика</div>
+                <div class="tab active" onclick="switchTab('analysis')">📈 Анализ эффективности</div>
+                <div class="tab" onclick="switchTab('contours')">🏛️ Трехконтурная архитектура</div>
+                <div class="tab" onclick="switchTab('results')">📊 Прогноз и эффект</div>
+                <div class="tab" onclick="switchTab('recommendations')">🎯 XAI и рекомендации</div>
+                <div class="tab" onclick="switchTab('algorithms')">🧮 Алгоритмы ИИ</div>
             </div>
             
-            <!-- Трехконтурная модель в центре -->
-            <div class="panel-section">
-                <div class="section-title">
-                    <span>🔄</span> Трехконтурная система управления инвестициями
+            <div class="tab-content active" id="analysisTab">
+                <div class="empty-state" id="emptyAnalysisState">
+                    <div class="empty-icon">📊</div>
+                    <h2 class="empty-title">Анализ эффективности инвестиций</h2>
+                    <p class="empty-description">
+                        Загрузите данные ООО «Мобайл Парк ИТ» для анализа трехконтурной системой
+                    </p>
                 </div>
-                <p style="color: #555; margin-bottom: 20px;">
-                    Интегрированная система принятия решений с распределением по временным горизонтам и уровням риска
-                </p>
                 
-                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
-                    <div style="background: linear-gradient(135deg, #e3f2fd, #ffffff); padding: 20px; border-radius: 12px; border-top: 6px solid #2196f3;">
-                        <h3 style="color: #2196f3; margin-bottom: 15px; display: flex; align-items: center; gap: 10px;">
-                            <span style="background: #2196f3; color: white; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; border-radius: 6px;">T1</span>
-                            Тактический контур
-                        </h3>
-                        <div style="color: #333;">
-                            <p style="margin-bottom: 10px;"><strong>Горизонт:</strong> 1-30 дней</p>
-                            <p style="margin-bottom: 10px;"><strong>Цель:</strong> Управление ликвидностью, быстрые сделки</p>
-                            <p style="margin-bottom: 10px;"><strong>Инструменты:</strong> Депозиты, облигации, валюта</p>
-                            <p><strong>AI-модуль:</strong> Прогноз внутридневной ликвидности</p>
+                <div id="analysisInfo" class="hidden">
+                    <div class="ai-analysis-summary" id="aiSummary">
+                        <!-- AI Summary будет добавлен динамически -->
+                    </div>
+                    
+                    <!-- АКТ ВНЕДРЕНИЯ -->
+                    <div class="act-badge">
+                        <strong>✅ Акт ввода в промышленную эксплуатацию от 01.12.2025</strong><br>
+                        Система внедрена в ООО «Мобайл Парк ИТ», R² = 0.89 (модель LTV), проектная точность подтверждена
+                    </div>
+                    
+                    <h2 class="section-title" id="analysisTitle">Анализ: ООО «Мобайл Парк ИТ»</h2>
+                    
+                    <!-- Два графика в ряд: KPI (проценты) и Время решений (дни) -->
+                    <div class="charts-row">
+                        <div class="chart-container" id="chart1">
+                            <div class="chart-header">
+                                <h3 class="chart-title">📈 Ключевые показатели эффективности (KPI), %</h3>
+                            </div>
+                            <div style="position: relative; height: 300px;">
+                                <canvas id="currentMetricsChart"></canvas>
+                            </div>
+                            <div class="metrics-note">ROI, отток клиентов, успешность R&D — по данным компании</div>
+                        </div>
+                        
+                        <div class="chart-container" id="chart2">
+                            <div class="chart-header">
+                                <h3 class="chart-title">⏱️ Время принятия инвестиционных решений</h3>
+                            </div>
+                            <div style="position: relative; height: 300px;">
+                                <canvas id="decisionTimeChart"></canvas>
+                            </div>
+                            <div class="metrics-note">Сокращение с 4 недель до 10 дней</div>
                         </div>
                     </div>
                     
-                    <div style="background: linear-gradient(135deg, #bbdefb, #ffffff); padding: 20px; border-radius: 12px; border-top: 6px solid #1976d2;">
-                        <h3 style="color: #1976d2; margin-bottom: 15px; display: flex; align-items: center; gap: 10px;">
-                            <span style="background: #1976d2; color: white; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; border-radius: 6px;">O2</span>
-                            Оперативный контур
-                        </h3>
-                        <div style="color: #333;">
-                            <p style="margin-bottom: 10px;"><strong>Горизонт:</strong> 1-12 месяцев</p>
-                            <p style="margin-bottom: 10px;"><strong>Цель:</strong> Оптимизация портфеля, хеджирование</p>
-                            <p style="margin-bottom: 10px;"><strong>Инструменты:</strong> Акции, ETF, корпоративные облигации</p>
-                            <p><strong>AI-модуль:</strong> Сезонность и тренды</p>
+                    <div class="chart-container" id="chart3">
+                        <div class="chart-header">
+                            <h3 class="chart-title">🎯 Прогноз пожизненной ценности клиентов (LTV)</h3>
                         </div>
-                    </div>
-                    
-                    <div style="background: linear-gradient(135deg, #90caf9, #ffffff); padding: 20px; border-radius: 12px; border-top: 6px solid #0a4770;">
-                        <h3 style="color: #0a4770; margin-bottom: 15px; display: flex; align-items: center; gap: 10px;">
-                            <span style="background: #0a4770; color: white; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; border-radius: 6px;">S3</span>
-                            Стратегический контур
-                        </h3>
-                        <div style="color: #333;">
-                            <p style="margin-bottom: 10px;"><strong>Горизонт:</strong> 1-5 лет</p>
-                            <p style="margin-bottom: 10px;"><strong>Цель:</strong> Рост капитала, диверсификация</p>
-                            <p style="margin-bottom: 10px;"><strong>Инструменты:</strong> Прямые инвестиции, венчур, недвижимость</p>
-                            <p><strong>AI-модуль:</strong> Макроэкономическое моделирование</p>
+                        <div style="position: relative; height: 300px;">
+                            <canvas id="ltvChart"></canvas>
                         </div>
-                    </div>
-                </div>
-                
-                <!-- Сводка по контурам -->
-                <div class="contour-summary">
-                    <div class="contour-summary-card">
-                        <div style="color: #2196f3; font-size: 1.2rem;">⚡ Тактический</div>
-                        <div class="contour-summary-value">12.4%</div>
-                        <div style="color: #666;">Текущая доходность</div>
-                    </div>
-                    <div class="contour-summary-card">
-                        <div style="color: #1976d2; font-size: 1.2rem;">📊 Оперативный</div>
-                        <div class="contour-summary-value">18.7%</div>
-                        <div style="color: #666;">Текущая доходность</div>
-                    </div>
-                    <div class="contour-summary-card">
-                        <div style="color: #0a4770; font-size: 1.2rem;">🎯 Стратегический</div>
-                        <div class="contour-summary-value">24.2%</div>
-                        <div style="color: #666;">Прогнозная доходность</div>
+                        <div class="model-description" id="ltvDescription">
+                            <!-- Подробное описание LTV будет добавлено динамически -->
+                        </div>
                     </div>
                 </div>
             </div>
             
-            <!-- Оперативные рекомендации (Контур 2) -->
-            <div class="panel-section">
-                <div class="section-title">
-                    <span>📊</span> Оперативный контур
-                    <span class="ai-recommendation-badge">AI: 3 рекомендации</span>
+            <div class="tab-content" id="contoursTab">
+                <h2 class="section-title">🏛️ Трехконтурная архитектура интеграции искусственного интеллекта</h2>
+                <p style="margin-bottom: 15px; color: #555;">Синергия человека и алгоритмов за счет перераспределения функций</p>
+                
+                <div class="three-contour-model">
+                    <div class="contour-card contour-1">
+                        <div class="contour-header">
+                            <div class="contour-icon">🎯</div>
+                            <div>
+                                <div class="contour-title">Контур 1: Стратегический</div>
+                                <div class="contour-subtitle">Человек + ИИ-инструмент</div>
+                            </div>
+                        </div>
+                        <div class="contour-content">
+                            <strong>Человек</strong> определяет стратегические цели, <strong>ИИ</strong> выполняет сценарное моделирование и анализ рынка.
+                        </div>
+                        <div class="info-box">
+                            <strong>Функция:</strong> Целеполагание и долгосрочное планирование
+                        </div>
+                    </div>
+                    
+                    <div class="contour-card contour-2">
+                        <div class="contour-header">
+                            <div class="contour-icon">⚡</div>
+                            <div>
+                                <div class="contour-title">Контур 2: Тактический</div>
+                                <div class="contour-subtitle">Симбиоз человека и ИИ</div>
+                            </div>
+                        </div>
+                        <div class="contour-content">
+                            <strong>ИИ</strong> анализирует данные и предлагает варианты. <strong>Человек</strong> принимает обоснованное финальное решение.
+                        </div>
+                        <div class="info-box">
+                            <strong>Функция:</strong> Поддержка принятия решений, объяснимый ИИ (XAI)
+                        </div>
+                    </div>
+                    
+                    <div class="contour-card contour-3">
+                        <div class="contour-header">
+                            <div class="contour-icon">🤖</div>
+                            <div>
+                                <div class="contour-title">Контур 3: Операционный</div>
+                                <div class="contour-subtitle">Полная автоматизация</div>
+                            </div>
+                        </div>
+                        <div class="contour-content">
+                            <strong>ИИ</strong> самостоятельно выполняет рутинные операции: мониторинг, переобучение моделей, предиктивное обслуживание.
+                        </div>
+                        <div class="info-box">
+                            <strong>Функция:</strong> Автоматическая обработка данных, MLOps
+                        </div>
+                    </div>
                 </div>
                 
-                <div class="recommendation-card operational-rec">
-                    <div class="recommendation-header">
-                        <div class="recommendation-title">
-                            <span>📈</span> Ребалансировка портфеля акций
+                <div class="chart-container" id="chart4">
+                    <div class="chart-header">
+                        <h3 class="chart-title">🔄 Q-learning для оптимизации портфеля R&D</h3>
+                    </div>
+                    <div style="position: relative; height: 300px;">
+                        <canvas id="qlearningChart"></canvas>
+                    </div>
+                    <div class="model-description" id="qlearningDescription">
+                        <!-- Подробное описание Q-learning будет добавлено динамически -->
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="resultsTab">
+                <h2 class="section-title">📊 Результаты внедрения и экономический эффект</h2>
+                
+                <div class="empty-state" id="emptyResultsState">
+                    <div class="empty-icon">📈</div>
+                    <h2 class="empty-title">Прогноз результатов</h2>
+                    <p class="empty-description">
+                        Загрузите данные для расчета экономического эффекта
+                    </p>
+                </div>
+                
+                <div id="resultsInfo" class="hidden">
+                    <div class="charts-row">
+                        <div class="chart-container" id="chart5">
+                            <div class="chart-header">
+                                <h3 class="chart-title">📊 Сравнение показателей: до/после внедрения</h3>
+                            </div>
+                            <div style="position: relative; height: 300px;">
+                                <canvas id="comparisonPercentageChart"></canvas>
+                            </div>
                         </div>
-                        <span class="recommendation-contour contour-operational">O2</span>
+                        
+                        <div class="chart-container" id="chart6">
+                            <div class="chart-header">
+                                <h3 class="chart-title">⏱️ Сокращение времени принятия решений</h3>
+                            </div>
+                            <div style="position: relative; height: 300px;">
+                                <canvas id="comparisonTimeChart"></canvas>
+                            </div>
+                        </div>
                     </div>
-                    <div class="recommendation-metrics">
-                        <span class="metric-tag"><strong>ROI</strong> +15.2%</span>
-                        <span class="metric-tag"><strong>Срок</strong> 3 мес</span>
-                        <span class="metric-tag"><strong>Эффект</strong> 5.7 млн ₽</span>
+                    
+                    <div class="metric-analysis" id="comparisonAnalysis"></div>
+                    
+                    <div class="indicators-grid">
+                        <div class="indicator-card">
+                            <div class="indicator-value text-success" id="resultRoi">21%</div>
+                            <div class="indicator-label">ROI после внедрения</div>
+                            <div class="indicator-change positive" id="roiChange">+6%</div>
+                        </div>
+                        
+                        <div class="indicator-card">
+                            <div class="indicator-value text-success" id="resultChurn">7%</div>
+                            <div class="indicator-label">Отток ключевых клиентов</div>
+                            <div class="indicator-change positive" id="churnChange">-3%</div>
+                        </div>
+                        
+                        <div class="indicator-card">
+                            <div class="indicator-value text-success" id="resultRdSuccess">65%</div>
+                            <div class="indicator-label">Успешность R&D</div>
+                            <div class="indicator-change positive" id="rdChange">+25%</div>
+                        </div>
+                        
+                        <div class="indicator-card">
+                            <div class="indicator-value text-success" id="resultDecisionTime">10</div>
+                            <div class="indicator-label">Дней на решение</div>
+                            <div class="indicator-change positive" id="decisionChange">-18 дней</div>
+                        </div>
                     </div>
-                    <div class="recommendation-description">
-                        Увеличить долю технологического сектора с 25% до 35%, снизить долю сырьевого сектора.
+                    
+                    <div class="chart-container" id="chart7">
+                        <div class="chart-header">
+                            <h3 class="chart-title">💰 Годовой экономический эффект: 26 млн ₽</h3>
+                        </div>
+                        <div style="position: relative; height: 300px;">
+                            <canvas id="economicChart"></canvas>
+                        </div>
+                        <div class="metric-analysis" id="economicAnalysis"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="recommendationsTab">
+                <h2 class="section-title">🎯 Объяснимый искусственный интеллект (XAI)</h2>
+                <p style="margin-bottom: 15px; color: #555;">Решение проблемы «черного ящика» с помощью SHAP-анализа</p>
+                
+                <div class="empty-state" id="emptyRecommendationsState">
+                    <div class="empty-icon">🎯</div>
+                    <h2 class="empty-title">XAI-рекомендации</h2>
+                    <p class="empty-description">
+                        Загрузите данные для получения интерпретируемых прогнозов
+                    </p>
+                </div>
+                
+                <div id="recommendationsInfo" class="hidden">
+                    <div id="aiRecommendationsContainer">
+                        <!-- AI рекомендации будут добавлены динамически -->
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="algorithmsTab">
+                <h2 class="section-title">🧮 Комплекс алгоритмов машинного обучения</h2>
+                
+                <div class="empty-state" id="emptyAlgorithmsState">
+                    <div class="empty-icon">🤖</div>
+                    <h2 class="empty-title">LightGBM, Q-learning, Автокодировщик</h2>
+                    <p class="empty-description">
+                        Алгоритмы, переведшие инвестиционные процессы на количественную основу
+                    </p>
+                </div>
+                
+                <div id="algorithmsInfo" class="hidden">
+                    <div class="chart-container" id="chart8">
+                        <div class="chart-header">
+                            <h3 class="chart-title">🎯 LightGBM + SHAP: факторы LTV</h3>
+                        </div>
+                        <div style="position: relative; height: 300px;">
+                            <canvas id="lightgbmDetailChart"></canvas>
+                        </div>
+                        <div class="metric-analysis" id="ltvAnalysis"></div>
+                    </div>
+                    
+                    <div class="chart-container" id="chart9">
+                        <div class="chart-header">
+                            <h3 class="chart-title">🤖 Нейросеть-автокодировщик: предиктивное обслуживание</h3>
+                        </div>
+                        <div style="position: relative; height: 300px;">
+                            <canvas id="autoencoderChart"></canvas>
+                        </div>
+                        <div class="model-description">
+                            <strong>Выявление аномалий:</strong> снижение незапланированных простоев на 18%
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
         
-        <!-- Правая панель: Стратегический контур и параметры -->
+        <!-- Правая панель - Параметры и зрелость ИИ -->
         <div class="right-panel">
-            <!-- Стратегические рекомендации (Контур 3) -->
             <div class="panel-section">
-                <div class="section-title">
-                    <span>🎯</span> Стратегический контур
-                    <span class="ai-recommendation-badge">AI: 2 рекомендации</span>
+                <h2 class="section-title">⚙️ Индекс зрелости ИИ</h2>
+                <p style="color: #666; font-size: 0.9rem; margin-bottom: 15px;">
+                    Управленческой команды: <strong style="color: #28a745;">«Высокий»</strong> (рост с «Начального» за 1 год)
+                </p>
+                <div style="background: #e0e0e0; height: 10px; border-radius: 5px; margin-bottom: 20px;">
+                    <div style="width: 85%; background: #28a745; height: 10px; border-radius: 5px;"></div>
                 </div>
                 
-                <div class="recommendation-card strategic-rec">
-                    <div class="recommendation-header">
-                        <div class="recommendation-title">
-                            <span>🏭</span> Выход на рынок Азии
-                        </div>
-                        <span class="recommendation-contour contour-strategic">S3</span>
-                    </div>
-                    <div class="recommendation-metrics">
-                        <span class="metric-tag"><strong>ROI</strong> +32%</span>
-                        <span class="metric-tag"><strong>Горизонт</strong> 2 года</span>
-                        <span class="metric-tag"><strong>Инвестиции</strong> 120 млн ₽</span>
-                    </div>
-                    <div class="recommendation-description">
-                        Формирование совместного предприятия с партнером в Юго-Восточной Азии.
-                    </div>
-                    <div class="roi-calculator">
-                        <h5>📊 Прогноз ROI по годам</h5>
-                        <div class="roi-grid">
-                            <div class="roi-item">
-                                <div class="roi-value">+8%</div>
-                                <div class="roi-label">2026</div>
-                            </div>
-                            <div class="roi-item">
-                                <div class="roi-value">+18%</div>
-                                <div class="roi-label">2027</div>
-                            </div>
-                            <div class="roi-item">
-                                <div class="roi-value">+32%</div>
-                                <div class="roi-label">2028</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Параметры моделирования -->
-            <div class="panel-section">
-                <div class="section-title">
-                    <span>⚙️</span> Параметры моделирования
+                <div id="parameterControls">
+                    <!-- Параметры будут добавлены после поиска -->
                 </div>
                 
-                <div class="parameter-control">
-                    <div class="parameter-label">
-                        <span class="parameter-name">Толерантность к риску</span>
-                        <span class="parameter-value-display">65%</span>
-                    </div>
-                    <input type="range" class="parameter-slider" min="0" max="100" value="65">
-                </div>
-                
-                <div class="parameter-control">
-                    <div class="parameter-label">
-                        <span class="parameter-name">Горизонт планирования</span>
-                        <span class="parameter-value-display">3 года</span>
-                    </div>
-                    <input type="range" class="parameter-slider" min="1" max="10" value="3">
-                </div>
-                
-                <div class="parameter-control">
-                    <div class="parameter-label">
-                        <span class="parameter-name">Минимальная доходность</span>
-                        <span class="parameter-value-display">15%</span>
-                    </div>
-                    <input type="range" class="parameter-slider" min="0" max="30" value="15">
-                </div>
-                
-                <button class="update-btn">
-                    <span>🔄</span> Пересчитать по контурам
+                <button class="update-btn" onclick="updateAnalysis()" id="updateBtn" disabled>
+                    🔄 Пересчитать с новыми параметрами
                 </button>
             </div>
             
-            <!-- Экспорт по контурам -->
             <div class="panel-section">
-                <div class="section-title">
-                    <span>📋</span> Отчеты по контурам
+                <h2 class="section-title">📋 Прогнозные показатели</h2>
+                <div class="indicators-grid" id="forecastIndicators">
+                    <!-- Прогнозные показатели будут здесь -->
                 </div>
-                
-                <div style="display: flex; flex-direction: column; gap: 10px;">
-                    <button class="export-btn" style="background: #2196f3;">
-                        <span>⚡</span> Отчет: Тактический контур
-                    </button>
-                    <button class="export-btn" style="background: #1976d2;">
-                        <span>📊</span> Отчет: Оперативный контур
-                    </button>
-                    <button class="export-btn" style="background: #0a4770;">
-                        <span>🎯</span> Отчет: Стратегический контур
-                    </button>
+            </div>
+            
+            <div class="panel-section">
+                <h2 class="section-title">🎯 XAI: SHAP-объяснения</h2>
+                <div id="quickRecommendationsList" style="max-height: 400px; overflow-y: auto;">
+                    <!-- Быстрые рекомендации будут здесь -->
                 </div>
             </div>
         </div>
         
-        <!-- Футер со ссылкой на GitHub -->
-        <footer class="footer">
-            <div style="display: flex; align-items: center; gap: 20px;">
-                <span>🔵 Трехконтурная AI-система управления инвестициями</span>
-                <span style="color: #bbdefb;">v2.0 • Соответствует докладу</span>
+        <!-- Footer с экспортом -->
+        <div class="export-footer">
+            <div class="footer-info">
+                <span id="exportCompanyInfo">🔍 Отчет по внедрению: <strong>ООО «Мобайл Парк ИТ»</strong> (Акт от 01.12.2025)</span>
             </div>
-            <a href="https://github.com/najokes/investment-ai-dashboard" 
-               class="github-link" 
-               target="_blank" 
-               rel="noopener noreferrer">
-                <svg height="18" width="18" viewBox="0 0 16 16" fill="currentColor">
-                    <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path>
-                </svg>
-                GitHub / investment-ai-dashboard
-            </a>
-        </footer>
+            <div class="export-footer-buttons">
+                <button class="footer-btn pdf" onclick="exportToPDF()" id="footerExportPdfBtn" disabled>
+                    📄 Скачать PDF отчет
+                </button>
+                <button class="footer-btn excel" onclick="exportToExcel()" id="footerExportExcelBtn" disabled>
+                    📊 Скачать Excel отчет
+                </button>
+            </div>
+        </div>
     </div>
+    
+    <script>
+        // База данных компаний: ТОЛЬКО ООО «Мобайл Парк ИТ» в строгом соответствии с диссертацией
+        const companyDatabase = {
+            "5047154189": {
+                name: "ООО «Мобайл Парк ИТ»",
+                inn: "5047154189",
+                description: "Объект исследования магистерской диссертации. Внедрение трехконтурной платформы ИИ.",
+                industry: "Информационные технологии, IoT, телематика",
+                founded: 2015,
+                employees: 250,
+                marketPosition: "Разработчик IoT-решений",
+                parameters: {
+                    annualRevenue: { value: 2800, min: 0, max: 10000, step: 100, unit: "млн ₽" },
+                    rdBudget: { value: 784, min: 0, max: 5000, step: 50, unit: "млн ₽" },
+                    keyClients: { value: 45, min: 0, max: 300, step: 5, unit: "шт" },
+                    rdProjects: { value: 15, min: 0, max: 100, step: 1, unit: "шт" },
+                    employees: { value: 250, min: 0, max: 5000, step: 10, unit: "чел" },
+                    customerLifetime: { value: 3.2, min: 0, max: 20, step: 0.1, unit: "лет" },
+                    avgProjectBudget: { value: 32, min: 0, max: 500, step: 5, unit: "млн ₽" },
+                    infrastructureDowntime: { value: 48, min: 0, max: 720, step: 5, unit: "ч/мес" },
+                    marketShare: { value: 3.5, min: 0, max: 50, step: 0.1, unit: "%" },
+                    customerSatisfaction: { value: 82, min: 0, max: 100, step: 1, unit: "%" },
+                    employeeTurnover: { value: 15, min: 0, max: 50, step: 1, unit: "%" },
+                    innovationIndex: { value: 68, min: 0, max: 100, step: 1, unit: "баллов" }
+                }
+            }
+        };
+        
+        let companyData = null;
+        let calculatedResults = null;
+        let charts = {};
+        let aiRecommendations = [];
+        
+        // Инициализация
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('analysisInfo').classList.add('hidden');
+            document.getElementById('resultsInfo').classList.add('hidden');
+            document.getElementById('algorithmsInfo').classList.add('hidden');
+            document.getElementById('recommendationsInfo').classList.add('hidden');
+            
+            document.getElementById('emptyAnalysisState').classList.remove('hidden');
+            document.getElementById('emptyResultsState').classList.remove('hidden');
+            document.getElementById('emptyAlgorithmsState').classList.remove('hidden');
+            document.getElementById('emptyRecommendationsState').classList.remove('hidden');
+            
+            document.getElementById('updateBtn').disabled = true;
+            document.getElementById('exportPdfBtn').disabled = true;
+            document.getElementById('exportExcelBtn').disabled = true;
+            document.getElementById('footerExportPdfBtn').disabled = true;
+            document.getElementById('footerExportExcelBtn').disabled = true;
+            
+            document.getElementById('currentIndicators').innerHTML = '';
+            document.getElementById('forecastIndicators').innerHTML = '';
+            document.getElementById('quickRecommendationsList').innerHTML = '';
+            document.getElementById('parameterControls').innerHTML = '';
+            
+            document.getElementById('innInput').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') searchByINN();
+            });
+        });
+        
+        function searchByINN() {
+            const inn = document.getElementById('innInput').value.trim();
+            
+            if (!inn) {
+                alert('Введите ИНН компании');
+                return;
+            }
+            
+            showLoading(true);
+            
+            setTimeout(() => {
+                if (companyDatabase[inn]) {
+                    companyData = JSON.parse(JSON.stringify(companyDatabase[inn]));
+                } else {
+                    // Если введен неверный ИНН, все равно загружаем данные диссертации
+                    companyData = JSON.parse(JSON.stringify(companyDatabase["5047154189"]));
+                    companyData.name = "ООО «Мобайл Парк ИТ» (эталон)";
+                    companyData.inn = inn;
+                }
+                
+                initializeAnalysis();
+                showLoading(false);
+            }, 1000);
+        }
+        
+        function initializeAnalysis() {
+            document.getElementById('updateBtn').disabled = false;
+            document.getElementById('exportPdfBtn').disabled = false;
+            document.getElementById('exportExcelBtn').disabled = false;
+            document.getElementById('footerExportPdfBtn').disabled = false;
+            document.getElementById('footerExportExcelBtn').disabled = false;
+            
+            document.getElementById('companyName').textContent = companyData.name;
+            document.getElementById('companyDetails').textContent = companyData.description;
+            document.getElementById('companyLogo').textContent = companyData.name.charAt(0);
+            
+            document.getElementById('exportCompanyInfo').innerHTML = `📌 Объект внедрения: <strong>${companyData.name}</strong> | Акт от 01.12.2025 | R² = 0.89`;
+            
+            createParameterControls();
+            calculateMetrics();
+            generateAIRecommendations();
+            updateDisplay();
+            createCharts();
+            updateAnalysisTexts();
+            displayAIRecommendations();
+            updateModelDescriptions();
+            
+            document.getElementById('emptyAnalysisState').classList.add('hidden');
+            document.getElementById('analysisInfo').classList.remove('hidden');
+            
+            document.getElementById('emptyResultsState').classList.add('hidden');
+            document.getElementById('resultsInfo').classList.remove('hidden');
+            
+            document.getElementById('emptyAlgorithmsState').classList.add('hidden');
+            document.getElementById('algorithmsInfo').classList.remove('hidden');
+            
+            document.getElementById('emptyRecommendationsState').classList.add('hidden');
+            document.getElementById('recommendationsInfo').classList.remove('hidden');
+            
+            switchTab('analysis');
+        }
+        
+        // Функция для подробного описания LTV и Q-learning (в строгом соответствии с ВКР)
+        function updateModelDescriptions() {
+            // Описание LTV
+            const ltvDesc = document.getElementById('ltvDescription');
+            if (ltvDesc && companyData && calculatedResults) {
+                const current = calculatedResults.current;
+                const improved = calculatedResults.improved;
+                
+                ltvDesc.innerHTML = `
+                    <h4 style="color: #008000; margin-bottom: 10px;">🎯 LightGBM с автоматической оптимизацией гиперпараметров (Optuna)</h4>
+                    <p><strong>Точность модели (R²):</strong> 0.89 (проектное значение достигнуто)</p>
+                    <p><strong>Текущий LTV:</strong> ${current.avgLtv} млн ₽</p>
+                    <p><strong>Прогноз LTV:</strong> ${improved.avgLtv} млн ₽</p>
+                    <p><strong>Решение проблемы «черного ящика»:</strong> SHAP-диаграммы для каждого прогноза.</p>
+                `;
+            }
+            
+            // Описание Q-learning
+            const qlearningDesc = document.getElementById('qlearningDescription');
+            if (qlearningDesc && companyData) {
+                qlearningDesc.innerHTML = `
+                    <h4 style="color: #ff9800; margin-bottom: 10px;">🔄 Адаптированный Q-learning для R&D портфеля</h4>
+                    <p><strong>Композитное вознаграждение:</strong> 70% — финансовая отдача, 20% — патентный потенциал, 10% — рост компетенций.</p>
+                    <p><strong>Стратегия ε-жадности:</strong> от 100% исследования к эксплуатации.</p>
+                    <p><strong>Результат:</strong> Доля окупающихся R&D проектов выросла с <strong>40% до 65%</strong>.</p>
+                `;
+            }
+        }
+        
+        function generateAIRecommendations() {
+            if (!companyData || !calculatedResults) return;
+            
+            aiRecommendations = [];
+            const params = companyData.parameters;
+            const current = calculatedResults.current;
+            const improved = calculatedResults.improved;
+            const eco = calculatedResults.economic;
+            
+            // Рекомендации строго по тексту диссертации
+            aiRecommendations.push({
+                id: 1,
+                title: "🎯 Интеграция объяснимого ИИ (XAI) через SHAP",
+                priority: "high",
+                priorityText: "Решает проблему 'Черного ящика'",
+                category: "Доверие к ИИ",
+                impact: `R² = 0.89`,
+                roi: `${((improved.roi - current.roi) * 1.2).toFixed(1)}%`,
+                investment: `14 млн ₽`,
+                payback: "6.5 месяцев",
+                description: `Внедрение SHAP-анализа для интерпретации каждого прогноза LTV. Генерация понятных диаграмм для бизнес-пользователей.`,
+                steps: [
+                    "Развернуть SHAP-анализатор в контуре модели LightGBM",
+                    "Создать дашборд с визуализацией вклада факторов",
+                    "Провести обучение команды работе с объяснениями",
+                    "Интегрировать XAI-отчеты в процесс принятия решений",
+                    "Фиксировать рост индекса зрелости ИИ"
+                ],
+                metrics: {
+                    expectedGrowth: `+${(improved.roi - current.roi).toFixed(1)}% ROI`,
+                    riskReduction: "Высокая",
+                    efficiencyGain: "Прозрачность 100%"
+                }
+            });
+            
+            aiRecommendations.push({
+                id: 2,
+                title: "🤖 MLOps: автоматический конвейер против дрейфа данных",
+                priority: "high",
+                priorityText: "Критический",
+                category: "Эксплуатация",
+                impact: `Снижение простоев`,
+                roi: `24%`,
+                investment: `${(params.rdBudget.value * 0.018).toFixed(0)} млн ₽`,
+                payback: "5 месяцев",
+                description: `Внедрение Apache Airflow + Evidently AI для мониторинга дрейфа данных и автоматического переобучения моделей.`,
+                steps: [
+                    "Настроить сбор метрик качества данных",
+                    "Реализовать триггеры переобучения при изменении распределений",
+                    "Интегрировать MLflow для версионирования моделей",
+                    "Автоматизировать A/B тестирование новых моделей"
+                ],
+                metrics: {
+                    downtimeReduction: "95%",
+                    reliabilityIncrease: "99.9%",
+                    costSavings: `${(eco.downtimeReduction)} млн ₽`
+                }
+            });
+            
+            aiRecommendations.push({
+                id: 3,
+                title: "⚡ Микросервисная архитектура на FastAPI",
+                priority: "medium",
+                priorityText: "Высокий",
+                category: "Интеграция",
+                impact: `Задержка < 200 мс`,
+                roi: `18%`,
+                investment: `${(params.annualRevenue.value * 0.015).toFixed(0)} млн ₽`,
+                payback: "7 месяцев",
+                description: `Каждая модель упакована в независимый микросервис с REST API. Легкая интеграция в корпоративные системы.`,
+                steps: [
+                    "Контейнеризация моделей в Docker",
+                    "Оркестрация через Kubernetes",
+                    "Реализация API Gateway",
+                    "Строгие SLA: доступность 99.9%"
+                ],
+                metrics: {
+                    timeReduction: "70%",
+                    errorReduction: "90%",
+                    productivityGain: "+45%"
+                }
+            });
+            
+            // Рекомендация по индексу зрелости
+            aiRecommendations.push({
+                id: 4,
+                title: "📈 Повышение индекса зрелости ИИ управленческой команды",
+                priority: "medium",
+                priorityText: "Стратегический",
+                category: "Культура данных",
+                impact: `Начальный → Высокий`,
+                roi: `32%`,
+                investment: `4 млн ₽`,
+                payback: "9 месяцев",
+                description: `Формирование культуры, основанной на данных. Руководители самостоятельно анализируют SHAP-объяснения прогнозов.`,
+                steps: [
+                    "Проведение тренингов по Data-Driven культуре",
+                    "Внедрение KPI для руководителей по использованию ИИ",
+                    "Создание центра компетенций по ИИ",
+                    "Тиражирование решения на партнерские компании холдинга"
+                ],
+                metrics: {
+                    npsGrowth: "+15 пунктов",
+                    engagementScore: "+28%",
+                    turnoverReduction: "-12%"
+                }
+            });
+        }
+        
+        function displayAIRecommendations() {
+            const container = document.getElementById('aiRecommendationsContainer');
+            const quickContainer = document.getElementById('quickRecommendationsList');
+            
+            if (!container || !quickContainer) return;
+            
+            container.innerHTML = '';
+            quickContainer.innerHTML = '';
+            
+            const sortedRecs = [...aiRecommendations].sort((a, b) => {
+                const priorityOrder = { high: 1, medium: 2, low: 3 };
+                return priorityOrder[a.priority] - priorityOrder[b.priority];
+            });
+            
+            sortedRecs.forEach(rec => {
+                const recElement = document.createElement('div');
+                recElement.className = `recommendation-card ${rec.priority}`;
+                recElement.innerHTML = `
+                    <div class="recommendation-header">
+                        <div class="recommendation-title">
+                            ${rec.title}
+                            <span class="ai-recommendation-badge">XAI</span>
+                        </div>
+                        <span class="recommendation-priority priority-${rec.priority}">${rec.priorityText}</span>
+                    </div>
+                    <div class="recommendation-metrics">
+                        <span class="metric-tag">
+                            <span>📊 Эффект</span>
+                            <strong>${rec.impact}</strong>
+                        </span>
+                        <span class="metric-tag">
+                            <span>💰 ROI</span>
+                            <strong>${rec.roi}</strong>
+                        </span>
+                        <span class="metric-tag">
+                            <span>💵 Инвестиции</span>
+                            <strong>${rec.investment}</strong>
+                        </span>
+                        <span class="metric-tag">
+                            <span>⏱️ Окупаемость</span>
+                            <strong>${rec.payback}</strong>
+                        </span>
+                    </div>
+                    <div class="recommendation-description">
+                        ${rec.description}
+                    </div>
+                    <div class="implementation-steps">
+                        <h5>📋 План внедрения:</h5>
+                        <ul>
+                            ${rec.steps.map(step => `<li>${step}</li>`).join('')}
+                        </ul>
+                    </div>
+                `;
+                container.appendChild(recElement);
+                
+                // Быстрая рекомендация (XAI заметка)
+                const quickElement = document.createElement('div');
+                quickElement.style.cssText = `
+                    background: white;
+                    border-radius: 8px;
+                    padding: 15px;
+                    margin-bottom: 12px;
+                    border-left: 4px solid ${rec.priority === 'high' ? '#c0392b' : rec.priority === 'medium' ? '#e67e22' : '#f39c12'};
+                    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+                `;
+                quickElement.innerHTML = `
+                    <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 8px;">
+                        <strong style="color: #2c3e50; font-size: 0.9rem;">${rec.title}</strong>
+                    </div>
+                    <div style="font-size: 0.8rem; color: #666;">
+                        ${rec.description.substring(0, 80)}...
+                    </div>
+                `;
+                quickContainer.appendChild(quickElement);
+            });
+            
+            // AI Summary с упоминанием Акта внедрения
+            const aiSummary = document.getElementById('aiSummary');
+            if (aiSummary) {
+                aiSummary.innerHTML = `
+                    <h3>🤖 Результаты внедрения в ООО «Мобайл Парк ИТ»</h3>
+                    <p style="font-size: 1.1rem; margin-bottom: 10px;">
+                        <strong>Акт ввода в промышленную эксплуатацию от 01.12.2025</strong>
+                    </p>
+                    <p>Совокупный годовой экономический эффект: <strong>двадцать шесть миллионов рублей</strong>.<br>
+                    Затраты на внедрение: <strong>четырнадцать миллионов рублей</strong>.<br>
+                    Срок окупаемости: <strong>менее семи месяцев</strong> (шесть с половиной).</p>
+                    <p>Доля окупающихся R&D проектов выросла с <strong>40% до 65%</strong>.<br>
+                    ROI портфеля: с <strong>15% до 21%</strong>. Отток ключевых клиентов: с <strong>10% до 7%</strong>.<br>
+                    Время решений: с <strong>4 недель до 10 дней</strong>.</p>
+                `;
+            }
+        }
+        
+        function getMetricLabel(key) {
+            const labels = {
+                expectedGrowth: "Рост ROI",
+                riskReduction: "Снижение рисков",
+                efficiencyGain: "Рост эффективности",
+                churnReduction: "Снижение оттока",
+                retentionIncrease: "Рост удержания",
+                npsGrowth: "Рост NPS",
+                successRate: "Успешность",
+                timeToMarket: "Time to Market",
+                costReduction: "Снижение затрат",
+                timeReduction: "Экономия времени",
+                productivityGain: "Продуктивность",
+                errorReduction: "Ошибки",
+                downtimeReduction: "Простои",
+                costSavings: "Экономия",
+                reliabilityIncrease: "Надежность",
+                ltvGrowth: "Рост LTV",
+                crossSellRate: "Кросс-продажи",
+                marketingROI: "ROI маркетинга",
+                turnoverReduction: "Текучесть",
+                engagementScore: "Вовлеченность",
+                hiringCosts: "Затраты на найм",
+                searchTime: "Поиск информации",
+                reuseRate: "Повторное использование",
+                onboardingTime: "Адаптация"
+            };
+            return labels[key] || key;
+        }
+        
+        function createParameterControls() {
+            const container = document.getElementById('parameterControls');
+            container.innerHTML = '';
+            
+            Object.entries(companyData.parameters).forEach(([key, param]) => {
+                const control = document.createElement('div');
+                control.className = 'parameter-control';
+                control.innerHTML = `
+                    <div class="parameter-label">
+                        <span class="parameter-name">${getParameterName(key)}</span>
+                        <span class="parameter-value-display" id="${key}Value">${param.value} ${param.unit}</span>
+                    </div>
+                    <input type="range" 
+                           class="parameter-slider" 
+                           id="${key}Slider"
+                           min="${param.min}" 
+                           max="${param.max}" 
+                           step="${param.step}" 
+                           value="${param.value}"
+                           oninput="updateParameter('${key}', this.value)">
+                    <input type="number" 
+                           class="parameter-input mt-20" 
+                           id="${key}Input"
+                           value="${param.value}"
+                           min="${param.min}"
+                           max="${param.max}"
+                           step="${param.step}"
+                           onchange="updateParameter('${key}', this.value)">
+                `;
+                container.appendChild(control);
+            });
+        }
+        
+        function getParameterName(key) {
+            const names = {
+                annualRevenue: "Годовая выручка",
+                rdBudget: "Бюджет R&D",
+                keyClients: "Ключевые клиенты",
+                rdProjects: "R&D проекты",
+                employees: "Сотрудники",
+                customerLifetime: "Срок жизни клиента",
+                avgProjectBudget: "Средний бюджет проекта",
+                infrastructureDowntime: "Простой инфраструктуры",
+                marketShare: "Доля рынка",
+                customerSatisfaction: "Удовлетворенность клиентов",
+                employeeTurnover: "Текучесть персонала",
+                innovationIndex: "Индекс инноваций"
+            };
+            return names[key] || key;
+        }
+        
+        function updateParameter(key, value) {
+            const numValue = parseFloat(value);
+            companyData.parameters[key].value = numValue;
+            
+            document.getElementById(`${key}Value`).textContent = `${numValue} ${companyData.parameters[key].unit}`;
+            document.getElementById(`${key}Slider`).value = numValue;
+            document.getElementById(`${key}Input`).value = numValue;
+        }
+        
+        function updateAnalysis() {
+            showLoading(true);
+            setTimeout(() => {
+                calculateMetrics();
+                generateAIRecommendations();
+                updateDisplay();
+                updateCharts();
+                updateAnalysisTexts();
+                displayAIRecommendations();
+                updateModelDescriptions();
+                showLoading(false);
+            }, 500);
+        }
+        
+        function calculateMetrics() {
+            if (!companyData) return;
+            
+            const params = companyData.parameters;
+            
+            // Базовые показатели ДО внедрения (строго по ВКР)
+            const baseRoi = 15.0;          // 15%
+            const baseChurn = 10.0;         // 10%
+            const baseRdSuccess = 40.0;     // 40%
+            const baseDecisionTime = 28.0;  // 4 недели = 28 дней
+            
+            // Показатели ПОСЛЕ внедрения (строго по ВКР)
+            const improvedRoi = 21.0;           // 21%
+            const improvedChurn = 7.0;          // 7%
+            const improvedRdSuccess = 65.0;     // 65%
+            const improvedDecisionTime = 10.0;  // 10 дней
+            
+            // Экономический эффект (строго по ВКР)
+            const totalEffect = 26.0;        // 26 млн ₽
+            const implementationCost = 14.0; // 14 млн ₽
+            const paybackMonths = 6.5;       // 6.5 месяцев
+            
+            // LTV (рассчитываем относительно данных компании)
+            const avgLtv = calculateLTV(params);
+            const forecastLtv = avgLtv * 1.27; // Рост LTV на 27% (из доклада)
+            
+            calculatedResults = {
+                current: {
+                    roi: baseRoi.toFixed(1),
+                    churn: baseChurn.toFixed(1),
+                    rdSuccess: baseRdSuccess.toFixed(1),
+                    decisionTime: baseDecisionTime.toFixed(0),
+                    avgLtv: avgLtv.toFixed(1)
+                },
+                improved: {
+                    roi: improvedRoi.toFixed(1),
+                    churn: improvedChurn.toFixed(1),
+                    rdSuccess: improvedRdSuccess.toFixed(1),
+                    decisionTime: improvedDecisionTime.toFixed(0),
+                    avgLtv: forecastLtv.toFixed(1)
+                },
+                economic: {
+                    revenueIncrease: (totalEffect * 0.45).toFixed(1),
+                    costReduction: (totalEffect * 0.25).toFixed(1),
+                    downtimeReduction: (totalEffect * 0.18).toFixed(1),
+                    hrSavings: (totalEffect * 0.12).toFixed(1),
+                    totalEffect: totalEffect.toFixed(1),
+                    implementationCost: implementationCost.toFixed(1),
+                    paybackMonths: paybackMonths.toFixed(1)
+                },
+                ltvData: {
+                    current: avgLtv,
+                    forecast: forecastLtv,
+                    improvement: ((forecastLtv - avgLtv) / avgLtv * 100).toFixed(1)
+                },
+                parameters: params
+            };
+        }
+        
+        function calculateLTV(params) {
+            const revenue = params.annualRevenue.value;
+            const clients = Math.max(params.keyClients.value, 1);
+            const lifetime = params.customerLifetime.value;
+            const satisfaction = params.customerSatisfaction ? params.customerSatisfaction.value / 100 : 0.8;
+            
+            return (revenue * 0.4 * lifetime * satisfaction) / (clients * 10);
+        }
+        
+        function updateAnalysisTexts() {
+            if (!calculatedResults) return;
+            
+            const current = calculatedResults.current;
+            const improved = calculatedResults.improved;
+            const economic = calculatedResults.economic;
+            const ltv = calculatedResults.ltvData;
+            
+            const comparisonAnalysis = document.getElementById('comparisonAnalysis');
+            comparisonAnalysis.innerHTML = `
+                <h4>📊 Динамика ключевых показателей</h4>
+                <p><strong>ROI портфеля:</strong> ${current.roi}% → ${improved.roi}% (+${(improved.roi - current.roi).toFixed(1)}%)</p>
+                <p><strong>Отток ключевых клиентов:</strong> ${current.churn}% → ${improved.churn}% (-${(current.churn - improved.churn).toFixed(1)}%)</p>
+                <p><strong>Доля окупающихся R&D проектов:</strong> ${current.rdSuccess}% → ${improved.rdSuccess}% (+${(improved.rdSuccess - current.rdSuccess).toFixed(1)}%)</p>
+                <p><strong>Время принятия решений:</strong> ${current.decisionTime} дней → ${improved.decisionTime} дней (-${(current.decisionTime - improved.decisionTime)} дней)</p>
+                <p><strong>Срок окупаемости проектов R&D:</strong> 24 месяца → 19 месяцев</p>
+            `;
+            
+            const economicAnalysis = document.getElementById('economicAnalysis');
+            economicAnalysis.innerHTML = `
+                <h4>💰 Совокупный годовой экономический эффект</h4>
+                <p><strong>Общий эффект:</strong> двадцать шесть миллионов рублей (${parseFloat(economic.totalEffect).toLocaleString('ru-RU')} млн ₽)</p>
+                <p><strong>Затраты на внедрение платформы:</strong> четырнадцать миллионов рублей</p>
+                <p><strong>Срок окупаемости:</strong> менее семи месяцев (${economic.paybackMonths} мес.)</p>
+                <p><strong>Статус:</strong> Промышленная эксплуатация с 01.12.2025, решение тиражируется</p>
+            `;
+            
+            const ltvAnalysis = document.getElementById('ltvAnalysis');
+            if (ltvAnalysis) {
+                ltvAnalysis.innerHTML = `
+                    <h4>🎯 LightGBM + Optuna + SHAP</h4>
+                    <p><strong>Коэффициент детерминации R²:</strong> 0.89</p>
+                    <p><strong>Текущий средний LTV:</strong> ${current.avgLtv} млн ₽</p>
+                    <p><strong>Прогноз после внедрения:</strong> ${improved.avgLtv} млн ₽</p>
+                    <p><strong>Проблема «черного ящика» решена:</strong> SHAP-визуализация для каждого клиента</p>
+                `;
+            }
+        }
+        
+        function updateDisplay() {
+            if (!calculatedResults) return;
+            
+            const current = calculatedResults.current;
+            const improved = calculatedResults.improved;
+            
+            const currentIndicators = document.getElementById('currentIndicators');
+            currentIndicators.innerHTML = `
+                <div class="indicator-card">
+                    <div class="indicator-value text-danger">${current.roi}%</div>
+                    <div class="indicator-label">ROI портфеля</div>
+                    <div class="indicator-change negative">Было до внедрения</div>
+                </div>
+                <div class="indicator-card">
+                    <div class="indicator-value text-danger">${current.churn}%</div>
+                    <div class="indicator-label">Отток ключевых клиентов</div>
+                    <div class="indicator-change negative">Исходный уровень</div>
+                </div>
+                <div class="indicator-card">
+                    <div class="indicator-value text-danger">${current.rdSuccess}%</div>
+                    <div class="indicator-label">Успешность R&D</div>
+                    <div class="indicator-change negative">До оптимизации</div>
+                </div>
+                <div class="indicator-card">
+                    <div class="indicator-value text-danger">${current.decisionTime} дней</div>
+                    <div class="indicator-label">Время решений</div>
+                    <div class="indicator-change negative">4 недели</div>
+                </div>
+                <div class="indicator-card">
+                    <div class="indicator-value text-danger">${current.avgLtv} млн ₽</div>
+                    <div class="indicator-label">Средний LTV</div>
+                    <div class="indicator-change negative">Текущий</div>
+                </div>
+            `;
+            
+            const forecastIndicators = document.getElementById('forecastIndicators');
+            forecastIndicators.innerHTML = `
+                <div class="indicator-card">
+                    <div class="indicator-value text-success">${improved.roi}%</div>
+                    <div class="indicator-label">ROI после внедрения</div>
+                    <div class="indicator-change positive">+${(improved.roi - current.roi).toFixed(1)}%</div>
+                </div>
+                <div class="indicator-card">
+                    <div class="indicator-value text-success">${improved.churn}%</div>
+                    <div class="indicator-label">Отток после внедрения</div>
+                    <div class="indicator-change positive">-${(current.churn - improved.churn).toFixed(1)}%</div>
+                </div>
+                <div class="indicator-card">
+                    <div class="indicator-value text-success">${improved.rdSuccess}%</div>
+                    <div class="indicator-label">Успешность R&D</div>
+                    <div class="indicator-change positive">+${(improved.rdSuccess - current.rdSuccess).toFixed(1)}%</div>
+                </div>
+                <div class="indicator-card">
+                    <div class="indicator-value text-success">${improved.decisionTime} дней</div>
+                    <div class="indicator-label">Время решений</div>
+                    <div class="indicator-change positive">-${(current.decisionTime - improved.decisionTime)} дней</div>
+                </div>
+                <div class="indicator-card">
+                    <div class="indicator-value text-success">${improved.avgLtv} млн ₽</div>
+                    <div class="indicator-label">Прогноз LTV</div>
+                    <div class="indicator-change positive">+${calculatedResults.ltvData.improvement}%</div>
+                </div>
+            `;
+            
+            document.getElementById('resultRoi').textContent = `${improved.roi}%`;
+            document.getElementById('resultChurn').textContent = `${improved.churn}%`;
+            document.getElementById('resultRdSuccess').textContent = `${improved.rdSuccess}%`;
+            document.getElementById('resultDecisionTime').textContent = `${improved.decisionTime}`;
+            
+            const roiChange = (parseFloat(improved.roi) - parseFloat(current.roi)).toFixed(1);
+            const churnChange = (parseFloat(current.churn) - parseFloat(improved.churn)).toFixed(1);
+            const rdChange = (parseFloat(improved.rdSuccess) - parseFloat(current.rdSuccess)).toFixed(1);
+            const decisionChange = (parseFloat(current.decisionTime) - parseFloat(improved.decisionTime)).toFixed(0);
+            
+            document.getElementById('roiChange').textContent = `+${roiChange}%`;
+            document.getElementById('churnChange').textContent = `-${churnChange}%`;
+            document.getElementById('rdChange').textContent = `+${rdChange}%`;
+            document.getElementById('decisionChange').textContent = `-${decisionChange} дней`;
+            
+            document.getElementById('analysisTitle').textContent = `Анализ: ${companyData.name}`;
+        }
+        
+        function createCharts() {
+            if (!companyData || !calculatedResults) return;
+            
+            createCurrentMetricsChart();
+            createDecisionTimeChart();
+            createLTVChart();
+            createQlearningChart();
+            createComparisonPercentageChart();
+            createComparisonTimeChart();
+            createEconomicChart();
+            createLightGBMDetailChart();
+            createAutoencoderChart();
+        }
+        
+        function updateCharts() {
+            Object.values(charts).forEach(chart => {
+                if (chart && typeof chart.destroy === 'function') {
+                    chart.destroy();
+                }
+            });
+            charts = {};
+            createCharts();
+        }
+        
+        function createCurrentMetricsChart() {
+            const ctx = document.getElementById('currentMetricsChart').getContext('2d');
+            const current = calculatedResults.current;
+            
+            charts.currentMetricsChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['ROI портфеля', 'Отток клиентов', 'Успешность R&D'],
+                    datasets: [{
+                        label: 'Текущие значения (до внедрения), %',
+                        data: [current.roi, current.churn, current.rdSuccess],
+                        backgroundColor: [
+                            'rgba(139, 0, 0, 0.7)',
+                            'rgba(165, 42, 42, 0.7)',
+                            'rgba(178, 34, 34, 0.7)'
+                        ],
+                        borderColor: '#8B0000',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: { color: 'rgba(0, 0, 0, 0.1)' },
+                            title: { display: true, text: 'Проценты (%)' }
+                        },
+                        x: { grid: { display: false } }
+                    }
+                }
+            });
+        }
+        
+        function createDecisionTimeChart() {
+            const ctx = document.getElementById('decisionTimeChart').getContext('2d');
+            const current = calculatedResults.current;
+            
+            charts.decisionTimeChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Время принятия инвестиционных решений'],
+                    datasets: [{
+                        label: 'Текущее значение (дней)',
+                        data: [current.decisionTime],
+                        backgroundColor: ['rgba(205, 92, 92, 0.7)'],
+                        borderColor: '#8B0000',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: { color: 'rgba(0, 0, 0, 0.1)' },
+                            title: { display: true, text: 'Дни' }
+                        },
+                        x: { grid: { display: false } }
+                    }
+                }
+            });
+        }
+        
+        function createLTVChart() {
+            const ctx = document.getElementById('ltvChart').getContext('2d');
+            const clients = Math.min(companyData.parameters.keyClients.value, 8);
+            
+            const ltvData = Array.from({length: Math.max(5, clients)}, (_, i) => ({
+                client: `Клиент ${i+1}`,
+                current: calculatedResults.current.avgLtv * (0.7 + Math.random() * 0.6),
+                predicted: calculatedResults.improved.avgLtv * (0.8 + Math.random() * 0.4)
+            }));
+            
+            charts.ltvChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ltvData.map(d => d.client),
+                    datasets: [
+                        {
+                            label: 'Текущий LTV, млн ₽',
+                            data: ltvData.map(d => d.current),
+                            borderColor: '#8B0000',
+                            backgroundColor: 'rgba(139, 0, 0, 0.1)',
+                            borderWidth: 2,
+                            tension: 0.3
+                        },
+                        {
+                            label: 'Прогноз LightGBM, млн ₽',
+                            data: ltvData.map(d => d.predicted),
+                            borderColor: '#008000',
+                            backgroundColor: 'rgba(0, 128, 0, 0.1)',
+                            borderWidth: 2,
+                            tension: 0.3
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: { color: 'rgba(0, 0, 0, 0.1)' },
+                            title: { display: true, text: 'LTV, млн ₽' }
+                        },
+                        x: { grid: { display: false } }
+                    }
+                }
+            });
+        }
+        
+        function createQlearningChart() {
+            const ctx = document.getElementById('qlearningChart').getContext('2d');
+            const episodes = Array.from({length: 20}, (_, i) => i + 1);
+            const rewards = episodes.map(ep => 
+                70 * (1 - Math.exp(-ep/5)) + 
+                20 * (1 - Math.exp(-ep/10)) + 
+                10 * (1 - Math.exp(-ep/15))
+            );
+            
+            charts.qlearningChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: episodes.map(e => `Эп. ${e}`),
+                    datasets: [{
+                        label: 'Композитное вознаграждение (финансы 70% / патенты 20% / компетенции 10%)',
+                        data: rewards,
+                        borderColor: '#ff9800',
+                        backgroundColor: 'rgba(255, 152, 0, 0.1)',
+                        borderWidth: 3,
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            grid: { color: 'rgba(0, 0, 0, 0.1)' },
+                            title: { display: true, text: 'Вознаграждение' }
+                        },
+                        x: { 
+                            grid: { display: false },
+                            title: { display: true, text: 'Эпизоды обучения' }
+                        }
+                    }
+                }
+            });
+        }
+        
+        function createComparisonPercentageChart() {
+            const ctx = document.getElementById('comparisonPercentageChart').getContext('2d');
+            const current = calculatedResults.current;
+            const improved = calculatedResults.improved;
+            
+            charts.comparisonPercentageChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['ROI, %', 'Отток клиентов, %', 'Успешность R&D, %'],
+                    datasets: [
+                        {
+                            label: 'До внедрения (2024)',
+                            data: [current.roi, current.churn, current.rdSuccess],
+                            backgroundColor: 'rgba(139, 0, 0, 0.7)',
+                            borderColor: '#8B0000',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'После внедрения (2025)',
+                            data: [improved.roi, improved.churn, improved.rdSuccess],
+                            backgroundColor: 'rgba(0, 128, 0, 0.7)',
+                            borderColor: '#008000',
+                            borderWidth: 1
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: { color: 'rgba(0, 0, 0, 0.1)' },
+                            title: { display: true, text: 'Проценты (%)' }
+                        },
+                        x: { grid: { display: false } }
+                    }
+                }
+            });
+        }
+        
+        function createComparisonTimeChart() {
+            const ctx = document.getElementById('comparisonTimeChart').getContext('2d');
+            const current = calculatedResults.current;
+            const improved = calculatedResults.improved;
+            
+            charts.comparisonTimeChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Время принятия решений, дней'],
+                    datasets: [
+                        {
+                            label: 'До внедрения',
+                            data: [current.decisionTime],
+                            backgroundColor: 'rgba(139, 0, 0, 0.7)',
+                            borderColor: '#8B0000',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'После внедрения',
+                            data: [improved.decisionTime],
+                            backgroundColor: 'rgba(0, 128, 0, 0.7)',
+                            borderColor: '#008000',
+                            borderWidth: 1
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: { color: 'rgba(0, 0, 0, 0.1)' },
+                            title: { display: true, text: 'Дни' }
+                        },
+                        x: { grid: { display: false } }
+                    }
+                }
+            });
+        }
+        
+        function createEconomicChart() {
+            const ctx = document.getElementById('economicChart').getContext('2d');
+            const economic = calculatedResults.economic;
+            
+            charts.economicChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Рост доходов', 'Снижение затрат R&D', 'Снижение простоев', 'HR-оптимизация'],
+                    datasets: [{
+                        data: [
+                            parseFloat(economic.revenueIncrease),
+                            parseFloat(economic.costReduction),
+                            parseFloat(economic.downtimeReduction),
+                            parseFloat(economic.hrSavings || 0)
+                        ],
+                        backgroundColor: [
+                            'rgba(0, 128, 0, 0.8)',
+                            'rgba(255, 152, 0, 0.8)',
+                            'rgba(33, 150, 243, 0.8)',
+                            'rgba(156, 39, 176, 0.8)'
+                        ],
+                        borderColor: ['#008000', '#ff9800', '#2196F3', '#9c27b0'],
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom' },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return `${context.label}: ${parseFloat(context.raw).toFixed(1)} млн ₽`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        
+        function createLightGBMDetailChart() {
+            const ctx = document.getElementById('lightgbmDetailChart').getContext('2d');
+            
+            charts.lightgbmDetailChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Частота покупок', 'Средний чек', 'Давность покупки', 'Отрасль клиента', 'NPS', 'Канал привлечения'],
+                    datasets: [{
+                        label: 'Вклад в прогноз LTV (SHAP-значения), %',
+                        data: [42, 28, -15, 12, 22, 14],
+                        backgroundColor: [
+                            'rgba(0, 128, 0, 0.7)',
+                            'rgba(0, 128, 0, 0.7)',
+                            'rgba(139, 0, 0, 0.7)',
+                            'rgba(0, 128, 0, 0.7)',
+                            'rgba(0, 128, 0, 0.7)',
+                            'rgba(0, 128, 0, 0.7)'
+                        ],
+                        borderColor: '#008000',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    indexAxis: 'y',
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            grid: { color: 'rgba(0, 0, 0, 0.1)' },
+                            title: { display: true, text: 'Вклад в прогноз, %' }
+                        },
+                        y: { grid: { display: false } }
+                    }
+                }
+            });
+        }
+        
+        function createAutoencoderChart() {
+            const ctx = document.getElementById('autoencoderChart').getContext('2d');
+            const anomalyData = Array.from({length: 100}, (_, i) => {
+                const x = i / 10;
+                let y = Math.sin(x) + 0.1 * Math.sin(5 * x);
+                if (i > 70 && i < 85) y += 0.5;
+                if (i > 20 && i < 25) y += 0.3;
+                return y;
+            });
+            
+            charts.autoencoderChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: Array.from({length: 100}, (_, i) => i),
+                    datasets: [{
+                        label: 'Ошибка реконструкции (аномалии)',
+                        data: anomalyData,
+                        borderColor: '#8B0000',
+                        backgroundColor: 'rgba(139, 0, 0, 0.1)',
+                        borderWidth: 2,
+                        tension: 0.3,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: { color: 'rgba(0, 0, 0, 0.1)' },
+                            title: { display: true, text: 'Уровень аномалии' }
+                        },
+                        x: {
+                            grid: { display: false },
+                            title: { display: true, text: 'Время, часы' }
+                        }
+                    }
+                }
+            });
+        }
+        
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            
+            document.querySelector(`.tab[onclick="switchTab('${tabName}')"]`).classList.add('active');
+            document.getElementById(tabName + 'Tab').classList.add('active');
+        }
+        
+        function showLoading(show) {
+            document.getElementById('loading').classList.toggle('active', show);
+        }
+        
+        // Функция экспорта в Excel
+        function exportToExcel() {
+            if (!companyData || !calculatedResults) {
+                alert('Сначала выполните анализ компании');
+                return;
+            }
+            
+            showLoading(true);
+            
+            try {
+                const wb = XLSX.utils.book_new();
+                
+                // Лист 1: Общая информация и Акт внедрения
+                const infoData = [
+                    ['Диссертация: Автоматизация управления большими данными в сфере инвестиций с использованием ИИ', ''],
+                    ['Объект внедрения', companyData.name],
+                    ['ИНН', companyData.inn],
+                    ['Акт ввода в эксплуатацию', '01.12.2025'],
+                    ['Точность модели LTV (R²)', '0.89'],
+                    ['Годовой экономический эффект', '26 млн ₽'],
+                    ['Затраты на внедрение', '14 млн ₽'],
+                    ['Срок окупаемости', '6.5 месяцев (менее 7)'],
+                    [],
+                    ['Параметры компании', 'Значение', 'Ед. изм.'],
+                    ['Годовая выручка', companyData.parameters.annualRevenue.value, 'млн ₽'],
+                    ['Бюджет R&D', companyData.parameters.rdBudget.value, 'млн ₽'],
+                    ['Ключевые клиенты', companyData.parameters.keyClients.value, 'шт'],
+                    ['R&D проекты', companyData.parameters.rdProjects.value, 'шт']
+                ];
+                
+                const ws1 = XLSX.utils.aoa_to_sheet(infoData);
+                XLSX.utils.book_append_sheet(wb, ws1, 'Внедрение');
+                
+                // Лист 2: Ключевые показатели (строго по ВКР)
+                const current = calculatedResults.current;
+                const improved = calculatedResults.improved;
+                
+                const metricsData = [
+                    ['Показатель', 'До внедрения', 'После внедрения', 'Изменение'],
+                    ['ROI портфеля', '15%', '21%', '+6%'],
+                    ['Отток ключевых клиентов', '10%', '7%', '-3%'],
+                    ['Успешность R&D проектов', '40%', '65%', '+25%'],
+                    ['Время принятия решений', '28 дней', '10 дней', '-18 дней'],
+                    ['Срок окупаемости R&D', '24 мес', '19 мес', '-5 мес'],
+                    ['Средний LTV', `${current.avgLtv} млн ₽`, `${improved.avgLtv} млн ₽`, `+${calculatedResults.ltvData.improvement}%`]
+                ];
+                
+                const ws2 = XLSX.utils.aoa_to_sheet(metricsData);
+                XLSX.utils.book_append_sheet(wb, ws2, 'Ключевые показатели');
+                
+                // Лист 3: Экономический эффект (прописью)
+                const eco = calculatedResults.economic;
+                const economicData = [
+                    ['Экономический эффект', 'Значение'],
+                    ['Годовой экономический эффект', 'двадцать шесть миллионов рублей (26 млн ₽)'],
+                    ['Затраты на создание и внедрение платформы', 'четырнадцать миллионов рублей (14 млн ₽)'],
+                    ['Срок окупаемости', 'менее семи месяцев (6,5 мес.)'],
+                    ['Статус', 'Промышленная эксплуатация с 01.12.2025']
+                ];
+                
+                const ws3 = XLSX.utils.aoa_to_sheet(economicData);
+                XLSX.utils.book_append_sheet(wb, ws3, 'Экономика');
+                
+                const fileName = `VKR_MobileParkIT_${new Date().toISOString().split('T')[0]}.xlsx`;
+                XLSX.writeFile(wb, fileName);
+                
+                showLoading(false);
+                alert('Excel отчет успешно создан!');
+                
+            } catch (error) {
+                console.error('Ошибка при экспорте в Excel:', error);
+                alert('Ошибка при создании Excel файла');
+                showLoading(false);
+            }
+        }
+        
+        // Функция экспорта в PDF
+        async function exportToPDF() {
+            if (!companyData || !calculatedResults) {
+                alert('Сначала выполните анализ компании');
+                return;
+            }
+            
+            showLoading(true);
+            
+            try {
+                const { jsPDF } = window.jspdf;
+                const pdf = new jsPDF('p', 'pt', 'a4');
+                
+                let yPos = 40;
+                
+                // ЗАГОЛОВОК
+                pdf.setFontSize(18);
+                pdf.setTextColor(139, 0, 0);
+                pdf.text('Магистерская диссертация', 40, yPos);
+                yPos += 20;
+                pdf.setFontSize(16);
+                pdf.text('Автоматизация управления большими данными в сфере инвестиций', 40, yPos);
+                yPos += 25;
+                
+                pdf.setFontSize(14);
+                pdf.text('ООО «Мобайл Парк ИТ»: результаты внедрения', 40, yPos);
+                yPos += 30;
+                
+                // АКТ ВНЕДРЕНИЯ
+                pdf.setFontSize(12);
+                pdf.setTextColor(0, 100, 0);
+                pdf.text('✓ Акт ввода в промышленную эксплуатацию от 01.12.2025', 40, yPos);
+                yPos += 20;
+                pdf.text('✓ R² = 0.89 (модель прогноза LTV)', 40, yPos);
+                yPos += 20;
+                pdf.text('✓ Решение тиражируется на партнерские компании холдинга', 40, yPos);
+                yPos += 30;
+                
+                pdf.setTextColor(0, 0, 0);
+                pdf.setDrawColor(139, 0, 0);
+                pdf.line(40, yPos, 550, yPos);
+                yPos += 30;
+                
+                // ПОКАЗАТЕЛИ
+                pdf.setFontSize(14);
+                pdf.setTextColor(139, 0, 0);
+                pdf.text('Ключевые результаты', 40, yPos);
+                yPos += 25;
+                
+                pdf.setFontSize(11);
+                pdf.setTextColor(0, 0, 0);
+                
+                pdf.text('ROI портфеля:', 40, yPos);
+                pdf.text('15% → 21%', 200, yPos);
+                pdf.setTextColor(0, 128, 0);
+                pdf.text('+6%', 300, yPos);
+                yPos += 20;
+                
+                pdf.setTextColor(0, 0, 0);
+                pdf.text('Отток ключевых клиентов:', 40, yPos);
+                pdf.text('10% → 7%', 200, yPos);
+                pdf.setTextColor(0, 128, 0);
+                pdf.text('-3%', 300, yPos);
+                yPos += 20;
+                
+                pdf.setTextColor(0, 0, 0);
+                pdf.text('Успешность R&D проектов:', 40, yPos);
+                pdf.text('40% → 65%', 200, yPos);
+                pdf.setTextColor(0, 128, 0);
+                pdf.text('+25%', 300, yPos);
+                yPos += 20;
+                
+                pdf.setTextColor(0, 0, 0);
+                pdf.text('Время принятия решений:', 40, yPos);
+                pdf.text('28 дней → 10 дней', 200, yPos);
+                pdf.setTextColor(0, 128, 0);
+                pdf.text('-18 дней', 300, yPos);
+                yPos += 20;
+                
+                pdf.setTextColor(0, 0, 0);
+                pdf.text('Срок окупаемости R&D:', 40, yPos);
+                pdf.text('24 мес. → 19 мес.', 200, yPos);
+                pdf.setTextColor(0, 128, 0);
+                pdf.text('-5 мес.', 300, yPos);
+                yPos += 30;
+                
+                // ЭКОНОМИКА
+                pdf.setFontSize(14);
+                pdf.setTextColor(139, 0, 0);
+                pdf.text('Экономический эффект', 40, yPos);
+                yPos += 25;
+                
+                pdf.setFontSize(11);
+                pdf.setTextColor(0, 0, 0);
+                
+                pdf.text('Годовой экономический эффект:', 40, yPos);
+                pdf.text('26 млн ₽', 200, yPos);
+                yPos += 20;
+                
+                pdf.text('Затраты на внедрение:', 40, yPos);
+                pdf.text('14 млн ₽', 200, yPos);
+                yPos += 20;
+                
+                pdf.text('Срок окупаемости:', 40, yPos);
+                pdf.text('менее 7 месяцев', 200, yPos);
+                yPos += 30;
+                
+                pdf.setFontSize(12);
+                pdf.setTextColor(139, 0, 0);
+                pdf.text('Трехконтурная архитектура внедрена в промышленную эксплуатацию', 40, yPos);
+                yPos += 20;
+                pdf.text('Индекс зрелости ИИ управленческой команды: «Высокий»', 40, yPos);
+                
+                const fileName = `VKR_MobileParkIT_Results_${new Date().toISOString().split('T')[0]}.pdf`;
+                pdf.save(fileName);
+                
+                showLoading(false);
+                
+            } catch (error) {
+                console.error('Ошибка при экспорте в PDF:', error);
+                alert('Ошибка при создании PDF файла');
+                showLoading(false);
+            }
+        }
+    </script>
 </body>
 </html>
